@@ -1,0 +1,13 @@
+.navbar-default {
+  @media #{$tablet} {
+    padding-left: 0;
+  }
+}
+.navbar-header {
+  @media #{$tablet} {
+    width: 100%;
+  }
+}
+.main-container {
+  min-height: 70vh;
+}

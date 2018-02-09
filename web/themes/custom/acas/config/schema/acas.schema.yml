@@ -1,0 +1,5 @@
+# Schema for the theme setting configuration file of the Acas theme.
+
+acas.settings:
+  type: theme_settings
+  label: 'Acas theme settings'
