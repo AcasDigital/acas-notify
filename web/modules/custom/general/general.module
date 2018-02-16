@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Contains general.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function general_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the general module.
+    case 'help.page.general':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Acas general module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the search_block_form form.
+ */
+function general_form_header_search_alter(&$form, FormStateInterface $form_state) {
+  // NB so that these are not added to the get query params
+  $form['form_build_id']['#access'] = FALSE;
+  $form['form_token']['#access'] = FALSE;
+  $form['form_id']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_alter
+ */
+
+function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'views_exposed_form') {
+    $form['search_api_fulltext']['#type'] = 'search';
+    $form['search_api_fulltext']['#title'] = t("Search ACAS");
+    $form['search_api_fulltext']['#title_display'] = 'invisible';
+  }
+}

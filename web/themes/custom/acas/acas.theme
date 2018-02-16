@@ -6,8 +6,12 @@
  *
  * Place your custom PHP code in this file.
  */
- 
- function acas_preprocess_menu(&$variables) {
+
+function acas_preprocess_page(&$variables) {
+  
+}
+
+function acas_preprocess_menu(&$variables) {
   foreach($variables['items'] as $key => $value) {
     if ($value['title'] == 'Home') {
       $variables['items'][$key]['icon'] = 'home';

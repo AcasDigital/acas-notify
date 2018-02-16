@@ -1,3 +1,123 @@
+body {
+  margin-top: 0;
+  font-family: Arial, sans-serif;
+}
+#header_wrapper {
+  background: $black;
+  #navbar {
+    margin-bottom: 0;
+    @media #{$tablet} {
+      padding: 0;
+    }
+  }
+  .navbar-header {
+    background: $black;
+  }
+}
+#page_top_wrapper {
+  background: $top-background;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  .container {
+    position: relative;
+  }
+  #block-exposedformsearchpage-1 {
+    margin-bottom: 20px;
+    width: 100%;
+    @media #{$tablet} {
+      width: 60%;
+    }
+    .form-type-search {
+      margin-top: 20px;
+      display: inline-block;
+      width: 72%;
+      @media #{$tablet} {
+        width: 80%;
+      }
+      input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 100%;
+      }
+    }
+    #edit-actions {
+      margin-top: 20px;
+      display: inline-block;
+      #edit-submit-search {
+        display: inline-block;
+        background: $black;
+        position: relative;
+        left: -5px;
+        padding: 8px 12px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border: none;
+      }
+    }
+  }
+  #block-views-block-most-popular-block-1 {
+    width: 100%;
+    @media #{$tablet} {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      width: 380px;
+    }
+    background: $black;
+    height: 164px; 
+    padding: 10px;
+    h2 {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.42857;
+      color: $white; 
+    }
+    .pull-right {
+      float: left !important;
+      margin-top: 5px;
+    }
+    .views-row {
+      margin: 5px 0; 
+      a {
+        color: $white;
+        font-size: 15px;
+        line-height: 1.25;
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      a:hover {
+        color: $gray; 
+      }
+    }
+  }
+}
+.path-frontpage {
+  .page-header {
+    margin: 0;
+    border: none;
+    padding: 0;
+    display: none;
+  }
+}
+.breadcrumb {
+  margin: 0;
+  background-color: $white;
+}
+.main-container {
+  border-top: 10px solid $top-background;
+  padding-top: 20px;
+  min-height: 80vh;
+}
+.path-frontpage {
+  .main-container {
+    border-top: none;
+    min-height: 50vh;
+  }
+}
+#footer_wrapper {
+  background: $footer-background;
+  border-top: 10px solid $top-background;
+}
 .navbar-default {
   @media #{$tablet} {
     padding-left: 0;
@@ -8,6 +128,12 @@
     width: 100%;
   }
 }
-.main-container {
-  min-height: 70vh;
+.chosen-container {
+  border: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
+
+

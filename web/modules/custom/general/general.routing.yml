@@ -1,0 +1,7 @@
+general.searchheader:
+  path: '/searchheader'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::searchheader'
+    _title: 'Search Results'
+  requirements:
+    _permission: 'access content'

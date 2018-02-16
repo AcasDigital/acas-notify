@@ -11,5 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "node-sass": "^4.7.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cmclaurin/acasbeta1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cmclaurin/acasbeta1/issues"
+  },
+  "homepage": "https://github.com/cmclaurin/acasbeta1#readme"
 }
