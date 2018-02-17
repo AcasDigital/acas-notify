@@ -28,7 +28,17 @@ function general_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_entity_view().
  */
 function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-  
+  if ($entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
+    $markup = '';
+    foreach($parents as $parent) {
+      $markup .= '<span class="parent-name">' . $parent->getName() . '</span><span class="parent-description">' . $parent->getDescription() . '</span>';
+    }
+    $build['taxonomy'] = [
+      '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
+      '#weight' => 999,
+    ];
+  }
 }
 
 /**
@@ -47,8 +57,8 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form') {
-    $form['search_api_fulltext']['#type'] = 'search';
-    $form['search_api_fulltext']['#title'] = t("Search ACAS");
-    $form['search_api_fulltext']['#title_display'] = 'invisible';
+    $form['keys']['#attributes']['placeholder'] = t("Search ACAS");
+    $form['keys']['#title'] = t("Search ACAS");
+    $form['keys']['#title_display'] = 'invisible';
   }
 }

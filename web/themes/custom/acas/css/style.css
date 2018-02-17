@@ -6397,12 +6397,34 @@ body {
 #header_wrapper {
   background: #0b0c0c; }
   #header_wrapper #navbar {
+    background: #0b0c0c;
     margin-bottom: 0; }
     @media screen and (min-width: 768px) {
       #header_wrapper #navbar {
         padding: 0; } }
   #header_wrapper .navbar-header {
     background: #0b0c0c; }
+  #header_wrapper .views-exposed-form {
+    margin-top: 8px; }
+    @media screen and (min-width: 768px) {
+      #header_wrapper .views-exposed-form {
+        margin-left: 40px;
+        float: left; } }
+    #header_wrapper .views-exposed-form .form-group {
+      margin: 0; }
+    #header_wrapper .views-exposed-form .form-submit {
+      display: none; }
+  #header_wrapper #block-betabanner {
+    background: �white;
+    color: red;
+    clear: both;
+    font-size: 1.4em; }
+    @media screen and (min-width: 768px) {
+      #header_wrapper #block-betabanner {
+        font-size: 2.4em;
+        clear: none;
+        float: left;
+        padding-left: 20px; } }
 
 #page_top_wrapper {
   background: #005ea5;
@@ -6410,27 +6432,42 @@ body {
   margin-bottom: 20px; }
   #page_top_wrapper .container {
     position: relative; }
-  #page_top_wrapper #block-exposedformsearchpage-1 {
-    margin-bottom: 20px;
+  #page_top_wrapper .pull-left {
+    float: none !important;
+    position: relative;
+    top: 8px; }
+  #page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
+    margin-bottom: 28px;
+    margin-top: 30px;
     width: 100%; }
     @media screen and (min-width: 768px) {
-      #page_top_wrapper #block-exposedformsearchpage-1 {
+      #page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
         width: 60%; } }
-    #page_top_wrapper #block-exposedformsearchpage-1 .form-type-search {
+    #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .control-label {
+      display: none; }
+    #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
+      width: 100%; }
+      #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
+        width: 100%; }
+      #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
+        width: 40px; }
+    #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
+      display: none !important;
       margin-top: 20px;
       display: inline-block;
       width: 72%; }
       @media screen and (min-width: 768px) {
-        #page_top_wrapper #block-exposedformsearchpage-1 .form-type-search {
+        #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
           width: 80%; } }
-      #page_top_wrapper #block-exposedformsearchpage-1 .form-type-search input {
+      #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search input {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         width: 100%; }
-    #page_top_wrapper #block-exposedformsearchpage-1 #edit-actions {
+    #page_top_wrapper #block-exposedformsolr-search-contentpage-1 #edit-actions {
+      display: none !important;
       margin-top: 20px;
       display: inline-block; }
-      #page_top_wrapper #block-exposedformsearchpage-1 #edit-actions #edit-submit-search {
+      #page_top_wrapper #block-exposedformsolr-search-contentpage-1 #edit-actions #edit-submit-search {
         display: inline-block;
         background: #0b0c0c;
         position: relative;
@@ -6482,7 +6519,7 @@ body {
 .main-container {
   border-top: 10px solid #005ea5;
   padding-top: 20px;
-  min-height: 80vh; }
+  min-height: 76vh; }
 
 .path-frontpage .main-container {
   border-top: none;
@@ -6506,3 +6543,24 @@ body {
   height: auto !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important; }
+
+.field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
+  display: inline-block;
+  vertical-align: middle; }
+
+.field--name-field-rate-this-content .field--label {
+  margin-top: 14px;
+  margin-right: 5px; }
+
+.field--name-field-rate-this-content .form-type-select {
+  position: relative;
+  top: 7px; }
+
+.field--name-field-rate-this-content .useful-rating {
+  font-size: 2em; }
+
+.field--name-field-rate-this-content .select-wrapper:after {
+  display: none; }
+
+.path-solr-search .field--name-field-rate-this-content {
+  display: none; }

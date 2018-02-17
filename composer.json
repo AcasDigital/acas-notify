@@ -71,6 +71,7 @@
         "drupal/search_api_solr_multilingual": "^1.1",
         "drupal/social_media_links": "^2.6",
         "drupal/styleguide": "^1.0",
+        "drupal/synonyms": "^1.0",
         "drupal/taxonomy_menu": "^3.3",
         "drupal/username_enumeration_prevention": "^1.0",
         "drupal/userprotect": "^1.0",

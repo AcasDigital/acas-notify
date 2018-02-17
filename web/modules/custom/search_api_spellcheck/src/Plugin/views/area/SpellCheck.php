@@ -162,10 +162,12 @@ class SpellCheck extends AreaPluginBase {
    *   False or the matching filter.
    */
   private function getFilterMatch(array $suggestion) {
-    if ($index = array_search($suggestion[0], $this->getFilters(), TRUE)) {
-      // @todo: Better validation.
-      if (!empty($suggestion[1]['suggestion'][0])) {
-        return [$index => $suggestion[1]['suggestion'][0]];
+    if ($suggestion && count($suggestion)) {
+      if ($index = array_search($suggestion[0], $this->getFilters(), TRUE)) {
+        // @todo: Better validation.
+        if (!empty($suggestion[1]['suggestion'][0])) {
+          return [$index => $suggestion[1]['suggestion'][0]];
+        }
       }
     }
   }
