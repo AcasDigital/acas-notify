@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "caebd96537e2b4e2cfcc7789b76aa095",
+    "content-hash": "de9f59c6428f28b0d812276c8aaed8af",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5499,6 +5499,56 @@
             "homepage": "https://www.drupal.org/project/search_api_solr_multilingual",
             "support": {
                 "source": "http://cgit.drupalcode.org/search_api_solr_multilingual"
+            }
+        },
+        {
+            "name": "drupal/social_media",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/social_media",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/social_media-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "f62d6737369ca0b4367674558d2814fb00552274"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/token": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1504652643",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Takim Islam",
+                    "homepage": "http://drupalsharing.com/",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Share current page to social media",
+            "homepage": "https://drupal.org/project/social_media",
+            "support": {
+                "source": "http://cgit.drupalcode.org/social_media",
+                "issues": "https://www.drupal.org/project/issues/social_media"
             }
         },
         {

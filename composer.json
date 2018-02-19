@@ -69,6 +69,7 @@
         "drupal/search_api_autocomplete": "^1.0",
         "drupal/search_api_solr": "^1.2",
         "drupal/search_api_solr_multilingual": "^1.1",
+        "drupal/social_media": "^1.2",
         "drupal/social_media_links": "^2.6",
         "drupal/styleguide": "^1.0",
         "drupal/synonyms": "^1.0",

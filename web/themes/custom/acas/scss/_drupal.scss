@@ -137,6 +137,12 @@ body {
     }
   }
 }
+.page-header {
+  border-bottom: none;
+  margin-top: 40px;
+  font-size: 48px;
+  font-weight: 700;
+}
 .path-frontpage {
   .page-header {
     margin: 0;
@@ -148,16 +154,38 @@ body {
 .breadcrumb {
   margin: 0;
   background-color: $white;
+  padding-left: 0
 }
 .main-container {
   border-top: 10px solid $top-background;
-  padding-top: 20px;
-  min-height: 76vh;
+  padding-left: 5px;
+  padding-right: 5px;
+  @media #{$tablet} {
+    padding: 5px 0;
+    min-height: 76vh;
+  }
+}
+.paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
+  @media #{$tablet} { 
+    padding-left: 0;
+    padding-right: 0;
+  } 
 }
 .path-frontpage {
   .main-container {
     border-top: none;
     min-height: 50vh;
+  }
+  .breadcrumb {
+    display: none;
+  }
+}
+.page-node-type-details-page {
+  .field--name-field-taxonomy, .taxonomy-parent {
+    display: none;
+  }
+  article {
+    margin-bottom: 20px;
   }
 }
 #footer_wrapper {
@@ -206,4 +234,67 @@ body {
     display: none;
   }
 }
-
+.section-nav__heading{
+  padding: 0;
+  margin: 0;
+}
+.section-nav__heading a, .side-nav-beta__heading a {
+  display: block;
+  padding: 12px;
+  font-size: 16px;
+  margin: 0;
+  border-bottom: none;
+  color: $black;
+  font-weight: 400;
+  border-bottom: 0;
+  cursor: default;
+  text-decoration: none;
+}
+.section-nav a.section-nav__parent, .side-nav-beta a.section-nav__parent {
+  font-weight: 800;
+  font-size: 20.8px;
+  text-decoration: none;
+}
+.section-nav li a, .side-nav-beta li a, .section-nav li.active {
+  margin-bottom: 1px;
+  padding: 9px 12px;
+  display: block;
+  border-bottom: none; 
+}
+.section-nav ul, .side-nav-beta ul {
+  list-style: none;
+}
+.section-nav ol, .section-nav ul, .side-nav-beta ol, .side-nav-beta ul {
+  padding: 0;
+  margin: 0;
+}
+.section-nav li, .side-nav-beta li {
+  padding: 0; 
+  margin: 0;
+}
+.section-nav__parent + ol li, .section-nav__parent + ul li, .side-nav-beta__parent + ol li, .side-nav-beta__parent + ul li {
+  list-style-position: inside;
+}
+.section-nav li, .side-nav-beta li {
+  padding: 0;
+  margin: 0;
+}
+.section-nav li a, .side-nav-beta li a {
+  margin-bottom: 1px;
+  padding: 9px 12px;
+  display: block;
+  border-bottom: none;
+}
+.screenreader {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+#block-socialsharingblock {
+  margin-top: 20px;
+}
