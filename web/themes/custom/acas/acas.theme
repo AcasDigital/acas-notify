@@ -32,5 +32,17 @@ function acas_preprocess_menu(&$variables) {
       $variables['items'][$key]['icon'] = 'envelope';
     }
   }
-  
+}
+
+function acas_preprocess_field(&$variables) {
+  if (@$variables['entity_type'] == 'node' && @$variables['field_name'] == 'title') {
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      if ($node->getType() == 'details_page') {
+        $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($node->get('field_taxonomy')->target_id);
+        foreach($parents as $parent) {
+          $variables['taxonomy_parent'] = $parent->getName();
+        }
+      }
+    }
+  }
 }

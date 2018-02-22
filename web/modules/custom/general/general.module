@@ -36,8 +36,22 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
     }
     $build['taxonomy'] = [
       '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
-      '#weight' => 999,
+      '#weight' => 990,
     ];
+    $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
+    $result = \Drupal::service('path.alias_manager')->getAliasByPath(\Drupal::service('path.current')->getPath());
+    $values = ['data' => ['page_url' => 'https://' . $_SERVER['HTTP_HOST'] . $result]];
+    $form->getSubmissionForm($values);
+    $build['anything_wrong_link'] = [
+      '#markup' => '<div id="anything-wrong-wrapper"><a id="anything-wrong-link" href="#!">Anything wrong with this page?</a><a id="anything-wrong-close" href="#!">Close</a></div>',
+      '#weight' => 991,
+    ];
+    $build['anything_wrong'] = \Drupal::entityManager()
+      ->getViewBuilder('webform')
+      ->view($form);
+    $build['anything_wrong']['#weight'] = 992;
+    $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
+
   }
 }
 
@@ -61,5 +75,15 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['search_api_fulltext']['#attributes']['autocomplete'] = 'off';
     $form['search_api_fulltext']['#title'] = t("Search ACAS");
     $form['search_api_fulltext']['#title_display'] = 'invisible';
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function general_page_attachments_alter(&$build) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $build['#attached']['library'][] = 'general/extra.admin';
   }
 }

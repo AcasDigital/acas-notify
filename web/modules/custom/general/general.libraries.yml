@@ -1,0 +1,16 @@
+extra.admin:
+  css:
+    theme:
+      css/admin.css: {}
+  js:
+    js/admin.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+anything_wrong:
+  js:
+    js/anything_wrong.js: {}
+    js/ajax_form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

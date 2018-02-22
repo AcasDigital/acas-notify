@@ -230,7 +230,7 @@ body {
   }
 }
 .path-solr-search {
-  .field--name-field-rate-this-content {
+  .field--name-field-rate-this-content, .field--name-field-taxonomy {
     display: none;
   }
 }
@@ -297,4 +297,13 @@ body {
 }
 #block-socialsharingblock {
   margin-top: 20px;
+}
+#anything-wrong-wrapper {
+  margin-bottom: 10px;
+  #anything-wrong-close {
+    display: none; 
+  }
+}
+.webform-submission-form {
+  display: none;
 }

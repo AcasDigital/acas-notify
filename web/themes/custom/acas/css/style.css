@@ -6587,7 +6587,7 @@ body {
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none; }
 
-.path-solr-search .field--name-field-rate-this-content {
+.path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy {
   display: none; }
 
 .section-nav__heading {
@@ -6653,3 +6653,11 @@ body {
 
 #block-socialsharingblock {
   margin-top: 20px; }
+
+#anything-wrong-wrapper {
+  margin-bottom: 10px; }
+  #anything-wrong-wrapper #anything-wrong-close {
+    display: none; }
+
+.webform-submission-form {
+  display: none; }
