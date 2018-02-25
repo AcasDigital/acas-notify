@@ -6394,6 +6394,19 @@ body {
   margin-top: 0;
   font-family: Arial, sans-serif; }
 
+a {
+  text-decoration: underline;
+  color: #005ea5; }
+
+a:hover {
+  color: #2b8cc4; }
+
+a:active {
+  background-color: #FFBF47; }
+
+a:focus, .form-control:focus {
+  outline: 3px solid #FFBF47; }
+
 #header_wrapper {
   background: #0b0c0c; }
   #header_wrapper #navbar {
@@ -6505,6 +6518,8 @@ body {
         font-weight: bold; }
       #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:hover {
         color: #cccccc; }
+      #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:focus {
+        color: #0b0c0c; }
 
 .page-header {
   border-bottom: none;
@@ -6653,11 +6668,3 @@ body {
 
 #block-socialsharingblock {
   margin-top: 20px; }
-
-#anything-wrong-wrapper {
-  margin-bottom: 10px; }
-  #anything-wrong-wrapper #anything-wrong-close {
-    display: none; }
-
-.webform-submission-form {
-  display: none; }

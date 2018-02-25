@@ -46,3 +46,21 @@ function acas_preprocess_field(&$variables) {
     }
   }
 }
+
+function acas_preprocess_block(&$variables) {
+  if ($variables['plugin_id'] == 'local_tasks_block') {
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      if ($node->getType() == 'details_page') {
+        
+      }
+    }
+  }
+}
+
+function acas_preprocess_html(&$variables) {
+
+}
+
+function acas_local_tasks_alter(&$local_tasks) {
+  
+}

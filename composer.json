@@ -13,10 +13,28 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+		{
+            "type": "package",
+            "package": {
+                "name": "google/charts",
+                "version": "45",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "google_charts"
+                },
+                "dist": {
+                    "url": "https://www.gstatic.com/charts/loader.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
         }
     ],
     "require": {
-        "composer/installers": "^1.2",
+        "composer/installers": "^1.5",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
         "drupal/admin_toolbar": "^1.22",
@@ -49,7 +67,7 @@
         "drupal/field_group_link": "^3.0",
         "drupal/focal_point": "^1.0",
         "drupal/google_analytics": "^2.2",
-        "drupal/google_analytics_reports": "^3.0",
+        "drupal/google_analytics_reports": "3.x-dev",
         "drupal/image_widget_crop": "^2.1",
         "drupal/inline_entity_form": "^1.0",
         "drupal/jsonapi": "^1.7",
@@ -88,6 +106,7 @@
         "drupal/workbench": "^1.0",
         "drupal/workbench_access": "^1.0",
         "drush/drush": "^9.0.0",
+        "google/charts": "45",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },

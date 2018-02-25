@@ -2,6 +2,19 @@ body {
   margin-top: 0;
   font-family: Arial, sans-serif;
 }
+a {
+  text-decoration: underline;
+  color: $link;
+}
+a:hover {
+  color: $link-hover;
+}
+a:active {
+  background-color: $focus; 
+}
+a:focus, .form-control:focus {
+  outline: 3px solid $focus;
+}
 #header_wrapper {
   background: $black;
   #navbar {
@@ -133,6 +146,9 @@ body {
       }
       a:hover {
         color: $gray; 
+      }
+      a:focus {
+        color: $black;
       }
     }
   }
@@ -297,13 +313,4 @@ body {
 }
 #block-socialsharingblock {
   margin-top: 20px;
-}
-#anything-wrong-wrapper {
-  margin-bottom: 10px;
-  #anything-wrong-close {
-    display: none; 
-  }
-}
-.webform-submission-form {
-  display: none;
 }

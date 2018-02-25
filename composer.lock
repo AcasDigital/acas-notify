@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "24c74fa5e5b2b6365a793efef4a55714",
+    "content-hash": "e0fa9decd8fb96790a7d2cbec33119ea",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -345,16 +345,16 @@
         },
         {
             "name": "consolidation/annotated-command",
-            "version": "2.8.2",
+            "version": "2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/annotated-command.git",
-                "reference": "e97c38717eae23a2bafcf3f09438290eee6ebeb4"
+                "reference": "8f8f5da2ca06fbd3a85f7d551c49f844b7c59437"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/e97c38717eae23a2bafcf3f09438290eee6ebeb4",
-                "reference": "e97c38717eae23a2bafcf3f09438290eee6ebeb4",
+                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/8f8f5da2ca06fbd3a85f7d551c49f844b7c59437",
+                "reference": "8f8f5da2ca06fbd3a85f7d551c49f844b7c59437",
                 "shasum": ""
             },
             "require": {
@@ -366,6 +366,7 @@
                 "symfony/finder": "^2.5|^3|^4"
             },
             "require-dev": {
+                "greg-1-anderson/composer-test-scenarios": "^1",
                 "phpunit/phpunit": "^4.8",
                 "satooshi/php-coveralls": "^1.0.2 | dev-master",
                 "squizlabs/php_codesniffer": "^2.7"
@@ -392,7 +393,7 @@
                 }
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
-            "time": "2017-11-29T16:23:23+00:00"
+            "time": "2018-02-23T16:32:04+00:00"
         },
         {
             "name": "consolidation/config",
@@ -1936,7 +1937,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/charts",
-                "reference": "4ee682cea1e5f689dd1ca7000f6190c3c1b79a08"
+                "reference": "20953df22e953e73e09fbcf80dbd830a684fc443"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -1947,8 +1948,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha7+21-dev",
-                    "datestamp": "1518892980",
+                    "version": "8.x-3.0-alpha7+23-dev",
+                    "datestamp": "1519366389",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -1990,7 +1991,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/charts"
             },
-            "time": "2018-02-21T00:21:58+00:00"
+            "time": "2018-02-23T14:14:18+00:00"
         },
         {
             "name": "drupal/chosen",
@@ -4105,17 +4106,11 @@
         },
         {
             "name": "drupal/google_analytics_reports",
-            "version": "3.0.0-beta1",
+            "version": "dev-3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_analytics_reports",
-                "reference": "8.x-3.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/google_analytics_reports-8.x-3.0-beta1.zip",
-                "reference": "8.x-3.0-beta1",
-                "shasum": "c75d9617ecbcf70c3c1d70a13c20073cc35cd6d0"
+                "reference": "2b6bb8efbc7f61ce3c1225638075aa6037b8db44"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -4127,11 +4122,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-beta1",
-                    "datestamp": "1468152539",
+                    "version": "8.x-3.0-beta1+1-dev",
+                    "datestamp": "1469345639",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -4169,11 +4164,12 @@
             "homepage": "https://www.drupal.org/project/google_analytics_reports",
             "support": {
                 "source": "http://cgit.drupalcode.org/google_analytics_reports"
-            }
+            },
+            "time": "2016-07-24T07:33:18+00:00"
         },
         {
             "name": "drupal/google_analytics_reports_api",
-            "version": "3.0.0-beta1",
+            "version": "dev-3.x",
             "require": {
                 "drupal/core": "~8.0",
                 "drupal/google_analytics_reports": "self.version"
@@ -4184,11 +4180,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-beta1",
-                    "datestamp": "1468152539",
+                    "version": "8.x-3.0-beta1+1-dev",
+                    "datestamp": "1469345639",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -5571,17 +5567,17 @@
         },
         {
             "name": "drupal/search_api",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/search_api",
-                "reference": "8.x-1.6"
+                "reference": "8.x-1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.6.zip",
-                "reference": "8.x-1.6",
-                "shasum": "c590bfb9752f39087e66ea9ff6c98ad103508f0b"
+                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "a380eb516a813d99cf6178bd0fe15e8ea7be5842"
             },
             "require": {
                 "drupal/core": "^8.4"
@@ -5596,8 +5592,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.6",
-                    "datestamp": "1514109785",
+                    "version": "8.x-1.7",
+                    "datestamp": "1519387684",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6928,6 +6924,23 @@
                 "validator"
             ],
             "time": "2017-02-03T22:48:59+00:00"
+        },
+        {
+            "name": "google/charts",
+            "version": "45",
+            "dist": {
+                "type": "file",
+                "url": "https://www.gstatic.com/charts/loader.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "google_charts"
+            }
         },
         {
             "name": "grasmash/expander",
@@ -12015,7 +12028,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/charts": 20,
-        "drupal/facets": 10
+        "drupal/facets": 10,
+        "drupal/google_analytics_reports": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

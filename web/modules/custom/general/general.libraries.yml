@@ -7,7 +7,11 @@ extra.admin:
   dependencies:
     - core/jquery
     - core/drupal
+    
 anything_wrong:
+  css:
+    theme:
+      css/anything_wrong.css: {}
   js:
     js/anything_wrong.js: {}
     js/ajax_form.js: {}

@@ -1,5 +1,9 @@
 Drupal.behaviors.acas = {
   attach: function(context, settings) {
-    document.getElementById("edit-search-api-fulltext").focus();
+    setTimeout(searchFocus, 200);
+    document.body.style.display="block";
+    function searchFocus() {
+      document.getElementById("edit-search-api-fulltext").focus();
+    }
   }
 };
