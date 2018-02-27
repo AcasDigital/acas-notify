@@ -93,3 +93,35 @@ function general_page_attachments_alter(&$build) {
 function general_menu_local_tasks_alter(&$data, $route_name) {
   
 }
+
+function general_file_validate(Drupal\file\FileInterface $file) {
+  // Convert tmp file to html and save in $_SESSION
+  if ($path = @$_FILES['files']['tmp_name']['field_media_file_0']) {
+    if (file_exists($path) && !isset($_SESSION['file_html'][str_replace(' ', '_', str_replace('.', '_', $_FILES['files']['name']['field_media_file_0']))])) {
+      if ($_FILES['files']['type']['field_media_file_0'] == 'text/plain') {
+        $_SESSION['file_html'] = '<pre>' . file_get_contents($path) . '</pre>';
+      }elseif ($_FILES['files']['type']['field_media_file_0'] == 'application/pdf') {
+        //\Gufy\PdfToHtml\Config::set('pdftohtml.bin', '/usr/bin/pdftohtml');
+        //\Gufy\PdfToHtml\Config::set('pdfinfo.bin', '/usr/bin/pdfinfo');
+        $pdf = new Gufy\PdfToHtml\Pdf($path);
+        $html = $pdf->html();
+        $html = str_replace('<body bgcolor="#A0A0A0" vlink="blue" link="blue">', '', $html);
+        $html = str_replace('</body>', '', $html);
+        $html = str_replace('<img', '<img style="display:none;"', $html);
+        $_SESSION['file_html'] = [str_replace(' ', '_', str_replace('.', '_', $_FILES['files']['name']['field_media_file_0'])) => $html];
+      }
+    }
+  }
+}
+
+function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'media' && $entity->bundle() == 'file') {
+    $bundle = $entity->get('field_media_file')->referencedEntities();
+    $file = $bundle[0];
+    $filename = str_replace(' ', '_', str_replace('.', '_', $file->getFileName()));
+    if (isset($_SESSION['file_html'][$filename])) {
+      $entity->field_file_html->setValue($_SESSION['file_html'][$filename]);
+      unset($_SESSION['file_html'][$filename]);
+    }
+  }
+}

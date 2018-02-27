@@ -1,3 +1,3 @@
-.node-landing-page-form .field--name-title, .node-landing-page-edit-form .field--name-title, .node-details-page-form .field--name-title, .node-details-page-edit-form .field--name-title {
+.node-landing-page-form .field--name-title, .node-landing-page-edit-form .field--name-title, .node-details-page-form .field--name-title, .node-details-page-edit-form .field--name-title, .media-file-add-form .field--name-field-file-html {
   display: none;
 }

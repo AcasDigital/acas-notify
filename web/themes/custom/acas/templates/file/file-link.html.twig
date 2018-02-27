@@ -38,3 +38,8 @@
     {% endif %}
   </span>
 {% endspaceless %}
+{% if file_contents %}
+  <div class="file-contents">
+    {{ file_contents | raw }}
+  </div>
+{% endif %}

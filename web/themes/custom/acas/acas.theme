@@ -45,6 +45,9 @@ function acas_preprocess_field(&$variables) {
       }
     }
   }
+  if (@$variables['entity_type'] == 'media' && @$variables['field_name'] == 'field_file_html') {
+    $variables['items'][0]['content']['#template'] = '{{ value|raw }}';
+  }
 }
 
 function acas_preprocess_block(&$variables) {
@@ -63,4 +66,9 @@ function acas_preprocess_html(&$variables) {
 
 function acas_local_tasks_alter(&$local_tasks) {
   
+}
+
+function acas_preprocess_file_link(&$variables) {
+  $file = $variables['file'];
+  //$variables['file_contents'];
 }
