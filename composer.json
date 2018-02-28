@@ -35,6 +35,7 @@
     ],
     "require": {
         "aws/aws-php-sns-message-validator": "^1.4",
+        "cloudconvert/cloudconvert-php": "^2.2",
         "composer/installers": "^1.5",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -49,6 +50,7 @@
         "drupal/captcha": "^1.0",
         "drupal/charts": "3.x-dev",
         "drupal/chosen": "^2.4",
+        "drupal/cloudconvert": "^1.0",
         "drupal/coffee": "^1.0",
         "drupal/colorbutton": "^1.1",
         "drupal/config_ignore": "^2.1",
