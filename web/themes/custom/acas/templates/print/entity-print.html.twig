@@ -1,0 +1,18 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {{ entity_print_css }}
+  <style>
+    .media-file .field--name-field-html-url, .field--name-field-html-body, .webform-submission-form,
+    .field--name-field-rate-this-content, .taxonomy-parent, #anything-wrong-wrapper, .print__wrapper--pdf {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+    {{ content }}
+</div>
+</body>
+</html>

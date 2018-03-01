@@ -63,6 +63,7 @@
         "drupal/entity": "^1.0",
         "drupal/entity_browser": "^1.4",
         "drupal/entity_embed": "^1.0",
+        "drupal/entity_print": "^2.0",
         "drupal/eu_cookie_compliance": "^1.0",
         "drupal/facets": "^1.0@beta",
         "drupal/fancy_login": "^2.2",
@@ -115,6 +116,8 @@
         "google/charts": "45",
         "gufy/pdftohtml-php": "~2",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.3",
+        "tecnickcom/tcpdf": "~6",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
