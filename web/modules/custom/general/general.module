@@ -97,10 +97,12 @@ function general_menu_local_tasks_alter(&$data, $route_name) {
   
 }
 
-function general_file_validate(Drupal\file\FileInterface $file) {
-
-}
-
+/**
+ * Implements hook_page_attachments_alter().
+ * 
+ * Convert the file to html via the CloudConvert service
+ * https://cloudconvert.com
+ */
 function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) { 
   if ($entity->getEntityTypeId() == 'media' && $entity->bundle() == 'file') {
     $apiKey = \Drupal::config('cloudconvert.settings')->get('api_key');
@@ -145,6 +147,8 @@ function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
       drupal_set_message($e->getMessage(), 'error');
       return;
     }
+    // As the converted html file is displayed in a iframe, it might not be loaded when search
+    // engines index the page. Get the html file and embed the text of the body in a hidden field
     $url = file_create_url(str_replace('.' . $type, '.html', $file->getFileUri()));
     $html = file_get_contents($url);
     $a = explode('<body>', str_replace('</body>', '', $html));
