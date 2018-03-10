@@ -6509,7 +6509,7 @@ a:focus, .form-control:focus {
       float: left !important;
       margin-top: 5px; }
     #page_top_wrapper #block-views-block-most-popular-block-1 .views-row {
-      margin: 5px 0; }
+      margin: 6px 0; }
       #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a {
         color: #fff;
         font-size: 15px;
@@ -6564,6 +6564,10 @@ a:focus, .form-control:focus {
 
 .page-node-type-details-page article {
   margin-bottom: 20px; }
+
+.page-node-type-details-page .print__wrapper--pdf, .page-node-type-details-page .node_view {
+  display: inline-block;
+  vertical-align: top; }
 
 #footer_wrapper {
   background: #dee0e2;

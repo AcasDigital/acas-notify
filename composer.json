@@ -91,6 +91,7 @@
         "drupal/minifyjs": "^1.7",
         "drupal/paragraphs": "^1.2",
         "drupal/pathauto": "^1.0",
+        "drupal/printable": "^1.0",
         "drupal/rabbit_hole": "^1.0",
         "drupal/real_aes": "^2.0",
         "drupal/recaptcha": "^2.2",
@@ -123,6 +124,8 @@
         "mikehaertl/phpwkhtmltopdf": "^2.3",
         "paragonie/random_compat": "~2.0",
         "tecnickcom/tcpdf": "~6",
+        "wa72/html-pretty-min": "^0.2.0",
+        "wa72/htmlpagedom": " 1.3.*",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },

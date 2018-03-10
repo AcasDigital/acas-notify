@@ -136,7 +136,7 @@ a:focus, .form-control:focus {
       margin-top: 5px;
     }
     .views-row {
-      margin: 5px 0; 
+      margin: 6px 0; 
       a {
         color: $white;
         font-size: 15px;
@@ -202,6 +202,10 @@ a:focus, .form-control:focus {
   }
   article {
     margin-bottom: 20px;
+  }
+  .print__wrapper--pdf, .node_view {
+    display: inline-block;
+    vertical-align: top;
   }
 }
 #footer_wrapper {

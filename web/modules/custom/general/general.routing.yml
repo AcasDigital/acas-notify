@@ -5,3 +5,11 @@ general.searchheader:
     _title: 'Search Results'
   requirements:
     _permission: 'access content'
+    
+general.health:
+  path: '/health'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::health'
+    _title: 'Health'
+  requirements:
+    _permission: 'access content'

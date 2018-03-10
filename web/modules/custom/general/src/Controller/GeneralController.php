@@ -11,4 +11,7 @@ class GeneralController extends ControllerBase {
   public function searchheader() {
     return array('#markup' => '');
   }
+  public function health() {
+    return array('#markup' => general_health());
+  }
 }
