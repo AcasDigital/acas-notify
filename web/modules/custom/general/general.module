@@ -34,9 +34,12 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
   if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
     $markup = '';
+    $section = '<ul class="section"><li>In:</li>';
     foreach($parents as $parent) {
       $markup .= '<span class="parent-name">' . $parent->getName() . '</span><span class="parent-description">' . $parent->getDescription() . '</span>';
+      $section .= '<li>' . $parent->getName() . '</li>';
     }
+    $section .= '</ul>';
     $build['taxonomy'] = [
       '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
       '#weight' => 990,
@@ -54,6 +57,19 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ->view($form);
     $build['anything_wrong']['#weight'] = 992;
     $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
+  }elseif ($view_mode == 'default' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
+    $section = '<ul class="section"><li>In:</li>';
+    $url = '';
+    foreach($parents as $parent) {
+      $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
+      $section .= '<li>&nbsp;&gt;&nbsp;<a href="' . $url . '">' . $parent->getName() . '</a></li>';
+    }
+    $section .= '</ul>';
+    $build['section'] = [
+      '#markup' => $section,
+      '#weight' => 990,
+    ];
   }
 }
 

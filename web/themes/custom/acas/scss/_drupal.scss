@@ -196,6 +196,9 @@ a:focus, .form-control:focus {
     display: none;
   }
 }
+strong.node_view {
+  display: none;
+}
 .page-node-type-details-page {
   .field--name-field-taxonomy, .taxonomy-parent {
     display: none;
@@ -203,9 +206,32 @@ a:focus, .form-control:focus {
   article {
     margin-bottom: 20px;
   }
+  strong.node_view {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+    .glyphicon {
+      margin-left: 10px;
+    }
+    ul {
+      padding: 0;
+    }
+  }
   .print__wrapper--pdf, .node_view {
     display: inline-block;
     vertical-align: top;
+  }
+  
+  .node_view ul.pre_links li:first-child {
+    background: none;
+    padding: 0;
+  }
+  .print__wrapper--pdf .print__link--pdf {
+    text-decoration: none;
+    .glyphicon {
+      margin-left: 10px;
+    }
+    
   }
 }
 #footer_wrapper {
@@ -250,10 +276,23 @@ a:focus, .form-control:focus {
   }
 }
 .path-solr-search {
-  .field--name-field-rate-this-content, .field--name-field-taxonomy {
+  .field--name-field-rate-this-content, .field--name-field-taxonomy, .print__wrapper--pdf {
     display: none;
   }
+  .section {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+      display: inline;
+    }
+    .glyphicon {
+      font-weight: normal;
+      font-size: 0.8em;
+    }
+  }
 }
+
 .section-nav__heading{
   padding: 0;
   margin: 0;

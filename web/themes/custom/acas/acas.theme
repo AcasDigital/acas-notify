@@ -60,6 +60,24 @@ function acas_preprocess_block(&$variables) {
   }
 }
 
+function acas_preprocess_links(&$variables) {
+  if (isset($variables['links']['print'])) {
+    $variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
+    $variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
+  }
+}
+
+function acas_preprocess_container(&$variables) {
+  if (@$variables['element']['#export_type'] == 'pdf') {
+    //$variables['element']['#children']['string'] = 'btn btn-primary';
+  }
+}
+
+function acas_bootstrap_iconize_text_alter(array &$texts) {
+  $texts['matches'][t('Print')->render()] = 'print';
+  $texts['contains']['Print'] = 'print';
+}
+
 function acas_preprocess_html(&$variables) {
 
 }

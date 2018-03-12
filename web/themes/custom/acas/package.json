@@ -2,23 +2,29 @@
   "name": "acas",
   "version": "1.0.0",
   "description": "Acas theme",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch scss -o css"
-  },
   "author": "John Burch",
+  "homepage": "https://github.com/cmclaurin/acasbeta1#readme",
   "license": "ISC",
-  "dependencies": {
-    "node-sass": "^4.7.2"
+  "engines": {
+    "node": ">= 0.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.2",
+    "grunt-contrib-compass": "^1.1.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^3.2.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-shell": "^2.1.0"
+  },
+  "dependencies": {
+    "os-tmpdir": "^1.0.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/cmclaurin/acasbeta1.git"
   },
   "bugs": {
     "url": "https://github.com/cmclaurin/acasbeta1/issues"
-  },
-  "homepage": "https://github.com/cmclaurin/acasbeta1#readme"
+  }
 }

@@ -6559,15 +6559,36 @@ a:focus, .form-control:focus {
 .path-frontpage .breadcrumb {
   display: none; }
 
+strong.node_view {
+  display: none; }
+
 .page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent {
   display: none; }
 
 .page-node-type-details-page article {
   margin-bottom: 20px; }
 
+.page-node-type-details-page strong.node_view {
+  display: inline-block;
+  float: left;
+  margin-right: 20px; }
+  .page-node-type-details-page strong.node_view .glyphicon {
+    margin-left: 10px; }
+  .page-node-type-details-page strong.node_view ul {
+    padding: 0; }
+
 .page-node-type-details-page .print__wrapper--pdf, .page-node-type-details-page .node_view {
   display: inline-block;
   vertical-align: top; }
+
+.page-node-type-details-page .node_view ul.pre_links li:first-child {
+  background: none;
+  padding: 0; }
+
+.page-node-type-details-page .print__wrapper--pdf .print__link--pdf {
+  text-decoration: none; }
+  .page-node-type-details-page .print__wrapper--pdf .print__link--pdf .glyphicon {
+    margin-left: 10px; }
 
 #footer_wrapper {
   background: #dee0e2;
@@ -6606,8 +6627,18 @@ a:focus, .form-control:focus {
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none; }
 
-.path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy {
+.path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy, .path-solr-search .print__wrapper--pdf {
   display: none; }
+
+.path-solr-search .section {
+  padding: 0;
+  margin: 0; }
+  .path-solr-search .section li {
+    list-style: none;
+    display: inline; }
+  .path-solr-search .section .glyphicon {
+    font-weight: normal;
+    font-size: 0.8em; }
 
 .section-nav__heading {
   padding: 0;
