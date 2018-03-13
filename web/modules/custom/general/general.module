@@ -58,12 +58,15 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
     $build['anything_wrong']['#weight'] = 992;
     $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
   }elseif ($view_mode == 'default' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
-    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
+    $parents = array_reverse($parents, TRUE);
     $section = '<ul class="section"><li>In:</li>';
     $url = '';
     foreach($parents as $parent) {
-      $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
-      $section .= '<li>&nbsp;&gt;&nbsp;<a href="' . $url . '">' . $parent->getName() . '</a></li>';
+      if ($entity->get('field_taxonomy')->target_id != $parent->id()) {
+        $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
+        $section .= '<li>&nbsp;&gt;&nbsp;<a href="' . $url . '">' . $parent->getName() . '</a></li>';
+      }
     }
     $section .= '</ul>';
     $build['section'] = [
@@ -93,6 +96,7 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['search_api_fulltext']['#attributes']['autocomplete'] = 'off';
     $form['search_api_fulltext']['#title'] = t("Search ACAS");
     $form['search_api_fulltext']['#title_display'] = 'invisible';
+    //$form['search_api_fulltext']['#required'] = TRUE;
   }
 }
 
@@ -107,7 +111,7 @@ function general_page_attachments_alter(&$build) {
 }
 
 /**
- * Implements hook_page_attachments_alter().
+ * Implements hook_entity_presave().
  * 
  * Convert the file to html via the CloudConvert service
  * https://cloudconvert.com
@@ -163,6 +167,21 @@ function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
       $a = explode('<body>', str_replace('</body>', '', $html));
       $text = preg_replace("/[^A-Za-z0-9 ]/", '', strip_tags($a[1]));
       $entity->field_html_body->setValue($text);
+    }
+  }
+}
+
+/**
+ * Implements hook_pathauto_alias_alter().
+ */
+function general_pathauto_alias_alter(&$alias, array &$context) {
+  if ($context['bundle'] === 'details_page' && ($context['op'] == 'insert' || $context['op'] == 'update')) {
+    $entity = $context['data']['node'];
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
+    $parents = array_reverse($parents, TRUE);
+    $alias = '';
+    foreach($parents as $parent) {
+      $alias .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
     }
   }
 }

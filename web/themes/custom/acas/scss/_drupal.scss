@@ -37,11 +37,11 @@ a:focus, .form-control:focus {
       margin: 0;
     }
     .form-submit {
-      display: none;
+ 
     }
   }
   #block-betabanner {
-    background: £white;
+    background: $black;
     color: red;
     clear: both;
     font-size: 1.4em;
@@ -99,10 +99,8 @@ a:focus, .form-control:focus {
       }
     }
     #edit-actions {
-      display: none !important;
-      margin-top: 20px;
       display: inline-block;
-      #edit-submit-search {
+      .button {
         display: inline-block;
         background: $black;
         position: relative;
@@ -291,8 +289,7 @@ strong.node_view {
       font-size: 0.8em;
     }
   }
-}
-
+} 
 .section-nav__heading{
   padding: 0;
   margin: 0;

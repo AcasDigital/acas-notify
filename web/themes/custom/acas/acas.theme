@@ -90,3 +90,9 @@ function acas_preprocess_file_link(&$variables) {
   $file = $variables['file'];
   //$variables['file_contents'];
 }
+
+function acas_preprocess_input(&$variables) {
+  if ($variables['type'] == 'submit' && $variables['label'] == 'Search') {
+    $variables['icon_only'] = TRUE;
+  }
+}
