@@ -57,7 +57,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ->view($form);
     $build['anything_wrong']['#weight'] = 992;
     $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
-  }elseif ($view_mode == 'default' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
+  }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
     $parents = array_reverse($parents, TRUE);
     $section = '<ul class="section"><li>In:</li>';
@@ -92,10 +92,10 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form') {
-    $form['search_api_fulltext']['#attributes']['placeholder'] = t("Search ACAS");
-    $form['search_api_fulltext']['#attributes']['autocomplete'] = 'off';
-    $form['search_api_fulltext']['#title'] = t("Search ACAS");
-    $form['search_api_fulltext']['#title_display'] = 'invisible';
+    $form['keys']['#attributes']['placeholder'] = t("Search ACAS");
+    $form['keys']['#attributes']['autocomplete'] = 'off';
+    $form['keys']['#title'] = t("Search ACAS");
+    $form['keys']['#title_display'] = 'invisible';
     //$form['search_api_fulltext']['#required'] = TRUE;
   }
 }

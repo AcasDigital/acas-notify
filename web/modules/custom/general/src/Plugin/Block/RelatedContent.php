@@ -18,21 +18,27 @@ class RelatedContent extends BlockBase {
    */
   public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
-    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($node->get('field_taxonomy')->target_id);
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($node->get('field_taxonomy')->target_id);
+    $parents = array_reverse($parents, TRUE);
+    array_pop($parents);
+    $url = '';
     foreach($parents as $parent) {
-      break;
+      $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
     }
-    $parent_name = str_replace(' ', '-', strtolower($parent->getName()));
+    $parent = array_pop($parents);
     $output = '<nav class="section-nav js-section-nav" data-track-zone="section-nav">
     <h2 class="section-nav__heading"><a href="#!" aria-controls="section-nav-list" aria-expanded="false"><span class="screenreader">Show</span> In this section</a></h2>
-    <ul id="section-nav-list" tabindex="-1"><li><a class="section-nav__parent" href="/' . $parent_name . '">' . $parent->getName() . '</a><ul>';
+    <ul id="section-nav-list" tabindex="-1"><li><a class="section-nav__parent" href="' . $url . '">' . $parent->getName() . '</a><ul>';
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($parent->getVocabularyId(), $parent->id());
+    $path = $url;
     foreach($terms as $term) {
-      $url = '/' . $parent_name . '/' . str_replace(' ', '-', strtolower($term->name));
-      if ($node->get('field_taxonomy')->target_id != $term->tid) {
-        $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
-      }else{
-        $output .= '<li class="active">' . $term->name . '</li>';
+      if (!$term->depth) {
+        $url = $path . '/' . str_replace(' ', '-', strtolower($term->name));
+        if ($node->get('field_taxonomy')->target_id != $term->tid) {
+          $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
+        }else{
+          $output .= '<li class="active">' . $term->name . '</li>';
+        }
       }
     }
     $output .= '</ul></li></ul></nav>';
