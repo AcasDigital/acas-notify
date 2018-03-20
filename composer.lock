@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0113243777919ea99b41cc8a38cbca85",
+    "content-hash": "b5c30aaff84b73a4b5a95cf28ce0a675",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2094,6 +2094,61 @@
             }
         },
         {
+            "name": "drupal/block_field",
+            "version": "1.0.0-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/block_field",
+                "reference": "8.x-1.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/block_field-8.x-1.0-alpha5.zip",
+                "reference": "8.x-1.0-alpha5",
+                "shasum": "6ca14bb009457490f8b9d58652af2e36487a88d2"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha5",
+                    "datestamp": "1511317688",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "acbramley",
+                    "homepage": "https://www.drupal.org/user/1036766"
+                },
+                {
+                    "name": "fenstrat",
+                    "homepage": "https://www.drupal.org/user/362649"
+                },
+                {
+                    "name": "jrockowitz",
+                    "homepage": "https://www.drupal.org/user/371407"
+                }
+            ],
+            "description": "Provides a field that allows a content entity to create and configure custom block instances.",
+            "homepage": "https://www.drupal.org/project/block_field",
+            "support": {
+                "source": "http://cgit.drupalcode.org/block_field"
+            }
+        },
+        {
             "name": "drupal/blockgroup",
             "version": "1.0.0",
             "source": {
@@ -2341,7 +2396,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/charts",
-                "reference": "efcabb055e3f35d56ae5794e9f16cc9a86c24700"
+                "reference": "5dc11057a7998da3b883b451d96953bf87256b58"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2352,8 +2407,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha8+1-dev",
-                    "datestamp": "1520545080",
+                    "version": "8.x-3.0-alpha8+2-dev",
+                    "datestamp": "1521089584",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -2395,7 +2450,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/charts"
             },
-            "time": "2018-03-15T04:51:48+00:00"
+            "time": "2018-03-18T15:24:02+00:00"
         },
         {
             "name": "drupal/chosen",
@@ -6345,20 +6400,20 @@
         },
         {
             "name": "drupal/recaptcha",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/recaptcha",
-                "reference": "8.x-2.2"
+                "reference": "8.x-2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/recaptcha-8.x-2.2.zip",
-                "reference": "8.x-2.2",
-                "shasum": "99a3bda62b34ad6dac1d497fcf578e25aad0a3e0"
+                "url": "https://ftp.drupal.org/files/projects/recaptcha-8.x-2.3.zip",
+                "reference": "8.x-2.3",
+                "shasum": "bd77c79c33c6732328a7c582adbe0aaffe704e74"
             },
             "require": {
-                "drupal/captcha": "*",
+                "drupal/captcha": "^1.0.0-alpha1",
                 "drupal/core": "~8.0"
             },
             "type": "drupal-module",
@@ -6367,8 +6422,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.2",
-                    "datestamp": "1469859539",
+                    "version": "8.x-2.3",
+                    "datestamp": "1521320880",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6660,17 +6715,17 @@
         },
         {
             "name": "drupal/search_api_autocomplete",
-            "version": "1.0.0-rc2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/search_api_autocomplete",
-                "reference": "8.x-1.0-rc2"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.0-rc2.zip",
-                "reference": "8.x-1.0-rc2",
-                "shasum": "ac10404750654f2f8e53d5d73a9f6c3de4de471d"
+                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "c108033611a2518904e75b894b9e0ad7a34bb053"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -6685,11 +6740,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc2",
-                    "datestamp": "1519829285",
+                    "version": "8.x-1.0",
+                    "datestamp": "1521362884",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -12376,16 +12431,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.35.2",
+            "version": "v1.35.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601"
+                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9c24f2cd39dc1906b76879e099970b7e53724601",
-                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
+                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
                 "shasum": ""
             },
             "require": {
@@ -12393,8 +12448,8 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.3@dev"
+                "symfony/debug": "^2.7",
+                "symfony/phpunit-bridge": "^3.3"
             },
             "type": "library",
             "extra": {
@@ -12437,7 +12492,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-03T16:21:29+00:00"
+            "time": "2018-03-20T04:25:58+00:00"
         },
         {
             "name": "twistor/flysystem-stream-wrapper",

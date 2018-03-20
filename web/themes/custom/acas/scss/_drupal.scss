@@ -15,6 +15,18 @@ a:active {
 a:focus, .form-control:focus {
   outline: 3px solid $focus;
 }
+.views-exposed-form {
+  .form-type-textfield {
+    display: inline-block;
+    width: 86%;
+    @media #{$tablet} {
+      width: auto;
+    }
+  }
+  .form-actions {
+    display: inline-block;
+  }
+}
 #header_wrapper {
   background: $black;
   #navbar {

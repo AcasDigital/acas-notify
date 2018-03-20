@@ -64,7 +64,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
     $url = '';
     foreach($parents as $parent) {
       if ($entity->get('field_taxonomy')->target_id != $parent->id()) {
-        $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
+        $url .= '/' . general_taxonomy_path($parent->getName());
         $section .= '<li>&nbsp;&gt;&nbsp;<a href="' . $url . '">' . $parent->getName() . '</a></li>';
       }
     }
@@ -181,9 +181,17 @@ function general_pathauto_alias_alter(&$alias, array &$context) {
     $parents = array_reverse($parents, TRUE);
     $alias = '';
     foreach($parents as $parent) {
-      $alias .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
+      $alias .= '/' . general_taxonomy_path($parent->getName());
     }
   }
+}
+
+function general_taxonomy_path($name) {
+  $name = str_replace('/', ' ', strtolower($name));
+  $name = str_replace(':', ' ', strtolower($name));
+  $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
+  $name = str_replace(' ', '-', $name);
+  return $name;
 }
 
 /**

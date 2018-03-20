@@ -23,7 +23,7 @@ class RelatedContent extends BlockBase {
     array_pop($parents);
     $url = '';
     foreach($parents as $parent) {
-      $url .= '/' . str_replace(' ', '-', strtolower($parent->getName()));
+      $url .= '/' . general_taxonomy_path($parent->getName());
     }
     $parent = array_pop($parents);
     $output = '<nav class="section-nav js-section-nav" data-track-zone="section-nav">
@@ -33,7 +33,7 @@ class RelatedContent extends BlockBase {
     $path = $url;
     foreach($terms as $term) {
       if (!$term->depth) {
-        $url = $path . '/' . str_replace(' ', '-', strtolower($term->name));
+        $url = $path . '/' . general_taxonomy_path($term->name);
         if ($node->get('field_taxonomy')->target_id != $term->tid) {
           $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
         }else{

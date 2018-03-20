@@ -45,6 +45,7 @@
         "drupal/autologout": "^1.0",
         "drupal/better_exposed_filters": "^3.0",
         "drupal/blazy": "^1.0",
+        "drupal/block_field": "^1.0",
         "drupal/blockgroup": "^1.0",
         "drupal/bootstrap": "^3.9",
         "drupal/bootstrap_paragraphs": "^2.0",
