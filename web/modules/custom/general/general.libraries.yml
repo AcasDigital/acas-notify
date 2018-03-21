@@ -28,3 +28,10 @@ media.file:
   dependencies:
     - core/jquery
     - core/drupal
+    
+details_page:
+  js:
+    js/details_page.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once

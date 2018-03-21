@@ -8,6 +8,7 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use \CloudConvert\Api;
 use Sunra\PhpSimple\HtmlDomParser;
 
@@ -24,6 +25,33 @@ function general_help($route_name, RouteMatchInterface $route_match) {
       return $output;
 
     default:
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function general_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
+    general_menu_first_level();
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function general_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
+    general_menu_first_level();
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function general_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
+    general_menu_first_level();
   }
 }
 
@@ -98,6 +126,9 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['keys']['#title_display'] = 'invisible';
     //$form['search_api_fulltext']['#required'] = TRUE;
   }
+  if ($form_id == 'taxonomy_overview_terms') {
+    $form['#submit'][] = 'general_taxonomy_overview_terms_submit';
+  }
 }
 
 /**
@@ -107,6 +138,10 @@ function general_page_attachments_alter(&$build) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
     $build['#attached']['library'][] = 'general/extra.admin';
+  }
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+    $build['#attached']['library'][] = 'general/details_page';
   }
 }
 
@@ -188,10 +223,91 @@ function general_pathauto_alias_alter(&$alias, array &$context) {
 
 function general_taxonomy_path($name) {
   $name = str_replace('/', ' ', strtolower($name));
-  $name = str_replace(':', ' ', strtolower($name));
+  $name = str_replace(':', ' ', $name);
   $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
   $name = str_replace(' ', '-', $name);
   return $name;
+}
+
+function general_taxonomy_overview_terms_submit($form, &$form_state) {
+  $args = $form_state->getBuildInfo()['args'];
+  if ($args[0]->id() == 'acas') {
+    general_menu_first_level();
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_update().
+ */
+function general_taxonomy_term_update($term) {
+  if ($term->getVocabularyId() == 'acas') {
+    general_menu_first_level();
+  }
+}
+
+function general_menu_first_level() {
+  $menu_name = 'main';
+  $menu_handler = \Drupal::service('plugin.manager.menu.link');
+  $menu_handler->deleteLinksInMenu($menu_name);
+  // Get top level
+  $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('acas', 0, 1);
+  $termIds = [];
+  foreach ($children as $value) {
+    $termIds[$value->tid] = $value->tid;
+  }
+  $query = \Drupal::database()->select('taxonomy_index', 'ti');
+  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+  $query->fields('ti', array('nid'));
+  $query->condition('ti.tid', $termIds, 'IN');
+  $query->orderBy('fd.weight', 'ASC');
+  $result = $query->execute();
+  $weight = 0;
+  if($nodeIds = $result->fetchCol()){
+    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+    foreach($nodes as $node) {
+      $first_level = MenuLinkContent::create([
+        'title' => $node->getTitle(),
+        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+        'menu_name' => $menu_name,
+        'expanded' => TRUE,
+        'weight' => $weight,
+      ]);
+      $first_level->save();
+      $weight++;
+      general_menu_second_level($first_level, $node, $weight);
+    }
+  }
+}
+
+function general_menu_second_level($first_level, $node, &$weight) {
+  if ($children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($node->get('field_taxonomy')->target_id)) {
+    $termIds = [];
+    foreach ($children as $key => $value) {
+      $termIds[$key] = $key;
+    }
+    $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->fields('ti', array('nid'));
+    $query->condition('ti.tid', $termIds, 'IN');
+    $query->orderBy('fd.weight', 'ASC');
+    $result = $query->execute();
+    $output = '';
+    if($nodeIds = $result->fetchCol()){
+      $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+      foreach($nodes as $node) {
+        $second_level = MenuLinkContent::create([
+          'title' => $node->getTitle(),
+          'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+          'parent' => $first_level->getPluginId(),
+          'expanded' => TRUE,
+          'weight' => $weight,
+        ]);
+        $second_level->save();
+        $weight++;
+        general_menu_second_level($second_level, $node, $weight);
+      }
+    }
+  }
 }
 
 /**

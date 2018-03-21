@@ -23,9 +23,10 @@ class HomePage extends BlockBase {
       $termIds[$value->tid] = $value->tid;
     }
     $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
     $query->fields('ti', array('nid'));
     $query->condition('ti.tid', $termIds, 'IN');
-    $query->distinct(TRUE);
+    $query->orderBy('fd.weight', 'ASC');
     $result = $query->execute();
     $output = '';
     if($nodeIds = $result->fetchCol()){
