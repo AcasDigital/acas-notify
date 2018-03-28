@@ -1,0 +1,65 @@
+.btn-cta {
+  background: $acas-teal;
+  display: block;
+  font-family: $font-family-headers;
+  font-weight: $font-weight-bold;
+  color: $white;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.btn-cta--print, .btn-cta--download {
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+  position: relative;
+  text-transform: capitalize;
+  &:after {
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    width: 2rem;
+  }
+}
+
+.btn-cta--print {
+  &:after {
+    background-image: url(../images/icons/icon-print.png);
+  }
+}
+
+
+.btn-cta--download {
+  &:after {
+    background-image: url(../images/icons/icon-download.png);
+  }
+}
+
+.btn-cta--helpline {
+  max-width: 26rem;
+  padding: 1em 3em 1em 1em;
+  position: relative;
+  text-align: left;
+  p {
+    margin-bottom: 0;
+  }
+  &:after {
+    content: "";
+    background-image: url(../images/icons/telephone.svg);
+    background-repeat: no-repeat;
+    background-size: 1.5em auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: .5em;
+    top: 0;
+    width: 3em;
+  }
+}

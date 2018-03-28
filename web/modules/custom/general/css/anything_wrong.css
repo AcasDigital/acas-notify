@@ -4,3 +4,6 @@
 .js .page-node-type-details-page .webform-submission-form, .page-node-type-details-page #anything-wrong-close, .page-node-type-details-page .form-item-page-url {
   display: none;
 }
+.ie8.page-node-type-details-page .webform-submission-form {
+  display: none;
+}

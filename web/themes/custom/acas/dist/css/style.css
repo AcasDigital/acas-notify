@@ -1,0 +1,2370 @@
+/**
+Bootstrap Overrides
+**/
+/**
+Custom Variables
+**/
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/OpenSans-Regular-webfont.eot");
+  src: url("../fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Regular-webfont.woff") format("woff"), url("../fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Regular-webfont.svg#open_sansregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url("../fonts/OpenSans-Bold-webfont.eot");
+  src: url("../fonts/OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Bold-webfont.woff") format("woff"), url("../fonts/OpenSans-Bold-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Bold-webfont.svg#open_sansbold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans Semibold';
+  src: url("../fonts/OpenSans-Semibold-webfont.eot");
+  src: url("../fonts/OpenSans-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Semibold-webfont.woff") format("woff"), url("../fonts/OpenSans-Semibold-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Semibold-webfont.svg#open_sanssemibold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url("../fonts/OpenSans-Light-webfont.eot");
+  src: url("../fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Light-webfont.woff") format("woff"), url("../fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Light-webfont.svg#open_sanslight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* line 6, ../../src/scss/_reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+/* line 27, ../../src/scss/_reset.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 31, ../../src/scss/_reset.scss */
+body {
+  line-height: 1;
+}
+
+/* line 34, ../../src/scss/_reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 37, ../../src/scss/_reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 40, ../../src/scss/_reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 45, ../../src/scss/_reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/* line 9, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* line 19, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+body {
+  margin: 0;
+}
+
+/* line 33, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/* line 54, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/* line 67, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/* line 77, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+[hidden],
+template {
+  display: none;
+}
+
+/* line 89, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+a {
+  background-color: transparent;
+}
+
+/* line 98, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* line 110, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/* line 118, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+b,
+strong {
+  font-weight: bold;
+}
+
+/* line 127, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/* line 136, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* line 145, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/* line 154, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+small {
+  font-size: 80%;
+}
+
+/* line 162, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 170, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 174, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 185, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+img {
+  border: 0;
+}
+
+/* line 193, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* line 204, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+figure {
+  margin: 1em 40px;
+}
+
+/* line 212, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+/* line 221, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+pre {
+  overflow: auto;
+}
+
+/* line 229, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* line 252, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+/* line 266, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button {
+  overflow: visible;
+}
+
+/* line 277, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/* line 290, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 302, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/* line 311, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 322, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+input {
+  line-height: normal;
+}
+
+/* line 334, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* line 346, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* line 356, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  box-sizing: content-box;
+}
+
+/* line 367, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* line 376, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/* line 387, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+legend {
+  border: 0;
+  padding: 0;
+}
+
+/* line 396, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+textarea {
+  overflow: auto;
+}
+
+/* line 405, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+optgroup {
+  font-weight: bold;
+}
+
+/* line 416, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 421, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
+td,
+th {
+  padding: 0;
+}
+
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+  /* line 9, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  *,
+  *:before,
+  *:after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* line 18, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  /* line 23, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  /* line 33, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+
+  /* line 38, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /* line 44, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  thead {
+    display: table-header-group;
+  }
+
+  /* line 48, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  /* line 53, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  img {
+    max-width: 100% !important;
+  }
+
+  /* line 57, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* line 64, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  /* line 72, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .navbar {
+    display: none;
+  }
+
+  /* line 77, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .btn > .caret,
+  .dropup > .btn > .caret {
+    border-top-color: #000 !important;
+  }
+
+  /* line 81, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .label {
+    border: 1px solid #000;
+  }
+
+  /* line 85, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .table {
+    border-collapse: collapse !important;
+  }
+  /* line 88, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .table td,
+  .table th {
+    background-color: #fff !important;
+  }
+
+  /* line 94, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #ddd !important;
+  }
+}
+/* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.container:before, .container:after {
+  content: " ";
+  display: table;
+}
+/* line 19, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.container:after {
+  clear: both;
+}
+@media (min-width: 768px) {
+  /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+  .container {
+    width: 1170px;
+  }
+}
+
+/* line 30, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.container-fluid:before, .container-fluid:after {
+  content: " ";
+  display: table;
+}
+/* line 19, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.container-fluid:after {
+  clear: both;
+}
+
+/* line 39, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+/* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.row:before, .row:after {
+  content: " ";
+  display: table;
+}
+/* line 19, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.row:after {
+  clear: both;
+}
+
+/* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, #block-landingpagesblock article, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, #block-landingpagesblock article, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, #block-landingpagesblock article {
+  float: left;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-1 {
+  width: 8.33333%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-2 {
+  width: 16.66667%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-3 {
+  width: 25%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-4 {
+  width: 33.33333%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-5 {
+  width: 41.66667%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-6 {
+  width: 50%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-7 {
+  width: 58.33333%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-8 {
+  width: 66.66667%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-9 {
+  width: 75%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-10 {
+  width: 83.33333%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-11 {
+  width: 91.66667%;
+}
+
+/* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-12, #block-landingpagesblock article {
+  width: 100%;
+}
+
+/* line 55, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-0 {
+  right: auto;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-1 {
+  right: 8.33333%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-2 {
+  right: 16.66667%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-3 {
+  right: 25%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-4 {
+  right: 33.33333%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-5 {
+  right: 41.66667%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-6 {
+  right: 50%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-7 {
+  right: 58.33333%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-8 {
+  right: 66.66667%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-9 {
+  right: 75%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-10 {
+  right: 83.33333%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-11 {
+  right: 91.66667%;
+}
+
+/* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-pull-12 {
+  right: 100%;
+}
+
+/* line 45, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-0 {
+  left: auto;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-1 {
+  left: 8.33333%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-2 {
+  left: 16.66667%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-3 {
+  left: 25%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-4 {
+  left: 33.33333%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-5 {
+  left: 41.66667%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-6 {
+  left: 50%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-7 {
+  left: 58.33333%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-8 {
+  left: 66.66667%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-9 {
+  left: 75%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-10 {
+  left: 83.33333%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-11 {
+  left: 91.66667%;
+}
+
+/* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-push-12 {
+  left: 100%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-0 {
+  margin-left: 0%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-1 {
+  margin-left: 8.33333%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-2 {
+  margin-left: 16.66667%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-3 {
+  margin-left: 25%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-4 {
+  margin-left: 33.33333%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-5 {
+  margin-left: 41.66667%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-6 {
+  margin-left: 50%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-7 {
+  margin-left: 58.33333%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-8 {
+  margin-left: 66.66667%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-9 {
+  margin-left: 75%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-10 {
+  margin-left: 83.33333%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-11 {
+  margin-left: 91.66667%;
+}
+
+/* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+.col-xs-offset-12 {
+  margin-left: 100%;
+}
+
+@media (min-width: 768px) {
+  /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+    float: left;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-1 {
+    width: 8.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-2 {
+    width: 16.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-3 {
+    width: 25%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-4 {
+    width: 33.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-5 {
+    width: 41.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-6 {
+    width: 50%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-7 {
+    width: 58.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-8 {
+    width: 66.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-9 {
+    width: 75%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-10 {
+    width: 83.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-11 {
+    width: 91.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-12 {
+    width: 100%;
+  }
+
+  /* line 55, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-0 {
+    right: auto;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-1 {
+    right: 8.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-2 {
+    right: 16.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-3 {
+    right: 25%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-4 {
+    right: 33.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-5 {
+    right: 41.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-6 {
+    right: 50%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-7 {
+    right: 58.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-8 {
+    right: 66.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-9 {
+    right: 75%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-10 {
+    right: 83.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-11 {
+    right: 91.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-pull-12 {
+    right: 100%;
+  }
+
+  /* line 45, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-0 {
+    left: auto;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-1 {
+    left: 8.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-2 {
+    left: 16.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-3 {
+    left: 25%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-4 {
+    left: 33.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-5 {
+    left: 41.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-6 {
+    left: 50%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-7 {
+    left: 58.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-8 {
+    left: 66.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-9 {
+    left: 75%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-10 {
+    left: 83.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-11 {
+    left: 91.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-push-12 {
+    left: 100%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-sm-offset-12 {
+    margin-left: 100%;
+  }
+}
+@media (min-width: 992px) {
+  /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-landingpagesblock article, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    float: left;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-1 {
+    width: 8.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-2 {
+    width: 16.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-3 {
+    width: 25%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-4, #block-landingpagesblock article {
+    width: 33.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-5 {
+    width: 41.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-6 {
+    width: 50%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-7 {
+    width: 58.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-8 {
+    width: 66.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-9 {
+    width: 75%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-10 {
+    width: 83.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-11 {
+    width: 91.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-12 {
+    width: 100%;
+  }
+
+  /* line 55, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-0 {
+    right: auto;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-1 {
+    right: 8.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-2 {
+    right: 16.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-3 {
+    right: 25%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-4 {
+    right: 33.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-5 {
+    right: 41.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-6 {
+    right: 50%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-7 {
+    right: 58.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-8 {
+    right: 66.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-9 {
+    right: 75%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-10 {
+    right: 83.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-11 {
+    right: 91.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-pull-12 {
+    right: 100%;
+  }
+
+  /* line 45, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-0 {
+    left: auto;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-1 {
+    left: 8.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-2 {
+    left: 16.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-3 {
+    left: 25%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-4 {
+    left: 33.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-5 {
+    left: 41.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-6 {
+    left: 50%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-7 {
+    left: 58.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-8 {
+    left: 66.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-9 {
+    left: 75%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-10 {
+    left: 83.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-11 {
+    left: 91.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-push-12 {
+    left: 100%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-md-offset-12 {
+    margin-left: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-1, .col-lg-2, .col-lg-3, #block-landingpagesblock article, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+    float: left;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-1 {
+    width: 8.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-2 {
+    width: 16.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-3, #block-landingpagesblock article {
+    width: 25%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-4 {
+    width: 33.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-5 {
+    width: 41.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-6 {
+    width: 50%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-7 {
+    width: 58.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-8 {
+    width: 66.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-9 {
+    width: 75%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-10 {
+    width: 83.33333%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-11 {
+    width: 91.66667%;
+  }
+
+  /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-12 {
+    width: 100%;
+  }
+
+  /* line 55, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-0 {
+    right: auto;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-1 {
+    right: 8.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-2 {
+    right: 16.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-3 {
+    right: 25%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-4 {
+    right: 33.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-5 {
+    right: 41.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-6 {
+    right: 50%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-7 {
+    right: 58.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-8 {
+    right: 66.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-9 {
+    right: 75%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-10 {
+    right: 83.33333%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-11 {
+    right: 91.66667%;
+  }
+
+  /* line 50, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-pull-12 {
+    right: 100%;
+  }
+
+  /* line 45, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-0 {
+    left: auto;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-1 {
+    left: 8.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-2 {
+    left: 16.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-3 {
+    left: 25%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-4 {
+    left: 33.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-5 {
+    left: 41.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-6 {
+    left: 50%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-7 {
+    left: 58.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-8 {
+    left: 66.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-9 {
+    left: 75%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-10 {
+    left: 83.33333%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-11 {
+    left: 91.66667%;
+  }
+
+  /* line 40, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-push-12 {
+    left: 100%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-0 {
+    margin-left: 0%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-1 {
+    margin-left: 8.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-2 {
+    margin-left: 16.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-3 {
+    margin-left: 25%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-5 {
+    margin-left: 41.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-6 {
+    margin-left: 50%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-7 {
+    margin-left: 58.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-8 {
+    margin-left: 66.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-9 {
+    margin-left: 75%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-10 {
+    margin-left: 83.33333%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /* line 60, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
+  .col-lg-offset-12 {
+    margin-left: 100%;
+  }
+}
+/* Base Styles */
+/* line 1, ../../src/scss/_base.scss */
+* {
+  box-sizing: border-box;
+}
+
+/* line 5, ../../src/scss/_base.scss */
+html {
+  font-size: 19px;
+}
+
+/* line 9, ../../src/scss/_base.scss */
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+/* line 17, ../../src/scss/_base.scss */
+img {
+  max-width: 100%;
+}
+
+/* line 21, ../../src/scss/_base.scss */
+a {
+  color: #008C95;
+}
+
+/* line 25, ../../src/scss/_base.scss */
+p {
+  margin-bottom: 1.5em;
+}
+
+/* line 30, ../../src/scss/_base.scss */
+ul.list-descriptive {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+/* line 36, ../../src/scss/_base.scss */
+.sr-only {
+  display: none;
+}
+
+/* line 41, ../../src/scss/_base.scss */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* line 2, ../../src/scss/_drupal.scss */
+.views-exposed-form .form-type-textfield {
+  display: inline-block;
+  width: 86%;
+}
+@media screen and (min-width: 768px) {
+  /* line 2, ../../src/scss/_drupal.scss */
+  .views-exposed-form .form-type-textfield {
+    width: auto;
+  }
+}
+/* line 9, ../../src/scss/_drupal.scss */
+.views-exposed-form .form-actions {
+  display: inline-block;
+}
+
+/* line 14, ../../src/scss/_drupal.scss */
+#header-main .views-exposed-form {
+  margin-top: 8px;
+}
+@media screen and (min-width: 768px) {
+  /* line 14, ../../src/scss/_drupal.scss */
+  #header-main .views-exposed-form {
+    margin-left: 40px;
+    float: left;
+  }
+}
+/* line 20, ../../src/scss/_drupal.scss */
+#header-main .views-exposed-form .form-group {
+  margin: 0;
+}
+/* line 27, ../../src/scss/_drupal.scss */
+#header-main #block-betabanner {
+  background: #f2f2f2;
+  color: #000;
+  clear: both;
+  font-size: 1.4em;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+/* line 35, ../../src/scss/_drupal.scss */
+#header-main #block-betabanner p {
+  margin-bottom: 0;
+}
+@media screen and (min-width: 768px) {
+  /* line 27, ../../src/scss/_drupal.scss */
+  #header-main #block-betabanner {
+    font-size: 2.4em;
+    clear: none;
+    float: left;
+  }
+}
+
+/* line 45, ../../src/scss/_drupal.scss */
+#page_top_wrapper {
+  background: #008C95;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+/* line 49, ../../src/scss/_drupal.scss */
+#page_top_wrapper .container {
+  position: relative;
+}
+/* line 52, ../../src/scss/_drupal.scss */
+#page_top_wrapper .pull-left {
+  float: none !important;
+  position: relative;
+  top: 8px;
+}
+/* line 57, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
+  margin-bottom: 28px;
+  margin-top: 30px;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  /* line 57, ../../src/scss/_drupal.scss */
+  #page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
+    width: 60%;
+  }
+}
+/* line 64, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .control-label {
+  display: none;
+}
+/* line 67, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
+  width: 100%;
+}
+/* line 69, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
+  width: 100%;
+}
+/* line 72, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
+  width: 40px;
+}
+/* line 76, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
+  display: none !important;
+  margin-top: 20px;
+  display: inline-block;
+  width: 72%;
+}
+@media screen and (min-width: 768px) {
+  /* line 76, ../../src/scss/_drupal.scss */
+  #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
+    width: 80%;
+  }
+}
+/* line 84, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100%;
+}
+/* line 90, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 #edit-actions {
+  display: inline-block;
+}
+/* line 92, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-exposedformsolr-search-contentpage-1 #edit-actions .button {
+  display: inline-block;
+  background: #000;
+  position: relative;
+  left: -5px;
+  padding: 8px 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: none;
+}
+/* line 104, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 {
+  width: 100%;
+  background: #000;
+  height: 164px;
+  padding: 10px;
+}
+@media screen and (min-width: 768px) {
+  /* line 104, ../../src/scss/_drupal.scss */
+  #page_top_wrapper #block-views-block-most-popular-block-1 {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 380px;
+  }
+}
+/* line 115, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 h2 {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.42857;
+  color: #fff;
+}
+/* line 121, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 .pull-right {
+  float: left !important;
+  margin-top: 5px;
+}
+/* line 125, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 .views-row {
+  margin: 6px 0;
+}
+/* line 127, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.25;
+  text-decoration: underline;
+  font-weight: bold;
+}
+/* line 134, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:hover {
+  color: #555555;
+}
+/* line 137, ../../src/scss/_drupal.scss */
+#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:focus {
+  color: #000;
+}
+
+/* line 143, ../../src/scss/_drupal.scss */
+.page-header {
+  border-bottom: none;
+  margin-top: 40px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+/* line 150, ../../src/scss/_drupal.scss */
+.path-frontpage .page-header {
+  margin: 0;
+  border: none;
+  padding: 0;
+  display: none;
+}
+
+/* line 157, ../../src/scss/_drupal.scss */
+.breadcrumb {
+  margin: 0;
+  background-color: #fff;
+  padding-left: 0;
+}
+
+/* line 162, ../../src/scss/_drupal.scss */
+.main-container {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+@media screen and (min-width: 768px) {
+  /* line 162, ../../src/scss/_drupal.scss */
+  .main-container {
+    padding: 5px 0;
+    min-height: 76vh;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  /* line 170, ../../src/scss/_drupal.scss */
+  .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* line 177, ../../src/scss/_drupal.scss */
+.path-frontpage .main-container {
+  border-top: none;
+  min-height: 50vh;
+}
+/* line 181, ../../src/scss/_drupal.scss */
+.path-frontpage .breadcrumb {
+  display: none;
+}
+
+/* line 185, ../../src/scss/_drupal.scss */
+strong.node_view {
+  display: none;
+}
+
+/* line 189, ../../src/scss/_drupal.scss */
+.page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent {
+  display: none;
+}
+/* line 192, ../../src/scss/_drupal.scss */
+.page-node-type-details-page article {
+  margin-bottom: 20px;
+}
+/* line 195, ../../src/scss/_drupal.scss */
+.page-node-type-details-page strong.node_view {
+  display: inline-block;
+  float: left;
+  margin-right: 20px;
+}
+/* line 199, ../../src/scss/_drupal.scss */
+.page-node-type-details-page strong.node_view .glyphicon {
+  margin-left: 10px;
+}
+/* line 202, ../../src/scss/_drupal.scss */
+.page-node-type-details-page strong.node_view ul {
+  padding: 0;
+}
+/* line 206, ../../src/scss/_drupal.scss */
+.page-node-type-details-page .print__wrapper--pdf, .page-node-type-details-page .node_view {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 211, ../../src/scss/_drupal.scss */
+.page-node-type-details-page .node_view ul.pre_link-colors li:first-child {
+  background: none;
+  padding: 0;
+}
+/* line 215, ../../src/scss/_drupal.scss */
+.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf {
+  text-decoration: none;
+}
+/* line 217, ../../src/scss/_drupal.scss */
+.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf .glyphicon {
+  margin-left: 10px;
+}
+
+/* line 223, ../../src/scss/_drupal.scss */
+#footer_wrapper {
+  background: #f2f2f2;
+  border-top: 10px solid #008C95;
+}
+
+@media screen and (min-width: 768px) {
+  /* line 227, ../../src/scss/_drupal.scss */
+  .navbar-default {
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  /* line 232, ../../src/scss/_drupal.scss */
+  .navbar-header {
+    width: 100%;
+  }
+}
+
+/* line 237, ../../src/scss/_drupal.scss */
+.chosen-container {
+  border: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+/* line 245, ../../src/scss/_drupal.scss */
+.field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 249, ../../src/scss/_drupal.scss */
+.field--name-field-rate-this-content .field--label {
+  margin-top: 14px;
+  margin-right: 5px;
+}
+/* line 253, ../../src/scss/_drupal.scss */
+.field--name-field-rate-this-content .form-type-select {
+  position: relative;
+  top: 7px;
+}
+/* line 257, ../../src/scss/_drupal.scss */
+.field--name-field-rate-this-content .useful-rating {
+  font-size: 2em;
+}
+/* line 260, ../../src/scss/_drupal.scss */
+.field--name-field-rate-this-content .select-wrapper:after {
+  display: none;
+}
+
+/* line 266, ../../src/scss/_drupal.scss */
+.path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy, .path-solr-search .print__wrapper--pdf {
+  display: none;
+}
+/* line 269, ../../src/scss/_drupal.scss */
+.path-solr-search .section {
+  padding: 0;
+  margin: 0;
+}
+/* line 272, ../../src/scss/_drupal.scss */
+.path-solr-search .section li {
+  list-style: none;
+  display: inline;
+}
+/* line 276, ../../src/scss/_drupal.scss */
+.path-solr-search .section .glyphicon {
+  font-weight: normal;
+  font-size: 0.8em;
+}
+
+/* line 283, ../../src/scss/_drupal.scss */
+.screenreader {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 294, ../../src/scss/_drupal.scss */
+#block-socialsharingblock {
+  margin-top: 20px;
+}
+
+/* Base Components */
+/* line 2, ../../src/scss/components/base/_headers.scss */
+h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a {
+  font-family: "Century Gothic", "AppleGothic", sans-serif;
+  font-weight: 600;
+  margin-top: .75em;
+  margin-bottom: .25em;
+}
+
+/* line 10, ../../src/scss/components/base/_headers.scss */
+h1 {
+  color: #008C95;
+  font-size: 2.42rem;
+  position: relative;
+  padding-left: .75rem;
+}
+/* line 15, ../../src/scss/components/base/_headers.scss */
+h1:before {
+  content: "";
+  background-color: #CEDC00;
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: .275rem;
+}
+
+/* line 26, ../../src/scss/components/base/_headers.scss */
+h2 {
+  color: #008C95;
+  font-size: 1.36rem;
+  position: relative;
+  padding-left: .75rem;
+}
+/* line 31, ../../src/scss/components/base/_headers.scss */
+h2:before {
+  content: "";
+  background-color: #CEDC00;
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: .275rem;
+}
+
+/* line 43, ../../src/scss/components/base/_headers.scss */
+h3, h3 a {
+  color: #008C95;
+  font-size: 1rem;
+}
+
+/* line 49, ../../src/scss/components/base/_headers.scss */
+h4 {
+  font-size: 1rem;
+}
+
+/* line 53, ../../src/scss/components/base/_headers.scss */
+h5 {
+  font-size: 1rem;
+}
+
+/* line 57, ../../src/scss/components/base/_headers.scss */
+h6 {
+  font-size: 1rem;
+}
+
+/* line 1, ../../src/scss/components/base/_links.scss */
+a {
+  color: #008C95;
+  text-decoration: underline;
+}
+
+/* Common Components */
+/* line 1, ../../src/scss/components/common/_button.scss */
+.btn-cta {
+  background: #008C95;
+  display: block;
+  font-family: "Century Gothic", "AppleGothic", sans-serif;
+  font-weight: 600;
+  color: #fff;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+}
+
+/* line 14, ../../src/scss/components/common/_button.scss */
+.btn-cta--print, .btn-cta--download {
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+  position: relative;
+  text-transform: capitalize;
+}
+/* line 19, ../../src/scss/components/common/_button.scss */
+.btn-cta--print:after, .btn-cta--download:after {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: 50% auto;
+  background-position: 50% 50%;
+  height: 100%;
+  position: absolute;
+  right: 0.5rem;
+  top: 0;
+  width: 2rem;
+}
+
+/* line 33, ../../src/scss/components/common/_button.scss */
+.btn-cta--print:after {
+  background-image: url(../images/icons/icon-print.png);
+}
+
+/* line 40, ../../src/scss/components/common/_button.scss */
+.btn-cta--download:after {
+  background-image: url(../images/icons/icon-download.png);
+}
+
+/* line 45, ../../src/scss/components/common/_button.scss */
+.btn-cta--helpline {
+  max-width: 26rem;
+  padding: 1em 3em 1em 1em;
+  position: relative;
+  text-align: left;
+}
+/* line 50, ../../src/scss/components/common/_button.scss */
+.btn-cta--helpline p {
+  margin-bottom: 0;
+}
+/* line 53, ../../src/scss/components/common/_button.scss */
+.btn-cta--helpline:after {
+  content: "";
+  background-image: url(../images/icons/telephone.svg);
+  background-repeat: no-repeat;
+  background-size: 1.5em auto;
+  background-position: 50% 50%;
+  height: 100%;
+  position: absolute;
+  right: .5em;
+  top: 0;
+  width: 3em;
+}
+
+/* line 1, ../../src/scss/components/common/_callout.scss */
+.callout {
+  background: #f2f2f2;
+  border: 2px solid #CCC;
+  color: #000;
+  max-width: 26rem;
+  padding: 1em;
+}
+
+/* line 1, ../../src/scss/components/common/_feedback.scss */
+.block-feedback {
+  color: #fff;
+}
+/* line 3, ../../src/scss/components/common/_feedback.scss */
+.block-feedback:after {
+  content: "";
+  background-color: #008C95;
+  display: block;
+  max-width: 26rem;
+  height: 1.5rem;
+  width: 100%;
+}
+
+/* line 13, ../../src/scss/components/common/_feedback.scss */
+.block-feedback__question {
+  background: #008C95;
+  display: inline-block;
+  left: 3rem;
+  min-width: 20rem;
+  padding: 0.5rem 1rem 0.25rem;
+  position: relative;
+}
+
+/* line 21, ../../src/scss/components/common/_feedback.scss */
+.block-feedback__answer {
+  color: #fff;
+  font-weight: 600;
+  padding: 0 .25rem;
+  text-decoration: none;
+}
+/* line 26, ../../src/scss/components/common/_feedback.scss */
+.block-feedback__answer:last-child {
+  padding-right: 0;
+}
+
+/* Structures */
+/* line 2, ../../src/scss/components/structures/_landing-page.scss */
+#block-landingpagesblock article {
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+/* line 8, ../../src/scss/components/structures/_landing-page.scss */
+#block-landingpagesblock article > .wrapper {
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  padding: 1em;
+}
+/* line 12, ../../src/scss/components/structures/_landing-page.scss */
+#block-landingpagesblock article > .wrapper h2 {
+  margin-top: 0;
+}
+
+/* line 1, ../../src/scss/components/structures/_header.scss */
+#navbar {
+  position: relative;
+}
+
+/* line 5, ../../src/scss/components/structures/_header.scss */
+#header_wrapper {
+  background: #fff;
+}
+
+/* line 9, ../../src/scss/components/structures/_header.scss */
+#block-acas-main-menu {
+  padding-top: 1em;
+}
+
+/* line 14, ../../src/scss/components/structures/_header.scss */
+.nav-main__topmenu .nav-main__item {
+  display: none;
+}
+@media (min-width: 900px) {
+  /* line 14, ../../src/scss/components/structures/_header.scss */
+  .nav-main__topmenu .nav-main__item {
+    display: block;
+    float: left;
+    padding: 0 1em;
+  }
+}
+
+/* line 24, ../../src/scss/components/structures/_header.scss */
+.nav-main__submenu, .nav-main__lastmenu {
+  display: block;
+}
+@media (min-width: 900px) {
+  /* line 24, ../../src/scss/components/structures/_header.scss */
+  .nav-main__submenu, .nav-main__lastmenu {
+    display: none;
+  }
+}
+
+/* line 31, ../../src/scss/components/structures/_header.scss */
+.nav-main__icon {
+  display: block;
+  float: right;
+  font-size: 2em;
+  padding: 2rem 0;
+  position: relative;
+  overflow: auto;
+  text-decoration: none;
+}
+@media (min-width: 900px) {
+  /* line 31, ../../src/scss/components/structures/_header.scss */
+  .nav-main__icon {
+    display: none;
+  }
+}
+
+/* line 44, ../../src/scss/components/structures/_header.scss */
+.nav-main__responsive {
+  position: relative;
+}
+/* line 46, ../../src/scss/components/structures/_header.scss */
+.nav-main__responsive a {
+  display: block;
+  text-align: left;
+}
+/* line 50, ../../src/scss/components/structures/_header.scss */
+.nav-main__responsive > .nav-main__item {
+  display: block;
+}
+/* line 53, ../../src/scss/components/structures/_header.scss */
+.nav-main__responsive .nav-main__item {
+  padding: 0.5em 0;
+}
+
+@media screen and (min-width: 769px) {
+  /* line 61, ../../src/scss/components/structures/_header.scss */
+  #block-acas-main-menu {
+    padding-top: 4em;
+  }
+
+  /* line 65, ../../src/scss/components/structures/_header.scss */
+  .nav-main__topmenu {
+    padding: 1.5em 0;
+  }
+  /* line 67, ../../src/scss/components/structures/_header.scss */
+  .nav-main__topmenu .nav-main__item {
+    display: block;
+    padding: 0 1em;
+    position: relative;
+  }
+
+  /* line 74, ../../src/scss/components/structures/_header.scss */
+  .nav-main__submenu, .nav-main__lastmenu {
+    background-color: #f2f2f2;
+    border: 1px solid #CCC;
+    display: none;
+    min-width: 160px;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+  /* line 82, ../../src/scss/components/structures/_header.scss */
+  .nav-main__submenu.menu--open, .nav-main__lastmenu.menu--open {
+    display: block;
+  }
+  /* line 85, ../../src/scss/components/structures/_header.scss */
+  .nav-main__submenu li, .nav-main__lastmenu li {
+    display: block;
+    position: relative;
+    padding: 0.5em 0.75em;
+  }
+  /* line 89, ../../src/scss/components/structures/_header.scss */
+  .nav-main__submenu li a, .nav-main__lastmenu li a {
+    color: #000;
+    display: block;
+    float: none;
+    position: relative;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  /* line 100, ../../src/scss/components/structures/_header.scss */
+  .nav-main__lastmenu {
+    background: #f2f2f2;
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 100%;
+  }
+}
+/* line 1, ../../src/scss/components/structures/_related.scss */
+.list-related, .block-related-content-block nav {
+  border-top: 0.25rem solid #CEDC00;
+  max-width: 20em;
+  padding: .5em 0;
+}
+/* line 6, ../../src/scss/components/structures/_related.scss */
+.list-related ul a, .block-related-content-block nav ul a {
+  color: #999;
+  display: inline-block;
+  margin: .5em 0;
+}
+
+/* line 1, ../../src/scss/components/structures/_breadcrumbs.scss */
+.breadcrumb {
+  background: #f2f2f2;
+  padding: 0.5em;
+}
+/* line 4, ../../src/scss/components/structures/_breadcrumbs.scss */
+.breadcrumb li {
+  display: inline-block;
+}
+/* line 6, ../../src/scss/components/structures/_breadcrumbs.scss */
+.breadcrumb li:after {
+  content: "/";
+  display: inline-block;
+  padding: 0 .5em;
+}
+/* line 12, ../../src/scss/components/structures/_breadcrumbs.scss */
+.breadcrumb li:last-child:after {
+  display: none;
+}

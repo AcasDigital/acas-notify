@@ -35,6 +35,7 @@ function acas_preprocess_menu(&$variables) {
 }
 
 function acas_preprocess_field(&$variables) {
+  /*
   if (@$variables['entity_type'] == 'node' && @$variables['field_name'] == 'title') {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
       if ($node->getType() == 'details_page') {
@@ -45,6 +46,7 @@ function acas_preprocess_field(&$variables) {
       }
     }
   }
+  */
   if (@$variables['entity_type'] == 'media' && @$variables['field_name'] == 'field_file_html') {
     $variables['items'][0]['content']['#template'] = '{{ value|raw }}';
   }
@@ -79,7 +81,11 @@ function acas_bootstrap_iconize_text_alter(array &$texts) {
 }
 
 function acas_preprocess_html(&$variables) {
-
+  if ((preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) || \Drupal::request()->query->get('ie8')) {
+    //unset($variables['#attached']['html_response_attachment_placeholders']['scripts']);
+    //unset($variables['#attached']['html_response_attachment_placeholders']['scripts_bottom']);
+    $variables['ie8'] = TRUE;
+  }
 }
 
 function acas_local_tasks_alter(&$local_tasks) {

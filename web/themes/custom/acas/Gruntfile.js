@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         livereload: true
       },
       sass: {
-        files: ['scss/{,**/}*.{scss,sass}', 'bootstrap/assets/stylesheets/bootstrap/*.scss'],
+        files: ['src/scss/{,**/}*.{scss,sass}', 'src/bootstrap/assets/stylesheets/bootstrap/*.scss'],
         tasks: ['compass:dev'],
         options: {
           livereload: false
@@ -57,11 +57,27 @@ module.exports = function (grunt) {
       }
     },
 
+    copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'src',
+          dest: 'dist',
+          src: [
+            '*.{ico,png,txt}',
+            'images/{,*/}*.{png,jpeg,jpg,gif,webp,svg}',
+            'fonts/{,*/}*.{ttf,otf,woff,eot}'
+          ]
+        }]
+      }
+    },
+
     jshint: {
       options: {
         jshintrc: '.jshintrc'
       },
-      all: ['js/{,**/}*.js', '!js/{,**/}*.min.js']
+      all: ['src/js/{,**/}*.js', '!js/{,**/}*.min.js']
     },
 
     uglify: {
@@ -74,8 +90,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           flatten: true,
-          cwd: 'js',
-          dest: 'js',
+          cwd: 'src/js',
+          dest: 'dist/js',
           src: ['**/*.js', '!**/*.min.js'],
           rename: function(dest, src) {
             var folder = src.substring(0, src.lastIndexOf('/'));
@@ -106,8 +122,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           flatten: true,
-          cwd: 'js',
-          dest: 'js',
+          cwd: 'src/js',
+          dest: 'dist/js',
           src: ['**/*.js', '!**/*.min.js'],
           rename: function(dest, src) {
             var folder = src.substring(0, src.lastIndexOf('/'));
@@ -122,13 +138,15 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('build', [
-    'uglify:dist',
-    'compass:dist'
+    'uglify:dev',
+    'compass:dev',
+    'copy:dist'
   ]);
 
 };

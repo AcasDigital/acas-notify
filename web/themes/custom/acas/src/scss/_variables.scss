@@ -1,0 +1,106 @@
+/**
+Bootstrap Overrides
+**/
+
+// Set the proper directory for the Bootstrap Glyphicon font.
+$icon-font-path: '../bootstrap/assets/fonts/bootstrap/';
+
+// Extra small screen / phone
+//** Deprecated `$screen-xs` as of v3.0.1
+$screen-xs:                  480px !default;
+//** Deprecated `$screen-xs-min` as of v3.2.0
+$screen-xs-min:              $screen-xs !default;
+//** Deprecated `$screen-phone` as of v3.0.1
+$screen-phone:               $screen-xs-min !default;
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm !default;
+//** Deprecated `$screen-tablet` as of v3.0.1
+$screen-tablet:              $screen-sm-min !default;
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+$screen-md:                  992px !default;
+$screen-md-min:              $screen-md !default;
+//** Deprecated `$screen-desktop` as of v3.0.1
+$screen-desktop:             $screen-md-min !default;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg:                  1200px !default;
+$screen-lg-min:              $screen-lg !default;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop:          $screen-lg-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+
+$mobile:            "screen and (max-width: #{$screen-xs-max})";
+$tablet:            "screen and (min-width: #{$screen-sm-min})";
+$tablet-only:       "(min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max})";
+$normal:            "screen and (min-width: #{$screen-md-min})";
+$normal-only:       "(min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max})";
+$large:             "screen and (min-width: #{$screen-lg-min})";
+
+/**
+Custom Variables
+**/
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+       url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+       url('../fonts/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url('../fonts/OpenSans-Bold-webfont.eot');
+  src: url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+       url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+       url('../fonts/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Semibold';
+  src: url('../fonts/OpenSans-Semibold-webfont.eot');
+  src: url('../fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'),
+       url('../fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
+       url('../fonts/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('../fonts/OpenSans-Light-webfont.eot');
+  src: url('../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/OpenSans-Light-webfont.woff') format('woff'),
+       url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'),
+       url('../fonts/OpenSans-Light-webfont.svg#open_sanslight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font-family: "Open Sans", sans-serif;
+$font-family-headers: "Century Gothic", "AppleGothic", sans-serif;
+
+$font-family-bold: "Open Sans Bold", sans-serif;
+$font-family-semibold: "Open Sans Semibold", sans-serif;
+$font-family-light: "Open Sans Light", sans-serif;
+
+$font-weight-body: 400;
+$font-weight-semibold: 500;
+$font-weight-bold: 600;

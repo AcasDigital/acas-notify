@@ -1,0 +1,50 @@
+$compile-IE: true;
+
+// Default variables.
+@import 'colors';
+@import 'variables';
+
+@import 'reset';
+
+@import 'mixins';
+
+// Bootstrap Framework.
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+// Core variables and mixins
+@import "ie-grid/variables";
+@import "ie-grid/mixins";
+
+// Reset and dependencies
+@import "ie-grid/normalize";
+@import "ie-grid/print";
+
+// Core CSS
+@import "ie-grid/grid";
+
+/* Base Styles */
+@import 'base';
+
+// Base-theme overrides.
+@import 'overrides';
+
+// Drupal Theme - to remove later.
+@import 'drupal';
+
+/* Base Components */
+@import 'components/base/headers';
+@import 'components/base/links';
+
+/* Common Components */
+@import 'components/common/button';
+@import 'components/common/callout';
+@import 'components/common/feedback';
+
+/* Structures */
+@import 'components/structures/header';
+@import 'components/structures/related';
+@import 'components/structures/breadcrumbs';

@@ -27,7 +27,7 @@ class RelatedContent extends BlockBase {
     }
     $parent = array_pop($parents);
     $output = '<nav class="section-nav js-section-nav" data-track-zone="section-nav">
-    <h2 class="section-nav__heading"><a href="#!" aria-controls="section-nav-list" aria-expanded="false"><span class="screenreader">Show</span> In this section</a></h2>
+    <h3 class="section-nav__heading"><a href="#!" aria-controls="section-nav-list" aria-expanded="false"><span class="screenreader">Show</span> In this section</a></h3>
     <ul id="section-nav-list" tabindex="-1"><li><a class="section-nav__parent" href="' . $url . '">' . $parent->getName() . '</a><ul>';
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($parent->getVocabularyId(), $parent->id());
     $path = $url;

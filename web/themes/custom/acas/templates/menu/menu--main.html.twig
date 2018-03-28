@@ -11,29 +11,29 @@
   {% import _self as menus %}
   {% if items %}
     {% if menu_level == 0 %}
-      <ul class="nav navbar-nav" role="menu" aria-labelledby="dropdownMenu">
+      <ul id="nav-main__topmenu" class="nav-main__topmenu clearfix" role="menu" aria-labelledby="dropdownMenu">
+    {% elseif menu_level == 1 %}
+      <ul class="nav-main__submenu" role="menu" aria-labelledby="dropdownMenu">
     {% else %}
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <ul class="nav-main__lastmenu" role="menu" aria-labelledby="dLabel">
     {% endif %}
     {% for item in items %}
       {% if item.below %}
         {% if menu_level == 0 %}
-          <li class="dropdown">
-            <a href="{{ item.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ item.title }} <span class="caret"></span></a>
+          <li class="nav-main__item nav-main__item--dropdown">
+            <a href="{{ item.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ item.title }}</a>
             {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
           </li>
         {% else %}
-          <li class="dropdown-submenu">
+          <li class="nav-main__submenu__item">
             <a href="{{ item.url }}">{{ item.title }}</a>
             {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
           </li>
         {% endif %}
       {% else %}
-        <li {{ item.attributes }}>{{ link(item.title, item.url) }}</li>
+        <li class="nav-main__item" {{ item.attributes }}>{{ link(item.title, item.url) }}</li>
       {% endif %}
     {% endfor %}
     </ul>
   {% endif %}
 {% endmacro %}
-
-

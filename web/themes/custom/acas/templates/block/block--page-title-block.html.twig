@@ -6,4 +6,25 @@
  * @ingroup templates
  */
 #}
-{% extends "block--bare.html.twig" %}
+
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'clearfix'
+  ]
+%}
+<header{{ attributes.addClass(classes) }}>
+  <div class="col-xs-12 col-md-7">
+    {{ title_prefix }}
+    {% if label %}
+      <h2{{ title_attributes.addClass('block-title') }}>{{ label }}</h2>
+    {% endif %}
+    {{ title_suffix }}
+
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </div>
+</header>
