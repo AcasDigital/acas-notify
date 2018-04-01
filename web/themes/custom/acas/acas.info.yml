@@ -22,4 +22,4 @@ regions:
 
 libraries:
   - 'acas/global-styling'
-  - 'acas/bootstrap-scripts'
+#  - 'acas/bootstrap-scripts'

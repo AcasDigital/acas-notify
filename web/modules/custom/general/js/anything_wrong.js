@@ -18,6 +18,23 @@
         success:       showAnythingWrongResponse  // post-submit callback 
       };
       $('.webform-submission-form').ajaxForm(options);
+      
+      $("#feedback_wrapper #useful_wrapper a").click(function() {
+        jQuery.ajax({
+          url: "/feedback/" + jQuery(this).attr('nid') + "/" + jQuery(this).text() ,
+          type: "GET",
+          dataType: "html",
+          cache: false,
+          timeout: 60000,
+          error: function(XMLHttpRequest, textStatus, errorThrown){
+            
+          },
+          success: function(data){
+            $("#feedback_wrapper #useful_wrapper").html("Thank you for your feedback");
+          }
+        });
+        return false;
+      });
       function showAnythingWrongRequest(formData, jqForm, options) {
         $("#anything-wrong-wrapper").html("<span class='thsnk-you'>Thank you for your message</span>");
         $(".webform-submission-form").slideUp();

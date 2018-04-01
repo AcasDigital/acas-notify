@@ -118,6 +118,7 @@
         "drupal/userprotect": "^1.0",
         "drupal/video_embed_field": "^2.0",
         "drupal/viewsreference": "^2.0",
+        "drupal/vote_up_down": "^1.0",
         "drupal/votingapi": "^3.0",
         "drupal/votingapi_widgets": "^1.0",
         "drupal/webform": "^5.0",

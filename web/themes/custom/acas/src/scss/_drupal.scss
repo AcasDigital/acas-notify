@@ -89,16 +89,6 @@
     }
     #edit-actions {
       display: inline-block;
-      .button {
-        display: inline-block;
-        background: $black;
-        position: relative;
-        left: -5px;
-        padding: 8px 12px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border: none;
-      }
     }
   }
   #block-views-block-most-popular-block-1 {
@@ -293,4 +283,14 @@ strong.node_view {
 
 #block-socialsharingblock {
   margin-top: 20px;
+}
+.social-media-sharing {
+  ul {
+    li {
+      img {
+        height: 40px;
+        max-width: none !important;
+      }
+    }
+  }
 }

@@ -3,6 +3,7 @@
 /**
  * @file
  * Contains general.module.
+ * Hooks & general code for the Acas site
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -53,6 +54,21 @@ function general_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
     general_menu_first_level();
   }
+  if ($entity->getEntityTypeId() == 'taxonomy_term' && $entity->bundle() == 'acas') {
+    $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->fields('ti', array('nid'));
+    $query->condition('ti.tid', $entity->id(), '=');
+    $result = $query->execute();
+    if ($nid = $result->fetchCol()) {
+      $node = \Drupal\node\Entity\Node::load($nid[0]);
+      if ($node->getTitle() != $entity->getName()) {
+        $node->setTitle($entity->getName());
+        $node->save();
+        general_menu_first_level();
+      }
+    }
+  }
 }
 
 /**
@@ -72,18 +88,22 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
       '#weight' => 990,
     ];
+    $build['feedback'] = [
+      '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Is this page useful?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',
+      '#weight' => 995,
+    ];
     $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
     $result = \Drupal::service('path.alias_manager')->getAliasByPath(\Drupal::service('path.current')->getPath());
     $values = ['data' => ['page_url' => 'https://' . $_SERVER['HTTP_HOST'] . $result]];
     $form->getSubmissionForm($values);
     $build['anything_wrong_link'] = [
-      '#markup' => '<div id="anything-wrong-wrapper"><a id="anything-wrong-link" href="#anything-wrong-link">Anything wrong with this page?</a><a id="anything-wrong-close" href="#anything-wrong-link">Close</a></div>',
-      '#weight' => 991,
+      '#markup' => '<div id="anything-wrong-wrapper"><a id="anything-wrong-link" href="#anything-wrong-link">Anything wrong with this page?</a><a id="anything-wrong-close" href="#anything-wrong-link">Close</a></div></div>',
+      '#weight' => 998,
     ];
     $build['anything_wrong'] = \Drupal::entityManager()
       ->getViewBuilder('webform')
       ->view($form);
-    $build['anything_wrong']['#weight'] = 992;
+    $build['anything_wrong']['#weight'] = 999;
     $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
   }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
@@ -101,13 +121,6 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       '#markup' => $section,
       '#weight' => 990,
     ];
-  }
-  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface) {
-    // Because of support for IE8, we can't cache the JS. Clear the JS cache if viewing a page
-    $cid = 'js:' . \Drupal::service('theme.manager')->getActiveTheme()->getName() . ':' . \Drupal::languageManager()->getCurrentLanguage()->getId() . ':';
-    \Drupal::database()->delete('cache_data')
-    ->condition('cid', db_like($cid) . '%', 'LIKE')
-    ->execute();
   }
 }
 
@@ -253,6 +266,9 @@ function general_taxonomy_term_update($term) {
 }
 
 function general_menu_first_level() {
+  general_menu_full_first_level();
+  return;
+
   $menu_name = 'main';
   $menu_handler = \Drupal::service('plugin.manager.menu.link');
   $menu_handler->deleteLinksInMenu($menu_name);
@@ -317,156 +333,72 @@ function general_menu_second_level($first_level, $node, &$weight) {
   }
 }
 
-function general_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
-  if ((preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) || \Drupal::request()->query->get('ie8')) {
-    $javascript = [
-      'modules/contrib/ie8/js/es5-shim.min.js' => [
-        'data' => 'modules/contrib/ie8/js/es5-shim.min.js',
-        'version' => '0.3.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -22,
-        'minified' => TRUE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'header',
-      ],
-      'modules/contrib/ie8/js/ready.min.js' => [
-        'data' => 'modules/contrib/ie8/js/ready.min.js',
-        'version' => '0.3.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -20.998,
-        'minified' => TRUE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'modules/contrib/ie8/js/jquery.min.js' => [
-        'data' => 'modules/contrib/ie8/js/jquery.min.js',
-        'version' => '1.11.3',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -19.999,
-        'minified' => TRUE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'modules/contrib/ie8/js/jquery.once.js' => [
-        'data' => 'modules/contrib/ie8/js/jquery.once.js',
-        'version' => '1.11.3',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -19.998,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'core/misc/drupalSettingsLoader.js' => [
-        'data' => 'modules/contrib/ie8/js/drupalSettingsLoader.js',
-        'version' => '8.5.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -17.997,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'core/misc/drupal.js' => [
-        'data' => 'modules/contrib/ie8/js/drupal.js',
-        'version' => '8.5.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -17.996,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'core/misc/drupal.init.js' => [
-        'data' => 'core/misc/drupal.init.js',
-        'version' => '8.5.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -16.995,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-      'themes/custom/acas/dist/js/acas.min.js' => [
-        'data' => 'themes/custom/acas/dist/js/acas.min.js',
-        'version' => '1.0.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -0.011,
-        'minified' => TRUE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ],
-    ];
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
-      $javascript['core/assets/vendor/jquery-form/jquery.form.min.js'] = [
-        'data' => 'core/assets/vendor/jquery-form/jquery.form.min.js',
-        'version' => '3.51',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -10,
-        'minified' => TRUE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ];
-      $javascript['modules/custom/general/js/anything_wrong.js'] = [
-        'data' => 'modules/custom/general/js/anything_wrong.js',
-        'version' => '1.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -9,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ];
-      $javascript['modules/contrib/votingapi_widgets/js/fivestars.js'] = [
-        'data' => 'modules/contrib/votingapi_widgets/js/fivestars.js',
-        'version' => '8.5.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -8,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'file',
-        'scope' => 'footer',
-      ];
-      $javascript['https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/jquery.barrating.min.js'] = [
-        'data' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/jquery.barrating.min.js',
-        'version' => '8.5.0',
-        'browsers' => [],
-        'group' => -100,
-        'weight' => -0.026,
-        'minified' => FALSE,
-        'cache' => TRUE,
-        'preprocess' => TRUE,
-        'type' => 'external',
-        'scope' => 'footer',
-      ];
+// Full menu
+function general_menu_full_first_level() {
+  $menu_name = 'main';
+  $menu_handler = \Drupal::service('plugin.manager.menu.link');
+  $menu_handler->deleteLinksInMenu($menu_name);
+  // Get top level
+  $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('acas', 0, 1);
+  $termIds = [];
+  foreach ($children as $value) {
+    $termIds[$value->tid] = $value->tid;
+  }
+  $query = \Drupal::database()->select('taxonomy_index', 'ti');
+  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+  $query->fields('ti', array('nid'));
+  $query->condition('ti.tid', $termIds, 'IN');
+  $query->orderBy('fd.weight', 'ASC');
+  $result = $query->execute();
+  $weight = 0;
+  if($nodeIds = $result->fetchCol()){
+    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+    foreach($nodes as $node) {
+      $first_level = MenuLinkContent::create([
+        'title' => $node->getTitle(),
+        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+        'menu_name' => $menu_name,
+        'expanded' => TRUE,
+        'weight' => $weight,
+      ]);
+      $first_level->save();
+      $weight++;
+      general_menu_full_second_level($first_level, $node->get('field_taxonomy')->target_id, $weight);
+    }
+  }
+}
+
+function general_menu_full_second_level($first_level, $tid, &$weight) {
+  if ($children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($tid)) {
+    $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->fields('ti', array('nid'));
+    foreach ($children as $key => $value) {
+      // See if have node
+      $query->condition('ti.tid', $key, '=');
+      $result = $query->execute();
+      if ($nid = $result->fetchCol()) {
+        $node = \Drupal\node\Entity\Node::load($nid[0]);
+        $second_level = MenuLinkContent::create([
+          'title' => $node->getTitle(),
+          'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+          'parent' => $first_level->getPluginId(),
+          'expanded' => TRUE,
+          'weight' => $weight,
+        ]);
+      }else{
+        // No node. See if have link to external site
+        $second_level = MenuLinkContent::create([
+          'title' => $value->getName(),
+          'link' => ['uri' => 'internal:' . $value->toUrl()->toString()],
+          'parent' => $first_level->getPluginId(),
+          'expanded' => TRUE,
+          'weight' => $weight,
+        ]);
+      }
+      $second_level->save();
+      $weight++;
+      general_menu_full_second_level($second_level, $key, $weight);
     }
   }
 }

@@ -13,3 +13,11 @@ general.health:
     _title: 'Health'
   requirements:
     _permission: 'access content'
+    
+general.feedback:
+  path: '/feedback/{entity_id}/{value}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::feedback'
+    _title: 'Health'
+  requirements:
+    _permission: 'access content'
