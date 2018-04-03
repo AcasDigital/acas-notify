@@ -1,0 +1,6 @@
+general.settings:
+  title: 'Acas settings'
+  description: 'Administer the Acas site.'
+  route_name: general.settings
+  parent: system.admin_config_system
+  weight: -999

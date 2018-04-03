@@ -1,3 +1,11 @@
+general.settings:
+  path: '/admin/config/system/acas'
+  defaults:
+    _form: '\Drupal\general\Form\AdminForm'
+    _title: 'Acas Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    
 general.searchheader:
   path: '/searchheader'
   defaults:

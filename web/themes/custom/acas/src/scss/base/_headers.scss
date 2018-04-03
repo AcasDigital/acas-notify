@@ -1,0 +1,41 @@
+h1, h2, h3, h4, h5, h6 {
+  &, a {
+    color: $acas-teal;
+    font-family: $font-family-headers;
+    font-weight: $font-weight-bold;
+    margin-top: .75em;
+    margin-bottom: .25em;
+  }
+}
+
+h1, h2, {
+  border-left: 5px solid $acas-lime;
+  padding-left: .75rem;
+}
+
+h1 {
+  font-size: 2.42rem;
+}
+
+h2 {
+  font-size: 1.36rem;
+}
+
+h3 {
+  &, a {
+    color: $acas-teal;
+    font-size: 1rem;
+  }
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 1rem;
+}

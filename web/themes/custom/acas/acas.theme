@@ -12,25 +12,8 @@ function acas_preprocess_page(&$variables) {
 }
 
 function acas_preprocess_menu(&$variables) {
-  foreach($variables['items'] as $key => $value) {
-    if ($value['title'] == 'Home') {
-      $variables['items'][$key]['icon'] = 'home';
-    }
-    if ($value['title'] == 'Log in') {
-      $variables['items'][$key]['icon'] = 'log-in';
-    }
-    if ($value['title'] == 'Log out') {
-      $variables['items'][$key]['icon'] = 'log-out';
-    }
-    if ($value['title'] == 'Register') {
-      $variables['items'][$key]['icon'] = 'user';
-    }
-    if ($value['title'] == 'My account') {
-      $variables['items'][$key]['icon'] = 'user';
-    }
-    if ($value['title'] == 'Contact') {
-      $variables['items'][$key]['icon'] = 'envelope';
-    }
+  if ($variables['menu_name'] == 'main') {
+    unset($variables['items']['standard.front_page']);
   }
 }
 

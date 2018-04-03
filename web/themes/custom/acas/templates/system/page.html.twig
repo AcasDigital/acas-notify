@@ -95,60 +95,48 @@
 
 {# Main #}
 {% block main %}
-  <div role="main" class="{{ container }} js-quickedit-main-content">
+  <main class="main__content" role="main">
+    <div class="{{ container }} js-quickedit-main-content">
 
-    {# Header #}
-    {% if page.header %}
-      {% block header %}
-      <div class="row">
-        <div class="col-sm-12" role="heading">
-          {{ page.header }}
+      {# Header #}
+      {% if page.header %}
+        {% block header %}
+        <div class="row">
+          <div class="col-sm-12" role="heading">
+            {{ page.header }}
+          </div>
         </div>
-      </div>
-      {% endblock %}
-    {% endif %}
-
-    {# Sidebar First #}
-    {% if page.sidebar_first %}
-      {% block sidebar_first %}
-        <aside class="col-sm-3" role="complementary">
-          {{ page.sidebar_first }}
-        </aside>
-      {% endblock %}
-    {% endif %}
-
-    {# Content #}
-    {%
-      set content_classes = [
-        page.sidebar_first and page.sidebar_second ? 'col-sm-6',
-        page.sidebar_first and page.sidebar_second is empty ? 'col-sm-9',
-        page.sidebar_second and page.sidebar_first is empty ? 'col-sm-9',
-        page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-12'
-      ]
-    %}
-    <div class="row">
-      <section{{ content_attributes.addClass(content_classes) }}>
-
-        {# Highlighted #}
-        {% if page.highlighted %}
-          {% block highlighted %}
-            <div class="highlighted">{{ page.highlighted }}</div>
-          {% endblock %}
-        {% endif %}
-
-        {# Help #}
-        {% if page.help %}
-          {% block help %}
-            {{ page.help }}
-          {% endblock %}
-        {% endif %}
-
-        {# Content #}
-        {% block content %}
-          <a id="main-content"></a>
-          {{ page.content }}
         {% endblock %}
-      </section>
+      {% endif %}
+
+      {# Sidebar First #}
+      {% if page.sidebar_first %}
+        {% block sidebar_first %}
+          <aside class="col-sm-3" role="complementary">
+            {{ page.sidebar_first }}
+          </aside>
+        {% endblock %}
+      {% endif %}
+
+      {# Highlighted #}
+      {% if page.highlighted %}
+        {% block highlighted %}
+          <div class="highlighted">{{ page.highlighted }}</div>
+        {% endblock %}
+      {% endif %}
+
+      {# Help #}
+      {% if page.help %}
+        {% block help %}
+          {{ page.help }}
+        {% endblock %}
+      {% endif %}
+
+      {# Content #}
+      {% block content %}
+        <a id="main-content"></a>
+        {{ page.content }}
+      {% endblock %}
 
       {# Sidebar Second #}
       {% if page.sidebar_second %}
@@ -158,16 +146,17 @@
           </aside>
         {% endblock %}
       {% endif %}
+
     </div>
-  </div>
+  </main>
 {% endblock %}
 
 {% if page.footer %}
   {% block footer %}
-    <div id="footer_wrapper">
-      <footer class="footer {{ container }}" role="contentinfo">
-        {{ page.footer }}
-      </footer>
+  <footer class="footer__wrapper" role="contentinfo">
+    <div id="footer__inner" class="{{ container }}">
+      {{ page.footer }}
     </div>
+  </footer>
   {% endblock %}
 {% endif %}

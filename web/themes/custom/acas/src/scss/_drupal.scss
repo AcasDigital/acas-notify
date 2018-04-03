@@ -10,6 +10,7 @@
     display: inline-block;
   }
 }
+
 #header-main {
   .views-exposed-form {
     margin-top: 8px;
@@ -42,6 +43,7 @@
     }
   }
 }
+
 #page_top_wrapper {
   background: $acas-teal;
   padding: 20px 0;
@@ -130,12 +132,7 @@
     }
   }
 }
-.page-header {
-  border-bottom: none;
-  margin-top: 40px;
-  font-size: 48px;
-  font-weight: 700;
-}
+
 .path-frontpage {
   .page-header {
     margin: 0;
@@ -144,11 +141,7 @@
     display: none;
   }
 }
-.breadcrumb {
-  margin: 0;
-  background-color: $white;
-  padding-left: 0
-}
+
 .main-container {
   padding-left: 5px;
   padding-right: 5px;
@@ -157,12 +150,14 @@
     min-height: 76vh;
   }
 }
+
 .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
   @media #{$tablet} {
     padding-left: 0;
     padding-right: 0;
   }
 }
+
 .path-frontpage {
   .main-container {
     border-top: none;
@@ -172,9 +167,11 @@
     display: none;
   }
 }
+
 strong.node_view {
   display: none;
 }
+
 .page-node-type-details-page {
   .field--name-field-taxonomy, .taxonomy-parent {
     display: none;
@@ -210,20 +207,7 @@ strong.node_view {
 
   }
 }
-#footer_wrapper {
-  background: $gray-light;
-  border-top: 10px solid $acas-teal;
-}
-.navbar-default {
-  @media #{$tablet} {
-    padding-left: 0;
-  }
-}
-.navbar-header {
-  @media #{$tablet} {
-    width: 100%;
-  }
-}
+
 .chosen-container {
   border: 0 !important;
   padding: 0 !important;
@@ -231,6 +215,7 @@ strong.node_view {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }
+
 .field--name-field-rate-this-content {
   .field--label, .field--item, .form-type-select, .button {
     display: inline-block;
@@ -284,6 +269,7 @@ strong.node_view {
 #block-socialsharingblock {
   margin-top: 20px;
 }
+
 .social-media-sharing {
   ul {
     li {
@@ -293,4 +279,8 @@ strong.node_view {
       }
     }
   }
+}
+.social-media-sharing {
+  display: block;
+  clear: both;
 }

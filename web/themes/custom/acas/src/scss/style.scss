@@ -14,23 +14,14 @@ $compile-IE: false;
 /* Base Styles */
 @import 'base';
 
-// Base-theme overrides.
-@import 'overrides';
-
 // Drupal Theme - to remove later.
 @import 'drupal';
 
 /* Base Components */
-@import 'components/base/headers';
-@import 'components/base/links';
+@import 'base/all'; 
 
 /* Common Components */
-@import 'components/common/button';
-@import 'components/common/callout';
-@import 'components/common/feedback';
+@import 'common/all';
 
 /* Structures */
-@import 'components/structures/landing-page';
-@import 'components/structures/header';
-@import 'components/structures/related';
-@import 'components/structures/breadcrumbs';
+@import 'structures/all';
