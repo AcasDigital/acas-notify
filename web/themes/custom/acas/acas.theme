@@ -43,18 +43,32 @@ function acas_preprocess_block(&$variables) {
       }
     }
   }
+  if ($variables['plugin_id'] == 'social_sharing_block') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+      if (!$node->get('field_social_share')->value) {
+        $variables['no_display'] = TRUE;
+      }
+    }
+  }
 }
 
 function acas_preprocess_links(&$variables) {
   if (isset($variables['links']['print'])) {
-    $variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
-    $variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
+    //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
+    //$variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
   }
 }
 
 function acas_preprocess_container(&$variables) {
+  $variables['no_display'] = FALSE;
   if (@$variables['element']['#export_type'] == 'pdf') {
-    //$variables['element']['#children']['string'] = 'btn btn-primary';
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+      if (!$node->get('field_print_download')->value) {
+        $variables['no_display'] = TRUE;
+      }
+    }
   }
 }
 

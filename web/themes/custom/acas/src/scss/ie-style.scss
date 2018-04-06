@@ -4,16 +4,14 @@ $compile-IE: true;
 @import 'colors';
 @import 'variables';
 
+// Reset Stylesheet
 @import 'reset';
 
-@import 'mixins';
+// IE8 Bootstrap Framework.
+@import '../bootstrap-ie8/bootstrap-ie8';
 
-// IE8 Bootstrap Grid Overrides
-@import "ie-grid/variables";
-@import "ie-grid/mixins";
-@import "ie-grid/normalize";
-@import "ie-grid/print";
-@import "ie-grid/grid";
+// Mixin Stylesheet
+@import 'mixins';
 
 /* Base Styles */
 @import 'base';
@@ -29,3 +27,6 @@ $compile-IE: true;
 
 /* Structures */
 @import 'structures/all';
+
+/* Templates */
+@import 'templates/all';

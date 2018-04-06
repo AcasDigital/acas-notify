@@ -10,3 +10,7 @@
     max-width: 26rem;
     padding: 1em;
 }
+#group-bottom-elements .field--type-boolean {
+  display: inline-block;
+  margin-right: 40px;
+}

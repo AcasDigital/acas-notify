@@ -4,12 +4,14 @@ $compile-IE: false;
 @import 'colors';
 @import 'variables';
 
+// Reset Stylesheet
 @import 'reset';
-
-@import 'mixins';
 
 // Bootstrap Framework.
 @import '../bootstrap/assets/stylesheets/bootstrap';
+
+// Mixin Stylesheet
+@import 'mixins';
 
 /* Base Styles */
 @import 'base';
@@ -18,10 +20,13 @@ $compile-IE: false;
 @import 'drupal';
 
 /* Base Components */
-@import 'base/all'; 
+@import 'base/all';
 
 /* Common Components */
 @import 'common/all';
 
 /* Structures */
 @import 'structures/all';
+
+/* Templates */
+@import 'templates/all';

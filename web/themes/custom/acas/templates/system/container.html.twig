@@ -26,4 +26,6 @@
     has_parent ? 'form-wrapper',
   ]
 %}
-<div{{ attributes.addClass(classes) }}>{{ children }}</div>
+{% if no_display != true %}
+  <div{{ attributes.addClass(classes) }}>{{ children }}</div>
+{% endif %}

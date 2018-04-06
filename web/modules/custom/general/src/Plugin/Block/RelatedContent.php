@@ -41,6 +41,9 @@ class RelatedContent extends BlockBase {
         }
       }
     }
+    foreach($node->get('field_related_content') as $link) {
+      //$output .= '<li>' . $link->get('title') . '</li>';
+    }
     $output .= '</ul></li></ul></nav>';
     return ['#markup' => $output];
   }
