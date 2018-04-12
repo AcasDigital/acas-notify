@@ -45,11 +45,14 @@ function acas_preprocess_block(&$variables) {
   }
   if ($variables['plugin_id'] == 'social_sharing_block') {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+    if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
       if (!$node->get('field_social_share')->value) {
         $variables['no_display'] = TRUE;
       }
     }
+  }
+  if ($variables['plugin_id'] == 'landing_pages_block') {
+    $variables['#cache']['max-age'] = 0;
   }
 }
 
@@ -64,7 +67,7 @@ function acas_preprocess_container(&$variables) {
   $variables['no_display'] = FALSE;
   if (@$variables['element']['#export_type'] == 'pdf') {
     $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+    if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
       if (!$node->get('field_print_download')->value) {
         $variables['no_display'] = TRUE;
       }

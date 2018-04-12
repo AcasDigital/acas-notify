@@ -7,11 +7,11 @@ $compile-IE: false;
 // Reset Stylesheet
 @import 'reset';
 
-// Bootstrap Framework.
-@import '../bootstrap/assets/stylesheets/bootstrap';
-
 // Mixin Stylesheet
 @import 'mixins';
+
+// Bootstrap Framework.
+@import '../bootstrap/assets/stylesheets/bootstrap';
 
 /* Base Styles */
 @import 'base';

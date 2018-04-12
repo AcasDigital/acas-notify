@@ -1,0 +1,59 @@
+{# All menu and submenu items #}
+
+{% import _self as menus %}
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul id="menu-primary" class="menu-primary" role="menu" aria-labelledby="dropdownMenu">
+    {% elseif menu_level == 1 %}
+      <ul class="menu-secondary" role="menu" aria-labelledby="dropdownMenu">
+    {% else %}
+      <ul class="menu-tertiary" role="menu" aria-labelledby="dLabel">
+    {% endif %}
+    {% for item in items %}
+      {% if item.below %}
+        {% if menu_level == 0 %}
+          <li class="menu-primary__item">
+            <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+	      {% elseif menu_level == 1 %}
+          <li class="menu-secondary__item">
+            <a href="{{ item.url }}" class="menu-secondary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+        {% else %}
+          <li class="menu-tertiary__item">
+            <a href="{{ item.url }}" class="menu-tertiary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+        {% endif %}
+      {% else %}
+        {% if menu_level == 0 %}
+          <li class="menu-primary__item">
+            <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+        {% elseif menu_level == 1 %}
+          <li class="menu-secondary__item">
+            <a href="{{ item.url }}" class="menu-secondary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+        {% else %}
+          <li class="menu-tertiary__item">
+            <a href="{{ item.url }}" class="menu-tertiary__link">{{ item.title }}</a>
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

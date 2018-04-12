@@ -35,7 +35,6 @@
   }
 }
 
-
 .btn-cta--download {
   &:after {
     background-image: url(../images/icons/icon-download.png);
@@ -43,16 +42,17 @@
 }
 
 .btn-cta--helpline {
-  max-width: 26rem;
-  padding: 1em 3em 1em 1em;
+  max-width: 30rem;
+  padding: 1em 4em 1em 1em;
   position: relative;
   text-align: left;
+  text-decoration: underline;
   p {
     margin-bottom: 0;
   }
   &:after {
     content: "";
-    background-image: url(../images/icons/telephone.svg);
+    background-image: url(../images/icons/icon-telephone.svg);
     background-repeat: no-repeat;
     background-size: 1.5em auto;
     background-position: 50% 50%;

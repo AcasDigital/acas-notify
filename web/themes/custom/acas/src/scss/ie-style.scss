@@ -7,11 +7,11 @@ $compile-IE: true;
 // Reset Stylesheet
 @import 'reset';
 
-// IE8 Bootstrap Framework.
-@import '../bootstrap-ie8/bootstrap-ie8';
-
 // Mixin Stylesheet
 @import 'mixins';
+
+// IE8 Bootstrap Framework.
+@import '../bootstrap-ie8/bootstrap-ie8';
 
 /* Base Styles */
 @import 'base';

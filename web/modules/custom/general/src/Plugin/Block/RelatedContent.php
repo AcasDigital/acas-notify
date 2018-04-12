@@ -26,9 +26,14 @@ class RelatedContent extends BlockBase {
       $url .= '/' . general_taxonomy_path($parent->getName());
     }
     $parent = array_pop($parents);
-    $output = '<nav class="section-nav js-section-nav" data-track-zone="section-nav">
-    <h3 class="section-nav__heading"><a href="#!" aria-controls="section-nav-list" aria-expanded="false"><span class="screenreader">Show</span> In this section</a></h3>
-    <ul id="section-nav-list" tabindex="-1"><li><a class="section-nav__parent" href="' . $url . '">' . $parent->getName() . '</a><ul>';
+    $output = '<nav class="nav-related" aria-labelledby="nav-related__title">
+    <h3 id="nav-related__title">
+      Related Content
+    </h3>
+    <ul id="section-nav-list" tabindex="-1">
+      <li>
+        <a class="section-nav__parent" href="' . $url . '">' . $parent->getName() . '</a>
+        <ul>';
     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($parent->getVocabularyId(), $parent->id());
     $path = $url;
     foreach($terms as $term) {
@@ -42,7 +47,10 @@ class RelatedContent extends BlockBase {
       }
     }
     foreach($node->get('field_related_content') as $link) {
-      //$output .= '<li>' . $link->get('title') . '</li>';
+      $params = $link->getUrl()->getRouteParameters();
+      $entity_type = key($params);
+      $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+      $output .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
     }
     $output .= '</ul></li></ul></nav>';
     return ['#markup' => $output];

@@ -86,19 +86,21 @@ function general_module_implements_alter(&$implementations, $hook) {
  * Implements hook_entity_view().
  */
 function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
-    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
-    $markup = '';
-    $section = '<ul class="section"><li>In:</li>';
-    foreach($parents as $parent) {
-      $markup .= '<span class="parent-name">' . $parent->getName() . '</span><span class="parent-description">' . $parent->getDescription() . '</span>';
-      $section .= '<li>' . $parent->getName() . '</li>';
+  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && ($entity->getType() == 'details_page' || $entity->getType() == 'support_page')) {
+    if ($entity->getType() == 'details_page') {
+      $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
+      $markup = '';
+      $section = '<ul class="section"><li>In:</li>';
+      foreach($parents as $parent) {
+        $markup .= '<span class="parent-name">' . $parent->getName() . '</span><span class="parent-description">' . $parent->getDescription() . '</span>';
+        $section .= '<li>' . $parent->getName() . '</li>';
+      }
+      $section .= '</ul>';
+      $build['taxonomy'] = [
+        '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
+        '#weight' => 990,
+      ];
     }
-    $section .= '</ul>';
-    $build['taxonomy'] = [
-      '#markup' => '<div class="taxonomy-parent">' . $markup . '</div>',
-      '#weight' => 990,
-    ];
     if ($entity->get('field_useful')->value) {
       $build['feedback'] = [
         '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Is this page useful?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',

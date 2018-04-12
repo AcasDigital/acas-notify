@@ -1,4 +1,4 @@
-.list-related, .block-related-content-block nav {
+.nav-related {
   border-top: .25rem solid $acas-lime;
   max-width: 20em;
   padding: .5em 0;
@@ -7,6 +7,6 @@
       color: $gray-dark;
       display: inline-block;
       margin: .5em 0;
-    }  
+    }
   }
-}
+} 

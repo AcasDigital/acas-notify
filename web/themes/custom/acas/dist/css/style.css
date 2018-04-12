@@ -1845,43 +1845,43 @@ strong.node_view {
 }
 
 /* line 176, ../../src/scss/_drupal.scss */
-.page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent {
+.page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent, .page-node-type-support-page .field--name-field-taxonomy, .page-node-type-support-page .taxonomy-parent {
   display: none;
 }
 /* line 179, ../../src/scss/_drupal.scss */
-.page-node-type-details-page article {
+.page-node-type-details-page article, .page-node-type-support-page article {
   margin-bottom: 20px;
 }
 /* line 182, ../../src/scss/_drupal.scss */
-.page-node-type-details-page strong.node_view {
+.page-node-type-details-page strong.node_view, .page-node-type-support-page strong.node_view {
   display: inline-block;
   float: left;
   margin-right: 20px;
 }
 /* line 186, ../../src/scss/_drupal.scss */
-.page-node-type-details-page strong.node_view .glyphicon {
+.page-node-type-details-page strong.node_view .glyphicon, .page-node-type-support-page strong.node_view .glyphicon {
   margin-left: 10px;
 }
 /* line 189, ../../src/scss/_drupal.scss */
-.page-node-type-details-page strong.node_view ul {
+.page-node-type-details-page strong.node_view ul, .page-node-type-support-page strong.node_view ul {
   padding: 0;
 }
 /* line 193, ../../src/scss/_drupal.scss */
-.page-node-type-details-page .print__wrapper--pdf, .page-node-type-details-page .node_view {
+.page-node-type-details-page .print__wrapper--pdf, .page-node-type-details-page .node_view, .page-node-type-support-page .print__wrapper--pdf, .page-node-type-support-page .node_view {
   display: inline-block;
   vertical-align: top;
 }
 /* line 198, ../../src/scss/_drupal.scss */
-.page-node-type-details-page .node_view ul.pre_link-colors li:first-child {
+.page-node-type-details-page .node_view ul.pre_link-colors li:first-child, .page-node-type-support-page .node_view ul.pre_link-colors li:first-child {
   background: none;
   padding: 0;
 }
 /* line 202, ../../src/scss/_drupal.scss */
-.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf {
+.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf, .page-node-type-support-page .print__wrapper--pdf .print__link-color--pdf {
   text-decoration: none;
 }
 /* line 204, ../../src/scss/_drupal.scss */
-.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf .glyphicon {
+.page-node-type-details-page .print__wrapper--pdf .print__link-color--pdf .glyphicon, .page-node-type-support-page .print__wrapper--pdf .print__link-color--pdf .glyphicon {
   margin-left: 10px;
 }
 
@@ -2060,17 +2060,18 @@ a {
   background-image: url(../images/icons/icon-print.png);
 }
 
-/* line 40, ../../src/scss/common/_button.scss */
+/* line 39, ../../src/scss/common/_button.scss */
 .btn-cta--download:after {
   background-image: url(../images/icons/icon-download.png);
 }
 
-/* line 45, ../../src/scss/common/_button.scss */
+/* line 44, ../../src/scss/common/_button.scss */
 .btn-cta--helpline {
-  max-width: 26rem;
-  padding: 1em 3em 1em 1em;
+  max-width: 30rem;
+  padding: 1em 4em 1em 1em;
   position: relative;
   text-align: left;
+  text-decoration: underline;
 }
 /* line 50, ../../src/scss/common/_button.scss */
 .btn-cta--helpline p {
@@ -2079,7 +2080,7 @@ a {
 /* line 53, ../../src/scss/common/_button.scss */
 .btn-cta--helpline:after {
   content: "";
-  background-image: url(../images/icons/telephone.svg);
+  background-image: url(../images/icons/icon-telephone.svg);
   background-repeat: no-repeat;
   background-size: 1.5em auto;
   background-position: 50% 50%;
@@ -2246,13 +2247,13 @@ a {
 }
 
 /* line 1, ../../src/scss/structures/_related.scss */
-.list-related, .block-related-content-block nav {
+.nav-related {
   border-top: 0.25rem solid #CEDC00;
   max-width: 20em;
   padding: .5em 0;
 }
 /* line 6, ../../src/scss/structures/_related.scss */
-.list-related ul a, .block-related-content-block nav ul a {
+.nav-related ul a {
   color: #999;
   display: inline-block;
   margin: .5em 0;
