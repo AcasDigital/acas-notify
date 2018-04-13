@@ -51,7 +51,7 @@ function acas_preprocess_block(&$variables) {
       }
     }
   }
-  if ($variables['plugin_id'] == 'landing_pages_block') {
+  if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block') {
     $variables['#cache']['max-age'] = 0;
   }
 }
