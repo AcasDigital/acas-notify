@@ -50,4 +50,8 @@ class GeneralController extends ControllerBase {
       'message' => t('Your vote was added.'),
     ]);
   }
+  
+  public function feedback_results() {
+    
+  }
 }

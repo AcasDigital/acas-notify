@@ -26,6 +26,14 @@ general.feedback:
   path: '/feedback/{entity_id}/{value}'
   defaults:
     _controller: '\Drupal\general\Controller\GeneralController::feedback'
-    _title: 'Health'
+    _title: 'Feedback'
+  requirements:
+    _permission: 'access content'
+    
+general.feedback-results:
+  path: '/feedback-reults'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::feedback_results'
+    _title: 'Feedback results'
   requirements:
     _permission: 'access content'

@@ -123,6 +123,7 @@
         "drupal/votingapi": "^3.0",
         "drupal/votingapi_widgets": "^1.0",
         "drupal/webform": "^5.0",
+        "drupal/webform_views": "^5.0",
         "drupal/workbench": "^1.0",
         "drupal/workbench_access": "^1.0",
         "drush/drush": "^9.0.0",
