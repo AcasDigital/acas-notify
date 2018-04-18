@@ -8,6 +8,7 @@ namespace Drupal\general\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\votingapi\Entity\Vote;
 use Drupal\votingapi\Entity\VoteType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GeneralController extends ControllerBase {
   public function searchheader() {
@@ -53,5 +54,32 @@ class GeneralController extends ControllerBase {
   
   public function feedback_results() {
     
+  }
+  
+  public function anything_wrong_results() {
+    $return = [];
+    $connection = \Drupal::database();
+    $query = $connection->query("SELECT sid FROM {webform_submission} WHERE webform_id = 'anything_wrong'");
+    $result = $query->fetchAll();
+    foreach($result as $sid) {
+      $query2 = $connection->query("SELECT name, value FROM {webform_submission_data} WHERE sid = :sid", array('sid' => $sid->sid));
+      $result2 = $query2->fetchAll();
+      $data = [];
+      $data['sid'] = $sid->sid;
+      foreach($result2 as $s) {
+        if ($s->name == 'email_optional_') {
+          $s->name = 'email';
+        }
+        if ($s->name == 'how_should_we_improve_this_page_') {
+          $s->name = 'message';
+        }
+        if ($s->name == 'name_optional_') {
+          $s->name = 'name';
+        }
+        $data[$s->name] = $s->value;
+      }
+      $return[] = $data;
+    }
+    return new JsonResponse($return);
   }
 }

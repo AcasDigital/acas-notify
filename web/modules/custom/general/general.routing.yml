@@ -37,3 +37,11 @@ general.feedback-results:
     _title: 'Feedback results'
   requirements:
     _permission: 'access content'
+    
+general.anything-wrong-results:
+  path: '/anything-wrong-results'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::anything_wrong_results'
+    _title: 'Anything wrong results'
+  requirements:
+    _permission: 'access content'
