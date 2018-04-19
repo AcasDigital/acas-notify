@@ -169,7 +169,26 @@
 }
 
 strong.node_view {
-  display: none;
+  display: inline-block;
+  float: left;
+  margin-right: 20px;
+  .glyphicon {
+    margin-left: 10px;
+  }
+  ul {
+    padding: 0;
+  }
+}
+
+.print__wrapper--pdf, .node_view {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.page-node-type-home-page, .page-node-type-landing-page {
+  strong.node_view {
+    display: none;
+  }
 }
 
 .page-node-type-details-page, .page-node-type-support-page {
@@ -179,32 +198,9 @@ strong.node_view {
   article {
     margin-bottom: 20px;
   }
-  strong.node_view {
-    display: inline-block;
-    float: left;
-    margin-right: 20px;
-    .glyphicon {
-      margin-left: 10px;
-    }
-    ul {
-      padding: 0;
-    }
-  }
-  .print__wrapper--pdf, .node_view {
-    display: inline-block;
-    vertical-align: top;
-  }
-
   .node_view ul.pre_link-colors li:first-child {
     background: none;
     padding: 0;
-  }
-  .print__wrapper--pdf .print__link-color--pdf {
-    text-decoration: none;
-    .glyphicon {
-      margin-left: 10px;
-    }
-
   }
 }
 
