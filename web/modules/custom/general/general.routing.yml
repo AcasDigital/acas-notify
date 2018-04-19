@@ -45,3 +45,11 @@ general.anything-wrong-results:
     _title: 'Anything wrong results'
   requirements:
     _permission: 'access content'
+
+general.notfound:
+  path: '/notfound'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::notfound'
+    _title_callback: '\Drupal\general\Controller\GeneralController::getNotFoundTitle'
+  requirements:
+    _permission: 'access content'

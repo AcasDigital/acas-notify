@@ -1,0 +1,5 @@
+services:
+  general.response_subscriber:
+    class: Drupal\general\ResponseSubscriber
+    tags:
+      - { name: event_subscriber }

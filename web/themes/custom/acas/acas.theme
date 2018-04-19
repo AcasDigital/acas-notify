@@ -33,6 +33,9 @@ function acas_preprocess_field(&$variables) {
   if (@$variables['entity_type'] == 'media' && @$variables['field_name'] == 'field_file_html') {
     $variables['items'][0]['content']['#template'] = '{{ value|raw }}';
   }
+  if (@$variables['entity_type'] == 'paragraph' && @$variables['element']['#bundle'] == 'helpdesk') {
+    $variables['currentPath'] = \Drupal::request()->getRequestUri();
+  }
 }
 
 function acas_preprocess_block(&$variables) {
@@ -57,6 +60,13 @@ function acas_preprocess_block(&$variables) {
 }
 
 function acas_preprocess_links(&$variables) {
+  if (isset($variables['links']['print'])) {
+    //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
+    //$variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
+  }
+}
+
+function acas_preprocess_image(&$variables) {
   if (isset($variables['links']['print'])) {
     //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
     //$variables['links']['print']['link']['#options']['attributes']['role'] = 'button';

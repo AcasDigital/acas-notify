@@ -180,7 +180,7 @@ function general_page_attachments_alter(&$build) {
     $build['#attached']['library'][] = 'general/extra.admin';
   }
   $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page') {
+  if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
     $build['#attached']['library'][] = 'general/details_page';
   }
 }

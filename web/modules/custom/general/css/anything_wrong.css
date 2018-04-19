@@ -1,9 +1,9 @@
-.path-node #anything-wrong-wrapper {
+#anything-wrong-wrapper {
   margin-bottom: 10px;
 }
-.js .path-node .webform-submission-form, .path-node #anything-wrong-close, .path-node .form-item-page-url {
+.js .webform-submission-form, #anything-wrong-close, .form-item-page-url {
   display: none;
 }
-.ie8.path-node .webform-submission-form {
+.ie8 .webform-submission-form {
   display: none;
 }
