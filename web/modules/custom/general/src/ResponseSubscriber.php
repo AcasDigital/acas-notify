@@ -17,16 +17,10 @@ class ResponseSubscriber implements EventSubscriberInterface {
     $response = $event->getResponse();
     // Intercept 404
     if ($response->getStatusCode() == 404) {
-      
-/*
       $request_uri = $event->getRequest()->getRequestUri();
-
-      if (strpos('/user', $request_uri) == 0) {
-        $response = new RedirectResponse('/some-better-place');
-        $response->send();
-        return;
+      if (strpos($request_uri, '/helpline') !== FALSE) {
+        $response->setStatusCode(200, 'OK');
       }
-*/
     }
   }
 
