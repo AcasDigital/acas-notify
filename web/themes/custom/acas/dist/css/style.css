@@ -1961,6 +1961,16 @@ strong.node_view ul {
   clear: both;
 }
 
+/* line 283, ../../src/scss/_drupal.scss */
+#block-acas-footer {
+  float: left;
+}
+
+/* line 286, ../../src/scss/_drupal.scss */
+#block-views-block-footer-site-navigation-block-1 {
+  float: right;
+}
+
 /* Base Components */
 /* line 2, ../../src/scss/base/_headers.scss */
 h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a {
@@ -2153,10 +2163,13 @@ a {
 
 /* line 1, ../../src/scss/structures/_footer.scss */
 .footer__wrapper {
-  background: #f2f2f2;
   padding: 2rem 0;
 }
-/* line 4, ../../src/scss/structures/_footer.scss */
+/* line 3, ../../src/scss/structures/_footer.scss */
+.footer__wrapper #footer__inner {
+  background: #f2f2f2;
+}
+/* line 6, ../../src/scss/structures/_footer.scss */
 .footer__wrapper, .footer__wrapper a {
   color: #000;
 }
