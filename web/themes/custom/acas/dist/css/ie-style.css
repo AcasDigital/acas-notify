@@ -1927,15 +1927,16 @@ strong.node_view ul {
 /* line 265, ../../src/scss/_drupal.scss */
 #block-socialsharingblock {
   margin-top: 20px;
+  z-index: -1;
 }
 
-/* line 272, ../../src/scss/_drupal.scss */
+/* line 273, ../../src/scss/_drupal.scss */
 .social-media-sharing ul li img {
   height: 40px;
   max-width: none !important;
 }
 
-/* line 279, ../../src/scss/_drupal.scss */
+/* line 280, ../../src/scss/_drupal.scss */
 .social-media-sharing {
   display: block;
   clear: both;

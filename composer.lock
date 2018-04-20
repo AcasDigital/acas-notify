@@ -177,16 +177,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.54.4",
+            "version": "3.54.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6642a13df7ddcccf19e66c744c5bfae5b61e9e85"
+                "reference": "0216bc091f0cb7aea72e9e6abfdeac0730809217"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6642a13df7ddcccf19e66c744c5bfae5b61e9e85",
-                "reference": "6642a13df7ddcccf19e66c744c5bfae5b61e9e85",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0216bc091f0cb7aea72e9e6abfdeac0730809217",
+                "reference": "0216bc091f0cb7aea72e9e6abfdeac0730809217",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-04-10T22:11:31+00:00"
+            "time": "2018-04-19T22:54:55+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2404,7 +2404,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/charts",
-                "reference": "b3032da2803b711ff0540dff82f0cc26a7b196fb"
+                "reference": "a0d99696b035916d2b85df0158c7b12b96ac9e67"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2415,8 +2415,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha8+12-dev",
-                    "datestamp": "1523459284",
+                    "version": "8.x-3.0-alpha9+1-dev",
+                    "datestamp": "1524180780",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -2458,7 +2458,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/charts"
             },
-            "time": "2018-04-11T15:03:43+00:00"
+            "time": "2018-04-19T23:37:47+00:00"
         },
         {
             "name": "drupal/chosen",
