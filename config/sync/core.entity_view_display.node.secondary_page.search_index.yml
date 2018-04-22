@@ -1,0 +1,54 @@
+uuid: dad1e0d5-b099-4401-b542-47ad149be406
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.secondary_page.field_anything_wrong
+    - field.field.node.secondary_page.field_content
+    - field.field.node.secondary_page.field_metatags
+    - field.field.node.secondary_page.field_print_download
+    - field.field.node.secondary_page.field_social_share
+    - field.field.node.secondary_page.field_summary
+    - field.field.node.secondary_page.field_taxonomy
+    - field.field.node.secondary_page.field_useful
+    - node.type.secondary_page
+  module:
+    - entity_print
+    - text
+    - user
+third_party_settings:
+  entity_print:
+    pdf_label: download
+id: node.secondary_page.search_index
+targetEntityType: node
+bundle: secondary_page
+mode: search_index
+content:
+  field_summary:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_taxonomy:
+    weight: 1
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_anything_wrong: true
+  field_content: true
+  field_metatags: true
+  field_print_download: true
+  field_social_share: true
+  field_useful: true
+  langcode: true
+  links: true

@@ -1,0 +1,22 @@
+uuid: 0a4f9eb3-4c93-4834-82b3-7b5fe61ffdc1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.landing_page
+  module:
+    - text
+id: node.landing_page.field_summary
+field_name: field_summary
+entity_type: node
+bundle: landing_page
+label: Summary
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

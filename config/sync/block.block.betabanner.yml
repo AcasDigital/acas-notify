@@ -1,0 +1,25 @@
+uuid: 3f2393c1-0c63-4cfd-b058-382809d521de
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:fd597117-eafc-4bb7-8213-efcc7675dcdc'
+  module:
+    - block_content
+  theme:
+    - acas
+id: betabanner
+theme: acas
+region: navigation_collapsible
+weight: -9
+provider: null
+plugin: 'block_content:fd597117-eafc-4bb7-8213-efcc7675dcdc'
+settings:
+  id: 'block_content:fd597117-eafc-4bb7-8213-efcc7675dcdc'
+  label: 'BETA Banner'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

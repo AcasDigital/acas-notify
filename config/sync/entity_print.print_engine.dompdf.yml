@@ -1,0 +1,15 @@
+uuid: 15c0acb8-8299-4974-a32d-7728ec9cd749
+langcode: en
+status: true
+dependencies: {  }
+id: dompdf
+settings:
+  orientation: portrait
+  default_paper_size: letter
+  username: acas-beta
+  password: not-to-be-shared
+  enable_html5_parser: true
+  enable_remote: true
+  cafile: ''
+  verify_peer: true
+  verify_peer_name: true

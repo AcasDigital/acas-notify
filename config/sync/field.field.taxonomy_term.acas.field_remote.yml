@@ -1,0 +1,19 @@
+uuid: 3059c594-1533-40f2-8a95-d9fd8387631d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_remote
+    - taxonomy.vocabulary.acas
+id: taxonomy_term.acas.field_remote
+field_name: field_remote
+entity_type: taxonomy_term
+bundle: acas
+label: Remote
+description: 'Link to content on the existing Acas site'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -423,6 +423,10 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
   }
 }
 
+function general_views_query_alter($view, $query) {
+  
+}
+
 /**
  * 
  * Health check

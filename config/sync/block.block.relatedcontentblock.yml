@@ -1,0 +1,28 @@
+uuid: 343ce793-70c4-4b86-a30f-63c2ebd5968c
+langcode: en
+status: true
+dependencies:
+  module:
+    - general
+    - node
+  theme:
+    - acas
+id: relatedcontentblock
+theme: acas
+region: content
+weight: -1
+provider: null
+plugin: related_content_block
+settings:
+  id: related_content_block
+  label: 'In this section'
+  provider: general
+  label_display: '0'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      details_page: details_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

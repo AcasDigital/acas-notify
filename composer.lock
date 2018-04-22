@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e756c5ccc0273d046020565c029b6fd",
+    "content-hash": "0b2e46a16f14aecb9051e50a36ac6aa9",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -177,16 +177,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.54.5",
+            "version": "3.54.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0216bc091f0cb7aea72e9e6abfdeac0730809217"
+                "reference": "ea86c808c9c8a1cd39dab2baa1b9dd38e03323ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0216bc091f0cb7aea72e9e6abfdeac0730809217",
-                "reference": "0216bc091f0cb7aea72e9e6abfdeac0730809217",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ea86c808c9c8a1cd39dab2baa1b9dd38e03323ec",
+                "reference": "ea86c808c9c8a1cd39dab2baa1b9dd38e03323ec",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-04-19T22:54:55+00:00"
+            "time": "2018-04-20T18:14:14+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2400,11 +2400,17 @@
         },
         {
             "name": "drupal/charts",
-            "version": "dev-3.x",
+            "version": "3.0.0-alpha9",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/charts",
-                "reference": "a0d99696b035916d2b85df0158c7b12b96ac9e67"
+                "reference": "8.x-3.0-alpha9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/charts-8.x-3.0-alpha9.zip",
+                "reference": "8.x-3.0-alpha9",
+                "shasum": "e092a6836881edb4097cb2789f04ddabbe7f24d0"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2415,11 +2421,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha9+1-dev",
-                    "datestamp": "1524180780",
+                    "version": "8.x-3.0-alpha9",
+                    "datestamp": "1523490480",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2457,8 +2463,7 @@
             "homepage": "https://www.drupal.org/project/charts",
             "support": {
                 "source": "http://cgit.drupalcode.org/charts"
-            },
-            "time": "2018-04-19T23:37:47+00:00"
+            }
         },
         {
             "name": "drupal/chosen",
@@ -8038,17 +8043,17 @@
         },
         {
             "name": "drupal/webform",
-            "version": "5.0.0-rc10",
+            "version": "5.0.0-rc11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/webform",
-                "reference": "8.x-5.0-rc10"
+                "reference": "8.x-5.0-rc11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.0-rc10.zip",
-                "reference": "8.x-5.0-rc10",
-                "shasum": "3243a597448af636ef7dbd9cbd5a33a95adc4551"
+                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.0-rc11.zip",
+                "reference": "8.x-5.0-rc11",
+                "shasum": "2e8bd5ecb2b3120b0101f3eb7cf32d30429d9f7f"
             },
             "require": {
                 "drupal/core": "*"
@@ -8065,8 +8070,8 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.0-rc10",
-                    "datestamp": "1523291284",
+                    "version": "8.x-5.0-rc11",
+                    "datestamp": "1524229380",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -9130,6 +9135,108 @@
                 "stream"
             ],
             "time": "2014-10-12T19:18:40+00:00"
+        },
+        {
+            "name": "highcharts/3d",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/highcharts-3d.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_3d"
+            }
+        },
+        {
+            "name": "highcharts/accessibility",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/modules/accessibility.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_accessibility"
+            }
+        },
+        {
+            "name": "highcharts/export-data",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/modules/export-data.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_export-data"
+            }
+        },
+        {
+            "name": "highcharts/exporting",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/modules/exporting.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_exporting"
+            }
+        },
+        {
+            "name": "highcharts/highcharts",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/highcharts.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts"
+            }
+        },
+        {
+            "name": "highcharts/more",
+            "version": "6.0.4",
+            "dist": {
+                "type": "file",
+                "url": "https://code.highcharts.com/6.0.4/highcharts-more.js",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "highcharts_more"
+            }
         },
         {
             "name": "illuminate/config",
@@ -16081,7 +16188,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/charts": 20,
         "drupal/facets": 10,
         "drupal/ga_login": 15,
         "drupal/google_analytics_reports": 20,
