@@ -5,5 +5,5 @@ dependencies: {  }
 name: Acas
 vid: acas
 description: 'Main Acas vocabulary'
-hierarchy: 1
+hierarchy: 0
 weight: 0

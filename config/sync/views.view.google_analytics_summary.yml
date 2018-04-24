@@ -6,7 +6,7 @@ dependencies:
     - system.menu.admin
   module:
     - charts
-    - charts_google
+    - charts_highcharts
     - google_analytics_reports
     - user
 _core:
@@ -53,19 +53,20 @@ display:
         type: chart
         options:
           grouping: {  }
-          library: google
+          library: highcharts
           type: line
           label_field: sessions
           fields:
             table: ''
           data_fields:
             sessions: 0
-            users: users
+            users: 0
             pageviews: pageviews
-            pageviewsPerSession: pageviewsPerSession
+            pageviewsPerSession: 0
             avgSessionDuration: avgSessionDuration
             bounceRate: bounceRate
             percentNewSessions: percentNewSessions
+            date: 0
           field_colors:
             sessions: '#2f7ed8'
             users: '#0d233a'
@@ -74,6 +75,7 @@ display:
             avgSessionDuration: '#1aadce'
             bounceRate: '#492970'
             percentNewSessions: '#f28f43'
+            date: '#77a1e5'
           title: ''
           title_position: out
           tooltips: ''
@@ -93,15 +95,6 @@ display:
           yaxis_suffix: ''
           yaxis_decimal_count: ''
           yaxis_labels_rotation: '0'
-          gauge:
-            max: '100'
-            min: '0'
-            green_from: '85'
-            green_to: '100'
-            yellow_from: '50'
-            yellow_to: '85'
-            red_from: '0'
-            red_to: '50'
       row:
         type: fields
         options:
@@ -113,6 +106,8 @@ display:
             pageviewsPerSession: pageviewsPerSession
             avgSessionDuration: avgSessionDuration
             bounceRate: bounceRate
+            percentNewSessions: percentNewSessions
+            date: date
           separator: ''
           hide_empty: 1
       fields:
@@ -510,6 +505,58 @@ display:
           prefix: ''
           suffix: '%'
           plugin_id: numeric
+        date:
+          id: date
+          table: google_analytics
+          field: date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Date
+          exclude: 1
+          alter:
+            alter_text: 0
+            text: ''
+            make_link: 0
+            path: ''
+            absolute: 0
+            external: 0
+            replace_spaces: 0
+            path_case: none
+            trim_whitespace: 0
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: 0
+            max_length: '0'
+            word_boundary: 1
+            ellipsis: 1
+            more_link: 0
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: 0
+            trim: 0
+            preserve_tags: ''
+            html: 0
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: 1
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: 1
+          empty: ''
+          hide_empty: 0
+          empty_zero: 0
+          hide_alter_empty: 1
+          date_format: custom
+          custom_date_format: Y-m-d
+          timezone: ''
+          plugin_id: date
       filters:
         start_date:
           id: start_date
@@ -595,7 +642,19 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-      sorts: {  }
+      sorts:
+        date:
+          id: date
+          table: google_analytics
+          field: date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
       title: 'Google Analytics Summary'
       header: {  }
       footer: {  }
@@ -993,14 +1052,41 @@ display:
             label: ''
           plugin_id: standard
       style:
-        type: html_list
+        type: chart
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          type: ol
-          wrapper_class: item-list
-          class: ''
+          library: highcharts
+          type: bar
+          label_field: pagePath
+          fields:
+            table: ''
+          data_fields:
+            pagePath: 0
+            pageTitle: 0
+            pageviews: pageviews
+          field_colors:
+            pagePath: '#2f7ed8'
+            pageTitle: '#0d233a'
+            pageviews: '#8bbc21'
+          title: ''
+          title_position: out
+          tooltips: ''
+          data_labels: ''
+          legend_position: right
+          background: ''
+          three_dimensional: 0
+          polar: 0
+          width: ''
+          height: ''
+          xaxis_title: ''
+          xaxis_labels_rotation: '0'
+          yaxis_title: ''
+          yaxis_min: ''
+          yaxis_max: ''
+          yaxis_prefix: ''
+          yaxis_suffix: ''
+          yaxis_decimal_count: ''
+          yaxis_labels_rotation: '0'
       row:
         type: fields
         options:

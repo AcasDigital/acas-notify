@@ -20,8 +20,8 @@ module:
   breakpoint: 0
   captcha: 0
   charts: 0
-  charts_api_example: 0
   charts_google: 0
+  charts_highcharts: 0
   ckeditor: 0
   cloudconvert: 0
   coffee: 0

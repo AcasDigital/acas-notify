@@ -5,6 +5,10 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.home_page
+    - paragraphs.paragraphs_type.bp_blank
+    - paragraphs.paragraphs_type.bp_simple
+    - paragraphs.paragraphs_type.document_with_html
+    - paragraphs.paragraphs_type.helpdesk
   module:
     - entity_reference_revisions
 id: node.home_page.field_content
@@ -21,7 +25,11 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles: null
+    target_bundles:
+      bp_blank: bp_blank
+      bp_simple: bp_simple
+      document_with_html: document_with_html
+      helpdesk: helpdesk
     target_bundles_drag_drop:
       bp_accordion:
         weight: 18
@@ -30,8 +38,8 @@ settings:
         weight: 19
         enabled: false
       bp_blank:
+        enabled: true
         weight: 20
-        enabled: false
       bp_block:
         weight: 21
         enabled: false
@@ -57,8 +65,8 @@ settings:
         weight: 28
         enabled: false
       bp_simple:
+        enabled: true
         weight: 29
-        enabled: false
       bp_tab_section:
         weight: 30
         enabled: false
@@ -73,5 +81,35 @@ settings:
         enabled: false
       xeno_hero:
         weight: 34
+        enabled: false
+      callout:
+        weight: 44
+        enabled: false
+      document_with_html:
+        enabled: true
+        weight: 45
+      helpdesk:
+        enabled: true
+        weight: 46
+      home_page:
+        weight: 47
+        enabled: false
+      image_text:
+        weight: 48
+        enabled: false
+      images:
+        weight: 49
+        enabled: false
+      nested_paragraph:
+        weight: 50
+        enabled: false
+      text:
+        weight: 51
+        enabled: false
+      text_image:
+        weight: 52
+        enabled: false
+      user:
+        weight: 53
         enabled: false
 field_type: entity_reference_revisions

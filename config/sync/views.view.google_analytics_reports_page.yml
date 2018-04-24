@@ -3,6 +3,8 @@ langcode: da
 status: true
 dependencies:
   module:
+    - charts
+    - charts_highcharts
     - google_analytics_reports
     - user
 _core:
@@ -46,7 +48,53 @@ display:
         options:
           offset: 0
       style:
-        type: table
+        type: chart
+        options:
+          grouping:
+            -
+              field: pageviews
+              rendered: true
+              rendered_strip: false
+          library: highcharts
+          type: pie
+          label_field: pageviews
+          fields:
+            table: ''
+          data_fields:
+            pageviews: 0
+            uniquePageviews: 0
+            avgTimeOnPage: avgTimeOnPage
+            entrances: 0
+            bounceRate: bounceRate
+            exitRate: 0
+            pageValue: 0
+          field_colors:
+            pageviews: '#2f7ed8'
+            uniquePageviews: '#0d233a'
+            avgTimeOnPage: '#8bbc21'
+            entrances: '#910000'
+            bounceRate: '#1aadce'
+            exitRate: '#492970'
+            pageValue: '#f28f43'
+          title: ''
+          title_position: out
+          tooltips: ''
+          data_labels: ''
+          legend_position: right
+          background: ''
+          three_dimensional: 0
+          polar: 0
+          width: ''
+          height: ''
+          xaxis_title: ''
+          xaxis_labels_rotation: '0'
+          yaxis_title: ''
+          yaxis_min: ''
+          yaxis_max: ''
+          yaxis_prefix: ''
+          yaxis_suffix: ''
+          yaxis_decimal_count: ''
+          yaxis_labels_rotation: '0'
       row:
         type: fields
       fields:
@@ -449,15 +497,44 @@ display:
           id: start_date
           table: google_analytics
           field: start_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
           value:
-            type: offset
+            min: ''
+            max: ''
             value: '-31 day'
+            type: offset
           group: 1
+          exposed: false
           expose:
+            operator_id: false
+            label: ''
+            description: ''
+            use_operator: false
             operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: 0
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         end_date:
           id: end_date
           table: google_analytics
@@ -793,14 +870,39 @@ display:
       display_extenders: {  }
       display_description: ''
       style:
-        type: html_list
+        type: chart
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          type: ol
-          wrapper_class: item-list
-          class: ''
+          library: highcharts
+          type: bar
+          label_field: source
+          fields:
+            table: ''
+          data_fields:
+            source: 0
+            sessions: sessions
+          field_colors:
+            source: '#2f7ed8'
+            sessions: '#0d233a'
+          title: ''
+          title_position: out
+          tooltips: ''
+          data_labels: ''
+          legend_position: right
+          background: ''
+          three_dimensional: 0
+          polar: 0
+          width: ''
+          height: ''
+          xaxis_title: ''
+          xaxis_labels_rotation: '0'
+          yaxis_title: ''
+          yaxis_min: ''
+          yaxis_max: ''
+          yaxis_prefix: ''
+          yaxis_suffix: ''
+          yaxis_decimal_count: ''
+          yaxis_labels_rotation: '0'
       defaults:
         style: false
         row: false

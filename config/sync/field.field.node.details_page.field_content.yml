@@ -7,7 +7,6 @@ dependencies:
     - node.type.details_page
     - paragraphs.paragraphs_type.bp_blank
     - paragraphs.paragraphs_type.bp_simple
-    - paragraphs.paragraphs_type.callout
     - paragraphs.paragraphs_type.document_with_html
     - paragraphs.paragraphs_type.helpdesk
   module:
@@ -28,7 +27,6 @@ settings:
     negate: 0
     target_bundles:
       bp_blank: bp_blank
-      callout: callout
       helpdesk: helpdesk
       bp_simple: bp_simple
       document_with_html: document_with_html
@@ -43,17 +41,17 @@ settings:
         enabled: true
         weight: 26
       callout:
-        enabled: true
         weight: 27
+        enabled: false
       bp_block:
         weight: 27
+        enabled: false
+      bp_carousel:
+        weight: 28
         enabled: false
       helpdesk:
         enabled: true
         weight: 28
-      bp_carousel:
-        weight: 28
-        enabled: false
       bp_column_wrapper:
         weight: 29
         enabled: false

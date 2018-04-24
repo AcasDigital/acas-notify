@@ -12,6 +12,8 @@ use Drupal\Core\Site\Settings;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use \CloudConvert\Api;
 use Sunra\PhpSimple\HtmlDomParser;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 /**
  * Implements hook_help().
@@ -423,8 +425,16 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
   }
 }
 
-function general_views_query_alter($view, $query) {
-  
+function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if (strpos($view->current_display, 'rest_export') !== FALSE) {
+    $filters = $view->display_handler->getOption('filters');
+    if (@$_GET['start']) {
+      $query->addWhere(1, '.start_date', strtotime($_GET['start']), '=');
+    }
+    if (@$_GET['end']) {
+      $query->addWhere(1, '.end_date', strtotime($_GET['end']), '=');
+    }
+  }
 }
 
 /**
