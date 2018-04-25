@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b2e46a16f14aecb9051e50a36ac6aa9",
+    "content-hash": "92e7d18fb2f74c99630299135eb189f4",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -177,16 +177,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.55.0",
+            "version": "3.55.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d130bba2e7cae7cabb118a4a912b80cb505e97ff"
+                "reference": "42fd0afe654b549d3353e82fe05bed1cd8c70b49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d130bba2e7cae7cabb118a4a912b80cb505e97ff",
-                "reference": "d130bba2e7cae7cabb118a4a912b80cb505e97ff",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/42fd0afe654b549d3353e82fe05bed1cd8c70b49",
+                "reference": "42fd0afe654b549d3353e82fe05bed1cd8c70b49",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-04-23T19:32:26+00:00"
+            "time": "2018-04-24T19:18:36+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -3265,17 +3265,11 @@
         },
         {
             "name": "drupal/content_sync",
-            "version": "2.0.0",
+            "version": "dev-2.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/content_sync",
-                "reference": "8.x-2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_sync-8.x-2.0.zip",
-                "reference": "8.x-2.0",
-                "shasum": "8382a422c907f353bdbaad13ea788390a13038eb"
+                "reference": "4052e4fccd7c1dae5e947c476ea8321348723d40"
             },
             "require": {
                 "drupal/core": "*"
@@ -3286,11 +3280,11 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0",
-                    "datestamp": "1514473985",
+                    "version": "8.x-2.0+1-dev",
+                    "datestamp": "1523462284",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -3320,7 +3314,8 @@
             "homepage": "https://www.drupal.org/project/content_sync",
             "support": {
                 "source": "http://cgit.drupalcode.org/content_sync"
-            }
+            },
+            "time": "2018-04-20T04:46:12+00:00"
         },
         {
             "name": "drupal/core",
@@ -6151,6 +6146,65 @@
             }
         },
         {
+            "name": "drupal/node_revision_delete",
+            "version": "1.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/node_revision_delete",
+                "reference": "8.x-1.0-alpha4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/node_revision_delete-8.x-1.0-alpha4.zip",
+                "reference": "8.x-1.0-alpha4",
+                "shasum": "d36d00240f5d7fb6f1467c47dd4ae41b23d00619"
+            },
+            "require": {
+                "drupal/core": "~8.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha4",
+                    "datestamp": "1522873239",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Cid Almaguer (adriancid)",
+                    "homepage": "https://www.drupal.org/u/adriancid",
+                    "email": "adriancid@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "kaushalkishorejaiswal",
+                    "homepage": "https://www.drupal.org/user/2228850"
+                }
+            ],
+            "description": "Track and prune node revisions.",
+            "homepage": "https://www.drupal.org/project/node_revision_delete",
+            "keywords": [
+                "Drupal",
+                "Nodes",
+                "Revisions"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/node_revision_delete",
+                "issues": "https://www.drupal.org/project/issues/node_revision_delete"
+            }
+        },
+        {
             "name": "drupal/panelbutton",
             "version": "1.1.0",
             "source": {
@@ -7078,17 +7132,17 @@
         },
         {
             "name": "drupal/sitemap",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/sitemap",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/sitemap-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "c2a2bba65c51102aff004fc1a41b588185a326e7"
+                "url": "https://ftp.drupal.org/files/projects/sitemap-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "7cacf88430468c2d81a8d4ac9ebbc1aeb1ed9c27"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -7099,8 +7153,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1488325384",
+                    "version": "8.x-1.4",
+                    "datestamp": "1524583085",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7805,6 +7859,76 @@
             "homepage": "https://www.drupal.org/project/video_embed_field",
             "support": {
                 "source": "http://cgit.drupalcode.org/video_embed_field"
+            }
+        },
+        {
+            "name": "drupal/views_bulk_operations",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/views_bulk_operations",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "d8ea49e37dc6920ecad76ea494161a16b775f782"
+            },
+            "require": {
+                "drupal/core": "^8.4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1522748285",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Grabias",
+                    "homepage": "https://www.drupal.org/u/graber"
+                },
+                {
+                    "name": "Jon Pugh",
+                    "homepage": "https://www.drupal.org/user/17028"
+                },
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "infojunkie",
+                    "homepage": "https://www.drupal.org/user/48424"
+                },
+                {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                }
+            ],
+            "description": "Adds an ability to perform bulk operations on selected entities from view results. Provides an API to create such operations.",
+            "homepage": "https://www.drupal.org/project/views_bulk_operations",
+            "support": {
+                "source": "http://cgit.drupalcode.org/views_bulk_operations",
+                "issues": "https://www.drupal.org/project/issues/views_bulk_operations?version=8.x",
+                "docs": "https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo"
             }
         },
         {
@@ -16188,6 +16312,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/content_sync": 20,
         "drupal/facets": 10,
         "drupal/ga_login": 15,
         "drupal/google_analytics_reports": 20,
