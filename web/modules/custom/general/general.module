@@ -171,6 +171,9 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'taxonomy_overview_terms') {
     $form['#submit'][] = 'general_taxonomy_overview_terms_submit';
   }
+  if ($form_id == 'sync_form') {
+    $form['actions']['submit']['#value'] = 'Start syncronisation to Prod';
+  }
 }
 
 /**

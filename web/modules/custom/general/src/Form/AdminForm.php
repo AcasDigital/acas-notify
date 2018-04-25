@@ -38,6 +38,20 @@ class AdminForm extends ConfigFormBase {
       '#description' => t('Alerts will be sent to this address when a user completes the feedback form or clicks "Was this page usefull?"'),
       '#size' => 100,
     );
+    $form['sync'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Production content sync DB settings'),
+    );
+    $form['sync']['host'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('host') ?: 'production.cwmdxlymhijc.eu-west-1.rds.amazonaws.com',
+      '#title' => t('Host'),
+    );
+    $form['sync']['database'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('database') ?: 'ebdb',
+      '#title' => t('Database'),
+    );
     return parent::buildForm($form, $form_state);
   }
   
@@ -54,6 +68,8 @@ class AdminForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('feedback_email', $form_state->getValue('feedback_email'))
+    ->set('host', $form_state->getValue('host'))
+    ->set('database', $form_state->getValue('database'))
     ->save();
     parent::submitForm($form, $form_state);
   }

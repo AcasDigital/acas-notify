@@ -6,6 +6,22 @@ general.settings:
   requirements:
     _permission: 'administer site configuration'
     
+general.sync:
+  path: '/admin/config/development/sync'
+  defaults:
+    _form: '\Drupal\general\Form\SyncForm'
+    _title: 'Sync to Prod'
+  requirements:
+    _permission: 'sync to prod'
+    
+general.sync_prod:
+  path: '/sync-prod'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::sync_prod'
+    _title: 'Syncronise to Production'
+  requirements:
+    _permission: 'sync to prod'
+    
 general.searchheader:
   path: '/searchheader'
   defaults:

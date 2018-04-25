@@ -145,7 +145,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'uglify:dev',
-    'compass:dev',
+    'sass:dev',
     'copy:dist'
   ]);
 

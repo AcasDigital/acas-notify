@@ -4,3 +4,10 @@ general.settings:
   route_name: general.settings
   parent: system.admin_config_system
   weight: -1
+  
+general.sync:
+  title: 'Syncronise to Prod'
+  description: 'Export all content from this site to Prod'
+  route_name: general.sync
+  parent: system.admin_config_development
+  weight: -1

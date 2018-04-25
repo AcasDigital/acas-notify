@@ -105,4 +105,18 @@ class GeneralController extends ControllerBase {
     }
     return new JsonResponse($return);
   }
+  
+  public function sync_prod() {
+    $config = \Drupal::config('acas.settings');
+    $connection = \Drupal\Core\Database\Database::getConnection()->getConnectionOptions();
+    $output = '';
+    $file = '/tmp/DB_' . time() . '.sql';
+    $cmd = 'mysqldump -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . ' > ' . $file;
+    exec($cmd);
+    $cmd = 'mysql -u root -pextreme9514 -h ' . $config->get('host') . ' ' . $config->get('database') . ' < ' . $file;
+    exec($cmd);
+    unlink($file);
+    drupal_set_message('Finished syncing content to Production');
+    return array('#markup' => '<h3>Finished</h3>');
+  }
 }

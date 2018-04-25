@@ -1,8 +1,0 @@
-uuid: 40b0a767-f842-4e3d-ae6a-cfdab08da2ee
-langcode: en
-status: true
-dependencies: {  }
-id: tcpdfv1
-settings:
-  page_format: A4
-  orientation: portrait
