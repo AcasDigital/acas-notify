@@ -1662,7 +1662,7 @@ p {
   margin: 0;
 }
 /* line 28, ../../src/scss/_drupal.scss */
-#header-main #block-betabanner {
+#header-main #block-betabannerblock {
   background: #f2f2f2;
   color: #000;
   clear: both;
@@ -1672,12 +1672,12 @@ p {
   top: 0;
 }
 /* line 36, ../../src/scss/_drupal.scss */
-#header-main #block-betabanner p {
+#header-main #block-betabannerblock p {
   margin-bottom: 0;
 }
 @media screen and (min-width: 768px) {
   /* line 28, ../../src/scss/_drupal.scss */
-  #header-main #block-betabanner {
+  #header-main #block-betabannerblock {
     font-size: 2.4em;
     clear: none;
     float: left;

@@ -31,12 +31,14 @@ class SyncForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     if (!_is_site('uat')) {
-      drupal_set_message("Sync to Production can only be run from the UAT site!", 'error');
-      return array('#markup' => '<h3>Not allowed</h3>');
+      //drupal_set_message("Sync to Production can only be run from the UAT site!", 'error');
+      //return array('#markup' => '<h3>Not allowed</h3>');
     }
     $config = $this->config('acas.settings');
     $form['#prefix'] = '<h2>Syncronise content to Production</h2>';
     $form['#action'] = '/sync-prod';
+    $form['#attached']['library'][] = 'general/sync_prod';
+    $form['#attributes']['onsubmit'] = 'return syncProd()';
     return parent::buildForm($form, $form_state);
   }
   

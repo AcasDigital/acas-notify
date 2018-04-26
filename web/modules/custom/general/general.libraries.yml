@@ -35,3 +35,10 @@ details_page:
   dependencies:
     - core/jquery
     - core/jquery.once
+    
+sync_prod:
+  js:
+    js/sync_prod.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
