@@ -22,6 +22,14 @@ general.sync_prod:
   requirements:
     _permission: 'sync to prod'
     
+general.sync_update:
+  path: '/sync-update'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::sync_update'
+    _title: 'Syncronise to Production'
+  requirements:
+    _permission: 'access content'
+    
 general.searchheader:
   path: '/searchheader'
   defaults:

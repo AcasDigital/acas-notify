@@ -9,6 +9,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\votingapi\Entity\Vote;
 use Drupal\votingapi\Entity\VoteType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use ZipArchive;
 
 class GeneralController extends ControllerBase {
   public function searchheader() {
@@ -107,16 +108,25 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    $config = \Drupal::config('acas.settings');
-    $connection = \Drupal\Core\Database\Database::getConnection()->getConnectionOptions();
-    $output = '';
-    $file = '/tmp/DB_' . time() . '.sql';
-    $cmd = 'mysqldump -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . ' > ' . $file;
-    exec($cmd);
-    $cmd = 'mysql -u root -pextreme9514 -h ' . $config->get('host') . ' ' . $config->get('database') . ' < ' . $file;
-    exec($cmd);
-    unlink($file);
-    drupal_set_message('Finished syncing content to Production');
+    general_sync_prod();
     return array('#markup' => '<h3>Finished</h3>');
+  }
+  
+  public function sync_update() {
+    $uuid = \Drupal::config('system.site')->get('uuid');
+    if ($uuid == $_POST['UUID']) {
+      file_put_contents('/tmp/sync.zip', base64_decode($_POST['data']));
+      $zip = new ZipArchive();
+      $zip->open('/tmp/sync.zip');
+      $zip->extractTo('/tmp/');
+      $zip->close();
+      unlink('/tmp/sync.zip');
+      $connection = \Drupal\Core\Database\Database::getConnection()->getConnectionOptions();
+      $cmd = 'mysql -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . ' < /tmp/' . $_POST['file'];
+      exec($cmd);
+      unlink('/tmp/' . $_POST['file']);
+      return new JsonResponse('ok');
+    }
+    return new JsonResponse('error');
   }
 }

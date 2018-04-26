@@ -1,5 +1,5 @@
 // ----- Media-queries ----- //
-$breakpoints: S 768px, M 900px, L 1200px;
+$breakpoints: SM $screen-sm-min, MD $screen-md-min, LG $screen-lg-min, XL $screen-xl-min;
 
 @mixin bp($bp) {
 // If compile-IE is true (IE8 <=) then just use the desktop overrides and parse them without @media queries
@@ -17,3 +17,4 @@ $breakpoints: S 768px, M 900px, L 1200px;
       }
    }
 }
+ 

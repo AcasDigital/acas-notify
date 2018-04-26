@@ -10,14 +10,17 @@
 .container {
   @include container-fixed;
 
-  @include bp(S) {
+  @include bp(SM) {
     width: $container-sm;
   }
-  @include bp(M) {
+  @include bp(MD) {
     width: $container-md;
   }
-  @include bp(L) {
+  @include bp(LG) {
     width: $container-lg;
+  }
+  @include bp(XL) {
+    width: $container-xl;
   }
 }
 

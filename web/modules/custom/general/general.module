@@ -444,6 +444,55 @@ function general_ckeditor_css_alter(&$css, $editor) {
   $css[] = drupal_get_path('module', 'general') . '/css/ckeditor.css';
 }
 
+function general_sync_prod() {
+  $config = \Drupal::config('acas.settings');
+  $connection = \Drupal\Core\Database\Database::getConnection()->getConnectionOptions();
+  $output = '';
+  $file = 'DB_' . time() . '.sql';
+  $path = '/tmp/' . $file;
+  $exclude = [
+    'history',
+    'sessions',
+    'votingapi_result',
+    'votingapi_vote',
+    'webform',
+    'webform_scheduled_email',
+    'webform_submission',
+    'webform_submission_data',
+    'webform_submission_log'
+  ];
+  $tables = '';
+  $databse = $connection['database'];
+  foreach($exclude as $t) {
+    $tables .= " --ignore-table=$databse.$t";
+  }
+  $cmd = 'mysqldump -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . $tables . ' > ' . $path;
+  exec($cmd);
+  // Zip, Base64, curl to prod
+  $zip_file = str_replace('.sql', '.zip', $path);
+  $zip = new ZipArchive();
+  $zip->open($zip_file, constant("ZipArchive::CREATE"));
+  $zip->addFile($path, $file);
+  $zip->close();
+  $encoded = base64_encode(file_get_contents($zip_file));
+  unlink($path);
+  unlink($zip_file);
+  $POST_DATA = array(
+    'data' => $encoded,
+    'UUID' => \Drupal::config('system.site')->get('uuid'),
+    'file' => $file,
+  );
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, 'https://beta-acas.org.uk/sync-update?XDEBUG_SESSION_START=john');
+  curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+  curl_setopt($curl, CURLOPT_POST, 1);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $POST_DATA);
+  $response = curl_exec($curl);
+  curl_close ($curl);
+  drupal_set_message('Finished syncing content to Production');
+}
+
 /**
  * 
  * Health check

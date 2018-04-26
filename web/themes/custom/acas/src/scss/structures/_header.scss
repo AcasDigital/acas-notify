@@ -1,57 +1,31 @@
+#header-main {
+  border-bottom: 5px solid $acas-lime;
+}
+
 #block-acas-main-menu {
   clear: both;
 }
 
-.menu-primary {
-  padding: 1em;
-}
-
 .menu-primary__item, .menu-secondary__item {
-  display: inline-block;
-  vertical-align: top;
   position: relative;
   > ul {
     display: none;
     background: white;
-    border: 1px solid $gray-light;
     left: 0;
     list-style: none;
-    margin: 0;
-    padding: 0;
     position: absolute;
-    width: 140%;
+    width: 100%;
     z-index: 1001;
     li {
       display: block;
       width: 100%;
-      padding: 0;
-    }
-  }
-}
-
-.menu-primary__item {
-  &.active {
-    .menu-secondary{
-      display: block;
-    }
-  }
-}
-
-.menu-secondary__item {
-  .menu-tertiary {
-    left: 100%;
-    top: 0;
-  }
-  &.active {
-    .menu-tertiary {
-      display: block;
+      padding: 0.5em 1em;
     }
   }
 }
 
 .menu-primary__link,
-.menu-secondary__link,
-.menu-tertiary__link {
+.menu-secondary__link {
   color: $acas-teal;
   display: block;
   font-size: 1rem;
@@ -61,15 +35,57 @@
   text-decoration: none;
 }
 
-.menu-secondary__link,
-.menu-tertiary__link {
-    display: block;
-    padding: 0 1em;
-    border-bottom: 1px solid $gray-light;
-    text-decoration: none;
-}
-
-.menu-primary__link {
-  padding-right: 2em;
-  text-decoration: none;
+/* Medium Screens and Up */
+@include bp(MD) {
+  #block-acas-main-menu {
+    margin-top: 2em;
+  }
+  .nav-main__icon {
+    display: none;
+  }
+  .menu-primary {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+  .menu-primary__item {
+    display: table-cell;
+    &:hover, &:focus {
+      background: $acas-teal;
+      .menu-primary__link {
+        background: $acas-teal;
+        color: $white;
+      }
+    }
+    &.active {
+      .menu-secondary {
+        -webkit-box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
+        -moz-box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
+        box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
+        display: block;
+        top: 100%;
+      }
+    }
+  }
+  .menu-primary__link {
+    padding: 1em 2em;
+  }
+  .menu-secondary {
+    border-top: 0.75em solid $acas-teal;
+    margin-top: 1em;
+    &:before {
+      content: "";
+      border-bottom: 1em solid $acas-teal;
+      border-right: 1em solid transparent;
+      border-top: 1em solid transparent;
+      border-left: 1em solid transparent;
+      display: block;
+      height: 0px;
+      left: calc(50% - 1em);
+      margin: auto;
+      position: absolute;
+      top: -2.5em;
+      width: 0px;
+    }
+  }
 }
