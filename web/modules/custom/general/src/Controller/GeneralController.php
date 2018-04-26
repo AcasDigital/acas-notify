@@ -108,6 +108,7 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
+    
     general_sync_prod();
     return array('#markup' => '<h3>Finished</h3>');
   }
@@ -115,16 +116,21 @@ class GeneralController extends ControllerBase {
   public function sync_update() {
     $uuid = \Drupal::config('system.site')->get('uuid');
     if ($uuid == $_POST['UUID']) {
+      $config_factory = \Drupal::configFactory();
+      $config = $config_factory->getEditable('system.performance');
+      $cache = $config->get('cache');
       file_put_contents('/tmp/sync.zip', base64_decode($_POST['data']));
       $zip = new ZipArchive();
       $zip->open('/tmp/sync.zip');
       $zip->extractTo('/tmp/');
       $zip->close();
-      unlink('/tmp/sync.zip');
       $connection = \Drupal\Core\Database\Database::getConnection()->getConnectionOptions();
       $cmd = 'mysql -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . ' < /tmp/' . $_POST['file'];
       exec($cmd);
+      unlink('/tmp/sync.zip');
       unlink('/tmp/' . $_POST['file']);
+      $config->set('cache', $cache);
+      $config->save(TRUE);
       return new JsonResponse('ok');
     }
     return new JsonResponse('error');

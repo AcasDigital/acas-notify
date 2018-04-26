@@ -483,7 +483,7 @@ function general_sync_prod() {
     'file' => $file,
   );
   $curl = curl_init();
-  curl_setopt($curl, CURLOPT_URL, 'https://beta-acas.org.uk/sync-update?XDEBUG_SESSION_START=john');
+  curl_setopt($curl, CURLOPT_URL, 'https://beta-acas.org.uk/sync-update');
   curl_setopt($curl, CURLOPT_TIMEOUT, 30);
   curl_setopt($curl, CURLOPT_POST, 1);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -491,6 +491,14 @@ function general_sync_prod() {
   $response = curl_exec($curl);
   curl_close ($curl);
   drupal_set_message('Finished syncing content to Production');
+}
+
+function _is_site($site = 'beta') {
+  $a = explode('.', $_SERVER['HTTP_HOST']);
+  if (strpos($a[0], $site) !== FALSE) {
+    return TRUE;
+  }
+  return FALSE;
 }
 
 /**
