@@ -108,7 +108,6 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    
     general_sync_prod();
     return array('#markup' => '<h3>Finished</h3>');
   }
@@ -131,6 +130,7 @@ class GeneralController extends ControllerBase {
       unlink('/tmp/' . $_POST['file']);
       $config->set('cache', $cache);
       $config->save(TRUE);
+      drupal_flush_all_caches();
       return new JsonResponse('ok');
     }
     return new JsonResponse('error');
