@@ -1646,89 +1646,51 @@ p {
   display: inline-block;
 }
 
-/* line 15, ../../src/scss/_drupal.scss */
-#header-main .views-exposed-form {
-  margin-top: 8px;
-}
-@media screen and (min-width: 768px) {
-  /* line 15, ../../src/scss/_drupal.scss */
-  #header-main .views-exposed-form {
-    margin-left: 40px;
-    float: left;
-  }
-}
-/* line 21, ../../src/scss/_drupal.scss */
-#header-main .views-exposed-form .form-group {
-  margin: 0;
-}
-/* line 28, ../../src/scss/_drupal.scss */
-#header-main #block-betabannerblock {
-  background: #f2f2f2;
-  color: #000;
-  clear: both;
-  font-size: 1.4em;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-/* line 36, ../../src/scss/_drupal.scss */
-#header-main #block-betabannerblock p {
-  margin-bottom: 0;
-}
-@media screen and (min-width: 768px) {
-  /* line 28, ../../src/scss/_drupal.scss */
-  #header-main #block-betabannerblock {
-    font-size: 2.4em;
-    clear: none;
-    float: left;
-  }
-}
-
-/* line 47, ../../src/scss/_drupal.scss */
+/* line 14, ../../src/scss/_drupal.scss */
 #page_top_wrapper {
   background: #008C95;
   padding: 20px 0;
   margin-bottom: 20px;
 }
-/* line 51, ../../src/scss/_drupal.scss */
+/* line 18, ../../src/scss/_drupal.scss */
 #page_top_wrapper .container {
   position: relative;
 }
-/* line 54, ../../src/scss/_drupal.scss */
+/* line 21, ../../src/scss/_drupal.scss */
 #page_top_wrapper .pull-left {
   float: none !important;
   position: relative;
   top: 8px;
 }
-/* line 59, ../../src/scss/_drupal.scss */
+/* line 26, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
   margin-bottom: 28px;
   margin-top: 30px;
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-  /* line 59, ../../src/scss/_drupal.scss */
+  /* line 26, ../../src/scss/_drupal.scss */
   #page_top_wrapper #block-exposedformsolr-search-contentpage-1 {
     width: 60%;
   }
 }
-/* line 66, ../../src/scss/_drupal.scss */
+/* line 33, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .control-label {
   display: none;
 }
-/* line 69, ../../src/scss/_drupal.scss */
+/* line 36, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
   width: 100%;
 }
-/* line 71, ../../src/scss/_drupal.scss */
+/* line 38, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
   width: 100%;
 }
-/* line 74, ../../src/scss/_drupal.scss */
+/* line 41, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
   width: 40px;
 }
-/* line 78, ../../src/scss/_drupal.scss */
+/* line 45, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
   display: none !important;
   margin-top: 20px;
@@ -1736,22 +1698,22 @@ p {
   width: 72%;
 }
 @media screen and (min-width: 768px) {
-  /* line 78, ../../src/scss/_drupal.scss */
+  /* line 45, ../../src/scss/_drupal.scss */
   #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search {
     width: 80%;
   }
 }
-/* line 86, ../../src/scss/_drupal.scss */
+/* line 53, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 .form-type-search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
 }
-/* line 92, ../../src/scss/_drupal.scss */
+/* line 59, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-exposedformsolr-search-contentpage-1 #edit-actions {
   display: inline-block;
 }
-/* line 96, ../../src/scss/_drupal.scss */
+/* line 63, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 {
   width: 100%;
   background: #000;
@@ -1759,7 +1721,7 @@ p {
   padding: 10px;
 }
 @media screen and (min-width: 768px) {
-  /* line 96, ../../src/scss/_drupal.scss */
+  /* line 63, ../../src/scss/_drupal.scss */
   #page_top_wrapper #block-views-block-most-popular-block-1 {
     position: absolute;
     top: 20px;
@@ -1767,23 +1729,23 @@ p {
     width: 380px;
   }
 }
-/* line 107, ../../src/scss/_drupal.scss */
+/* line 74, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 h2 {
   margin: 0;
   font-size: 13px;
   line-height: 1.42857;
   color: #fff;
 }
-/* line 113, ../../src/scss/_drupal.scss */
+/* line 80, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 .pull-right {
   float: left !important;
   margin-top: 5px;
 }
-/* line 117, ../../src/scss/_drupal.scss */
+/* line 84, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 .views-row {
   margin: 6px 0;
 }
-/* line 119, ../../src/scss/_drupal.scss */
+/* line 86, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a {
   color: #fff;
   font-size: 15px;
@@ -1791,16 +1753,16 @@ p {
   text-decoration: underline;
   font-weight: bold;
 }
-/* line 126, ../../src/scss/_drupal.scss */
+/* line 93, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:hover {
   color: #555555;
 }
-/* line 129, ../../src/scss/_drupal.scss */
+/* line 96, ../../src/scss/_drupal.scss */
 #page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:focus {
   color: #000;
 }
 
-/* line 137, ../../src/scss/_drupal.scss */
+/* line 104, ../../src/scss/_drupal.scss */
 .path-frontpage .page-header {
   margin: 0;
   border: none;
@@ -1808,13 +1770,13 @@ p {
   display: none;
 }
 
-/* line 145, ../../src/scss/_drupal.scss */
+/* line 112, ../../src/scss/_drupal.scss */
 .main-container {
   padding-left: 5px;
   padding-right: 5px;
 }
 @media screen and (min-width: 768px) {
-  /* line 145, ../../src/scss/_drupal.scss */
+  /* line 112, ../../src/scss/_drupal.scss */
   .main-container {
     padding: 5px 0;
     min-height: 76vh;
@@ -1822,64 +1784,64 @@ p {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 154, ../../src/scss/_drupal.scss */
+  /* line 121, ../../src/scss/_drupal.scss */
   .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
     padding-left: 0;
     padding-right: 0;
   }
 }
 
-/* line 162, ../../src/scss/_drupal.scss */
+/* line 129, ../../src/scss/_drupal.scss */
 .path-frontpage .main-container {
   border-top: none;
   min-height: 50vh;
 }
-/* line 166, ../../src/scss/_drupal.scss */
+/* line 133, ../../src/scss/_drupal.scss */
 .path-frontpage .breadcrumb {
   display: none;
 }
 
-/* line 171, ../../src/scss/_drupal.scss */
+/* line 138, ../../src/scss/_drupal.scss */
 strong.node_view {
   display: inline-block;
   float: left;
   margin-right: 20px;
 }
-/* line 175, ../../src/scss/_drupal.scss */
+/* line 142, ../../src/scss/_drupal.scss */
 strong.node_view .glyphicon {
   margin-left: 10px;
 }
-/* line 178, ../../src/scss/_drupal.scss */
+/* line 145, ../../src/scss/_drupal.scss */
 strong.node_view ul {
   padding: 0;
 }
 
-/* line 183, ../../src/scss/_drupal.scss */
+/* line 150, ../../src/scss/_drupal.scss */
 .print__wrapper--pdf, .node_view {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 189, ../../src/scss/_drupal.scss */
+/* line 156, ../../src/scss/_drupal.scss */
 .page-node-type-home-page strong.node_view, .page-node-type-landing-page strong.node_view {
   display: none;
 }
 
-/* line 195, ../../src/scss/_drupal.scss */
+/* line 162, ../../src/scss/_drupal.scss */
 .page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent, .page-node-type-support-page .field--name-field-taxonomy, .page-node-type-support-page .taxonomy-parent {
   display: none;
 }
-/* line 198, ../../src/scss/_drupal.scss */
+/* line 165, ../../src/scss/_drupal.scss */
 .page-node-type-details-page article, .page-node-type-support-page article {
   margin-bottom: 20px;
 }
-/* line 201, ../../src/scss/_drupal.scss */
+/* line 168, ../../src/scss/_drupal.scss */
 .page-node-type-details-page .node_view ul.pre_link-colors li:first-child, .page-node-type-support-page .node_view ul.pre_link-colors li:first-child {
   background: none;
   padding: 0;
 }
 
-/* line 207, ../../src/scss/_drupal.scss */
+/* line 174, ../../src/scss/_drupal.scss */
 .chosen-container {
   border: 0 !important;
   padding: 0 !important;
@@ -1888,51 +1850,51 @@ strong.node_view ul {
   -webkit-box-shadow: none !important;
 }
 
-/* line 216, ../../src/scss/_drupal.scss */
+/* line 183, ../../src/scss/_drupal.scss */
 .field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 220, ../../src/scss/_drupal.scss */
+/* line 187, ../../src/scss/_drupal.scss */
 .field--name-field-rate-this-content .field--label {
   margin-top: 14px;
   margin-right: 5px;
 }
-/* line 224, ../../src/scss/_drupal.scss */
+/* line 191, ../../src/scss/_drupal.scss */
 .field--name-field-rate-this-content .form-type-select {
   position: relative;
   top: 7px;
 }
-/* line 228, ../../src/scss/_drupal.scss */
+/* line 195, ../../src/scss/_drupal.scss */
 .field--name-field-rate-this-content .useful-rating {
   font-size: 2em;
 }
-/* line 231, ../../src/scss/_drupal.scss */
+/* line 198, ../../src/scss/_drupal.scss */
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none;
 }
 
-/* line 237, ../../src/scss/_drupal.scss */
+/* line 204, ../../src/scss/_drupal.scss */
 .path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy, .path-solr-search .print__wrapper--pdf {
   display: none;
 }
-/* line 240, ../../src/scss/_drupal.scss */
+/* line 207, ../../src/scss/_drupal.scss */
 .path-solr-search .section {
   padding: 0;
   margin: 0;
 }
-/* line 243, ../../src/scss/_drupal.scss */
+/* line 210, ../../src/scss/_drupal.scss */
 .path-solr-search .section li {
   list-style: none;
   display: inline;
 }
-/* line 247, ../../src/scss/_drupal.scss */
+/* line 214, ../../src/scss/_drupal.scss */
 .path-solr-search .section .glyphicon {
   font-weight: normal;
   font-size: 0.8em;
 }
 
-/* line 254, ../../src/scss/_drupal.scss */
+/* line 221, ../../src/scss/_drupal.scss */
 .screenreader {
   border: 0;
   clip: rect(0 0 0 0);
@@ -1944,19 +1906,19 @@ strong.node_view ul {
   width: 1px;
 }
 
-/* line 265, ../../src/scss/_drupal.scss */
+/* line 232, ../../src/scss/_drupal.scss */
 #block-socialsharingblock {
   margin-top: 20px;
   z-index: -1;
 }
 
-/* line 273, ../../src/scss/_drupal.scss */
+/* line 240, ../../src/scss/_drupal.scss */
 .social-media-sharing ul li img {
   height: 40px;
   max-width: none !important;
 }
 
-/* line 280, ../../src/scss/_drupal.scss */
+/* line 247, ../../src/scss/_drupal.scss */
 .social-media-sharing {
   display: block;
   clear: both;
@@ -2131,6 +2093,20 @@ a {
   padding-right: 0;
 }
 
+/* line 1, ../../src/scss/common/_beta-banner.scss */
+#block-betabannerblock {
+  background: #f2f2f2;
+  color: #000;
+  clear: both;
+  padding: 0.5em 0;
+  position: relative;
+  width: 100%;
+}
+/* line 8, ../../src/scss/common/_beta-banner.scss */
+#block-betabannerblock p {
+  margin-bottom: 0;
+}
+
 /* Structures */
 /* line 1, ../../src/scss/structures/_breadcrumbs.scss */
 .breadcrumb {
@@ -2258,7 +2234,7 @@ a {
 
   /* line 70, ../../src/scss/structures/_header.scss */
   .menu-primary__link {
-    padding: 1em 2em;
+    padding: 0.5em 1em;
   }
 
   /* line 73, ../../src/scss/structures/_header.scss */

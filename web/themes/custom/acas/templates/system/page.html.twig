@@ -51,28 +51,23 @@
  * @see html.html.twig
  */
 #}
+
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
+
 {# Navbar #}
 {% if page.navigation or page.navigation_collapsible %}
   {% block navbar %}
     {%
       set navbar_classes = [
         theme.settings.navbar_inverse ? 'header-main__content' : 'header-main__content',
-        theme.settings.navbar_position ? 'navbar-' ~ theme.settings.navbar_position|clean_class : container,
+        theme.settings.navbar_position ? 'navbar-' ~ theme.settings.navbar_position|clean_class,
       ]
     %}
     <header id="header-main">
       <div{{ navbar_attributes.addClass(navbar_classes) }} id="navbar" role="banner">
-        {% if not navbar_attributes.hasClass(container) %}
-          <div class="{{ container }}">
-        {% endif %}
-
         {# Navigation (collapsible) #}
         {% if page.navigation_collapsible %}
           {{ page.navigation_collapsible }}
-        {% endif %}
-        {% if not navbar_attributes.hasClass(container) %}
-          </div>
         {% endif %}
       </div>
     </header>

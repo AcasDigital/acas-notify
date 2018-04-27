@@ -11,39 +11,6 @@
   }
 }
 
-#header-main {
-  .views-exposed-form {
-    margin-top: 8px;
-    @media #{$tablet} {
-      margin-left: 40px;
-      float: left;
-    }
-    .form-group {
-      margin: 0;
-    }
-    .form-submit {
-
-    }
-  }
-  #block-betabannerblock {
-    background: $gray-light;
-    color: $black;
-    clear: both;
-    font-size: 1.4em;
-    position: absolute;
-    right: 0;
-    top: 0;
-    p {
-      margin-bottom: 0;
-    }
-    @media #{$tablet} {
-      font-size: 2.4em;
-      clear: none;
-      float: left;
-    }
-  }
-}
-
 #page_top_wrapper {
   background: $acas-teal;
   padding: 20px 0;

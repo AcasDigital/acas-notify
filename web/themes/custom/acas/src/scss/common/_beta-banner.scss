@@ -1,0 +1,11 @@
+#block-betabannerblock {
+  background: $gray-light;
+  color: $black;
+  clear: both;
+  padding: 0.5em 0;
+  position: relative;
+  width: 100%;
+  p {
+    margin-bottom: 0;
+  }
+}
