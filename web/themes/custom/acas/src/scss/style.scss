@@ -16,8 +16,8 @@ $compile-IE: false;
 /* Base Styles */
 @import 'base';
 
-// Drupal Theme - to remove later.
-@import 'drupal';
+// Admin (Drupal) styles
+@import 'admin';
 
 /* Base Components */
 @import 'base/all';
@@ -30,6 +30,3 @@ $compile-IE: false;
 
 /* Templates */
 @import 'templates/all';
-
-/* Tabs (from Bootstrap) */
-@import 'navs';

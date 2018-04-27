@@ -2,6 +2,9 @@
   padding: 0.5em 1em;
   li {
     display: inline-block;
+    a {
+      color: $gray-dark;
+    }
     &:after {
       content: ">";
       display: inline-block;

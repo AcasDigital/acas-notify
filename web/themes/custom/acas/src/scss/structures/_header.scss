@@ -7,6 +7,11 @@
   clear: both;
 }
 
+.region-branding-bar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
 .menu-primary__item, .menu-secondary__item {
   position: relative;
   > ul {
@@ -38,9 +43,6 @@
 
 /* Medium Screens and Up */
 @include bp(MD) {
-  #block-acas-main-menu {
-    margin-top: 2em;
-  }
   .nav-main__icon {
     display: none;
   }

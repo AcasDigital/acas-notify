@@ -1,8 +1,6 @@
-.footer__wrapper {
+#footer {
   padding: 2rem 0;
-  #footer__inner {
-    background: $gray-light;
-  }
+  background: $gray-light;
   &, a {
     color: $black;
   }

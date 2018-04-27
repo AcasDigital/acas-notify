@@ -39,6 +39,7 @@ class SyncForm extends ConfigFormBase {
     $form['#action'] = '/sync-prod';
     $form['#attached']['library'][] = 'general/sync_prod';
     $form['#attributes']['onsubmit'] = 'return syncProd()';
+    $form['#suffix'] = '<div id="sync_progress" class="hidden">Sync to Production has started, this might take several minutes. Please wait...</div>';
     return parent::buildForm($form, $form_state);
   }
   

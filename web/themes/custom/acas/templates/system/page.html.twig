@@ -64,6 +64,27 @@
       ]
     %}
     <header id="header-main">
+
+    {# Topbar #}
+    {% if page.top_bar %}
+      {% block topbar %}
+          {# Topbar #}
+          {% if page.top_bar %}
+            {{ page.top_bar }}
+          {% endif %}
+      {% endblock %}
+    {% endif %}
+
+    {# Branding Bar #}
+    {% if page.branding_bar %}
+      {% block brandingbar %}
+          {# Brandingbar #}
+          {% if page.branding_bar %}
+            {{ page.branding_bar }}
+          {% endif %}
+      {% endblock %}
+    {% endif %}
+
       <div{{ navbar_attributes.addClass(navbar_classes) }} id="navbar" role="banner">
         {# Navigation (collapsible) #}
         {% if page.navigation_collapsible %}
@@ -148,7 +169,7 @@
 
 {% if page.footer %}
   {% block footer %}
-  <footer class="footer__wrapper" role="contentinfo">
+  <footer id="footer" class="footer" role="contentinfo">
     <div id="footer__inner" class="{{ container }}">
       {{ page.footer }}
     </div>

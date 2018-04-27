@@ -8,6 +8,7 @@ Drupal.behaviors.sync_prod = {
 
 function syncProd() {
   jQuery("#edit-submit").attr("disabled", true);
+  jQuery("#sync_progress").show();
   //setTimeout(syncCheck, 500);
   return true;
 }

@@ -1,11 +1,11 @@
-#block-betabannerblock {
-  border-bottom: 1px solid $gray-dark;
+.region.region-top-bar {
+    border-bottom: 1px solid $gray-dark;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    overflow: auto;
+}
+
+.block-beta-banner {
   color: $black;
-  clear: both;
-  padding: 0.5em 0;
-  position: relative;
   width: 100%;
-  p {
-    margin-bottom: 0;
-  }
 }
