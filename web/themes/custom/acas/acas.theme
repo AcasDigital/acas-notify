@@ -38,6 +38,13 @@ function acas_preprocess_field(&$variables) {
   }
 }
 
+function acas_preprocess_views_view_field(&$variables) {
+  if ($variables['field']->realField == 'pageTitle') {
+    $a=$variables['field']->getValue($variables['row']);
+    $variables['output'] = Drupal\Core\Render\Markup::create(str_replace(' | Acas</a>', '</a>', $variables['output']));
+  }
+}
+
 function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'local_tasks_block') {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {

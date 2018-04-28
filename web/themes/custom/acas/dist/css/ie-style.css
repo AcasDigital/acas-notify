@@ -1695,7 +1695,7 @@ p {
   display: inline-block;
 }
 /* line 63, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 {
   width: 100%;
   background: #000;
   height: 164px;
@@ -1703,7 +1703,7 @@ p {
 }
 @media screen and (min-width: 768px) {
   /* line 63, ../../src/scss/_admin.scss */
-  #page_top_wrapper #block-views-block-most-popular-block-1 {
+  #page_top_wrapper #block-views-block-google-analytics-summary-block-1 {
     position: absolute;
     top: 20px;
     right: 0;
@@ -1711,23 +1711,23 @@ p {
   }
 }
 /* line 74, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 h2 {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 h2 {
   margin: 0;
   font-size: 13px;
   line-height: 1.42857;
   color: #fff;
 }
 /* line 80, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 .pull-right {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 .pull-right {
   float: left !important;
   margin-top: 5px;
 }
 /* line 84, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 .views-row {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 .views-row {
   margin: 6px 0;
 }
 /* line 86, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 .views-row a {
   color: #fff;
   font-size: 15px;
   line-height: 1.25;
@@ -1735,11 +1735,11 @@ p {
   font-weight: bold;
 }
 /* line 93, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:hover {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 .views-row a:hover {
   color: #555555;
 }
 /* line 96, ../../src/scss/_admin.scss */
-#page_top_wrapper #block-views-block-most-popular-block-1 .views-row a:focus {
+#page_top_wrapper #block-views-block-google-analytics-summary-block-1 .views-row a:focus {
   color: #000;
 }
 
