@@ -28,7 +28,7 @@ class FooterNavigation extends BlockBase {
     $query->condition('ti.tid', $termIds, 'IN');
     $query->orderBy('fd.weight', 'ASC');
     $result = $query->execute();
-    $output = '<ul>';
+    $output = '<ul class="menu menu--footer nav">';
     if($nodeIds = $result->fetchCol()){
       $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
       foreach($nodes as $node) {

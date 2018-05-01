@@ -35,7 +35,11 @@ class RelatedContent extends BlockBase {
       $config = [];
       $plugin_block = $block_manager->createInstance('social_sharing_block', $config);
       $render = $plugin_block->build();
-      $output .= drupal_render($render);
+      $render['text'] = [
+        '#markup' => '<div class="text">Share this page</div>',
+        '#weight' => -1,
+      ];
+      $output .= '<div id="social-share">' . drupal_render($render) . '</div>';
     }
     if ($parent) {
       $output .= '<nav class="nav-related" aria-labelledby="nav-related__title">
@@ -58,11 +62,13 @@ class RelatedContent extends BlockBase {
           }
         }
       }
-      foreach($node->get('field_related_content') as $link) {
-        $params = $link->getUrl()->getRouteParameters();
-        $entity_type = key($params);
-        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-        $output .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
+      if ($node->hasField('field_related_content')) {
+        foreach($node->get('field_related_content') as $link) {
+          $params = $link->getUrl()->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          $output .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
+        }
       }
       $output .= '</ul></li></ul></nav>';
     }

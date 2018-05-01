@@ -3,13 +3,16 @@
 }
 
 #block-acas-main-menu {
-  background-color: $gray-light;
   clear: both;
 }
 
 .region-branding-bar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.region-navigation-collapsible {
+  background-color: $gray-light;
 }
 
 .menu-primary__item, .menu-secondary__item {

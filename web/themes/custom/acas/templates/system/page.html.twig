@@ -91,13 +91,14 @@
           {{ page.navigation_collapsible }}
         {% endif %}
       </div>
+
     </header>
   {% endblock %}
 {% endif %}
 
 {% if page.front_top and is_front %}
   {% block front_top %}
-    <div id="page_top_wrapper">
+    <div id="header-front-page">
       <div role="page_top" class=container {{ container }} js-quickedit-front_top-content">
         <div class="row">
           <div class="col-sm-12" role="heading">
@@ -169,10 +170,12 @@
 
 {% if page.footer %}
   {% block footer %}
-  <footer id="footer" class="footer" role="contentinfo">
-    <div id="footer__inner" class="{{ container }}">
-      {{ page.footer }}
-    </div>
-  </footer>
+  <div class="footer__wrapper">
+    <footer id="footer" class="footer" role="contentinfo">
+      <div id="footer__inner" class="{{ container }}">
+        {{ page.footer }}
+      </div>
+    </footer>
+  </div>
   {% endblock %}
 {% endif %}

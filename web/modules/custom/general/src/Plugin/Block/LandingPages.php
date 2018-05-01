@@ -25,8 +25,10 @@ class LandingPages extends BlockBase {
     }
     $query = \Drupal::database()->select('taxonomy_index', 'ti');
     $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
     $query->fields('ti', array('nid'));
     $query->condition('ti.tid', $termIds, 'IN');
+    $query->condition('nfd.type', 'secondary_page', '!=');
     $query->orderBy('fd.weight', 'ASC');
     $result = $query->execute();
     $output = '';

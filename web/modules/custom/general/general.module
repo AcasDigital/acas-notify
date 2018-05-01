@@ -88,7 +88,7 @@ function general_module_implements_alter(&$implementations, $hook) {
  * Implements hook_entity_view().
  */
 function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && ($entity->getType() == 'details_page' || $entity->getType() == 'support_page')) {
+  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && ($entity->getType() == 'details_page' || $entity->getType() == 'support_page' || $entity->getType() == 'secondary_page')) {
     if ($entity->getType() == 'details_page') {
       $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($entity->get('field_taxonomy')->target_id);
       $markup = '';
@@ -262,13 +262,16 @@ function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_pathauto_alias_alter().
  */
 function general_pathauto_alias_alter(&$alias, array &$context) {
-  if (($context['bundle'] === 'details_page' || $context['bundle'] === 'landing_page') && ($context['op'] == 'insert' || $context['op'] == 'update')) {
+  if (($context['bundle'] === 'details_page' || $context['bundle'] === 'landing_page' || $context['bundle'] === 'secondary_page') && ($context['op'] == 'insert' || $context['op'] == 'update')) {
     $entity = $context['data']['node'];
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
     $parents = array_reverse($parents, TRUE);
     $alias = '';
     foreach($parents as $parent) {
       $alias .= '/' . general_taxonomy_path($parent->getName());
+    }
+    if ($context['bundle'] === 'secondary_page') {
+      $alias .= '/' . general_taxonomy_path($entity->getTitle());
     }
   }
 }
@@ -298,8 +301,8 @@ function general_taxonomy_term_update($term) {
 }
 
 function general_menu_first_level() {
-  general_menu_full_first_level();
-  return;
+  //general_menu_full_first_level();
+  //return;
 
   $menu_name = 'main';
   $menu_handler = \Drupal::service('plugin.manager.menu.link');
@@ -386,6 +389,9 @@ function general_menu_full_first_level() {
   if($nodeIds = $result->fetchCol()){
     $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
     foreach($nodes as $node) {
+      if ($node->getTitle() == 'Redundancy') {
+          $a=1;
+        }
       $first_level = MenuLinkContent::create([
         'title' => $node->getTitle(),
         'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
@@ -411,6 +417,9 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
       $result = $query->execute();
       if ($nid = $result->fetchCol()) {
         $node = \Drupal\node\Entity\Node::load($nid[0]);
+        if ($node->getTitle() == 'Redundancy') {
+          $a=1;
+        }
         $second_level = MenuLinkContent::create([
           'title' => $node->getTitle(),
           'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],

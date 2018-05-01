@@ -1,13 +1,13 @@
-#footer {
+.footer__wrapper {
   padding: 2rem 0;
   background: $gray-light;
+}
+
+.footer__inner {
   &, a {
     color: $black;
   }
   #block-acas-footer {
     float: left;
-  }
-  #block-footernavigationblock {
-    float: right;
   }
 }
