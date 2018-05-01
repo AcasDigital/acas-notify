@@ -57,10 +57,11 @@ class GeneralController extends ControllerBase {
     $connection = \Drupal::database();
     $current_uri = \Drupal::request()->getRequestUri();
     if (strpos($current_uri, 'helpline') !== FALSE) {
-      $nid = $connection->query("SELECT nid FROM {node_field_data} WHERE title = 'Helpline' AND type = 'support_page'")->fetchField();
-      $node = \Drupal\node\Entity\Node::load($nid);
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      return $view_builder->view($node, 'full');
+      if ($nid = $connection->query("SELECT nid FROM {node_field_data} WHERE title LIKE '%helpline' AND type = 'support_page'")->fetchField()) {
+        $node = \Drupal\node\Entity\Node::load($nid);
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+        return $view_builder->view($node, 'full');
+      }
     }
     
     return array('#markup' => 'The requested page could not be found.');
@@ -69,7 +70,7 @@ class GeneralController extends ControllerBase {
   public function getNotFoundTitle() {
     $current_uri = \Drupal::request()->getRequestUri();
     if (strpos($current_uri, 'helpline') !== FALSE) {
-      return 'Helpline';
+      return 'Call the Acas helpline';
     }else{
       return 'Page not found';
     }

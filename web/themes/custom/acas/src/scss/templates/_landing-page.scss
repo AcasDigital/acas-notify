@@ -7,16 +7,48 @@
     > .wrapper {
       border: 3px solid $acas-lime;
       border-radius: 1em;
-      padding: 1em;
+      min-height: 10em;
+      padding: 1em 1.25em;
+      position: relative;
+      &:hover {
+        background: $gray-light;
+      }
       h2 {
         border-left: none;
+        line-height: 1;
         margin-top: 0;
+        min-height: 3em;
         padding-left: 0;
         a {
           text-decoration: none;
           &:hover, &:focus {
             text-decoration: underline;
           }
+        }
+      }
+      .content {
+        bottom: 1em;
+        font-size: 75%;
+        left: 0;
+        max-height: 6em;
+        position: absolute;
+        padding: 0 1.25em;
+        width: 100%;
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@include bp(MD) {
+  #block-landingpagesblock, .block-home-page-block {
+    article {
+      > .wrapper {
+        min-height: 12em;
+        h2 {
+          line-height: 1.25;
         }
       }
     }

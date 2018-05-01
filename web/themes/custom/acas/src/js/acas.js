@@ -13,46 +13,35 @@ Drupal.behaviors.acas = {
   }
 };
 
-
-var dropdownButtons = (function() {
-  // dom elements
-  var menuTimer;
-  var primaryWrappers = document.getElementsByClassName('menu-primary__item');
-  var primaryLinks = 'menu-primary__link';
-  var secondaryWrappers = document.getElementsByClassName('menu-secondary__item');
-  var secondaryLinks = 'menu-secondary__link';
-
-  var activeDropdowns = [];
-
-  addEventListeners(primaryWrappers, primaryLinks);
-
-  function addEventListeners(wrappers, linkClass) {
-    // Add click listeners to all the dropdown buttons
-    for (i = 0; i < wrappers.length; i++) {
-      var listElement = wrappers[i];
-      listElement.addEventListener("mouseenter", function() {
-        showDropdown(this);
-      });
-    }
-    for (c = 0; c < wrappers.length; c++) {
-      var listElement = wrappers[c];
-      listElement.addEventListener("mouseleave", function() {
-        hideDropdown(this);
-      });
-    }
-  }
-
-  // Hide all other dropdowns
-  function hideDropdown(activeItem) {
-    menuTimer = setTimeout(function() {
-      activeItem.classList.remove('active');
-    }, 750);
-  }
-
-  // Toggle the dropdown
-  function showDropdown(activeItem) {
-    clearTimeout(menuTimer);
-    activeItem.classList.add('active');
-  }
-
-})();
+// 
+// var timeoutHandlers = [];
+// var timeoutCounter = 1;
+//
+// var primaryLinks = document.getElementsByClassName('menu-primary__item');
+//
+// for (i = 0; i < primaryLinks.length; i++) {
+//   primaryLinks[i].addEventListener('mouseenter, focusin', function() {
+//     openSubmenu(this, i);
+//   });
+// }
+//
+// for (c = 0; c < primaryLinks.length; c++) {
+//   primaryLinks[c].addEventListener('mouseleave', function() {
+//     closeSubmenu(this, c);
+//   });
+// }
+//
+// // Hide all other dropdowns
+// function closeSubmenu(e, index) {
+//   console.log(index);
+//   timeoutHandlers[timeoutCounter] = setTimeout(function() {
+//     e.classList.remove('active');
+//   }, 500);
+// }
+//
+// // Toggle the dropdown
+// function openSubmenu(e, index) {
+//   console.log(index);
+//   clearTimeout(timeoutHandlers[timeoutCounter]);
+//   e.classList.add('active');
+// }

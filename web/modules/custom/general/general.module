@@ -124,8 +124,15 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $build['anything_wrong']['#weight'] = 999;
       $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
     }
-    if (!$entity->get('field_print_download')->value) {
-      unset($build['printable_navigation']);
+    if ($entity->get('field_print_download')->value) {
+      $build['print_download_email'] = [
+        '#markup' => '<div class="print-download-email">
+          <a class="btn-cta btn-cta--print" href="/node/' . $entity->id() . '/printable/print">Print</a>
+          <a class="btn-cta btn-cta--download" href="/print/pdf/node/' . $entity->id() . '">Download</a>
+          <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+        </div>',
+        '#weight' => 992,
+      ];
     }
   }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);

@@ -1,0 +1,50 @@
+.print-download-email {
+  border: 2px solid $acas-teal;
+  border-spacing: 1em 0;
+  display: inline-block;
+  max-width: 30rem;
+  text-align: center;
+  width: 100%;
+  a {
+    display: inline-block;
+  }
+}
+
+.btn-cta--print,
+.btn-cta--download,
+.btn-cta--email {
+  @extend .btn-cta--inverse;
+  padding: 0 2.5rem 0 0;
+  margin: .75em 1em;
+  position: relative;
+  text-transform: capitalize;
+  &:after {
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    width: 2rem;
+  }
+}
+
+.btn-cta--print {
+  &:after {
+    background-image: url(../images/icons/icon-print.png);
+  }
+}
+
+.btn-cta--download {
+  &:after {
+    background-image: url(../images/icons/icon-download.png);
+  }
+}
+
+.btn-cta--email {
+  &:after {
+    background-image: url(../images/icons/icon-email.png);
+  }
+}

@@ -35,7 +35,7 @@
 
     {% for item in items %}
       {% if menu_level == 0 %}
-        <li{{ item.attributes.addClass('menu-primary__item') }}>
+        <li{{ item.attributes.addClass('menu-primary__item') }} id={{node.id}}>
         <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
         {% if item.below %}
           {{ menus.menu_links(item.below, attributes.removeClass('nav', 'navbar-nav'), menu_level + 1) }}

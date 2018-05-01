@@ -15,17 +15,17 @@
 .menu-primary__item, .menu-secondary__item {
   position: relative;
   > ul {
-    display: none;
     background: white;
     left: 0;
     list-style: none;
     position: absolute;
+    visibility: hidden;
     width: 100%;
     z-index: 1001;
     li {
       display: block;
-      width: 100%;
       padding: 0.5em 1em;
+      width: 100%;
     }
   }
 }
@@ -54,19 +54,20 @@
   .menu-primary__item {
     display: table-cell;
     &:hover, &:focus {
-      background: $acas-teal;
-      .menu-primary__link {
-        background: $acas-teal;
-        color: $white;
-      }
-    }
-    &.active {
       .menu-secondary {
         -webkit-box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
         -moz-box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
         box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
-        display: block;
+        transition-delay: 0s; /* react immediately on hover */
+        visibility: visible;
         top: 100%;
+      }
+    }
+    &:hover, &:focus {
+      background: $acas-teal;
+      .menu-primary__link {
+        background: $acas-teal;
+        color: $white;
       }
     }
   }
@@ -75,8 +76,19 @@
   }
   .menu-secondary {
     border-top: 0.75em solid $acas-teal;
-    margin-top: 1em;
+    margin-top: .75em;
+    transition: all 0s ease;
+    transition-delay: 0.5s;
     &:before {
+      content: "";
+      background-color: transparent;
+      display: block;
+      height: 1.5em;
+      position: absolute;
+      top: -1.5em;
+      width: 100%;
+    }
+    &:after {
       content: "";
       border-bottom: 1em solid $acas-teal;
       border-right: 1em solid transparent;
@@ -87,7 +99,7 @@
       left: calc(50% - 1em);
       margin: auto;
       position: absolute;
-      top: -2.5em;
+      top: -2.25em;
       width: 0px;
     }
   }

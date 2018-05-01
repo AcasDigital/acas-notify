@@ -11,34 +11,10 @@
   width: fit-content;
 }
 
-.btn-cta--print, .btn-cta--download {
-  padding-right: 2.5rem;
-  padding-left: 1rem;
-  position: relative;
-  text-transform: capitalize;
-  &:after {
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 50% auto;
-    background-position: 50% 50%;
-    height: 100%;
-    position: absolute;
-    right: 0.5rem;
-    top: 0;
-    width: 2rem;
-  }
-}
-
-.btn-cta--print {
-  &:after {
-    background-image: url(../images/icons/icon-print.png);
-  }
-}
-
-.btn-cta--download {
-  &:after {
-    background-image: url(../images/icons/icon-download.png);
-  }
+.btn-cta--inverse {
+  background: $white;
+  color: $acas-teal;
+  font-weight: $font-weight-body;
 }
 
 .btn-cta--helpline {

@@ -1,0 +1,56 @@
+#page_top_wrapper {
+  background: $gray-light;
+  .pull-left {
+    float: none !important;
+    position: relative;
+    top: 8px;
+  }
+  #block-exposedformsolr-search-contentpage-1 {
+    margin-bottom: 28px;
+    margin-top: 30px;
+    width: 100%;
+    @media #{$tablet} {
+      width: 60%;
+    }
+    .control-label {
+      display: none;
+    }
+    .form-type-search-api-autocomplete {
+      width: 100%;
+      .input-group {
+        width: 100%;
+      }
+      .input-group-addon {
+        width: 40px;
+      }
+    }
+    .form-type-search {
+      display: none !important;
+      margin-top: 20px;
+      display: inline-block;
+      width: 72%;
+      @media #{$tablet} {
+        width: 80%;
+      }
+      input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 100%;
+      }
+    }
+    #edit-actions {
+      display: inline-block;
+    }
+  }
+  #block-views-block-google-analytics-summary-block-1 {
+    padding: 1em 0;
+    width: 100%;
+    @include bp(MD) {
+      float: right;
+      width: 380px;
+      a {
+        font-size: 75%;
+      }
+    }
+  }
+}
