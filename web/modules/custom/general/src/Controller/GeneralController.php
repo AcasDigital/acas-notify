@@ -126,8 +126,10 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    general_sync_prod();
-    return array('#markup' => '<h3>Finished</h3>');
+    //general_sync_prod();
+    return array(
+      '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target"></div>',
+    );
   }
   
   public function sync_update() {
@@ -152,5 +154,19 @@ class GeneralController extends ControllerBase {
       return new JsonResponse('ok');
     }
     return new JsonResponse('error');
+  }
+  
+  public function sync_prod_data() {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('acas.settings');
+    $nodes = \Drupal\node\Entity\Node::loadMultiple();
+    $return = ['prod' => $config->get('prod')];
+    foreach($nodes as $node) {
+      $return['nodes'][] = [
+        'title' => $node->getTitle(),
+        'url' => $node->toUrl()->toString(),
+      ];
+    }
+    return new JsonResponse($return);
   }
 }

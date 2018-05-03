@@ -62,7 +62,8 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token|raw }}">
     <!--[if IE 8]>
-	<link rel="stylesheet" type="text/css" href="/themes/custom/acas/dist/css/ie-style.css">
+      <script src="/themes/custom/acas/dist/js/html5shiv.js"></script>
+	    <link rel="stylesheet" type="text/css" href="/themes/custom/acas/dist/css/ie-style.css">
     <![endif]-->
   </head>
   <body{{ attributes.addClass(body_classes) }}>

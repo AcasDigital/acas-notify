@@ -40,17 +40,12 @@ class AdminForm extends ConfigFormBase {
     );
     $form['sync'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Production content sync DB settings'),
+      '#title' => t('Production content sync'),
     );
-    $form['sync']['host'] = array(
+    $form['sync']['prod'] = array(
       '#type' => 'textfield',
-      '#default_value' => $config->get('host') ?: 'production.cwmdxlymhijc.eu-west-1.rds.amazonaws.com',
-      '#title' => t('Host'),
-    );
-    $form['sync']['database'] = array(
-      '#type' => 'textfield',
-      '#default_value' => $config->get('database') ?: 'ebdb',
-      '#title' => t('Database'),
+      '#default_value' => $config->get('prod') ?: 'https://beta-acas.org.uk',
+      '#title' => t('Production URL'),
     );
     return parent::buildForm($form, $form_state);
   }
@@ -68,8 +63,7 @@ class AdminForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('feedback_email', $form_state->getValue('feedback_email'))
-    ->set('host', $form_state->getValue('host'))
-    ->set('database', $form_state->getValue('database'))
+    ->set('prod', $form_state->getValue('prod'))
     ->save();
     parent::submitForm($form, $form_state);
   }

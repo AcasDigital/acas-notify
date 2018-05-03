@@ -198,6 +198,10 @@ function general_page_attachments_alter(&$build) {
   if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
     $build['#attached']['library'][] = 'general/details_page';
   }
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'general.sync_prod') {
+    $build['#attached']['library'][] = 'general/test_prod';
+  }
 }
 
 /**

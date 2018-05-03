@@ -75,8 +75,9 @@
     'clearfix',
   ]
 %}
+
 <article{{ attributes.addClass(classes) }}>
-  <div class="wrapper">
+  <div class="article__wrapper">
     {{ title_prefix }}
     {% if not page %}
       <h2{{ title_attributes }}>
@@ -95,7 +96,7 @@
       </footer>
     {% endif %}
 
-    <div{{ content_attributes.addClass('content') }}>
+    <div{{ content_attributes.addClass('article__content') }}>
       {{ content }}
     </div>
   </div>

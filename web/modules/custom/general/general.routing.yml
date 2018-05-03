@@ -30,6 +30,13 @@ general.sync_update:
   requirements:
     _permission: 'access content'
     
+general.sync_prod_data:
+  path: '/sync-prod-data'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::sync_prod_data'
+  requirements:
+    _permission: 'sync to prod'
+    
 general.searchheader:
   path: '/searchheader'
   defaults:
@@ -77,3 +84,4 @@ general.notfound:
     _title_callback: '\Drupal\general\Controller\GeneralController::getNotFoundTitle'
   requirements:
     _permission: 'access content'
+    

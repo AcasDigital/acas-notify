@@ -7,8 +7,8 @@
 }
 
 .region-branding-bar {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .region-navigation-collapsible {
@@ -17,22 +17,30 @@
 
 .menu-primary__icon {
   color: $gray-dark;
-  font-size: 2rem;
+  font-size: 2em;
   float: right;
   text-decoration: none;
 }
+
 .menu-primary {
   display: none;
+  &.menu-primary--active {
+    display: block;
+  }
 }
 
-.menu-primary__item, .menu-secondary__item {
+.menu-primary__item {
   position: relative;
-  > ul {
-    background: white;
+  &.menu-primary__item--active {
+    .menu-secondary {
+      display: block;
+    }
+  }
+  .menu-secondary {
+    display: none;
     left: 0;
     list-style: none;
-    position: absolute;
-    visibility: hidden;
+    position: relative;
     width: 100%;
     z-index: 1001;
     li {
@@ -43,13 +51,27 @@
   }
 }
 
+.menu-primary__link {
+  display: block;
+  position: relative;
+  &:after {
+    content: "";
+    background-image: url(../images/icons/icon-chevron-teal-right.png);
+    background-size: 100% auto;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    height: 1em;
+    position: absolute;
+    right: 2em;
+    top: 0.5em;
+    width: 0.75em;
+  }
+}
+
 .menu-primary__link,
 .menu-secondary__link {
   color: $acas-teal;
-  display: block;
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 2rem;
+  line-height: 2;
   font-weight: bold;
   text-decoration: none;
 }
@@ -63,9 +85,45 @@
     display: table;
     table-layout: fixed;
     width: 100%;
+    .menu-secondary {
+      border-top: 0.75em solid $acas-teal;
+      display: block;
+      margin-top: .75em;
+      position: absolute;
+      transition: all 0s ease;
+      transition-delay: 0.5s;
+      visibility: hidden;
+      &:before {
+        content: "";
+        background-color: transparent;
+        display: block;
+        height: 1.5em;
+        position: absolute;
+        top: -1.5em;
+        width: 100%;
+      }
+      &:after {
+        content: "";
+        border-bottom: 1em solid $acas-teal;
+        border-right: 1em solid transparent;
+        border-top: 1em solid transparent;
+        border-left: 1em solid transparent;
+        display: block;
+        height: 0px;
+        left: calc(50% - 1em);
+        margin: auto;
+        position: absolute;
+        top: -2.25em;
+        width: 0px;
+      }
+    }
   }
   .menu-primary__item {
     display: table-cell;
+    > ul {
+      background: $white;
+      position: absolute;
+    }
     &:hover, &:focus {
       .menu-secondary {
         -webkit-box-shadow: 2px 2px 16px 0px rgba(204,204,204,1);
@@ -89,53 +147,10 @@
   .menu-primary__link {
     display: inline-block;
     padding: 0.5rem 2rem 0.5rem 1rem;
-    position: relative;
     &:after {
-      content: "";
       background-image: url(../images/icons/icon-chevron-teal-down.png);
-      background-size: 100% auto;
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      height: 1rem;
-      position: absolute;
-      right: 0.75rem;
-      top: 1rem;
-      width: 0.75rem;
-    }
-  }
-  .menu-secondary {
-    border-top: 0.75em solid $acas-teal;
-    margin-top: .75em;
-    transition: all 0s ease;
-    transition-delay: 0.5s;
-    &:before {
-      content: "";
-      background-color: transparent;
-      display: block;
-      height: 1.5em;
-      position: absolute;
-      top: -1.5em;
-      width: 100%;
-    }
-    &:after {
-      content: "";
-      border-bottom: 1em solid $acas-teal;
-      border-right: 1em solid transparent;
-      border-top: 1em solid transparent;
-      border-left: 1em solid transparent;
-      display: block;
-      height: 0px;
-      left: calc(50% - 1em);
-      margin: auto;
-      position: absolute;
-      top: -2.25em;
-      width: 0px;
+      right: .75em;
+      top: 1em;
     }
   }
 }
-//
-// @include bp(LG) {
-//   .menu-primary__link {
-//     padding: 0.5rem 3rem 0.5rem 1rem;
-//   }
-// }

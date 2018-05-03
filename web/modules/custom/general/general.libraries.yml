@@ -42,3 +42,9 @@ sync_prod:
   dependencies:
     - core/jquery
     - core/jquery.once
+    
+test_prod:
+  js:
+    js/test_prod.js: {}
+  dependencies:
+    - core/jquery

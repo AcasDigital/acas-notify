@@ -1,19 +1,20 @@
-.block-landing-link {
-  display: block;
+article.landing-page {
+  @extend .col-xs-12;
 }
+
 #block-landingpagesblock, .block-home-page-block {
   article {
     @extend .col-xs-12;
     @extend .col-md-4;
     margin-bottom: 1em;
     margin-top: 1em;
-    > .wrapper {
+    .article__wrapper {
       border: 3px solid $acas-lime;
       border-radius: 1em;
       min-height: 10em;
-      padding: 1rem 1.25rem;
+      padding: 1em 1.25em;
       position: relative;
-      &:hover {
+      &:hover, &:focus {
         background: $gray-light;
       }
       h2 {
@@ -29,14 +30,14 @@
           }
         }
       }
-      .content {
+      .article__content {
         bottom: 1rem;
         font-size: 75%;
         left: 0;
-        max-height: 4.5rem;
+        max-height: 6em;
         overflow: hidden;
         position: absolute;
-        padding: 0 1.25rem;
+        padding: 0 1.25em;
         width: 100%;
         p {
           margin-bottom: 0;
@@ -49,7 +50,7 @@
 @include bp(MD) {
   #block-landingpagesblock, .block-home-page-block {
     article {
-      > .wrapper {
+      > .article__wrapper {
         min-height: 12em;
         h2 {
           line-height: 1.25;
