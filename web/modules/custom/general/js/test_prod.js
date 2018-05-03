@@ -32,13 +32,13 @@ function getPage(node) {
     node: node,
     timeout: 60000,
     error: function(XMLHttpRequest, textStatus, errorThrown){
-      jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '<span>&nbsp;<span class="red">BAD</span></div>');
+      jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="red">BAD</span></div>');
     },
     success: function(data){
       if (data.indexOf(node.title + "</span>") != -1) {
-        jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '<span>&nbsp;<span class="green">OK</span></div>');
+        jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="green">OK</span></div>');
       }else{
-        jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '<span>&nbsp;<span class="red">BAD</span></div>');
+        jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="red">BAD</span></div>');
       }
       i++
       if (i < nodes.length) {
