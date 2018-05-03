@@ -15,6 +15,16 @@
   background-color: $gray-light;
 }
 
+.menu-primary__icon {
+  color: $gray-dark;
+  font-size: 2rem;
+  float: right;
+  text-decoration: none;
+}
+.menu-primary {
+  display: none;
+}
+
 .menu-primary__item, .menu-secondary__item {
   position: relative;
   > ul {
@@ -46,7 +56,7 @@
 
 /* Medium Screens and Up */
 @include bp(MD) {
-  .nav-main__icon {
+  .menu-primary__icon {
     display: none;
   }
   .menu-primary {
@@ -67,15 +77,31 @@
       }
     }
     &:hover, &:focus {
-      background: $acas-teal;
       .menu-primary__link {
         background: $acas-teal;
         color: $white;
+        &:after {
+          background-image: url(../images/icons/icon-chevron-white-down.png);
+        }
       }
     }
   }
   .menu-primary__link {
-    padding: 0.5em 1em;
+    display: inline-block;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    position: relative;
+    &:after {
+      content: "";
+      background-image: url(../images/icons/icon-chevron-teal-down.png);
+      background-size: 100% auto;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      height: 1rem;
+      position: absolute;
+      right: 0.75rem;
+      top: 1rem;
+      width: 0.75rem;
+    }
   }
   .menu-secondary {
     border-top: 0.75em solid $acas-teal;
@@ -107,3 +133,9 @@
     }
   }
 }
+//
+// @include bp(LG) {
+//   .menu-primary__link {
+//     padding: 0.5rem 3rem 0.5rem 1rem;
+//   }
+// }

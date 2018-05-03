@@ -12,3 +12,14 @@ Drupal.behaviors.acas = {
     }
   }
 };
+
+document.getElementById("menu-primary__icon").addEventListener("click", openNavigation);
+
+function openNavigation() {
+    var x = document.getElementById("menu-primary");
+    if (x.className === "menu-primary") {
+        x.className += " menu-primary--active";
+    } else {
+        x.className = "menu-primary";
+    }
+}

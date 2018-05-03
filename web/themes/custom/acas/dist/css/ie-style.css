@@ -2319,10 +2319,23 @@ a {
 }
 
 /* line 18, ../../src/scss/structures/_header.scss */
+.menu-primary__icon {
+  color: #666;
+  font-size: 2rem;
+  float: right;
+  text-decoration: none;
+}
+
+/* line 24, ../../src/scss/structures/_header.scss */
+.menu-primary {
+  display: none;
+}
+
+/* line 28, ../../src/scss/structures/_header.scss */
 .menu-primary__item, .menu-secondary__item {
   position: relative;
 }
-/* line 20, ../../src/scss/structures/_header.scss */
+/* line 30, ../../src/scss/structures/_header.scss */
 .menu-primary__item > ul, .menu-secondary__item > ul {
   background: white;
   left: 0;
@@ -2332,14 +2345,14 @@ a {
   width: 100%;
   z-index: 1001;
 }
-/* line 28, ../../src/scss/structures/_header.scss */
+/* line 38, ../../src/scss/structures/_header.scss */
 .menu-primary__item > ul li, .menu-secondary__item > ul li {
   display: block;
   padding: 0.5em 1em;
   width: 100%;
 }
 
-/* line 36, ../../src/scss/structures/_header.scss */
+/* line 46, ../../src/scss/structures/_header.scss */
 .menu-primary__link,
 .menu-secondary__link {
   color: #008C95;
@@ -2352,23 +2365,23 @@ a {
 }
 
 /* Medium Screens and Up */
-/* line 49, ../../src/scss/structures/_header.scss */
-.nav-main__icon {
+/* line 59, ../../src/scss/structures/_header.scss */
+.menu-primary__icon {
   display: none;
 }
 
-/* line 52, ../../src/scss/structures/_header.scss */
+/* line 62, ../../src/scss/structures/_header.scss */
 .menu-primary {
   display: table;
   table-layout: fixed;
   width: 100%;
 }
 
-/* line 57, ../../src/scss/structures/_header.scss */
+/* line 67, ../../src/scss/structures/_header.scss */
 .menu-primary__item {
   display: table-cell;
 }
-/* line 60, ../../src/scss/structures/_header.scss */
+/* line 70, ../../src/scss/structures/_header.scss */
 .menu-primary__item:hover .menu-secondary, .menu-primary__item:focus .menu-secondary {
   -webkit-box-shadow: 2px 2px 16px 0px #cccccc;
   -moz-box-shadow: 2px 2px 16px 0px #cccccc;
@@ -2378,29 +2391,44 @@ a {
   visibility: visible;
   top: 100%;
 }
-/* line 69, ../../src/scss/structures/_header.scss */
-.menu-primary__item:hover, .menu-primary__item:focus {
-  background: #008C95;
-}
-/* line 71, ../../src/scss/structures/_header.scss */
+/* line 80, ../../src/scss/structures/_header.scss */
 .menu-primary__item:hover .menu-primary__link, .menu-primary__item:focus .menu-primary__link {
   background: #008C95;
   color: #fff;
 }
-
-/* line 77, ../../src/scss/structures/_header.scss */
-.menu-primary__link {
-  padding: 0.5em 1em;
+/* line 83, ../../src/scss/structures/_header.scss */
+.menu-primary__item:hover .menu-primary__link:after, .menu-primary__item:focus .menu-primary__link:after {
+  background-image: url(../images/icons/icon-chevron-white-down.png);
 }
 
-/* line 80, ../../src/scss/structures/_header.scss */
+/* line 89, ../../src/scss/structures/_header.scss */
+.menu-primary__link {
+  display: inline-block;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  position: relative;
+}
+/* line 93, ../../src/scss/structures/_header.scss */
+.menu-primary__link:after {
+  content: "";
+  background-image: url(../images/icons/icon-chevron-teal-down.png);
+  background-size: 100% auto;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  height: 1rem;
+  position: absolute;
+  right: 0.75rem;
+  top: 1rem;
+  width: 0.75rem;
+}
+
+/* line 106, ../../src/scss/structures/_header.scss */
 .menu-secondary {
   border-top: 0.75em solid #008C95;
   margin-top: .75em;
   transition: all 0s ease;
   transition-delay: 0.5s;
 }
-/* line 85, ../../src/scss/structures/_header.scss */
+/* line 111, ../../src/scss/structures/_header.scss */
 .menu-secondary:before {
   content: "";
   background-color: transparent;
@@ -2410,7 +2438,7 @@ a {
   top: -1.5em;
   width: 100%;
 }
-/* line 94, ../../src/scss/structures/_header.scss */
+/* line 120, ../../src/scss/structures/_header.scss */
 .menu-secondary:after {
   content: "";
   border-bottom: 1em solid #008C95;

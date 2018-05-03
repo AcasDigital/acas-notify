@@ -20,12 +20,11 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
-    'clearfix',
-    'col-xs-12',
-    'col-sm-6'
+    'clearfix'
   ]
 %}
 {% block content %}
+<div class="col-xs-8 col-sm-6">
   <section {{ attributes.addClass(classes) }}>
   {% if site_logo %}
     <a class="logo navbar-btn pull-left" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
@@ -39,4 +38,9 @@
     <p class="navbar-text">{{ site_slogan }}</p>
   {% endif %}
   </section>
+</div>
+
+<div class="col-xs-4 col-sm-6">
+  <a href="javascript:void(0);" id="menu-primary__icon" class="menu-primary__icon">&#9776;</a>
+</div>
 {% endblock %}

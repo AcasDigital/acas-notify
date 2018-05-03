@@ -304,8 +304,8 @@ function general_taxonomy_term_update($term) {
 }
 
 function general_menu_first_level() {
-  //general_menu_full_first_level();
-  //return;
+  general_menu_full_first_level();
+  return;
 
   $menu_name = 'main';
   $menu_handler = \Drupal::service('plugin.manager.menu.link');
@@ -401,7 +401,7 @@ function general_menu_secondary_pages($first_level, $node, $weight) {
   }
 }
 
-/*
+
 // Full menu
 function general_menu_full_first_level() {
   $menu_name = 'main';
@@ -439,22 +439,29 @@ function general_menu_full_first_level() {
 
 function general_menu_full_second_level($first_level, $tid, &$weight) {
   if ($children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($tid)) {
-    $query = \Drupal::database()->select('taxonomy_index', 'ti');
-    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-    $query->fields('ti', array('nid'));
     foreach ($children as $key => $value) {
       // See if have node
+      $query = \Drupal::database()->select('taxonomy_index', 'ti');
+      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+      $query->fields('ti', array('nid'));
       $query->condition('ti.tid', $key, '=');
       $result = $query->execute();
       if ($nid = $result->fetchCol()) {
         $node = \Drupal\node\Entity\Node::load($nid[0]);
-        $second_level = MenuLinkContent::create([
-          'title' => $node->getTitle(),
-          'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
-          'parent' => $first_level->getPluginId(),
-          'expanded' => TRUE,
-          'weight' => $weight,
-        ]);
+        if ($node->getType() != 'secondary_page') {
+          $second_level = MenuLinkContent::create([
+            'title' => $node->getTitle(),
+            'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+            'parent' => $first_level->getPluginId(),
+            'expanded' => TRUE,
+            'weight' => $weight,
+          ]);
+        }
+        $second_level->save();
+        $weight++;
+        if ($node->getType() == 'details_page') {
+          general_menu_secondary_pages($second_level, $node, $weight);
+        }
       }else{
         // No node. See if have link to external site
         $second_level = MenuLinkContent::create([
@@ -464,14 +471,14 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
           'expanded' => TRUE,
           'weight' => $weight,
         ]);
+        $second_level->save();
+        $weight++;
       }
-      $second_level->save();
-      $weight++;
       general_menu_full_second_level($second_level, $key, $weight);
     }
   }
 }
-*/
+
 
 function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
   if (strpos($view->current_display, 'rest_export') !== FALSE) {
