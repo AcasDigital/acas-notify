@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ccd4bb1813271c35e98b9aff7abd519",
+    "content-hash": "ad3936c7524289091e2de07453f69ef4",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6116,56 +6116,6 @@
             }
         },
         {
-            "name": "drupal/minifyjs",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/minifyjs",
-                "reference": "8.x-1.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/minifyjs-8.x-1.7.zip",
-                "reference": "8.x-1.7",
-                "shasum": "fccc4a8a5cf3d829a94a9c63a239ce03c56ab6fe"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "patchwork/jsqueeze": "~2.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.7",
-                    "datestamp": "1518529080",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Scott Joudry",
-                    "homepage": "https://www.drupal.org/user/1846786",
-                    "email": "sj@slydevil.com"
-                }
-            ],
-            "description": "Allows an administrator to minify any javascript file in Drupal and use that version rather than the original.",
-            "homepage": "https://www.drupal.org/project/minifyjs",
-            "support": {
-                "source": "http://cgit.drupalcode.org/minifyjs",
-                "issues": "https://www.drupal.org/project/issues/minifyjs"
-            }
-        },
-        {
             "name": "drupal/node_revision_delete",
             "version": "1.0.0-alpha4",
             "source": {
@@ -10739,53 +10689,6 @@
                 "random"
             ],
             "time": "2018-04-04T21:24:14+00:00"
-        },
-        {
-            "name": "patchwork/jsqueeze",
-            "version": "v2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tchwork/jsqueeze.git",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/jsqueeze/zipball/693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "reference": "693d64850eab2ce6a7c8f7cf547e1ab46e69d542",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Patchwork\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(Apache-2.0 or GPL-2.0)"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                }
-            ],
-            "description": "Efficient JavaScript minification in PHP",
-            "homepage": "https://github.com/tchwork/jsqueeze",
-            "keywords": [
-                "compression",
-                "javascript",
-                "minification"
-            ],
-            "time": "2016-04-19T09:28:22+00:00"
         },
         {
             "name": "phenx/php-font-lib",
