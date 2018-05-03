@@ -1,11 +1,19 @@
 .region.region-top-bar {
-    border-bottom: 1px solid $gray-dark;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    overflow: auto;
+  border-bottom: 1px solid $gray-dark;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  overflow: auto;
 }
 
 .block-beta-banner {
-  color: $black;
+  color: $gray-dark;
+  font-size: 85%;
   width: 100%;
+}
+
+.beta-icon {
+  background: navy;
+  color: $white;
+  padding: 0 .5rem;
+  margin: 0 .5rem 0 0;
 }

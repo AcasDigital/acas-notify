@@ -17,14 +17,16 @@ class BetaBanner extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $output = 'This is the <strong>';
+    $output = '<span class="beta-icon">BETA</span> This is a new service - your feedback will help us to improve it.';
+    /*
     $a = explode('.', $_SERVER['HTTP_HOST']);
     if (strpos($a[0], 'dev') !== FALSE) {
       $output .= 'DEV ';
     }else if (strpos($a[0], 'uat') !== FALSE) {
       $output .= 'UAT ';
     }
-    $output .= 'BETA</strong> site';
+    $output .= ' site';
+    */
     return ['#markup' => $output];
   }
 }

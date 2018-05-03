@@ -108,7 +108,9 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Is this page useful?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',
         '#weight' => 995,
       ];
+      $build['feedback']['#attached']['library'][] = 'general/anything_wrong';
     }
+    /*
     if ($entity->get('field_anything_wrong')->value) {
       $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
       $result = \Drupal::service('path.alias_manager')->getAliasByPath(\Drupal::service('path.current')->getPath());
@@ -124,6 +126,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $build['anything_wrong']['#weight'] = 999;
       $build['anything_wrong']['#attached']['library'][] = 'general/anything_wrong';
     }
+    */
     if ($entity->get('field_print_download')->value) {
       $build['print_download_email'] = [
         '#markup' => '<div class="print-download-email">
@@ -353,21 +356,52 @@ function general_menu_second_level($first_level, $node, &$weight) {
     if($nodeIds = $result->fetchCol()){
       $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
       foreach($nodes as $node) {
-        $second_level = MenuLinkContent::create([
-          'title' => $node->getTitle(),
-          'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
-          'parent' => $first_level->getPluginId(),
-          'expanded' => TRUE,
-          'weight' => $weight,
-        ]);
-        $second_level->save();
-        $weight++;
+        if ($node->getType() != 'secondary_page') {
+          $second_level = MenuLinkContent::create([
+            'title' => $node->getTitle(),
+            'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+            'parent' => $first_level->getPluginId(),
+            'expanded' => TRUE,
+            'weight' => $weight,
+          ]);
+          $second_level->save();
+          $weight++;
+          if ($node->getType() == 'details_page') {
+            general_menu_secondary_pages($second_level, $node, $weight);
+          }
+        }
         general_menu_second_level($second_level, $node, $weight);
       }
     }
   }
 }
 
+function general_menu_secondary_pages($first_level, $node, $weight) {
+  $query = \Drupal::database()->select('taxonomy_index', 'ti');
+  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+  $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+  $query->fields('ti', array('nid'));
+  $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
+  $query->condition('nfd.type', 'secondary_page', '=');
+  $query->orderBy('fd.weight', 'ASC');
+  $result = $query->execute();
+  if($nodeIds = $result->fetchCol()){
+    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+    foreach($nodes as $node) {
+      $second_level = MenuLinkContent::create([
+        'title' => $node->getTitle(),
+        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+        'parent' => $first_level->getPluginId(),
+        'expanded' => TRUE,
+        'weight' => $weight,
+      ]);
+      $second_level->save();
+      $weight++;
+    }
+  }
+}
+
+/*
 // Full menu
 function general_menu_full_first_level() {
   $menu_name = 'main';
@@ -389,9 +423,6 @@ function general_menu_full_first_level() {
   if($nodeIds = $result->fetchCol()){
     $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
     foreach($nodes as $node) {
-      if ($node->getTitle() == 'Redundancy') {
-          $a=1;
-        }
       $first_level = MenuLinkContent::create([
         'title' => $node->getTitle(),
         'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
@@ -417,9 +448,6 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
       $result = $query->execute();
       if ($nid = $result->fetchCol()) {
         $node = \Drupal\node\Entity\Node::load($nid[0]);
-        if ($node->getTitle() == 'Redundancy') {
-          $a=1;
-        }
         $second_level = MenuLinkContent::create([
           'title' => $node->getTitle(),
           'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
@@ -443,6 +471,7 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
     }
   }
 }
+*/
 
 function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
   if (strpos($view->current_display, 'rest_export') !== FALSE) {

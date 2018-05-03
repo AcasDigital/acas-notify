@@ -15,8 +15,8 @@
     'clearfix'
   ]
 %}
-<header{{ attributes.addClass(classes) }}>
-  <div class="col-xs-12 col-md-7">
+<div class="col-xs-12 col-md-7">
+  <header{{ attributes.addClass(classes) }}>
     {{ title_prefix }}
     {% if label %}
       <h2{{ title_attributes.addClass('block-title') }}>{{ label }}</h2>
@@ -26,5 +26,5 @@
     {% block content %}
       {{ content }}
     {% endblock %}
-  </div>
-</header>
+  </header>
+</div>

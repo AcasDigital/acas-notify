@@ -1,0 +1,33 @@
+#views-exposed-form-solr-search-content-page-1 {
+
+}
+
+@include bp(MD) {
+  #views-exposed-form-solr-search-content-page-1 {
+    float: right;
+    .form-group {
+      float: left;
+    }
+    .form--inline {
+      border: 2px solid $gray-medium;
+      border-radius: 5px;
+    }
+    input, #edit-submit-solr-search-content {
+      border: none;
+      padding: .25rem .5rem;
+    }
+    #edit-submit-solr-search-content {
+      background-color: $gray-medium;
+      color: $white;
+      margin: 0;
+    }
+    &:active, &:focus, &:hover {
+      #edit-submit-solr-search-content {
+        background-color: $acas-teal;
+      }
+      .form--inline {
+        border: 2px solid $acas-teal;
+      }
+    }
+  }
+}

@@ -77,7 +77,24 @@ class GeneralController extends ControllerBase {
   }
   
   public function feedback_results() {
-    
+    $connection = \Drupal::database();
+    $query = $connection->query("SELECT DISTINCT entity_id FROM {votingapi_result} v WHERE v.entity_type = 'node' AND v.type = 'vote'");
+    $result = $query->fetchAll();
+    $return = [];
+    foreach($result as $v) {
+      $node = \Drupal\node\Entity\Node::load($v->entity_id);
+      $query2 = $connection->query("SELECT * FROM {votingapi_result} v WHERE v.entity_id = " . $v->entity_id);
+      $result2 = $query2->fetchAll();
+      $vote = [
+        'title' => $node->getTitle(),
+        'url' => $node->toUrl()->toString(),
+      ];
+      foreach($result2 as $v2) {
+        $vote['vote'][$v2->function] = $v2->value;
+      }
+      $return[] = $vote;
+    }
+    return new JsonResponse($return);
   }
   
   public function anything_wrong_results() {

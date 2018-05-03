@@ -40,12 +40,11 @@
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
     'clearfix',
-    'col-xs-12',
-    'col-sm-4'
+    'col-xs-12'
   ]
 %}
 
-<div{{ attributes.addClass(classes) }}>
+<div {{ attributes.addClass(classes) }}>
 
   {% set heading_id = attributes.id ~ '-menu'|clean_id %}
   <nav role="navigation" aria-labelledby="{{ heading_id }}">

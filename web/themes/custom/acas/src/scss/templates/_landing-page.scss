@@ -1,3 +1,6 @@
+.block-landing-link {
+  display: block;
+}
 #block-landingpagesblock, .block-home-page-block {
   article {
     @extend .col-xs-12;
@@ -8,7 +11,7 @@
       border: 3px solid $acas-lime;
       border-radius: 1em;
       min-height: 10em;
-      padding: 1em 1.25em;
+      padding: 1rem 1.25rem;
       position: relative;
       &:hover {
         background: $gray-light;
@@ -27,12 +30,13 @@
         }
       }
       .content {
-        bottom: 1em;
+        bottom: 1rem;
         font-size: 75%;
         left: 0;
-        max-height: 6em;
+        max-height: 4.5rem;
+        overflow: hidden;
         position: absolute;
-        padding: 0 1.25em;
+        padding: 0 1.25rem;
         width: 100%;
         p {
           margin-bottom: 0;

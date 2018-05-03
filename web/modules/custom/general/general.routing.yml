@@ -55,7 +55,7 @@ general.feedback:
     _permission: 'access content'
     
 general.feedback-results:
-  path: '/feedback-reults'
+  path: '/feedback-results'
   defaults:
     _controller: '\Drupal\general\Controller\GeneralController::feedback_results'
     _title: 'Feedback results'

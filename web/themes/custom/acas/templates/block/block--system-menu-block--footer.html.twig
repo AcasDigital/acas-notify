@@ -45,7 +45,7 @@
   ]
 %}
 
-<section{{ attributes.addClass(classes) }}>
+<div{{ attributes.addClass(classes) }}>
 
   {% set heading_id = attributes.id ~ '-menu'|clean_id %}
   <nav role="navigation" aria-labelledby="{{ heading_id }}">
@@ -57,11 +57,11 @@
     <h2{{ title_attributes.setAttribute('id', heading_id) }}>
       {{ configuration.label }}
     </h2>
-    <a href="javascript:void(0);" class="nav-main__icon" onclick="mainNavigationClasses()">&#9776;</a>
+
     {% block content %}
       {{ content }}
     {% endblock %}
 
   </nav>
 
-</section>
+</div>
