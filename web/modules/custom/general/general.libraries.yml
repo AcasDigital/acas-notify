@@ -44,6 +44,9 @@ sync_prod:
     - core/jquery.once
     
 test_prod:
+  css:
+    theme:
+      css/test_prod.css: {}
   js:
     js/test_prod.js: {}
   dependencies:

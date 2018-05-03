@@ -126,7 +126,7 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    //general_sync_prod();
+    general_sync_prod();
     return array(
       '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target"></div>',
     );
@@ -138,6 +138,9 @@ class GeneralController extends ControllerBase {
       $config_factory = \Drupal::configFactory();
       $config = $config_factory->getEditable('system.performance');
       $cache = $config->get('cache');
+      $meta_front = $config_factory->getEditable('metatag.metatag_defaults.front');
+      $meta_global = $config_factory->getEditable('metatag.metatag_defaults.global');
+      $meta_node = $config_factory->getEditable('metatag.metatag_defaults.node');
       file_put_contents('/tmp/sync.zip', base64_decode($_POST['data']));
       $zip = new ZipArchive();
       $zip->open('/tmp/sync.zip');
@@ -150,6 +153,9 @@ class GeneralController extends ControllerBase {
       unlink('/tmp/' . $_POST['file']);
       $config->set('cache', $cache);
       $config->save(TRUE);
+      $meta_front->save(TRUE);
+      $meta_global->save(TRUE);
+      $meta_node->save(TRUE);
       drupal_flush_all_caches();
       return new JsonResponse('ok');
     }
