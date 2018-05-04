@@ -164,6 +164,7 @@ class GeneralController extends ControllerBase {
   public function sync_cleanup() {
     drupal_flush_all_caches();
     \Drupal::service('simple_sitemap.generator')->generateSitemap();
+    return new JsonResponse('ok');
   }
   
   public function sync_prod_data() {

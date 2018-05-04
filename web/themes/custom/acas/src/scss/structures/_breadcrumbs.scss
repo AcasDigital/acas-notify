@@ -2,13 +2,25 @@
   padding: 0.75em 1em;
   li {
     display: inline-block;
+    position: relative;
     a {
       color: $gray-dark;
+      position: relative;
+      padding-right: 2em;
     }
     &:after {
-      content: ">";
+      content: "";
       display: inline-block;
       padding: 0 .5em;
+      background-image: url(../images/icons/icon-chevron-teal-right.png);
+      background-size: auto .75em;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      height: 1em;
+      position: absolute;
+      width: 1em;
+      top: 0.25em;
+      right: 0;
     }
     &:last-child {
       &:after {
