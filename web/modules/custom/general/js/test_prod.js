@@ -6,7 +6,7 @@ var d = new Date();
 Drupal.behaviors.test_prod = {
   attach: function(context, settings) {
     jQuery.ajax({
-      url: "/sync-prod-data",
+      url: "/sync-prod-data?" + d.getTime(),
       type: "GET",
       dataType: "json",
       cache: false,
@@ -17,9 +17,9 @@ Drupal.behaviors.test_prod = {
       success: function(data){
         prod = data.prod
         nodes = data.nodes;
-        jQuery("#test-target").html('Clearing caches and rebuilding config on Production');
+        jQuery("#test-target").html('<div class="target">Clearing caches and rebuilding config on Production</div>');
         jQuery.ajax({
-          url: prod + "/sync-cleanup",
+          url: prod + "/sync-cleanup?" + d.getTime(),
           type: "GET",
           dataType: "json",
           cache: false,

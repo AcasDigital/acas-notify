@@ -1,5 +1,5 @@
 .breadcrumb {
-  padding: 0.75em 1em;
+  padding: 0.75em 0;
   li {
     display: inline-block;
     position: relative;
@@ -28,4 +28,8 @@
       }
     }
   }
+}
+
+@include bp(MD) {
+  padding: 0.75em 1em;
 }

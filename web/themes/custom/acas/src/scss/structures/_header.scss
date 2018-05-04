@@ -30,6 +30,7 @@
 }
 
 .menu-primary__item {
+  padding: .5em 0;
   position: relative;
   &.menu-primary__item--active {
     .menu-secondary {
@@ -120,6 +121,7 @@
   }
   .menu-primary__item {
     display: table-cell;
+    padding: 0;
     > ul {
       background: $white;
       position: absolute;
