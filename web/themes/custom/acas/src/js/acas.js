@@ -5,11 +5,7 @@ Drupal.behaviors.acas = {
     if (msie > 0) {
       jQuery('body').addClass('ie' + parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
     }
-    setTimeout(searchFocus, 200);
     document.body.style.display="block";
-    function searchFocus() {
-      document.getElementById("edit-keys").focus();
-    }
   }
 };
 
@@ -38,3 +34,7 @@ for(var i = 0; i < primaryListItems.length; i++) {
     }
   });
 }
+
+document.getElementById('edit-keys').addEventListener("click", function() {
+  document.getElementsByClassName('form--inline')[0].classList.add('active');
+});

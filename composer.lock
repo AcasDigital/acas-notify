@@ -177,16 +177,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.55.5",
+            "version": "3.55.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "12152498f9c6f5595ebdeb4ec3d8b45379843bf4"
+                "reference": "fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/12152498f9c6f5595ebdeb4ec3d8b45379843bf4",
-                "reference": "12152498f9c6f5595ebdeb4ec3d8b45379843bf4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9",
+                "reference": "fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-05-02T19:55:35+00:00"
+            "time": "2018-05-03T22:24:42+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",

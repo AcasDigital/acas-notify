@@ -463,8 +463,8 @@ th {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 17px;
-  padding-right: 18px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 /* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
 .container:before, .container:after {
@@ -478,19 +478,19 @@ th {
 @media (min-width: 768px) {
   /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
   .container {
-    width: 755px;
+    width: 750px;
   }
 }
 @media (min-width: 992px) {
   /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
   .container {
-    width: 975px;
+    width: 970px;
   }
 }
 @media (min-width: 1200px) {
   /* line 10, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
   .container {
-    width: 1205px;
+    width: 1200px;
   }
 }
 
@@ -498,8 +498,8 @@ th {
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 17px;
-  padding-right: 18px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 /* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
 .container-fluid:before, .container-fluid:after {
@@ -513,8 +513,8 @@ th {
 
 /* line 39, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
 .row {
-  margin-left: -17px;
-  margin-right: -18px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 /* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
 .row:before, .row:after {
@@ -527,15 +527,15 @@ th {
 }
 
 /* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, article.details-page, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, article.details-page, article.support-page, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page, article.support-page, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-left: 18px;
-  padding-right: 17px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page, article.support-page {
   float: left;
 }
 
@@ -595,7 +595,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page {
+.col-xs-12, article.landing-page, #block-landingpagesblock article, .block-home-page-block article, article.details-page, article.support-page {
   width: 100%;
 }
 
@@ -1057,7 +1057,7 @@ th {
 }
 @media (min-width: 992px) {
   /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.details-page, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.details-page, article.support-page, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -1092,7 +1092,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-7, article.details-page {
+  .col-md-7, article.details-page, article.support-page {
     width: 58.33333%;
   }
 
@@ -2232,35 +2232,50 @@ a {
 }
 
 @media (min-width: 992px) {
-  /* line 6, ../../src/scss/common/_search.scss */
-  #views-exposed-form-solr-search-content-page-1 {
+  /* line 7, ../../src/scss/common/_search.scss */
+  #header-main #views-exposed-form-solr-search-content-page-1 {
     float: right;
   }
-  /* line 8, ../../src/scss/common/_search.scss */
+
+  /* line 12, ../../src/scss/common/_search.scss */
+  #header-front-page #views-exposed-form-solr-search-content-page-1 {
+    float: left;
+  }
+
+  /* line 17, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1 .form-group {
     float: left;
   }
-  /* line 11, ../../src/scss/common/_search.scss */
+  /* line 20, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1 .form--inline {
     border: 2px solid #999;
     border-radius: 5px;
+    display: inline-block;
   }
-  /* line 15, ../../src/scss/common/_search.scss */
+  /* line 24, ../../src/scss/common/_search.scss */
+  #views-exposed-form-solr-search-content-page-1 .form--inline.active {
+    border: 2px solid #008C95;
+  }
+  /* line 26, ../../src/scss/common/_search.scss */
+  #views-exposed-form-solr-search-content-page-1 .form--inline.active #edit-submit-solr-search-content {
+    background-color: #008C95;
+  }
+  /* line 31, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1 input, #views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content {
     border: none;
     padding: .25rem .5rem;
   }
-  /* line 19, ../../src/scss/common/_search.scss */
+  /* line 35, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content {
     background-color: #999;
     color: #fff;
     margin: 0;
   }
-  /* line 25, ../../src/scss/common/_search.scss */
+  /* line 41, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-solr-search-content {
     background-color: #008C95;
   }
-  /* line 28, ../../src/scss/common/_search.scss */
+  /* line 44, ../../src/scss/common/_search.scss */
   #views-exposed-form-solr-search-content-page-1:active .form--inline, #views-exposed-form-solr-search-content-page-1:focus .form--inline, #views-exposed-form-solr-search-content-page-1:hover .form--inline {
     border: 2px solid #008C95;
   }
@@ -2491,10 +2506,9 @@ a {
 
   /* line 147, ../../src/scss/structures/_header.scss */
   .menu-primary__link {
-    display: inline-block;
     padding: 0.5rem 2rem 0.5rem 1rem;
   }
-  /* line 150, ../../src/scss/structures/_header.scss */
+  /* line 149, ../../src/scss/structures/_header.scss */
   .menu-primary__link:after {
     background-image: url(../images/icons/icon-chevron-teal-down.png);
     right: .75em;

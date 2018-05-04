@@ -30,6 +30,14 @@ general.sync_update:
   requirements:
     _permission: 'access content'
     
+general.sync_cleanup:
+  path: '/sync-cleanup'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::sync_cleanup'
+    _title: 'Syncronise to Production'
+  requirements:
+    _permission: 'access content'
+    
 general.sync_prod_data:
   path: '/sync-prod-data'
   defaults:

@@ -3,14 +3,30 @@
 }
 
 @include bp(MD) {
+  #header-main {
+    #views-exposed-form-solr-search-content-page-1 {
+      float: right;
+    }
+  }
+  #header-front-page {
+    #views-exposed-form-solr-search-content-page-1 {
+      float: left;
+    }
+  }
   #views-exposed-form-solr-search-content-page-1 {
-    float: right;
     .form-group {
       float: left;
     }
     .form--inline {
       border: 2px solid $gray-medium;
       border-radius: 5px;
+      display: inline-block;
+      &.active {
+        border: 2px solid $acas-teal;
+        #edit-submit-solr-search-content {
+          background-color: $acas-teal;
+        }
+      }
     }
     input, #edit-submit-solr-search-content {
       border: none;

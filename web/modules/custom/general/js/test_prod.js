@@ -17,7 +17,21 @@ Drupal.behaviors.test_prod = {
       success: function(data){
         prod = data.prod
         nodes = data.nodes;
-        getPage(nodes[i]);
+        jQuery("#test-target").html('Clearing caches and rebuilding config on Production');
+        jQuery.ajax({
+          url: prod + "/sync-cleanup",
+          type: "GET",
+          dataType: "json",
+          cache: false,
+          timeout: 60000,
+          error: function(XMLHttpRequest, textStatus, errorThrown){
+            
+          },
+          success: function(data){
+            jQuery("#test-target").html('');
+            getPage(nodes[i]);
+          }
+        });
       }
     });
   }

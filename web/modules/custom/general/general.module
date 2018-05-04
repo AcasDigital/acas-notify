@@ -509,6 +509,7 @@ function general_sync_prod() {
   $exclude = [
     'history',
     'sessions',
+    'simple_sitemap',
     'votingapi_result',
     'votingapi_vote',
     'webform',

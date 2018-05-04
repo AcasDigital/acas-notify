@@ -128,7 +128,7 @@ class GeneralController extends ControllerBase {
   public function sync_prod() {
     general_sync_prod();
     return array(
-      '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target"></div>',
+      '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target">Starting processes. Please wait... </div>',
     );
   }
   
@@ -156,10 +156,14 @@ class GeneralController extends ControllerBase {
       $meta_front->save(TRUE);
       $meta_global->save(TRUE);
       $meta_node->save(TRUE);
-      drupal_flush_all_caches();
       return new JsonResponse('ok');
     }
     return new JsonResponse('error');
+  }
+  
+  public function sync_cleanup() {
+    drupal_flush_all_caches();
+    \Drupal::service('simple_sitemap.generator')->generateSitemap();
   }
   
   public function sync_prod_data() {
