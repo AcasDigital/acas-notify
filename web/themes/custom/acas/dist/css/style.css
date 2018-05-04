@@ -2557,6 +2557,23 @@ a {
   margin-top: 1rem;
 }
 
+/* line 1, ../../src/scss/structures/_social-share.scss */
+#social-share {
+  overflow: hidden;
+}
+/* line 3, ../../src/scss/structures/_social-share.scss */
+#social-share .text {
+  color: #008C95;
+  float: left;
+  font-weight: bold;
+  padding: 0.25em 0;
+}
+/* line 9, ../../src/scss/structures/_social-share.scss */
+#social-share .social-media-sharing {
+  float: right;
+  clear: right;
+}
+
 /* Templates */
 /* line 1, ../../src/scss/templates/_front-page.scss */
 #header-front-page {
