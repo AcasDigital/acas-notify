@@ -15,7 +15,7 @@ general.sync:
     _permission: 'sync to prod'
     
 general.sync_prod:
-  path: '/sync-prod'
+  path: '/admin/config/development/sync-prod'
   defaults:
     _controller: '\Drupal\general\Controller\GeneralController::sync_prod'
     _title: 'Syncronise to Production'
