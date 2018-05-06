@@ -177,16 +177,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.55.6",
+            "version": "3.55.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9"
+                "reference": "6cda2e7c4b2e7e61feea2e8b4d950c8e6ab6b82e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9",
-                "reference": "fcafbbdaa58ca2b1db62fd6dc626c01125f8eee9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6cda2e7c4b2e7e61feea2e8b4d950c8e6ab6b82e",
+                "reference": "6cda2e7c4b2e7e61feea2e8b4d950c8e6ab6b82e",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-05-03T22:24:42+00:00"
+            "time": "2018-05-04T20:11:35+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -343,16 +343,16 @@
         },
         {
             "name": "christian-riesen/otp",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristianRiesen/otp.git",
-                "reference": "a6c095fb36f6404aa1078d2dfd717aa95c1b5267"
+                "reference": "9b31f024114b3b5bc393a1fb4b0ad19cb7931e81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristianRiesen/otp/zipball/a6c095fb36f6404aa1078d2dfd717aa95c1b5267",
-                "reference": "a6c095fb36f6404aa1078d2dfd717aa95c1b5267",
+                "url": "https://api.github.com/repos/ChristianRiesen/otp/zipball/9b31f024114b3b5bc393a1fb4b0ad19cb7931e81",
+                "reference": "9b31f024114b3b5bc393a1fb4b0ad19cb7931e81",
                 "shasum": ""
             },
             "require": {
@@ -397,7 +397,7 @@
                 "rfc6238",
                 "totp"
             ],
-            "time": "2017-12-14T11:04:02+00:00"
+            "time": "2018-05-04T09:41:44+00:00"
         },
         {
             "name": "cloudconvert/cloudconvert-php",
