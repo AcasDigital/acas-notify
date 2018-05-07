@@ -1,0 +1,13 @@
+#social-share {
+  overflow: hidden;
+  .text {
+    color: $acas-teal;
+    float: left;
+    font-weight: bold;
+    padding: 0.25em 0;
+  }
+  .social-media-sharing {
+    float: right;
+    clear: right;
+  }
+}

@@ -110,6 +110,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ];
       $build['feedback']['#attached']['library'][] = 'general/anything_wrong';
     }
+    unset($build['printable_navigation']);
     /*
     if ($entity->get('field_anything_wrong')->value) {
       $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
@@ -506,22 +507,11 @@ function general_sync_prod() {
   $output = '';
   $file = 'DB_' . time() . '.sql';
   $path = '/tmp/' . $file;
-  $exclude = [
-    'history',
-    'sessions',
-    'simple_sitemap',
-    'votingapi_result',
-    'votingapi_vote',
-    'webform',
-    'webform_scheduled_email',
-    'webform_submission',
-    'webform_submission_data',
-    'webform_submission_log'
-  ];
+  $exclude = preg_split('/\r\n|\r|\n/', $config->get('tables'));
   $tables = '';
-  $databse = $connection['database'];
+  $database = $connection['database'];
   foreach($exclude as $t) {
-    $tables .= " --ignore-table=$databse.$t";
+    $tables .= " --ignore-table=$database.$t";
   }
   $cmd = 'mysqldump -u ' . $connection['username'] . ' -p' . $connection['password'] . ' -h ' . $connection['host'] . ' ' . $connection['database'] . $tables . ' > ' . $path;
   exec($cmd);

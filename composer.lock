@@ -6370,7 +6370,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/printable",
-                "reference": "a8cd6d90fc1b5446523a5a11fc6af5201bfa3dd3"
+                "reference": "74c5805a978df53fce746ab823405c6662cf9e0d"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -6386,8 +6386,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+5-dev",
-                    "datestamp": "1516316885",
+                    "version": "8.x-1.0+6-dev",
+                    "datestamp": "1520317684",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -6414,7 +6414,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/printable"
             },
-            "time": "2018-03-06T05:57:23+00:00"
+            "time": "2018-05-07T00:05:05+00:00"
         },
         {
             "name": "drupal/rabbit_hole",

@@ -41,11 +41,24 @@ class AdminForm extends ConfigFormBase {
     $form['sync'] = array(
       '#type' => 'fieldset',
       '#title' => t('Production content sync'),
+      '#collapsible' => TRUE,
     );
     $form['sync']['prod'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('prod') ?: 'https://beta-acas.org.uk',
       '#title' => t('Production URL'),
+    );
+    $form['sync']['tables'] = array(
+      '#type' => 'textarea',
+      '#default_value' => $config->get('tables') ?: '',
+      '#title' => t('Tables to exclude'),
+      '#description' => t('Enter the tables to exclude, one per line'),
+    );
+    $form['sync']['config'] = array(
+      '#type' => 'textarea',
+      '#default_value' => $config->get('config') ?: '',
+      '#title' => t('Configuration names to ignore'),
+      '#description' => t('Enter the configuration names to ignore, one per line'),
     );
     return parent::buildForm($form, $form_state);
   }
@@ -64,6 +77,8 @@ class AdminForm extends ConfigFormBase {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('feedback_email', $form_state->getValue('feedback_email'))
     ->set('prod', $form_state->getValue('prod'))
+    ->set('tables', $form_state->getValue('tables'))
+    ->set('config', $form_state->getValue('config'))
     ->save();
     parent::submitForm($form, $form_state);
   }
