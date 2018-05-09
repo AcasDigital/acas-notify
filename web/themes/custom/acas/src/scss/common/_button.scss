@@ -1,14 +1,15 @@
 .btn-cta {
   background: $acas-teal;
   display: block;
-  font-family: $font-family-headers;
-  font-weight: $font-weight-bold;
   color: $white;
   padding: .75em;
   margin: 1em 0;
   text-align: center;
   text-decoration: none;
   width: fit-content;
+  &:hover, &:focus {
+    @extend .outline;
+  }
 }
 
 .btn-cta--inverse {

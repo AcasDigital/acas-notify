@@ -12,10 +12,12 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
-    'clearfix'
+    'clearfix',
+    'col-xs-12',
+    'col-md-7'
   ]
 %}
-<div class="col-xs-12 col-md-7">
+
   <header{{ attributes.addClass(classes) }}>
     {{ title_prefix }}
     {% if label %}
@@ -27,4 +29,3 @@
       {{ content }}
     {% endblock %}
   </header>
-</div>

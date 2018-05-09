@@ -2,7 +2,6 @@ h1, h2, h3, h4, h5, h6 {
   &, a {
     color: $acas-teal;
     font-family: $font-family-headers;
-    font-weight: $font-weight-bold;
     margin-top: .75em;
     margin-bottom: .25em;
   }
@@ -38,4 +37,8 @@ h5 {
 
 h6 {
   font-size: 1em;
+}
+
+#block-acas-page-title {
+  clear: right; 
 }

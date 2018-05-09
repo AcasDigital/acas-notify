@@ -31,5 +31,7 @@
 }
 
 @include bp(MD) {
-  padding: 0.75em 1em;
+  .breadcrumb {
+    padding: 0.75em 1em;
+  }
 }

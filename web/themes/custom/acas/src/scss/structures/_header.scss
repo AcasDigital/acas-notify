@@ -6,9 +6,20 @@
   clear: both;
 }
 
+#block-sitebranding {
+  img {
+    display: inline-block;
+    max-width: 10em;
+    vertical-align: text-top;
+  }
+  .branding-block__logo {
+    display: block;
+  }
+}
+
 .region-branding-bar {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
 }
 
 .region-navigation-collapsible {
@@ -53,6 +64,7 @@
 }
 
 .menu-primary__link {
+  font-family: $font-family-headers;
   display: block;
   position: relative;
   &:after {
@@ -69,11 +81,14 @@
   }
 }
 
+.menu-secondary__link {
+  font-weight: $font-weight-bold;
+}
+
 .menu-primary__link,
 .menu-secondary__link {
   color: $acas-teal;
   line-height: 2;
-  font-weight: bold;
   text-decoration: none;
 }
 
@@ -147,11 +162,11 @@
     }
   }
   .menu-primary__link {
-    padding: 0.5rem 2rem 0.5rem 1rem;
+    padding: 0.25em 2em 0.25em 1em;
     &:after {
       background-image: url(../images/icons/icon-chevron-teal-down.png);
-      right: .75em;
-      top: 1em;
+      right: 1.75em;
+      top: .75em;
     }
   }
 }

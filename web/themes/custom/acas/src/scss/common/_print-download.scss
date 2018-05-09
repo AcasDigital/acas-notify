@@ -2,11 +2,13 @@
   border: 2px solid $acas-teal;
   border-spacing: 1em 0;
   display: inline-block;
+  margin: 1em 0;
   max-width: 30rem;
   text-align: center;
   width: 100%;
   a {
     display: inline-block;
+    text-decoration: underline;
   }
 }
 

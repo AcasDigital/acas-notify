@@ -1,13 +1,26 @@
 #social-share {
+  background: $gray-light;
+  border-radius: 30px;
+  margin-bottom: 1em;
   overflow: hidden;
+  padding: 0.25em 1em;
   .text {
-    color: $acas-teal;
     float: left;
-    font-weight: bold;
     padding: 0.25em 0;
   }
   .social-media-sharing {
     float: right;
     clear: right;
+    padding-top: .25em
+  }
+  .share {
+    &:hover, &:focus {
+      @extend .outline;
+    }
+  }
+  img {
+    height: auto;
+    vertical-align: text-top;
+    width: 1.5em;
   }
 }

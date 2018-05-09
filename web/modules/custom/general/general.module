@@ -110,7 +110,6 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ];
       $build['feedback']['#attached']['library'][] = 'general/anything_wrong';
     }
-    unset($build['printable_navigation']);
     /*
     if ($entity->get('field_anything_wrong')->value) {
       $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
@@ -155,6 +154,9 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       '#weight' => 990,
     ];
   }
+  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface) {
+    unset($build['printable_navigation']);
+  }
 }
 
 /**
@@ -182,8 +184,11 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'taxonomy_overview_terms') {
     $form['#submit'][] = 'general_taxonomy_overview_terms_submit';
   }
+  if ($form_id == 'user_login_form') {
+    $form['#submit'][] = 'general_user_login_submit';
+  }
   if ($form_id == 'sync_form') {
-    $form['actions']['submit']['#value'] = 'Start syncronisation to Prod';
+    $form['actions']['submit']['#value'] = 'Start syncronisation to Productioon';
   }
 }
 
@@ -546,6 +551,10 @@ function _is_site($site = 'beta') {
     return TRUE;
   }
   return FALSE;
+}
+
+function general_user_login_submit($form, &$form_state) {
+  $form_state->setRedirect('workbench.content');
 }
 
 /**

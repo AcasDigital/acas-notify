@@ -12,7 +12,7 @@ Drupal.behaviors.test_prod = {
       cache: false,
       timeout: 60000,
       error: function(XMLHttpRequest, textStatus, errorThrown){
-        
+        jQuery("#test-target").html('<div class="red">Fetch data error = ' + textStatus + '</div>');
       },
       success: function(data){
         prod = data.prod
@@ -25,7 +25,7 @@ Drupal.behaviors.test_prod = {
           cache: false,
           timeout: 60000,
           error: function(XMLHttpRequest, textStatus, errorThrown){
-            
+            jQuery("#test-target").html('<div class="red">Clear cache error = ' + textStatus + '</div>');
           },
           success: function(data){
             jQuery("#test-target").html('');

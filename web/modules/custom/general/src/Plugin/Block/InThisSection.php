@@ -45,7 +45,6 @@ class InThisSection extends BlockBase {
     if ($output) {
       $output = '<h2>In this section</h2><ul>' . $output . '</ul>';
     }
-
     return ['#markup' => $output];
   }
 
