@@ -105,7 +105,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
     }
     if ($entity->get('field_useful')->value) {
       $build['feedback'] = [
-        '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Is this page useful?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',
+        '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Did we answer your question?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',
         '#weight' => 995,
       ];
       $build['feedback']['#attached']['library'][] = 'general/anything_wrong';
@@ -136,6 +136,90 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         </div>',
         '#weight' => 992,
       ];
+    }
+    if ($entity->getType() == 'details_page') {
+      $query = \Drupal::database()->select('taxonomy_index', 'ti');
+      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->fields('ti', array('nid'));
+      $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
+      $query->condition('nfd.type', 'secondary_page', '=');
+      $query->orderBy('fd.weight', 'ASC');
+      $result = $query->execute();
+      if ($nodeIds = $result->fetchCol()) {
+        $node = \Drupal\node\Entity\Node::load($nodeIds[0]);
+        $next = '<a class="next" href="' . $node->toUrl()->toString() . '">
+            <div class="details_wrapper">
+              <div class="right_arrow"></div>
+              <div class="details">
+                <div class="text">Next</div>
+                <div class="title">' . $node->getTitle() . '</div>
+              </div>
+            </div>
+          </a>';
+        $build['secondary_page_navigation'] = [
+          '#markup' => '<div class="secondary-page-navigation">' . $next . '</div>',
+          '#weight' => 991,
+        ];
+      }
+    }
+    if ($entity->getType() == 'secondary_page') {
+      //$term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($entity->get('field_taxonomy')->target_id);
+     // $entity->setTitle($term->getName());
+      $query = \Drupal::database()->select('taxonomy_index', 'ti');
+      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->fields('ti', array('nid'));
+      $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
+      $query->condition('nfd.type', 'secondary_page', '=');
+      $query->orderBy('fd.weight', 'ASC');
+      $result = $query->execute();
+      if($nodeIds = $result->fetchCol()){
+        $p_nid = 0;
+        $n_nid = 0;
+        foreach($nodeIds as $key => $value) {
+          if ($value == $entity->id()) {
+            if ($key) {
+              $p_nid = $nodeIds[$key - 1];
+            }
+            if (@$nodeIds[$key + 1]) {
+              $n_nid = $nodeIds[$key + 1];
+            }
+            break;
+          }
+        }
+        $previous = '';
+        $next = '';
+        if ($p_nid) {
+          $node = \Drupal\node\Entity\Node::load($p_nid);
+          $previous = '<a class="previous" href="' . $node->toUrl()->toString() . '">
+            <div class="details_wrapper">
+              <div class="left_arrow"></div>
+              <div class="details">
+                <div class="text">Previous</div>
+                <div class="title">' . $node->getTitle() . '</div>
+              </div>
+            </div>
+          </a>';
+        }
+        if ($n_nid) {
+          $node = \Drupal\node\Entity\Node::load($n_nid);
+          $next = '<a class="next" href="' . $node->toUrl()->toString() . '">
+            <div class="details_wrapper">
+              <div class="right_arrow"></div>
+              <div class="details">
+                <div class="text">Next</div>
+                <div class="title">' . $node->getTitle() . '</div>
+              </div>
+            </div>
+          </a>';
+        }
+        $build['secondary_page_navigation'] = [
+          '#markup' => '<div class="secondary-page-navigation">' . $previous . $next . '</div>',
+          '#weight' => 991,
+        ];
+        unset($build['field_taxonomy']);
+      }
     }
   }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
     $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);

@@ -66,8 +66,9 @@ class RelatedContent extends BlockBase {
         foreach($node->get('field_related_content') as $link) {
           $params = $link->getUrl()->getRouteParameters();
           $entity_type = key($params);
-          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-          $output .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
+          if ($entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type])) {
+            $output .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
+          }
         }
       }
       $output .= '</ul></li></ul></nav>';

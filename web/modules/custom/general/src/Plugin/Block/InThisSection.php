@@ -30,8 +30,12 @@ class InThisSection extends BlockBase {
       $result = $query->execute();
       if($nodeIds = $result->fetchCol()){
         $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
-        foreach($nodes as $node) {
-          $output .= '<li><a href="' . $node->toUrl()->toString() . '">' . $node->getTitle() . '</a></li>';
+        foreach($nodes as $n) {
+          if ($node->id() == $n->id()) {
+            $output .= '<li class="active">' . $n->getTitle() . '</li>';
+          }else{
+            $output .= '<li><a href="' . $n->toUrl()->toString() . '">' . $n->getTitle() . '</a></li>';
+          }
         }
         /*
         $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
@@ -43,7 +47,7 @@ class InThisSection extends BlockBase {
       }
     }
     if ($output) {
-      $output = '<h2>In this section</h2><ul>' . $output . '</ul>';
+      $output = '<h2>Content</h2><ul>' . $output . '</ul>';
     }
     return ['#markup' => $output];
   }

@@ -1,0 +1,12 @@
+.search-index {
+  a {
+    text-decoration: none;
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+  h2 {
+    border-left: none;
+    padding-left: 0;
+  }
+}

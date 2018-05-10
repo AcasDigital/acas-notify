@@ -9,7 +9,10 @@ Drupal.behaviors.acas = {
   }
 };
 
-document.getElementById("menu-primary__icon").addEventListener("click", openNavigation);
+document.getElementById("menu-primary__icon").addEventListener("click", function(e) {
+  e.preventDefault();
+  openNavigation();
+});
 
 function openNavigation() {
   var x = document.getElementById("menu-primary");
@@ -20,21 +23,60 @@ function openNavigation() {
   }
 }
 
-var primaryListItems = document.getElementsByClassName("menu-primary__item");
+if (document.documentElement.clientWidth < 767) {
+  var primaryListItems = document.getElementsByClassName("menu-primary__item");
 
-for(var i = 0; i < primaryListItems.length; i++) {
-  var primaryLink = primaryListItems[i].querySelectorAll('.menu-primary__link')[0];
-  primaryLink.addEventListener("click", function(e) {
-    e.preventDefault();
-    if(this.parentNode.classList.contains('menu-primary__item--active')) {
-      this.parentNode.classList.remove('menu-primary__item--active')
-    }
-    else {
-      this.parentNode.classList.add('menu-primary__item--active')
-    }
-  });
+  // window.isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+
+  for(var i = 0; i < primaryListItems.length; i++) {
+    var primaryLink = primaryListItems[i].querySelectorAll('.menu-primary__link')[0];
+    primaryLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      if(this.parentNode.classList.contains('menu-primary__item--active')) {
+        this.parentNode.classList.remove('menu-primary__item--active')
+      }
+      else {
+        this.parentNode.classList.add('menu-primary__item--active')
+      }
+    });
+  }
 }
 
 document.getElementById('edit-keys').addEventListener("click", function() {
   document.getElementsByClassName('form--inline')[0].classList.add('active');
+});
+
+
+jQuery( document ).ready( function( $ ) {
+
+	$( '.menu-primary' ).on( 'mouseenter focus', '.menu-primary__item > .menu-primary__link', function( e ) {
+			var el = $( this );
+	    el.toggleClass( 'has-focus' );
+			// Show sub-menu
+			el.parents( '.menu-primary__item' ).attr( 'aria-expanded', 'true' );
+		}).on( 'mouseleave blur', '.menu-primary__item > .menu-primary__link', function( e ) {
+			var el = $( this );
+	    el.toggleClass( 'has-focus' );
+			// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing
+			setTimeout( function() {
+				if ( el.siblings( '.menu-secondary' ).attr( 'data-has-focus' ) !== 'true' ) {
+					el.parents( '.menu-primary__item' ).attr( 'aria-expanded', 'false' );
+				}
+			}, 100 );
+		}).on( 'mouseenter focusin', '.menu-secondary', function( e ) {
+			var el = $( this );
+			el.attr( 'data-has-focus', 'true' );
+		}).on( 'mouseleave focusout', '.menu-secondary', function( e ) {
+			var el = $( this );
+			setTimeout( function() {
+				// Check if anything else has picked up focus (i.e. next link in sub-menu)
+				if ( el.find( ':focus' ).length === 0 ) {
+					el.attr( 'data-has-focus', 'false' );
+					// Hide sub-menu on the way out if parent link doesn't have focus now
+        	if ( el.siblings( '.menu-primary__link.has-focus' ).length === 0 ) {
+						el.parents( '.menu-primary__item' ).attr( 'aria-expanded', 'false' );
+          }
+        }
+			}, 100 );
+		});
 });

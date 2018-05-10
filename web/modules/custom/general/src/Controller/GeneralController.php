@@ -60,7 +60,8 @@ class GeneralController extends ControllerBase {
       if ($nid = $connection->query("SELECT nid FROM {node_field_data} WHERE title LIKE '%helpline' AND type = 'support_page'")->fetchField()) {
         $node = \Drupal\node\Entity\Node::load($nid);
         $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-        return $view_builder->view($node, 'full');
+        $view = $view_builder->view($node, 'full');
+        return $view;
       }
     }
     

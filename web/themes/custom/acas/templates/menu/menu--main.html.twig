@@ -28,28 +28,30 @@
   {% import _self as menus %}
   {% if items %}
     {% if menu_level == 0 %}
-      <ul id="menu-primary" class="menu-primary" role="menubar">
+    <ul id="menu-primary" class="menu-primary" role="menubar">
     {% elseif menu_level == 1 %}
-      <ul class="menu-secondary" role="menu" aria-hidden="true">
+    <ul class="menu-secondary" role="menu" aria-hidden="true">
     {% endif %}
 
     {% for item in items %}
       {% if menu_level == 0 %}
-        <li{{ item.attributes.addClass('menu-primary__item') }} id={{node.id}} aria-haspopup="true" role="menuitem" tabindex="0">
-        <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
-        {% if item.below %}
-          {{ menus.menu_links(item.below, attributes.removeClass('nav', 'navbar-nav'), menu_level + 1) }}
-        {% endif %}
+        <li{{ item.attributes.addClass('menu-primary__item') }} aria-haspopup="true" aria-expanded="false" role="menuitem">
+          <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes.addClass(), menu_level + 1) }}
+          {% endif %}
+        </li>
       {% elseif menu_level == 1 %}
-        <li{{ item.attributes.addClass('menu-secondary__item') }} role="menuitem" tabindex="-1">
+        <li{{ item.attributes.addClass('menu-secondary__item') }} role="menuitem">
           {% if item.title == 'Home' %}
             <a href="{{ item.url }}" title="Dashboard" class="home_link">Dashboard</a>
           {% else %}
             {{ link(item.title, item.url) }}
           {% endif %}
+        </li>
       {% endif %}
-      </li>
     {% endfor %}
+
     </ul>
   {% endif %}
 {% endmacro %}

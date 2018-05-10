@@ -3,14 +3,14 @@
   &.teaser {
     clear: none;
   }
-  @extend .col-xs-12;
-  @extend .col-md-7;
 }
 
 .block-in-this-section-block {
   clear: left;
-  @extend .col-xs-12;
-  @extend .col-md-7;
   padding-top: 1em;
   padding-bottom: 2em;
+}
+
+.secondary-page {
+  clear: left;
 }

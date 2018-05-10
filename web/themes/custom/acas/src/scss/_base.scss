@@ -23,13 +23,17 @@ a {
 }
 
 p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.25em;
 }
 
-.details-page {
+.details-page, .support-page, .page {
   ul {
     list-style-type: disc;
     margin-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+  .paragraph {
+    margin: 1em 0 2em;
   }
 }
 

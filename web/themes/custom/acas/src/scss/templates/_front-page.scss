@@ -44,13 +44,7 @@
   }
   #block-views-block-google-analytics-summary-block-1 {
     padding: 1em 0;
+    overflow: auto;
     width: 100%;
-    @include bp(MD) {
-      float: right;
-      width: 380px;
-      a {
-        font-size: 75%;
-      }
-    }
   }
 }

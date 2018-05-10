@@ -73,32 +73,31 @@
     not node.isPublished() ? 'is-unpublished',
     view_mode ? view_mode|clean_class,
     'clearfix',
+    'col-xs-12'
   ]
 %}
-<div class="col-xs-12">
-  <article{{ attributes.addClass(classes) }}>
-    <div class="wrapper">
-      {{ title_prefix }}
-      {% if not page %}
-        <h2{{ title_attributes }}>
-          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-        </h2>
-      {% endif %}
-      {{ title_suffix }}
+<article{{ attributes.addClass(classes) }}>
+  <div class="page__wrapper">
+    {{ title_prefix }}
+    {% if not page %}
+      <h2{{ title_attributes }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+    {% endif %}
+    {{ title_suffix }}
 
-      {% if display_submitted %}
-        <footer>
-          {{ author_picture }}
-          <div{{ author_attributes.addClass('author') }}>
-            {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-            {{ metadata }}
-          </div>
-        </footer>
-      {% endif %}
+    {% if display_submitted %}
+      <footer>
+        {{ author_picture }}
+        <div{{ author_attributes.addClass('author') }}>
+          {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+          {{ metadata }}
+        </div>
+      </footer>
+    {% endif %}
 
-      <div{{ content_attributes.addClass('content') }}>
-        {{ content }}
-      </div>
+    <div{{ content_attributes.addClass('page__content') }}>
+      {{ content }}
     </div>
-  </article>
-</div>
+  </div>
+</article>

@@ -1,0 +1,30 @@
+.previous, .next {
+  text-decoration: none;
+}
+.details_wrapper {
+  padding: 1em;
+  .text {
+    display: block;
+    font-size: 1.45em;
+  }
+  .title {
+    font-size: 0.875em;
+    text-decoration: underline;
+  }
+  &:hover, &:focus {
+    background: $gray-light;
+  }
+}
+
+@include bp(MD) {
+  .previous, .next {
+    float: left;
+    width: 50%;
+  }
+  .next {
+    text-align: right;
+  }
+  .details_wrapper {
+
+  }
+}

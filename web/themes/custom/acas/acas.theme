@@ -36,6 +36,11 @@ function acas_preprocess_field(&$variables) {
   if (@$variables['entity_type'] == 'paragraph' && @$variables['element']['#bundle'] == 'helpdesk') {
     $variables['currentPath'] = \Drupal::request()->getRequestUri();
   }
+  if (@$variables['entity_type'] == 'node' && @$variables['element']['#bundle'] == 'secondary_page' && @$variables['field_name'] == 'title') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($node->get('field_taxonomy')->target_id);
+    $variables['items'][0]['content']['#context']['value'] = $term->getName();
+  }
 }
 
 function acas_preprocess_views_view_field(&$variables) {

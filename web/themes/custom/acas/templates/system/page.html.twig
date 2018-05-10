@@ -98,15 +98,11 @@
 
 {% if page.front_top and is_front %}
   {% block front_top %}
-    <div id="header-front-page">
+    <section id="header-front-page">
       <div role="page_top" class=container {{ container }} js-quickedit-front_top-content">
-        <div class="row">
-          <div class="col-sm-12" role="heading">
-            {{ page.front_top }}
-          </div>
-        </div>
+          {{ page.front_top }}
       </div>
-    </div>
+    </section>
   {% endblock %}
 {% endif %}
 

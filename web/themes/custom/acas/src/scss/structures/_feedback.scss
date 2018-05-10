@@ -1,0 +1,14 @@
+#useful_wrapper {
+  margin: 1em 0;
+  a {
+    border: 3px solid $acas-lime;
+    color: $acas-teal;
+    font-family: $font-family-headers;
+    padding: 0.25em .75em;
+    border-radius: 5px;
+    text-decoration: none;
+    &:hover, &:focus {
+      @extend .outline;
+    }
+  }
+}
