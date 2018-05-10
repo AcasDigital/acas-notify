@@ -29,6 +29,20 @@ class InThisSection extends BlockBase {
       $query->orderBy('fd.weight', 'ASC');
       $result = $query->execute();
       if($nodeIds = $result->fetchCol()){
+        if ($node->getType() == 'details_page') {
+          $output .= '<li class="active">Overview</li>';
+        }else{
+          $query2 = \Drupal::database()->select('taxonomy_index', 'ti');
+          $query2->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+          $query2->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+          $query2->fields('ti', array('nid'));
+          $query2->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
+          $query2->condition('nfd.type', 'details_page', '=');
+          $result2 = $query2->execute();
+          $nid = $result2->fetchCol();
+          $node2 = \Drupal\node\Entity\Node::load($nid[0]);
+          $output .= '<li><a href="' . $node2->toUrl()->toString() . '">Overview</a></li>';
+        }
         $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
         foreach($nodes as $n) {
           if ($node->id() == $n->id()) {

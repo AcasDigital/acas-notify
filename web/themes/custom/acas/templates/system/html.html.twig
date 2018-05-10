@@ -70,6 +70,13 @@
     <a href="#main-content" class="visually-hidden focusable skip-link">
       {{ 'Skip to main content'|t }}
     </a>
+
+    {% if is_front %}
+    <a href="#block-exposedformsolr-search-contentpage-1" class="visually-hidden focusable skip-link">
+      {{ 'Skip to search'|t }}
+    </a>
+    {% endif %}
+
     {{ page_top }}
     {{ page }}
     {{ page_bottom }}

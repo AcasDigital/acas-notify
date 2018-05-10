@@ -103,6 +103,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         '#weight' => 990,
       ];
     }
+    /*
     if ($entity->get('field_useful')->value) {
       $build['feedback'] = [
         '#markup' => '<div id="feedback_wrapper"><div id="useful_wrapper"><span class="text">Did we answer your question?</span>&nbsp;<a href="/contact" nid="' . $entity->id() . '">Yes</a>&nbsp;<a href="/contact" nid="' . $entity->id() . '">No</a></div>',
@@ -110,7 +111,6 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ];
       $build['feedback']['#attached']['library'][] = 'general/anything_wrong';
     }
-    /*
     if ($entity->get('field_anything_wrong')->value) {
       $form = \Drupal\webform\Entity\Webform::load('anything_wrong');
       $result = \Drupal::service('path.alias_manager')->getAliasByPath(\Drupal::service('path.current')->getPath());
@@ -192,7 +192,11 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         $next = '';
         if ($p_nid) {
           $node = \Drupal\node\Entity\Node::load($p_nid);
-          $previous = '<a class="previous" href="' . $node->toUrl()->toString() . '">
+          $class = '';
+          if (!$n_nid) {
+            $class = 'no-next';
+          }
+          $previous = '<a class="previous ' . $class . '" href="' . $node->toUrl()->toString() . '">
             <div class="details_wrapper">
               <div class="left_arrow"></div>
               <div class="details">
@@ -201,10 +205,33 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               </div>
             </div>
           </a>';
+        }else{
+          $query2 = \Drupal::database()->select('taxonomy_index', 'ti');
+          $query2->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+          $query2->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+          $query2->fields('ti', array('nid'));
+          $query2->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
+          $query2->condition('nfd.type', 'details_page', '=');
+          $result2 = $query2->execute();
+          $nid = $result2->fetchCol();
+          $node2 = \Drupal\node\Entity\Node::load($nid[0]);
+          $previous = '<a class="previous" href="' . $node2->toUrl()->toString() . '">
+            <div class="details_wrapper">
+              <div class="left_arrow"></div>
+              <div class="details">
+                <div class="text">Previous</div>
+                <div class="title">Overview</div>
+              </div>
+            </div>
+          </a>';
         }
         if ($n_nid) {
           $node = \Drupal\node\Entity\Node::load($n_nid);
-          $next = '<a class="next" href="' . $node->toUrl()->toString() . '">
+          $class = '';
+          if (!$p_nid) {
+            $class = 'no-previous';
+          }
+          $next = '<a class="next ' . $class . '" href="' . $node->toUrl()->toString() . '">
             <div class="details_wrapper">
               <div class="right_arrow"></div>
               <div class="details">
@@ -221,24 +248,31 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         unset($build['field_taxonomy']);
       }
     }
-  }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'details_page') {
-    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
-    $parents = array_reverse($parents, TRUE);
-    $section = '<ul class="section"><li>In:</li>';
-    $url = '';
-    foreach($parents as $parent) {
-      if ($entity->get('field_taxonomy')->target_id != $parent->id()) {
-        $url .= '/' . general_taxonomy_path($parent->getName());
-        $section .= '<li>&nbsp;&gt;&nbsp;<a href="' . $url . '">' . $parent->getName() . '</a></li>';
+  }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface) {
+    if ($entity->hasField('field_taxonomy')) {
+      $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($entity->get('field_taxonomy')->target_id);
+      $parents = array_reverse($parents, TRUE);
+      $section = '<ul class="breadcrumb--search"><li>In:</li>';
+      $url = '';
+      foreach($parents as $parent) {
+        if ($entity->getType() == 'secondary_page') {
+          $url .= '/' . general_taxonomy_path($parent->getName());
+          $section .= '<li><a href="' . $url . '">' . $parent->getName() . '</a></li>';
+        }else{
+          if ($entity->get('field_taxonomy')->target_id != $parent->id()) {
+            $url .= '/' . general_taxonomy_path($parent->getName());
+            $section .= '<li><a href="' . $url . '">' . $parent->getName() . '</a></li>';
+          }
+        }
       }
+      $section .= '</ul>';
+      $build['section'] = [
+        '#markup' => $section,
+        '#weight' => 990,
+      ];
     }
-    $section .= '</ul>';
-    $build['section'] = [
-      '#markup' => $section,
-      '#weight' => 990,
-    ];
   }
-  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface) {
+  if ($entity instanceof \Drupal\node\NodeInterface) {
     unset($build['printable_navigation']);
   }
 }
@@ -259,9 +293,9 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form') {
-    $form['keys']['#attributes']['placeholder'] = t("Search ACAS");
+    $form['keys']['#attributes']['placeholder'] = t("Search Acas");
     $form['keys']['#attributes']['autocomplete'] = 'off';
-    $form['keys']['#title'] = t("Search ACAS");
+    $form['keys']['#title'] = t("Search Acas");
     $form['keys']['#title_display'] = 'invisible';
     //$form['search_api_fulltext']['#required'] = TRUE;
   }
@@ -619,7 +653,7 @@ function general_sync_prod() {
     'file' => $file,
   );
   $curl = curl_init();
-  curl_setopt($curl, CURLOPT_URL, 'https://beta-acas.org.uk/sync-update');
+  curl_setopt($curl, CURLOPT_URL, $config->get('prod') . '/sync-update');
   curl_setopt($curl, CURLOPT_TIMEOUT, 30);
   curl_setopt($curl, CURLOPT_POST, 1);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

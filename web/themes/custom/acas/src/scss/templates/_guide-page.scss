@@ -1,0 +1,20 @@
+.block-in-this-section-block {
+  clear: left;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  .section__wrapper {
+    border-left: 8px solid $gray-light;
+    padding-left: 1em;
+  }
+  h2 {
+    border-left: none;
+    color: $gray-medium;
+    font-family: $font-family-base;
+    font-size: 1em;
+    padding-left: 0;
+  }
+}
+
+.secondary-page {
+  clear: left;
+}

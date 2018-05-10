@@ -63,6 +63,7 @@
         theme.settings.navbar_position ? 'navbar-' ~ theme.settings.navbar_position|clean_class,
       ]
     %}
+
     <header id="header-main">
 
     {# Topbar #}
@@ -96,14 +97,29 @@
   {% endblock %}
 {% endif %}
 
-{% if page.front_top and is_front %}
-  {% block front_top %}
-    <section id="header-front-page">
-      <div role="page_top" class=container {{ container }} js-quickedit-front_top-content">
-          {{ page.front_top }}
+{% if page.front_top_left and is_front %}
+
+<section id="header-front-page">
+  <div role="page_top" class=container {{ container }} js-quickedit-front_top-content">
+    <div class="row">
+    {% block front_top_left %}
+      <div class="col-xs-12 col-md-7">
+        <div class="row">
+          {{ page.front_top_left }}
+        </div>
       </div>
-    </section>
-  {% endblock %}
+    {% endblock %}
+    {% block front_top_right %}
+      <div class="col-xs-12 col-md-5">
+        <div class="row">
+          {{ page.front_top_right }}
+        </div>
+      </div>
+    {% endblock %}
+    </div>
+  </div>
+</section>
+
 {% endif %}
 
 {# Main #}
@@ -162,6 +178,13 @@
 
     </div>
   </main>
+  {% if useful %}
+    <div id="feedback_wrapper">
+      <div id="useful_wrapper">
+        <span class="text">Did we answer your question?</span>&nbsp;<a href="/contact" nid="{{ nodeid }}">Yes</a>&nbsp;<a href="/contact" nid="{{ nodeid }}">No</a>
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% if page.footer %}

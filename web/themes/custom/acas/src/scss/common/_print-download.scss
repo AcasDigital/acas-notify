@@ -1,27 +1,22 @@
 .print-download-email {
   border: 2px solid $acas-teal;
   border-spacing: 1em 0;
-  display: inline-block;
   margin: 1em 0;
-  max-width: 30rem;
+  overflow: auto;
   text-align: center;
   width: 100%;
-  a {
-    display: inline-block;
-    text-decoration: underline;
-  }
 }
 
 .btn-cta--print,
 .btn-cta--download,
 .btn-cta--email {
-  @extend .btn-cta--inverse;
+  @extend .btn-standard;
   padding: 0 2.5rem 0 0;
   margin: .75em 1em;
   position: relative;
   text-transform: capitalize;
   &:after {
-    content: "";
+    content: ""; 
     background-repeat: no-repeat;
     background-size: 50% auto;
     background-position: 50% 50%;

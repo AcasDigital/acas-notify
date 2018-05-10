@@ -1,17 +1,8 @@
 #header-front-page {
   background: $gray-light;
-  .pull-left {
-    float: none !important;
-    position: relative;
-    top: 8px;
-  }
+  padding-top: 2em;
+  padding-bottom: 4em;
   #block-exposedformsolr-search-contentpage-1 {
-    margin-bottom: 28px;
-    margin-top: 30px;
-    width: 100%;
-    @media #{$tablet} {
-      width: 60%;
-    }
     .control-label {
       display: none;
     }
@@ -43,8 +34,18 @@
     }
   }
   #block-views-block-google-analytics-summary-block-1 {
-    padding: 1em 0;
     overflow: auto;
-    width: 100%;
+  }
+}
+
+#block-strapline {
+
+}
+
+article.home-page {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  h2 {
+    @extend h1;
   }
 }

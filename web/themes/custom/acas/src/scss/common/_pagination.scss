@@ -1,6 +1,66 @@
+.secondary-page-navigation {
+  margin: 1em 0;
+  overflow: auto;
+}
+
 .previous, .next {
   text-decoration: none;
+  width: fit-content;
+  &:hover, &:focus {
+    .details_wrapper {
+      background: $gray-light;
+    }
+  }
+  .text {
+    position: relative;
+    &:after {
+      content: "";
+      background-repeat: no-repeat;
+      background-size: 1em auto;
+      background-position: 50% 50%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 2em;
+    }
+  }
 }
+
+.previous {
+  .text {
+    margin-left: 2em;
+    &:after {
+      background-image: url(../images/icons/icon-arrow-left.png);
+      right: 100%;
+    }
+  }
+  &:hover, &:focus {
+    .text {
+      &:after {
+        background-image: url(../images/icons/icon-arrow-left-black.png);
+      }
+    }
+  }
+}
+
+.next {
+  .text {
+    margin-right: 2em;
+    &:after {
+      background-image: url(../images/icons/icon-arrow-right.png);
+      left: 100%;
+    }
+  }
+  &:hover, &:focus {
+    .text {
+      &:after {
+        background-image: url(../images/icons/icon-arrow-right-black.png);
+      }
+    }
+  }
+}
+
+
 .details_wrapper {
   padding: 1em;
   .text {
@@ -11,17 +71,21 @@
     font-size: 0.875em;
     text-decoration: underline;
   }
-  &:hover, &:focus {
-    background: $gray-light;
-  }
 }
 
+@include bp(SM) {
+  .previous, .next {
+    float: left;
+    width: 50%;
+  }
+}
 @include bp(MD) {
   .previous, .next {
     float: left;
     width: 50%;
   }
   .next {
+    float: right;
     text-align: right;
   }
   .details_wrapper {

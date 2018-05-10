@@ -26,9 +26,14 @@ p {
   margin-bottom: 1.25em;
 }
 
-.details-page, .support-page, .page {
+.details-page, .support-page, .page, .secondary-page {
   ul {
     list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul, ol {
     margin-left: 1.5em;
     margin-bottom: 1.25em;
   }
@@ -46,5 +51,16 @@ p {
     content: "";
     clear: both;
     display: table;
+  }
+}
+
+table {
+  margin: 1em 0 2em;
+  th {
+    @extend h4;
+  }
+  td, th {
+    border: 1px solid $gray-medium;
+    padding: 0.5em 1em;
   }
 }

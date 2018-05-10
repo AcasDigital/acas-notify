@@ -23,7 +23,7 @@ function openNavigation() {
   }
 }
 
-if (document.documentElement.clientWidth < 767) {
+if (document.documentElement.clientWidth < 768) {
   var primaryListItems = document.getElementsByClassName("menu-primary__item");
 
   // window.isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
@@ -42,16 +42,23 @@ if (document.documentElement.clientWidth < 767) {
   }
 }
 
-document.getElementById('edit-keys').addEventListener("click", function() {
-  document.getElementsByClassName('form--inline')[0].classList.add('active');
-});
+// document.getElementById('edit-keys').addEventListener("click", function() {
+//   document.getElementsByClassName('form--inline')[0].classList.add('active');
+// });
 
 
 jQuery( document ).ready( function( $ ) {
-
+  $('#edit-keys').on("click focus", function() {
+    $('.form--inline').addClass('active');
+  });
+  $('#edit-keys').on("focusout", function() {
+    $('.form--inline').removeClass('active');
+  });
 	$( '.menu-primary' ).on( 'mouseenter focus', '.menu-primary__item > .menu-primary__link', function( e ) {
 			var el = $( this );
-	    el.toggleClass( 'has-focus' );
+      setTimeout( function() {
+	       el.toggleClass( 'has-focus' );
+      }, 100 );
 			// Show sub-menu
 			el.parents( '.menu-primary__item' ).attr( 'aria-expanded', 'true' );
 		}).on( 'mouseleave blur', '.menu-primary__item > .menu-primary__link', function( e ) {

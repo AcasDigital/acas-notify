@@ -52,21 +52,17 @@
     'block-' ~ plugin_id|clean_class,
     'clearfix',
     'col-xs-12',
-    'col-md-7'
+    'col-md-8'
   ]
 %}
-{% if not no_display %}
-  <section{{ attributes.addClass(classes) }}>
-    <div class="section__wrapper">
-      {{ title_prefix }}
-      {% if label %}
-        <h2{{ title_attributes.addClass('block-title') }}>{{ label }}</h2>
-      {% endif %}
-      {{ title_suffix }}
+<section{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes.addClass('block-title') }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
 
-      {% block content %}
-        {{ content }}
-      {% endblock %}
-    </div>
-  </section>
-{% endif %}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</section>

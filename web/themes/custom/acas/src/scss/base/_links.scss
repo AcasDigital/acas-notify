@@ -1,4 +1,67 @@
 a {
   color: $acas-teal;
   text-decoration: underline;
+  &:hover, &:focus {
+    color: darken($acas-teal, 20%);
+  }
+}
+
+.btn-cta {
+  background: $acas-teal;
+  color: $white;
+  display: block;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+  &:hover, &:focus {
+    @extend .outline;
+    color: $white;
+  }
+}
+
+.btn-standard {
+  background: $white;
+  color: $acas-teal;
+  display: block;
+  font-weight: $font-weight-body;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: underline;
+  width: fit-content;
+  &:hover, &:focus {
+    color: darken($acas-teal, 20%);
+  }
+}
+
+.btn-cta--helpline {
+  min-width: 30em;
+  max-width: 30em;
+  padding: 1.25em 4em 1.25em 1.25em;
+  position: relative;
+  text-align: left;
+  text-decoration: underline;
+  p {
+    margin-bottom: 0;
+  }
+  &:after {
+    content: "";
+    background-image: url(../images/icons/icon-telephone.png);
+    background-repeat: no-repeat;
+    background-size: 1.5em auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: .5em;
+    top: 0;
+    width: 3em;
+  }
+}
+
+@include bp(MD) {
+  .btn-standard {
+    display: inline-block;
+  }
 }

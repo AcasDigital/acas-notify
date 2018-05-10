@@ -5,8 +5,29 @@
       text-decoration: underline;
     }
   }
-  h2 {
-    border-left: none;
-    padding-left: 0;
+}
+
+/* Search */
+.path-solr-search {
+  .field--name-field-rate-this-content, .field--name-field-taxonomy, .print__wrapper--pdf {
+    display: none;
+  }
+}
+
+.view-solr-search-content {
+  @extend .col-xs-12;
+  padding-bottom: 2em;
+  .views-row {
+    margin: 1em 0;
+    overflow: auto;
+    padding: 1em 0;
+    h2 {
+      border-left: none;
+      padding-left: 0;
+      margin-top: 0;
+    }
+    &.odd {
+      background-color: $gray-light;
+    }
   }
 }
