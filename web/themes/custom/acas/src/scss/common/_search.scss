@@ -15,18 +15,18 @@
   }
   input, #edit-submit-solr-search-content {
     border: none;
-    height: 2.5em;
+    height: 2.25em;
     padding: .25em .5em;
     width: 100%;
   }
   #edit-submit-solr-search-content {
-    background-color: $gray-medium;
+    background-color: $gray-dark;
     color: $white;
     margin: 0;
   }
   .form--inline {
-    border: 2px solid $gray-medium;
-    border-radius: 5px;
+    border: 2px solid $gray-dark;
+    border-radius: 2px;
     display: inline-block;
     &.active {
       border: 2px solid $acas-teal;

@@ -49,7 +49,12 @@ function getPage(node) {
       jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="red">BAD</span></div>');
     },
     success: function(data){
-      if (data.indexOf(node.title + "</span>") != -1) {
+      debugger;
+      var a1 = data.split('<main ');
+      var a2 = a1[1].split('</main>');
+      var b1 = node.html.split('<main ');
+      var b2 = b1[1].split('</main>');
+      if (a2[0] == b2[0]) {
         jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="green">OK</span></div>');
       }else{
         jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="red">BAD</span></div>');

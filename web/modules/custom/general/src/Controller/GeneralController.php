@@ -127,7 +127,7 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    general_sync_prod();
+    //general_sync_prod();
     return array(
       '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target"><div class="target">Starting processes. Please wait... </div></div>',
     );
@@ -163,6 +163,7 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_cleanup() {
+    return;
     drupal_flush_all_caches();
     \Drupal::service('simple_sitemap.generator')->generateSitemap();
     return new JsonResponse('ok');
@@ -177,6 +178,7 @@ class GeneralController extends ControllerBase {
       $return['nodes'][] = [
         'title' => $node->getTitle(),
         'url' => $node->toUrl()->toString(),
+        'html' => file_get_contents('https://' . $_SERVER['HTTP_HOST'] . '/' . $node->toUrl()->toString()),
       ];
     }
     return new JsonResponse($return);

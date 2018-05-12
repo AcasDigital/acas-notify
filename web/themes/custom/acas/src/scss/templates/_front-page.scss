@@ -3,9 +3,6 @@
   padding-top: 2em;
   padding-bottom: 4em;
   #block-exposedformsolr-search-contentpage-1 {
-    .control-label {
-      display: none;
-    }
     .form-type-search-api-autocomplete {
       width: 100%;
       .input-group {
@@ -36,10 +33,6 @@
   #block-views-block-google-analytics-summary-block-1 {
     overflow: auto;
   }
-}
-
-#block-strapline {
-
 }
 
 article.home-page {

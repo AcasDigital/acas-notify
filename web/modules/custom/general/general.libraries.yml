@@ -51,3 +51,10 @@ test_prod:
     js/test_prod.js: {}
   dependencies:
     - core/jquery
+    
+search_results:
+  js:
+    js/search_results.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

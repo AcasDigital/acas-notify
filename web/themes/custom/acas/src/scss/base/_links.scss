@@ -1,5 +1,5 @@
 a {
-  color: $acas-teal;
+  color: $acas-teal-dark;
   text-decoration: underline;
   &:hover, &:focus {
     color: darken($acas-teal, 20%);

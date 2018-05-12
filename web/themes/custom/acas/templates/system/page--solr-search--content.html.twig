@@ -52,6 +52,8 @@
  */
 #}
 
+{{ attach_library('general/search_results') }}
+
 {% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
 
 {# Navbar #}
@@ -100,7 +102,7 @@
 {% if page.front_top_left and is_front %}
 
 <section id="header-front-page">
-  <div role="banner" class=container {{ container }} js-quickedit-front_top-content">
+  <div role="page_top" class=container {{ container }} js-quickedit-front_top-content">
     <div class="row">
     {% block front_top_left %}
       <div class="col-xs-12 col-md-7">

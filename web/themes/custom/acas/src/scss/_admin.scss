@@ -1,26 +1,7 @@
-.main-container {
-  padding-left: 5px;
-  padding-right: 5px;
-  @media #{$tablet} {
-    padding: 5px 0;
-    min-height: 76vh;
-  }
-}
-
 .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
   @media #{$tablet} {
     padding-left: 0;
     padding-right: 0;
-  }
-}
-
-.path-frontpage {
-  .main-container {
-    border-top: none;
-    min-height: 50vh;
-  }
-  .breadcrumb {
-    display: none;
   }
 }
 
@@ -87,18 +68,6 @@ strong.node_view {
   .select-wrapper:after {
     display: none;
   }
-}
-
-/* Screenreader Code */
-.screenreader {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
 }
 
 /* Navigation Tabs for Admin Backend */
