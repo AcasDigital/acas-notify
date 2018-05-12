@@ -156,7 +156,6 @@
         "drupal/block_field": "^1.0",
         "drupal/blockgroup": "^1.0",
         "drupal/bootstrap": "^3.9",
-        "drupal/bootstrap_paragraphs": "^2.0",
         "drupal/captcha": "^1.0",
         "drupal/charts": "^3.0",
         "drupal/chosen": "^2.4",

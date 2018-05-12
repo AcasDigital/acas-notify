@@ -78,7 +78,7 @@
   ]
 %}
 
-<article{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
   <div class="article__wrapper">
     {{ title_prefix }}
     {% if not page %}

@@ -92,6 +92,10 @@ function acas_preprocess_links(&$variables) {
   }
 }
 
+function acas_preprocess_node(&$variables) {
+  $variables['changed'] = $variables['node']->getChangedTime();
+}
+
 function acas_preprocess_image(&$variables) {
   if (isset($variables['links']['print'])) {
     //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';

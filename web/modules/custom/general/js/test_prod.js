@@ -50,10 +50,10 @@ function getPage(node) {
     },
     success: function(data){
       debugger;
-      var a1 = data.split('<main ');
-      var a2 = a1[1].split('</main>');
-      var b1 = node.html.split('<main ');
-      var b2 = b1[1].split('</main>');
+      var a1 = data.split('last-changed="');
+      var a2 = a1[1].split('"');
+      var b1 = node.html.split('last-changed="');
+      var b2 = b1[1].split('"');
       if (a2[0] == b2[0]) {
         jQuery("#test-target").html(jQuery("#test-target").html() + '<div class="result"><span class="title">' + node.title + '</span>&nbsp;<span class="green">OK</span></div>');
       }else{
