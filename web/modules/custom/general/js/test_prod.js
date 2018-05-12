@@ -17,7 +17,7 @@ Drupal.behaviors.test_prod = {
       success: function(data){
         prod = data.prod
         nodes = data.nodes;
-        jQuery("#test-target").html('<div class="target">Clearing caches and rebuilding config on Production</div>');
+        jQuery("#test-target").html('<div class="target">Running git pull, composer update, clearing caches and rebuilding config on Production</div>');
         jQuery.ajax({
           url: prod + "/sync-cleanup?" + d.getTime(),
           type: "GET",
