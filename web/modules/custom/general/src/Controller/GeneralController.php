@@ -127,7 +127,7 @@ class GeneralController extends ControllerBase {
   }
   
   public function sync_prod() {
-    //general_sync_prod();
+    general_sync_prod();
     return array(
       '#markup' => '<h3>Finished.</h3><h3>Now testing Production site</h3><div id="test-target"><div class="target">Starting processes. Please wait... </div></div>',
     );
