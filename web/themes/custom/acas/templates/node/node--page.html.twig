@@ -76,7 +76,7 @@
     'col-xs-12'
   ]
 %}
-<article{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
   <div class="page__wrapper">
     {{ title_prefix }}
     {% if not page %}
