@@ -10,7 +10,7 @@ Drupal.behaviors.test_prod = {
       type: "GET",
       dataType: "json",
       cache: false,
-      timeout: 60000,
+      timeout: 180000,
       error: function(XMLHttpRequest, textStatus, errorThrown){
         jQuery("#test-target").html('<div class="red">Fetch data error = ' + textStatus + '</div>');
       },
@@ -23,7 +23,7 @@ Drupal.behaviors.test_prod = {
           type: "GET",
           dataType: "json",
           cache: false,
-          timeout: 60000,
+          timeout: 180000,
           error: function(XMLHttpRequest, textStatus, errorThrown){
             jQuery("#test-target").html('<div class="red">Clear cache error = ' + textStatus + '</div>');
           },
