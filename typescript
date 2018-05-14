@@ -1,0 +1,51 @@
+Script started on Mon 14 May 2018 09:55:24 AM UTC
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+msg
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+release script
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+release script
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+error: pathspec 'script' did not match any file(s) known to git.
+./release.sh: line 20: EOF: command not found
+Everything up-to-date
+./release.sh: line 23: EOF: command not found
+^C
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ git add .
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ git add ../release.sh "release script"
+error: pathspec 'script' did not match any file(s) known to git.
+Everything up-to-date
+^C
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+[master 4c7d464] release script 1 file changed, 7 insertions(+), 10 deletions(-)
+To git@github.com:AcasDigital/acas-beta.git f2eb071..4c7d464 master -> master
+From github.com:AcasDigital/acas-beta composer.json composer.lock config content DEV drush git_pull.sh LICENSE phpunit.xml.dist README.md release.sh scripts typescript update.sh vendor web branch master -> FETCH_HEAD f2eb071..4c7d464 master -> origin/master Updating f2eb071..4c7d464 Fast-forward release.sh | 17 +++++++---------- 1 file changed, 7 insertions(+), 10 deletions(-) > DrupalProjectFinished release to UAT
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+Nothing to commit, working directory clean
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+[master 6191db1] release script 1 file changed, 5 insertions(+), 5 deletions(-)n
+To git@github.com:AcasDigital/acas-beta.git 4c7d464..6191db1 master -> mastern
+From github.com:AcasDigital/acas-beta composer.json composer.lock config content DEV drush git_pull.sh LICENSE phpunit.xml.dist README.md release.sh scripts typescript update.sh vendor web branch master -> FETCH_HEAD 4c7d464..6191db1 master -> origin/master Updating 4c7d464..6191db1 Fast-forward release.sh | 10 +++++----- 1 file changed, 5 insertions(+), 5 deletions(-) > DrupalProjectFinished release to UAT
+
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script"
+[master f92589e] release script 1 file changed, 7 insertions(+), 5 deletions(-)
+
+
+To git@github.com:AcasDigital/acas-beta.git 6191db1..f92589e master -> master
+
+
+From github.com:AcasDigital/acas-beta composer.json composer.lock config content DEV drush git_pull.sh LICENSE phpunit.xml.dist README.md release.sh scripts typescript update.sh vendor web branch master -> FETCH_HEAD 6191db1..f92589e master -> origin/master Updating 6191db1..f92589e Fast-forward release.sh | 12 +++++++----- 1 file changed, 7 insertions(+), 5 deletions(-) > DrupalProject
+Finished release to UAT
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script" "2"
+[master ff6dc10] release script 2 1 file changed, 3 insertions(+), 3 deletions(-)
+To git@github.com:AcasDigital/acas-beta.git f92589e..ff6dc10 master -> master
+
+Running composer update on UAT. Please wait...
+> DrupalProject
+Finished release to UAT
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 2"[1P"3"
+[master 9ab5f09] release script 3 1 file changed, 3 insertions(+), 3 deletions(-)
+To git@github.com:AcasDigital/acas-beta.git ff6dc10..9ab5f09 master -> master
+
+Running composer update on UAT. Please wait...
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package 

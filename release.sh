@@ -23,4 +23,4 @@ cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /
 echo -e "\nRunning composer update on UAT. Please wait..."
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update' 2>&1)
 echo $cmd_output
-echo -e "\nFinished release to UAT"
+echo -e "\nFinished release to UAT\n"
