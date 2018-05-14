@@ -1,13 +1,13 @@
 #!/bin/bash
-if (( "$#" != 1 )) 
-then
-	echo -e "Please provide a commit message eg. 'fixed a load of stuff'"
-	exit 1
-fi
 cd /var/www/html
 file="DEV"
 if [ ! -f $file ] ; then
     echo -e "This script can only be run on DEV!"
+	exit 1
+fi
+if (( "$#" != 1 )) 
+then
+	echo -e "Please provide a commit message eg. 'fixed a load of stuff'"
 	exit 1
 fi
 file=".git/index.lock"
