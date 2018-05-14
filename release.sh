@@ -17,10 +17,10 @@ if [[ $cmd_output = *"nothing to commit"* ]]; then
 	exit 1
 fi
 echo -e $cmd_output
-echo -e "\n"
 cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo -e $cmd_output
-echo -e "\n"
-cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master; composer update' 2>&1)
+cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
+echo -e "\nRunning composer update on UAT. Please wait..."
+cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update' 2>&1)
 echo -e $cmd_output
 echo -e "\nFinished release to UAT"
