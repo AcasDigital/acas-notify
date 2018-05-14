@@ -2885,22 +2885,25 @@ article.home-page {
   left: 0;
   max-height: 6em;
   overflow: hidden;
-  position: absolute;
-  padding: 0 1.75em;
   width: 100%;
 }
-/* line 42, ../../src/scss/templates/_landing-page.scss */
+/* line 40, ../../src/scss/templates/_landing-page.scss */
 #block-landingpagesblock article .article__wrapper .article__content p, .block-home-page-block article .article__wrapper .article__content p {
   margin-bottom: 0;
 }
 
-/* line 53, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article > .article__wrapper, .block-home-page-block article > .article__wrapper {
+/* line 51, ../../src/scss/templates/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
   min-height: 12em;
 }
-/* line 55, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article > .article__wrapper h2, .block-home-page-block article > .article__wrapper h2 {
+/* line 53, ../../src/scss/templates/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper h2, .block-home-page-block article .article__wrapper h2 {
   line-height: 1.25;
+}
+/* line 56, ../../src/scss/templates/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
+  position: absolute;
+  padding: 0 1.75em;
 }
 
 /* line 2, ../../src/scss/templates/_search-results.scss */

@@ -36,8 +36,6 @@ article.landing-page {
         left: 0;
         max-height: 6em;
         overflow: hidden;
-        position: absolute;
-        padding: 0 1.75em;
         width: 100%;
         p {
           margin-bottom: 0;
@@ -50,10 +48,14 @@ article.landing-page {
 @include bp(MD) {
   #block-landingpagesblock, .block-home-page-block {
     article {
-      > .article__wrapper {
+      .article__wrapper {
         min-height: 12em;
         h2 {
           line-height: 1.25;
+        }
+        .article__content {
+          position: absolute;
+          padding: 0 1.75em;
         }
       }
     }
