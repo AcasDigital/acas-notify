@@ -6,6 +6,11 @@ then
 fi
 msg="$*"
 cd /var/www/html
+file="DEV"
+if [ ! -f $file ] ; then
+    echo -e "This script can only be run on DEV!"
+	exit 1
+fi
 file=".git/index.lock"
 if [ -f $file ] ; then
     rm -f $file

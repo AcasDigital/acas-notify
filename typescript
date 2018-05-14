@@ -48,4 +48,56 @@ Finished release to UAT
 To git@github.com:AcasDigital/acas-beta.git ff6dc10..9ab5f09 master -> master
 
 Running composer update on UAT. Please wait...
-> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package 
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package information Updating dependencies (including require-dev) Nothing to install or update Generating autoload files > DrupalProject\composer\ScriptHandler::createRequiredFiles
+
+Finished release to UAT
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 3"[1P"4"
+[master 8b97326] release script 4 2 files changed, 52 insertions(+), 1 deletion(-)
+To git@github.com:AcasDigital/acas-beta.git 9ab5f09..8b97326 master -> master
+
+Running composer update on UAT. Please wait...
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package information Updating dependencies (including require-dev) Nothing to install or update Generating autoload files > DrupalProject\composer\ScriptHandler::createRequiredFiles
+
+Finished release to UAT
+
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 4"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+Please provide a commit message
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 4"[1P"5"
+[master 2d9019d] release script 5 1 file changed, 1 insertion(+), 1 deletion(-)
+To git@github.com:AcasDigital/acas-beta.git 8b97326..2d9019d master -> master
+
+Running composer update on UAT. Please wait...
+
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package information Updating dependencies (including require-dev) Nothing to install or update Generating autoload files > DrupalProject\composer\ScriptHandler::createRequiredFiles
+
+Finished release to UAT
+
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 5"
+Nothing to commit, working directory clean
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 5"[1P"6"
+Nothing to commit, working directory clean
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 6"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+Please provide a commit message eg. 'fixed a load of stuff'
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 6"[1P"7"
+[master 1f54bc9] release script 7 1 file changed, 2 insertions(+), 2 deletions(-)
+To git@github.com:AcasDigital/acas-beta.git 2d9019d..1f54bc9 master -> master
+
+Running composer update on UAT. Please wait...
+
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package information Updating dependencies (including require-dev) Nothing to install or update Generating autoload files > DrupalProject\composer\ScriptHandler::createRequiredFiles [success] Cache rebuild complete.
+
+Finished release to UAT
+
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ./release.sh "release script 7"[1P"8"
+[master f960f14] release script 8 1 file changed, 1 insertion(+), 1 deletion(-)
+To git@github.com:AcasDigital/acas-beta.git 1f54bc9..f960f14 master -> master
+
+Running 'composer update' and 'drush cr' on UAT. Please wait...
+
+> DrupalProject\composer\ScriptHandler::checkComposerVersion Loading composer repositories with package information Updating dependencies (including require-dev) Nothing to install or update Generating autoload files > DrupalProject\composer\ScriptHandler::createRequiredFiles [success] Cache rebuild complete.
+
+Finished release to UAT
+
+]0;ubuntu@ip-172-31-41-122: /var/www/htmlubuntu@ip-172-31-41-122:/var/www/html$ ls
+[0m[01;32mcomposer.json[0m  [01;34mconfig[0m   DEV    [01;32mgit_pull.sh[0m  [01;32mphpunit.xml.dist[0m  [01;32mrelease.sh[0m  typescript  [01;34mvendor[0m
+[01;32mcomposer.lock[0m  [34;42mcontent[0m  [01;34mdrush[0m  [01;32mLICENSE[0m      [01;32mREADME.md[0m         [01;34mscripts[0m     [01;32mupdate.sh[0
