@@ -11,5 +11,7 @@ if [ -f $file ] ; then
     rm -f $file
 fi
 cmd_output=$(/usr/bin/git add . 2>&1)
-cmd_output=$(/usr/bin/git commit -m $msg . 2>&1)
+cmd_output=$(/usr/bin/git commit -m $msg 2>&1)
+echo $cmd_output
+cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo $cmd_output
