@@ -4,7 +4,7 @@ then
 	echo "Please provide a commit message"
 	exit 1
 fi
-eval msg="$*"
+msg="$*"
 cd /var/www/html
 file=".git/index.lock"
 if [ -f $file ] ; then
@@ -17,8 +17,11 @@ if [[ $cmd_output = *"nothing to commit"* ]]; then
 	exit 1
 fi
 echo $cmd_output
+EOF
 cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo $cmd_output
+EOF
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master; composer update' 2>&1)
 echo $cmd_output
+EOF
 echo "Finished release to UAT"
