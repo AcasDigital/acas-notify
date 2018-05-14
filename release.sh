@@ -1,7 +1,7 @@
 #!/bin/bash
 if (( "$#" != 1 )) 
 then
-	echo -e "Please provide a commit message"
+	echo -e "Please provide a commit message eg. 'fixed a load of stuff'"
 	exit 1
 fi
 msg="$*"
@@ -21,6 +21,6 @@ cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo $cmd_output
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
 echo -e "\nRunning composer update on UAT. Please wait...\n"
-cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update' 2>&1)
+cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update; drush cr' 2>&1)
 echo $cmd_output
 echo -e "\nFinished release to UAT\n"
