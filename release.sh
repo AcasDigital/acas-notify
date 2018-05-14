@@ -15,3 +15,5 @@ cmd_output=$(/usr/bin/git commit -m $msg 2>&1)
 echo $cmd_output
 cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo $cmd_output
+cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
+echo $cmd_output
