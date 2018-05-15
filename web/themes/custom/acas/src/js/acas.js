@@ -42,12 +42,17 @@ if (document.documentElement.clientWidth < 768) {
   }
 }
 
-// document.getElementById('edit-keys').addEventListener("click", function() {
-//   document.getElementsByClassName('form--inline')[0].classList.add('active');
-// });
-
-
 jQuery( document ).ready( function( $ ) {
+
+  var secondaryMenus = $('.menu-secondary');
+
+  for (var i = 0; i < secondaryMenus.length; i++) {
+    var siblingLink = $(secondaryMenus[i]).siblings('.menu-primary__link');
+    var secondaryMenuTitle = "<li class='menu-secondary__item'><h3>"+$(siblingLink).clone().html()+"</h3></li>";
+    $(secondaryMenus[i]).prepend(secondaryMenuTitle);
+  }
+
+
   $('#edit-keys').on("click focus", function() {
     $('.form--inline').addClass('active');
   });

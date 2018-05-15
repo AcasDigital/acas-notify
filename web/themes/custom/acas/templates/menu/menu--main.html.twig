@@ -36,7 +36,7 @@
     {% for item in items %}
       {% if menu_level == 0 %}
         <li{{ item.attributes.addClass('menu-primary__item') }} aria-haspopup="true" aria-expanded="false" role="menuitem">
-          <a href="{{ item.url }}" class="menu-primary__link">{{ item.title }}</a>
+          <a href="{{ item.url }}" title="{{item.title}}" class="menu-primary__link">{{ item.title }}</a>
           {% if item.below %}
             {{ menus.menu_links(item.below, attributes.addClass(), menu_level + 1) }}
           {% endif %}
@@ -46,7 +46,7 @@
           {% if item.title == 'Home' %}
             <a href="{{ item.url }}" title="Dashboard" class="home_link">Dashboard</a>
           {% else %}
-            {{ link(item.title, item.url) }}
+            <a href="{{ item.url }}" title="{{item.title}}" class="menu-secondary__link">{{ item.title }}</a>
           {% endif %}
         </li>
       {% endif %}
