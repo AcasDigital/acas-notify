@@ -196,7 +196,7 @@ class GeneralController extends ControllerBase {
       $return['nodes'][] = [
         'title' => $node->getTitle(),
         'url' => $node->toUrl()->toString(),
-        'html' => file_get_contents('https://' . $_SERVER['HTTP_HOST'] . '/' . $node->toUrl()->toString()),
+        'changed' => $node->changed->value(),
       ];
     }
     return new JsonResponse($return);
