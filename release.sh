@@ -34,5 +34,3 @@ echo -e "\nRunning 'composer update' and 'drush cr' on UAT. Please wait...\n"
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update; drush cr' 2>&1)
 echo $cmd_output
 echo -e "\nFinished release to UAT :)\n"
-
- 
