@@ -133,6 +133,11 @@ class GeneralController extends ControllerBase {
     );
   }
   
+  /**
+  * sync_update().
+  * PROD
+  * The base64 encoded zip file from UAT
+  */
   public function sync_update() {
     $uuid = \Drupal::config('system.site')->get('uuid');
     if ($uuid == $_POST['UUID']) {
@@ -162,6 +167,11 @@ class GeneralController extends ControllerBase {
     return new JsonResponse('error');
   }
   
+  /**
+  * sync_cleanup().
+  * PROD
+  * Called after the DB update from UAT
+  */
   public function sync_cleanup() {
     $old_path = getcwd();
     chdir('/var/www/html/');
@@ -172,6 +182,11 @@ class GeneralController extends ControllerBase {
     return new JsonResponse('ok');
   }
   
+  /**
+  * sync_prod_data().
+  * UAT
+  * Builds the Json data for testing that all content has been synced
+  */
   public function sync_prod_data() {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('acas.settings');
