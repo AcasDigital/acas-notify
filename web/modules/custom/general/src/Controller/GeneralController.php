@@ -203,11 +203,13 @@ class GeneralController extends ControllerBase {
     $nodes = \Drupal\node\Entity\Node::loadMultiple();
     $return = ['prod' => $config->get('prod')];
     foreach($nodes as $node) {
-      $return['nodes'][] = [
-        'title' => $node->getTitle(),
-        'url' => $node->toUrl()->toString(),
-        'changed' => $node->getChangedTime(),
-      ];
+      if ($node->isPublished()) {
+        $return['nodes'][] = [
+          'title' => $node->getTitle(),
+          'url' => $node->toUrl()->toString(),
+          'changed' => $node->getChangedTime(),
+        ];
+      }
     }
     return new JsonResponse($return);
   }
