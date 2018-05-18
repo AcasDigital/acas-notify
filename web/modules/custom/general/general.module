@@ -323,7 +323,7 @@ function general_page_attachments_alter(&$build) {
     $build['#attached']['library'][] = 'general/details_page';
   }
   $route_name = \Drupal::routeMatch()->getRouteName();
-  if ($route_name == 'general.sync_prod') {
+  if ($route_name == 'general.sync_prod' || $route_name == 'general.test_prod') {
     $build['#attached']['library'][] = 'general/test_prod';
   }
 }

@@ -140,3 +140,27 @@ function acas_preprocess_input(&$variables) {
     //$variables['icon_only'] = TRUE;
   //}
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function acas_theme_suggestions_page_alter(&$suggestions, $variables, $hook) {
+  /**
+   * 404 template suggestion.
+   */
+  if (!is_null(Drupal::requestStack()->getCurrentRequest()->attributes->get('exception'))) {
+    $status_code = Drupal::requestStack()->getCurrentRequest()->attributes->get('exception')->getStatusCode();
+    switch ($status_code) {
+      case 404: {
+        $suggestions[] = 'page__' . (string) $status_code;
+        break;
+      }
+      case 403: {
+        $suggestions[] = 'page__' . (string) $status_code;
+        break;
+      }
+      default:
+        break;
+    }
+  }
+}

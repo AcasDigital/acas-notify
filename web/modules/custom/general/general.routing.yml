@@ -22,6 +22,14 @@ general.sync_prod:
   requirements:
     _permission: 'sync to prod'
     
+general.test_prod:
+  path: '/admin/config/development/test-prod'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::test_prod'
+    _title: 'Test Production'
+  requirements:
+    _permission: 'sync to prod'
+    
 general.sync_update:
   path: '/sync-update'
   defaults:
@@ -93,3 +101,11 @@ general.notfound:
   requirements:
     _permission: 'access content'
     
+    
+general.production:
+  path: '/admin/config/development/production'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Production'
+  requirements:
+    _permission: 'access administration pages'

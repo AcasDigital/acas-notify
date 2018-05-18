@@ -17,21 +17,26 @@ Drupal.behaviors.test_prod = {
       success: function(data){
         prod = data.prod
         nodes = data.nodes;
-        jQuery("#test-target").html('<div class="target">Running git pull, composer update, clearing caches and rebuilding config on Production. Please wait...</div>');
-        jQuery.ajax({
-          url: prod + "/sync-cleanup?" + d.getTime(),
-          type: "GET",
-          dataType: "json",
-          cache: false,
-          timeout: 180000,
-          error: function(XMLHttpRequest, textStatus, errorThrown){
-            jQuery("#test-target").html('<div class="red">Clear cache error = ' + textStatus + '</div>');
-          },
-          success: function(data){
-            jQuery("#test-target").html('');
-            getPage(nodes[i]);
-          }
-        });
+        if (location.pathname.indexOf('sync-prod') != -1) {
+          jQuery("#test-target").html('<div class="target">Running git pull, composer update, clearing caches and rebuilding config on Production. Please wait...</div>');
+          jQuery.ajax({
+            url: prod + "/sync-cleanup?" + d.getTime(),
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            timeout: 180000,
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+              jQuery("#test-target").html('<div class="red">Clear cache error = ' + textStatus + '</div>');
+            },
+            success: function(data){
+              jQuery("#test-target").html('');
+              getPage(nodes[i]);
+            }
+          });
+        }else{
+          jQuery("#test-target").html('');
+          getPage(nodes[i]);
+        }
       }
     });
   }

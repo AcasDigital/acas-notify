@@ -133,6 +133,16 @@ class GeneralController extends ControllerBase {
     );
   }
   
+  public function test_prod() {
+    if (!_is_site('uat')) {
+      //drupal_set_message("Test Production can only be run from the UAT site!", 'error');
+      //return array('#markup' => '<h3>Not allowed</h3>');
+    }
+    return array(
+      '#markup' => '<h3>Testing content on Production site is the same as UAT</h3><div id="test-target"><div class="target">Starting processes. Please wait... </div></div>',
+    );
+  }
+  
   /**
   * sync_update().
   * PROD
