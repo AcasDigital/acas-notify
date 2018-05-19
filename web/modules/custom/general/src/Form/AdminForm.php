@@ -35,7 +35,7 @@ class AdminForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#default_value' => $config->get('contact_email') ?: 'john@johnburch.co.uk',
       '#title' => t('Feedback email'),
-      '#description' => t('Alerts will be sent to this address when a user completes the feedback form or clicks "Was this page usefull?"'),
+      '#description' => t('Emails will be sent to this address when a user completes the feedback form.'),
       '#size' => 100,
     );
     $form['sync'] = array(

@@ -153,10 +153,11 @@ class GeneralController extends ControllerBase {
     if ($uuid == $_POST['UUID']) {
       $config_factory = \Drupal::configFactory();
       $config = $config_factory->getEditable('system.performance');
-      $cache = $config->get('cache');
-      $meta_front = $config_factory->getEditable('metatag.metatag_defaults.front');
-      $meta_global = $config_factory->getEditable('metatag.metatag_defaults.global');
-      $meta_node = $config_factory->getEditable('metatag.metatag_defaults.node');
+      $configs = [];
+      $exclude = preg_split('/\r\n|\r|\n/', $config->get('config'));
+      foreach($exclude as $e) {
+        $configs[] = $config_factory->getEditable($e);
+      }
       file_put_contents('/tmp/sync.zip', base64_decode($_POST['data']));
       $zip = new ZipArchive();
       $zip->open('/tmp/sync.zip');
@@ -167,11 +168,9 @@ class GeneralController extends ControllerBase {
       exec($cmd);
       unlink('/tmp/sync.zip');
       unlink('/tmp/' . $_POST['file']);
-      $config->set('cache', $cache);
-      $config->save(TRUE);
-      $meta_front->save(TRUE);
-      $meta_global->save(TRUE);
-      $meta_node->save(TRUE);
+      foreach($configs as $c) {
+        $c->save(TRUE);
+      }
       return new JsonResponse('ok');
     }
     return new JsonResponse('error');
