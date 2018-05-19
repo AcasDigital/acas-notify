@@ -152,7 +152,7 @@ class GeneralController extends ControllerBase {
     $uuid = \Drupal::config('system.site')->get('uuid');
     if ($uuid == $_POST['UUID']) {
       $config_factory = \Drupal::configFactory();
-      $config = $config_factory->getEditable('system.performance');
+      $config = \Drupal::config('acas.settings');
       $configs = [];
       $exclude = preg_split('/\r\n|\r|\n/', $config->get('config'));
       foreach($exclude as $e) {
