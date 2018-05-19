@@ -69,9 +69,16 @@
   }
 }
 
+.menu-primary__link,
+.menu-secondary__link {
+  color: $acas-teal;
+  text-decoration: none;
+}
+
 .menu-primary__link {
-  font-family: $font-family-headers;
   display: block;
+  font-family: $font-family-headers;
+  line-height: 2;
   position: relative;
   &:after {
     content: "";
@@ -79,23 +86,23 @@
     background-size: 100% auto;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    height: 1em;
+    height: 1.125em;
+    margin-left: 1em;
     position: absolute;
-    right: 2em;
     top: 0.5em;
-    width: 0.75em;
+    display: inline-block;
+    width: 0.5em;
   }
 }
 
 .menu-secondary__link {
-  font-weight: $font-weight-bold;
-}
-
-.menu-primary__link,
-.menu-secondary__link {
-  color: $acas-teal;
-  line-height: 2;
+  color: $black;
+  font-size: 0.85em;
+  line-height: 1;
   text-decoration: none;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
 }
 
 /* Medium Screens and Up */
@@ -112,7 +119,7 @@
     table-layout: fixed;
     width: 100%;
     .menu-secondary {
-      border-top: 0.75em solid $acas-teal;
+      border-top: 0.5em solid $acas-teal;
       display: block;
       margin-top: .75em;
       position: absolute;
@@ -181,11 +188,26 @@
     }
   }
   .menu-primary__link {
-    padding: 0.25em 2em 0.25em 1em;
+    padding: 0.25em 15px;
     &:after {
       background-image: url(../images/icons/icon-chevron-teal-down.png);
-      right: 1.75em;
+      position: absolute;
+      right: 1em;
       top: .75em;
+    }
+  }
+}
+
+@include bp(LG) {
+  .menu-primary__link {
+    &:after {
+      display: inline-block;
+      height: .5em;
+      margin-left: 1em;
+      position: relative;
+      right: 0;
+      top: 0;
+      width: 1em;
     }
   }
 }

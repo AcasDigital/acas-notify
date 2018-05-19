@@ -1,5 +1,5 @@
 .region.region-top-bar {
-  border-bottom: 1px solid $gray-dark;
+  border-bottom: 1px solid $gray-medium-light;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   overflow: auto;
@@ -12,7 +12,7 @@
 }
 
 .beta-icon {
-  background: navy;
+  background: $acas-teal;
   color: $white;
   padding: 0 .5rem;
   margin: 0 .5rem 0 0;

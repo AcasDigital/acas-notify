@@ -1,12 +1,16 @@
 .footer__wrapper {
   background: $gray-light;
-  padding: 2rem 0;
+  padding: 2em 0;
+}
+
+.footer-logo {
+  max-width: 10rem;
 }
 
 #footer__inner {
   font-size: 75%;
   ul {
-    margin: 1rem 0;
+    margin: 1em 0;
   }
   a {
     color: $gray-dark;
