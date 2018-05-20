@@ -91,16 +91,7 @@ general.anything-wrong-results:
     _controller: '\Drupal\general\Controller\GeneralController::anything_wrong_results'
     _title: 'Anything wrong results'
   requirements:
-    _permission: 'access content'
-
-general.notfound:
-  path: '/notfound'
-  defaults:
-    _controller: '\Drupal\general\Controller\GeneralController::notfound'
-    _title_callback: '\Drupal\general\Controller\GeneralController::getNotFoundTitle'
-  requirements:
-    _permission: 'access content'
-    
+    _permission: 'access content' 
     
 general.production:
   path: '/admin/config/development/production'

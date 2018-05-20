@@ -78,7 +78,6 @@
 .menu-primary__link {
   display: block;
   font-family: $font-family-headers;
-  line-height: 2;
   position: relative;
   &:after {
     content: "";
@@ -172,6 +171,16 @@
       .menu-primary__link {
         background: $acas-teal;
         color: $white;
+        &:before {
+          content: "";
+          background: $acas-teal;
+          display: block;
+          height: 5px;
+          left: 0;
+          position: absolute;
+          top: 100%;
+          width: 100%;
+        }
         &:after {
           background-image: url(../images/icons/icon-chevron-white-down.png);
         }
@@ -181,6 +190,16 @@
       &:hover, &:focus {
         background: $acas-teal;
         color: $white;
+        &:before {
+          content: "";
+          background: $acas-teal;
+          display: block;
+          height: 5px;
+          left: 0;
+          position: absolute;
+          top: 100%;
+          width: 100%;
+        }
         &:after {
           background-image: url(../images/icons/icon-chevron-white-down.png);
         }
@@ -188,7 +207,7 @@
     }
   }
   .menu-primary__link {
-    padding: 0.25em 15px;
+    padding: 0.5em 15px;
     &:after {
       background-image: url(../images/icons/icon-chevron-teal-down.png);
       position: absolute;

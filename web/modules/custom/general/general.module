@@ -680,6 +680,11 @@ function general_user_login_submit($form, &$form_state) {
   $form_state->setRedirect('workbench.content');
 }
 
+function general_content_moderation_notification_mail_data_alter($entity, &$data) {
+  // Add an extra email address to the list.
+  $data['params']['message'] .= '<a href="' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">' . $entity->getTitle() . '</a>';
+}
+
 /**
  * 
  * Health check

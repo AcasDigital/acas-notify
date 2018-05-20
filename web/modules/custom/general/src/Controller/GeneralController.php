@@ -53,30 +53,6 @@ class GeneralController extends ControllerBase {
     ]);
   }
   
-  public function notfound() {
-    $connection = \Drupal::database();
-    $current_uri = \Drupal::request()->getRequestUri();
-    if (strpos($current_uri, 'helpline') !== FALSE) {
-      if ($nid = $connection->query("SELECT nid FROM {node_field_data} WHERE title LIKE '%helpline' AND type = 'support_page'")->fetchField()) {
-        $node = \Drupal\node\Entity\Node::load($nid);
-        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-        $view = $view_builder->view($node, 'full');
-        return $view;
-      }
-    }
-    
-    return array('#markup' => 'The requested page could not be found.');
-  }
-  
-  public function getNotFoundTitle() {
-    $current_uri = \Drupal::request()->getRequestUri();
-    if (strpos($current_uri, 'helpline') !== FALSE) {
-      return 'Call the Acas helpline';
-    }else{
-      return 'Page not found';
-    }
-  }
-  
   public function feedback_results() {
     $connection = \Drupal::database();
     $query = $connection->query("SELECT DISTINCT entity_id FROM {votingapi_result} v WHERE v.entity_type = 'node' AND v.type = 'vote'");

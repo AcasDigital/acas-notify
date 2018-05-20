@@ -2533,10 +2533,9 @@ ul.breadcrumb--search li:first-child:after {
 .menu-primary__link {
   display: block;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
-  line-height: 2;
   position: relative;
 }
-/* line 83, ../../src/scss/structures/_header.scss */
+/* line 82, ../../src/scss/structures/_header.scss */
 .menu-primary__link:after {
   content: "";
   background-image: url(../images/icons/icon-chevron-teal-right.png);
@@ -2551,37 +2550,37 @@ ul.breadcrumb--search li:first-child:after {
   width: 0.5em;
 }
 
-/* line 98, ../../src/scss/structures/_header.scss */
+/* line 97, ../../src/scss/structures/_header.scss */
 .menu-secondary__link {
   color: #000;
   font-size: 0.85em;
   line-height: 1;
   text-decoration: none;
 }
-/* line 103, ../../src/scss/structures/_header.scss */
+/* line 102, ../../src/scss/structures/_header.scss */
 .menu-secondary__link:hover, .menu-secondary__link:focus {
   text-decoration: underline;
 }
 
 /* Medium Screens and Up */
-/* line 110, ../../src/scss/structures/_header.scss */
+/* line 109, ../../src/scss/structures/_header.scss */
 #block-acas-main-menu {
   margin-left: -15px;
   margin-right: -15px;
 }
 
-/* line 114, ../../src/scss/structures/_header.scss */
+/* line 113, ../../src/scss/structures/_header.scss */
 .menu-primary__icon {
   display: none;
 }
 
-/* line 117, ../../src/scss/structures/_header.scss */
+/* line 116, ../../src/scss/structures/_header.scss */
 .menu-primary {
   display: table;
   table-layout: fixed;
   width: 100%;
 }
-/* line 121, ../../src/scss/structures/_header.scss */
+/* line 120, ../../src/scss/structures/_header.scss */
 .menu-primary .menu-secondary {
   border-top: 0.5em solid #008C95;
   display: block;
@@ -2593,11 +2592,11 @@ ul.breadcrumb--search li:first-child:after {
   -moz-box-shadow: 2px 2px 16px 0px #cccccc;
   box-shadow: 2px 2px 16px 0px #cccccc;
 }
-/* line 131, ../../src/scss/structures/_header.scss */
+/* line 130, ../../src/scss/structures/_header.scss */
 .menu-primary .menu-secondary h3 {
   margin: 0;
 }
-/* line 134, ../../src/scss/structures/_header.scss */
+/* line 133, ../../src/scss/structures/_header.scss */
 .menu-primary .menu-secondary:before {
   content: "";
   background-color: transparent;
@@ -2607,7 +2606,7 @@ ul.breadcrumb--search li:first-child:after {
   top: -1.5em;
   width: 100%;
 }
-/* line 143, ../../src/scss/structures/_header.scss */
+/* line 142, ../../src/scss/structures/_header.scss */
 .menu-primary .menu-secondary:after {
   content: "";
   border-bottom: 1em solid #008C95;
@@ -2623,44 +2622,66 @@ ul.breadcrumb--search li:first-child:after {
   width: 0px;
 }
 
-/* line 159, ../../src/scss/structures/_header.scss */
+/* line 158, ../../src/scss/structures/_header.scss */
 .menu-primary__item {
   display: table-cell;
   padding: 0;
 }
-/* line 162, ../../src/scss/structures/_header.scss */
+/* line 161, ../../src/scss/structures/_header.scss */
 .menu-primary__item > ul {
   background: #fff;
   position: absolute;
 }
-/* line 167, ../../src/scss/structures/_header.scss */
+/* line 166, ../../src/scss/structures/_header.scss */
 .menu-primary__item[aria-expanded='false'] .menu-secondary {
   display: none;
 }
-/* line 172, ../../src/scss/structures/_header.scss */
+/* line 171, ../../src/scss/structures/_header.scss */
 .menu-primary__item[aria-expanded="true"] .menu-primary__link {
   background: #008C95;
   color: #fff;
 }
-/* line 175, ../../src/scss/structures/_header.scss */
+/* line 174, ../../src/scss/structures/_header.scss */
+.menu-primary__item[aria-expanded="true"] .menu-primary__link:before {
+  content: "";
+  background: #008C95;
+  display: block;
+  height: 5px;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+/* line 184, ../../src/scss/structures/_header.scss */
 .menu-primary__item[aria-expanded="true"] .menu-primary__link:after {
   background-image: url(../images/icons/icon-chevron-white-down.png);
 }
-/* line 181, ../../src/scss/structures/_header.scss */
+/* line 190, ../../src/scss/structures/_header.scss */
 .menu-primary__item .menu-primary__link:hover, .menu-primary__item .menu-primary__link:focus {
   background: #008C95;
   color: #fff;
 }
-/* line 184, ../../src/scss/structures/_header.scss */
+/* line 193, ../../src/scss/structures/_header.scss */
+.menu-primary__item .menu-primary__link:hover:before, .menu-primary__item .menu-primary__link:focus:before {
+  content: "";
+  background: #008C95;
+  display: block;
+  height: 5px;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+/* line 203, ../../src/scss/structures/_header.scss */
 .menu-primary__item .menu-primary__link:hover:after, .menu-primary__item .menu-primary__link:focus:after {
   background-image: url(../images/icons/icon-chevron-white-down.png);
 }
 
-/* line 190, ../../src/scss/structures/_header.scss */
+/* line 209, ../../src/scss/structures/_header.scss */
 .menu-primary__link {
-  padding: 0.25em 15px;
+  padding: 0.5em 15px;
 }
-/* line 192, ../../src/scss/structures/_header.scss */
+/* line 211, ../../src/scss/structures/_header.scss */
 .menu-primary__link:after {
   background-image: url(../images/icons/icon-chevron-teal-down.png);
   position: absolute;
@@ -2668,7 +2689,7 @@ ul.breadcrumb--search li:first-child:after {
   top: .75em;
 }
 
-/* line 203, ../../src/scss/structures/_header.scss */
+/* line 222, ../../src/scss/structures/_header.scss */
 .menu-primary__link:after {
   display: inline-block;
   height: .5em;
