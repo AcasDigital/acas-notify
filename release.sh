@@ -25,7 +25,7 @@ echo $cmd_output
 cmd_output=$(/usr/bin/git push origin master 2>&1)
 echo $cmd_output
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
-if [[ $cmd_output = *"composer.lock"* ]]; then
+if [[ $cmd_output = *"merge: composer.lock"* ]]; then
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'rm -f /var/www/html/composer.lock' 2>&1)
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
 fi

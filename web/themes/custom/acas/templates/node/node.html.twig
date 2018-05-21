@@ -77,15 +77,15 @@
     'col-md-7'
   ]
 %}
-
+{% if not page %}
+  <a href="{{ url }}" rel="bookmark">
+{% endif %}
 <article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
   <div class="article__wrapper">
     {{ title_prefix }}
-    {% if not page %}
-      <h2{{ title_attributes }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
-    {% endif %}
+    <h2{{ title_attributes }}>
+      {{ label }}
+    </h2>
     {{ title_suffix }}
 
     {% if display_submitted %}
@@ -103,3 +103,6 @@
     </div>
   </div>
 </article>
+{% if not page %}
+  </a>
+{% endif %}
