@@ -1,0 +1,35 @@
+.eu-cookie-compliance-banner {
+  background-color: #148a98;
+  .eu-cookie-compliance-content {
+    color: #FFF;
+    font-style: normal;
+    width: 1200px;
+    padding: 20px 15px;
+    max-width: none;
+    .eu-cookie-compliance-message {
+      max-width: none;
+      p {
+        margin-bottom: 0;
+      }
+      .title {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 50px;
+        font-family: 'CenturyGothic-Bold', 'Century Gothic Bold', 'Century Gothic';
+        font-weight: 700;
+        font-size: 1.1em;
+        width: 180px;
+      }
+      .text {
+        display: inline-block;
+        vertical-align: middle;
+        font-family: 'OpenSans', 'Open Sans';
+        font-weight: 400;
+        font-size: 0.8em;
+      }
+    }
+  }
+  #popup-buttons {
+    margin-top: 16px;
+  }
+}
