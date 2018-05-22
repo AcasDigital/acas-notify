@@ -1,11 +1,11 @@
 .eu-cookie-compliance-banner {
-  background-color: #148a98;
+  background-color: $acas-teal;
   .eu-cookie-compliance-content {
-    color: #FFF;
+    color: $white;
     font-style: normal;
-    width: 1200px;
-    padding: 20px 15px;
     max-width: none;
+    padding: 1em 0.75em;
+    width: 1200px;
     .eu-cookie-compliance-message {
       max-width: none;
       p {
@@ -13,23 +13,55 @@
       }
       .title {
         display: inline-block;
-        vertical-align: middle;
-        margin-right: 50px;
-        font-family: 'CenturyGothic-Bold', 'Century Gothic Bold', 'Century Gothic';
+        font-family: $font-family-headers;
         font-weight: 700;
         font-size: 1.1em;
+        margin-right: 50px;
+        vertical-align: middle;
         width: 180px;
       }
       .text {
         display: inline-block;
-        vertical-align: middle;
-        font-family: 'OpenSans', 'Open Sans';
-        font-weight: 400;
+        font-family: 'Open Sans';
         font-size: 0.8em;
+        font-weight: 400;
+        vertical-align: middle;
       }
     }
   }
   #popup-buttons {
-    margin-top: 16px;
+    margin-top: 0.875em;
+    button {
+      background: $acas-lime;
+      border: none;
+      border-bottom: 5px solid $acas-lime-dark;
+      color: $acas-teal-dark;
+      font-size: 0.745em;
+      font-family: $font-family-headers;
+      padding: 0.5em 2em 0.5em 1em;
+      position: relative;
+      &:first-child {
+        margin-right: .5em;
+      }
+      &:after {
+        content: "";
+        display: inline-block;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 8px solid $acas-teal-dark;
+        position: absolute;
+        right: .75em;
+        top: 14px;
+        height: 0;
+        width: 0;
+      }
+      &:hover, &:focus {
+        background: $acas-teal-dark;
+        color: $acas-lime;
+        &:after {
+          border-left-color: $acas-lime;
+        }
+      }
+    }
   }
 }

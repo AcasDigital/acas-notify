@@ -4,7 +4,7 @@
     content: "";
     background: $acas-teal;
     display: block;
-    height: 1em;
+    height: 10px;
     left: 0;
     position: absolute;
     top: 100%;
@@ -17,8 +17,8 @@
   color: $white;
   font-weight: $font-weight-bold;
   margin-top: 1.5em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
   position: relative;
   text-align: center;
   a {

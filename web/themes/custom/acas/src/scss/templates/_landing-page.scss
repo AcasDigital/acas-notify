@@ -3,11 +3,21 @@ article.landing-page {
 }
 
 #block-landingpagesblock, .block-home-page-block {
+  section#block-landingpagesblock {
+    clear: left;
+    display: block;
+  }
   article {
     @extend .col-xs-12;
     @extend .col-md-4;
     margin-bottom: 1em;
     margin-top: 1em;
+    a {
+      text-decoration: none;
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+    }
     .article__wrapper {
       border: 3px solid $acas-lime;
       border-radius: 1em;
@@ -23,12 +33,6 @@ article.landing-page {
         margin-top: 0;
         min-height: 3em;
         padding-left: 0;
-        a {
-          text-decoration: none;
-          &:hover, &:focus {
-            text-decoration: underline;
-          }
-        }
       }
       .article__content {
         bottom: 1rem;

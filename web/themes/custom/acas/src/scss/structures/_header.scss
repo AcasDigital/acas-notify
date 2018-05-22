@@ -114,8 +114,7 @@
     display: none;
   }
   .menu-primary {
-    display: table;
-    table-layout: fixed;
+    display: block;
     width: 100%;
     .menu-secondary {
       border-top: 0.5em solid $acas-teal;
@@ -156,8 +155,9 @@
     }
   }
   .menu-primary__item {
-    display: table-cell;
+    float: left;
     padding: 0;
+    width: 25%;
     > ul {
       background: $white;
       position: absolute;
@@ -181,8 +181,15 @@
           top: 100%;
           width: 100%;
         }
-        &:after {
-          background-image: url(../images/icons/icon-chevron-white-down.png);
+        @if $compile-IE {
+          &:after {
+            display: none;
+          }
+        }
+        @else {
+          &:after {
+            background-image: url(../images/icons/icon-chevron-white-down.png);
+          }
         }
       }
     }
@@ -200,33 +207,69 @@
           top: 100%;
           width: 100%;
         }
-        &:after {
-          background-image: url(../images/icons/icon-chevron-white-down.png);
+        @if $compile-IE {
+          &:after {
+            display: none;
+          }
+        }
+        @else {
+          &:after {
+            background-image: url(../images/icons/icon-chevron-white-down.png);
+          }
         }
       }
     }
   }
   .menu-primary__link {
     padding: 0.5em 15px;
-    &:after {
-      background-image: url(../images/icons/icon-chevron-teal-down.png);
-      position: absolute;
-      right: 1em;
-      top: .75em;
+    @if $compile-IE {
+      &:after {
+        display: none;
+      }
+    }
+    @else {
+      &:after {
+        background-image: url(../images/icons/icon-chevron-teal-down.png);
+        position: absolute;
+        right: 1em;
+        top: .75em;
+      }
     }
   }
 }
 
 @include bp(LG) {
+  @if $compile-IE {
+    .menu-primary__item {
+      margin: 0 1.5%;
+      width: 22%;
+    }
+  }
+  @else {
+    .menu-primary__item {
+      margin: 0 3%;
+      width: 22%;
+      &:first-child, &:last-child {
+        margin: 0;
+      }
+    }
+  }
   .menu-primary__link {
-    &:after {
-      display: inline-block;
-      height: .5em;
-      margin-left: 1em;
-      position: relative;
-      right: 0;
-      top: 0;
-      width: 1em;
+    @if $compile-IE {
+      &:after {
+        display: none;
+      }
+    }
+    @else {
+      &:after {
+        display: inline-block;
+        height: .5em;
+        margin-left: 1em;
+        position: relative;
+        right: 0;
+        top: 0;
+        width: 1em;
+      }
     }
   }
 }

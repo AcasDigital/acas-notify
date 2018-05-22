@@ -1,0 +1,7 @@
+a {
+  color: $acas-teal-dark;
+  text-decoration: underline;
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
