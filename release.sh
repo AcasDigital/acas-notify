@@ -36,8 +36,8 @@ if [[ $cmd_output = *"composer.lock"* ]]; then
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
 fi
 echo $cmd_output
-echo -e "\nRunning 'composer update' and 'drush cr' on UAT. Please wait...\n"
-cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update; drush cr' 2>&1)
+echo -e "\nRunning 'composer update', 'drush updb' and 'drush cr' on UAT. Please wait...\n"
+cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update; drush updb; drush cr' 2>&1)
 echo $cmd_output
 echo -e "\nFinished release to UAT :)\n"
 
