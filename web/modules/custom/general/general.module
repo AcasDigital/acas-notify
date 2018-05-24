@@ -620,8 +620,58 @@ function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query)
   }
 }
 
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
 function general_ckeditor_css_alter(&$css, $editor) {
   $css[] = drupal_get_path('module', 'general') . '/css/ckeditor.css';
+}
+
+/**
+ * general_guide_page()
+ * Build the entire guide page for print or download
+ */
+function general_guide_page($nid) {
+  $build = [];
+  $node = \Drupal\node\Entity\Node::load($nid);
+  if ($node->hasField('field_taxonomy')) {
+    if ($node->getType() != 'details_page') {
+      // Get the parent details page
+      $query = \Drupal::database()->select('taxonomy_index', 'ti');
+      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->fields('ti', array('nid'));
+      $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
+      $query->condition('nfd.type', 'details_page', '=');
+      $result = $query->execute();
+      $nid = $result->fetchCol();
+      $node = \Drupal\node\Entity\Npode::load($nid);
+    }
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $build[] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="/themes/custom/acas/toplogo.png" alt="Home"></section></div>
+        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</spna></h1></header>'
+    ];
+    $build[] = $view_builder->view($node, 'print_download');
+    if ($node->hasField('field_taxonomy')) {
+      $query = \Drupal::database()->select('taxonomy_index', 'ti');
+      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->fields('ti', array('nid'));
+      $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
+      $query->condition('nfd.type', 'secondary_page', '=');
+      $query->orderBy('fd.weight', 'ASC');
+      $result = $query->execute();
+      if($nodeIds = $result->fetchCol()) {
+        $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+        foreach($nodes as $n) {
+          $build[] = $view_builder->view($n, 'print_download');
+        }
+      }
+    }
+  }
+  return $build;
 }
 
 /**
@@ -676,12 +726,19 @@ function _is_site($site = 'beta') {
   return FALSE;
 }
 
+/**
+ * general_user_login_submit().
+ * Redirect the user to their workbench after login
+ */
 function general_user_login_submit($form, &$form_state) {
   $form_state->setRedirect('workbench.content');
 }
 
+/**
+ * Implements hook_content_moderation_notification_mail_data_alter().
+ * Add the changed content URL to the notification email
+ */
 function general_content_moderation_notification_mail_data_alter($entity, &$data) {
-  // Add an extra email address to the list.
   $data['params']['message'] .= '<a href="' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">' . $entity->getTitle() . '</a>';
 }
 

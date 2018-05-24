@@ -100,3 +100,11 @@ general.production:
     _title: 'Production'
   requirements:
     _permission: 'access administration pages'
+    
+general.guide-print-download:
+  path: '/guide-print-download/{entity_id}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::guide_print_download'
+    _title: ''
+  requirements:
+    _permission: 'access content'

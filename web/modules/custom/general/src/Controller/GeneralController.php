@@ -102,6 +102,10 @@ class GeneralController extends ControllerBase {
     return new JsonResponse($return);
   }
   
+  public function guide_print_download($entity_id) {
+    return general_guide_page($entity_id);
+  }
+  
   public function sync_prod() {
     general_sync_prod();
     return array(

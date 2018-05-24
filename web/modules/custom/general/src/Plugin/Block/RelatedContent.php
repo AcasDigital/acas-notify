@@ -72,6 +72,29 @@ class RelatedContent extends BlockBase {
         }
       }
       $output .= '</ul></li></ul></nav>';
+    }else if ($node->getType() == 'support_page') {
+      if ($node->hasField('field_related_content')) {
+        $links = '';
+        foreach($node->get('field_related_content') as $link) {
+          $params = $link->getUrl()->getRouteParameters();
+          $entity_type = key($params);
+          if ($entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type])) {
+            $links .= '<li class="extra"><a href="' . $link->getUrl()->toString() . '">' . $entity->getTitle() . '</a></li>';
+          }
+        }
+        if ($links) {
+          $output .= '<nav class="nav-related" aria-labelledby="nav-related__title">
+            <h3 id="nav-related__title">
+              Related Content
+            </h3>
+            <ul id="section-nav-list" tabindex="-1">
+              <li>
+                <ul>' . $links . '</ul>
+              </li>
+            </ul>
+          </nav>';
+        }
+      }
     }
     return ['#markup' => $output];
   }

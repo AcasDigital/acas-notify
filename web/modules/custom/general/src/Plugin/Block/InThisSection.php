@@ -28,7 +28,7 @@ class InThisSection extends BlockBase {
       $query->condition('nfd.type', 'secondary_page', '=');
       $query->orderBy('fd.weight', 'ASC');
       $result = $query->execute();
-      if($nodeIds = $result->fetchCol()){
+      if($nodeIds = $result->fetchCol()) {
         if ($node->getType() == 'details_page') {
           $output .= '<li class="active">Overview</li>';
         }else{

@@ -78,12 +78,12 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
-{% if not page %}
+{% if view_mode == "teaser" %}
   <a href="{{ url }}" rel="bookmark">
 {% endif %}
   <div class="article__wrapper">
     {{ title_prefix }}
-    {% if not page %}
+    {% if view_mode == "teaser" %}
       <h2{{ title_attributes }}>
         {{ label }}
       </h2>
@@ -104,7 +104,7 @@
       {{ content }}
     </div>
   </div>
-  {% if not page %}
+  {% if view_mode == "teaser" %}
     </a>
   {% endif %}
 </article>
