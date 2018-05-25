@@ -168,6 +168,7 @@
         "drupal/content_moderation_notifications": "^3.0",
         "drupal/content_sync": "2.x-dev",
         "drupal/core": "~8.4",
+        "drupal/datalayer": "^1.0",
         "drupal/devel": "^1.2",
         "drupal/dropzonejs": "^2.0",
         "drupal/elasticsearch_connector": "^5.0",
