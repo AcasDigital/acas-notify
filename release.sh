@@ -29,12 +29,6 @@ if [[ $cmd_output = *"index.lock': File exists"* ]]; then
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'rm -f /var/www/html/.git/index.lock' 2>&1)
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
 fi
-if [[ $cmd_output = *"composer.lock"* ]]; then
-	echo -e "\nDeleting composer.lock and re-running git pull on UAT\n"
-	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'rm -f /var/www/html/composer.lock' 2>&1)
-	echo $cmd_output
-	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
-fi
 echo $cmd_output
 echo -e "\nRunning 'composer update', 'drush updb' and 'drush cr' on UAT. Please wait...\n"
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; composer update; drush updb; drush cr' 2>&1)
