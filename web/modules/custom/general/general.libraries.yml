@@ -58,3 +58,10 @@ search_results:
   dependencies:
     - core/jquery
     - core/drupal
+
+print:
+  js:
+    js/print.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

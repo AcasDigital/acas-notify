@@ -1,0 +1,73 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
+  width: 58%;
+}
+#block-sitebranding img {
+  display: inline-block;
+  max-width: 10em;
+  vertical-align: text-top;
+}
+h1 {
+  padding: 0;
+  margin: 0;
+}
+h1, h2 {
+  border-left: 5px solid #CEDC00;
+  padding-left: 20px;
+  color: #008C95;
+  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
+}
+h4, table th {
+  font-size: 1em;
+  color: #008C95;
+  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
+}
+.callout {
+  border-left: 5px solid #999;
+  color: #666;
+  font-size: 1.45em;
+  margin: 1em 0 2em;
+  max-width: 30em;
+  padding: 0.25em 20px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table td, table th {
+  border: 1px solid #999;
+  padding: 0.5em 1em;
+}
+.btn-cta {
+  background: #008C95;
+  color: #fff;
+  display: block;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+.btn-cta--helpline {
+  min-width: 100%;
+  padding: 1.25em 4em 1.25em 1.25em;
+  position: relative;
+  text-align: left;
+  text-decoration: underline;
+}
+.btn-cta--helpline::after {
+  content: "";
+  background-image: url([SITE]/themes/custom/acas/dist/images/icons/icon-telephone.svg);
+  background-repeat: no-repeat;
+  background-size: 1.5em auto;
+  background-position: 50% 50%;
+  height: 100%;
+  position: absolute;
+  right: .5em;
+  top: 0;
+  width: 3em;
+}

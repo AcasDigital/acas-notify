@@ -128,14 +128,21 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
     }
     */
     if ($entity->get('field_print_download')->value) {
+      $print_guide = '';
+      $download_guide = '';
+      if ($parent = _is_guide($entity)) {
+        $print_guide = '<a id="print_guide" class="print" href="/guide-print/' . $parent . '">Print guide</a>';
+        $download_guide = '<a id="download_guide" href="/guide-download/' . $parent . '">Download guide</a>';
+      }
       $build['print_download_email'] = [
         '#markup' => '<div class="print-download-email">
-          <a class="btn-cta btn-cta--print" href="/node/' . $entity->id() . '/printable/print">Print</a>
-          <a class="btn-cta btn-cta--download" href="/print/pdf/node/' . $entity->id() . '">Download</a>
+          <a class="btn-cta btn-cta--print print" href="/page-print/' . $entity->id() . '">Print</a>' . $print_guide . '
+          <a class="btn-cta btn-cta--download" href="/page-download/' . $entity->id() . '">Download</a>' . $download_guide . '
           <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
         </div>',
         '#weight' => 992,
       ];
+      $build['print_download_email']['#attached']['library'][] = 'general/print';
     }
     if ($entity->getType() == 'details_page') {
       $query = \Drupal::database()->select('taxonomy_index', 'ti');
@@ -645,13 +652,13 @@ function general_guide_page($nid) {
       $query->condition('nfd.type', 'details_page', '=');
       $result = $query->execute();
       $nid = $result->fetchCol();
-      $node = \Drupal\node\Entity\Npode::load($nid);
+      $node = \Drupal\node\Entity\Node::load($nid[0]);
     }
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build[] = [
       '#type' => 'markup',
-      '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="/themes/custom/acas/toplogo.png" alt="Home"></section></div>
-        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</spna></h1></header>'
+      '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="https://' . $_SERVER['HTTP_HOST'] . '/themes/custom/acas/toplogo.png" alt="Home"></section></div>
+        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</span></h1></header>'
     ];
     $build[] = $view_builder->view($node, 'print_download');
     if ($node->hasField('field_taxonomy')) {
@@ -726,6 +733,34 @@ function _is_site($site = 'beta') {
   return FALSE;
 }
 
+function _is_guide($entity) {
+  if ($entity->getType() == 'secondary_page') {
+    // Get the parent details page
+    $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+    $query->fields('ti', array('nid'));
+    $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
+    $query->condition('nfd.type', 'details_page', '=');
+    $result = $query->execute();
+    $nid = $result->fetchCol();
+    return $nid[0];
+  }else if ($entity->getType() == 'details_page') {
+    // See if has secondary pages
+    $query = \Drupal::database()->select('taxonomy_index', 'ti');
+    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+    $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+    $query->fields('ti', array('nid'));
+    $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
+    $query->condition('nfd.type', 'secondary_page', '=');
+    $result = $query->execute();
+    if($nodeIds = $result->fetchCol()) {
+      return $entity->id();
+    }
+  }
+  return FALSE;
+}
+
 /**
  * general_user_login_submit().
  * Redirect the user to their workbench after login
@@ -740,6 +775,17 @@ function general_user_login_submit($form, &$form_state) {
  */
 function general_content_moderation_notification_mail_data_alter($entity, &$data) {
   $data['params']['message'] .= '<a href="' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">' . $entity->getTitle() . '</a>';
+}
+
+function general_download_html_alter($html) {
+  $html = str_replace('href="/', 'href="https://' . $_SERVER['HTTP_HOST'] . '/', $html);
+  return $html;
+}
+
+function general_download_css() {
+  $css = file_get_contents(drupal_get_path('module', 'general') . '/css/download.css');
+  $css = str_replace('[SITE]', 'https://' . $_SERVER['HTTP_HOST'], $css);
+  return $css;
 }
 
 /**

@@ -10,6 +10,7 @@ use Drupal\votingapi\Entity\Vote;
 use Drupal\votingapi\Entity\VoteType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ZipArchive;
+use Dompdf\Dompdf;
 
 class GeneralController extends ControllerBase {
   public function searchheader() {
@@ -104,6 +105,57 @@ class GeneralController extends ControllerBase {
   
   public function guide_print_download($entity_id) {
     return general_guide_page($entity_id);
+  }
+  
+  public function guide_print($entity_id) {
+    return general_guide_page($entity_id);
+  }
+  
+  public function page_print($entity_id) {
+    $node = \Drupal\node\Entity\Node::load($entity_id);
+    $buid = [];
+    $build[] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="/themes/custom/acas/toplogo.png" alt="Home"></section></div>
+        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</span></h1></header>'
+    ];
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $build[] = $view_builder->view($node, 'print_download');
+    return $build;
+  }
+  
+  public function guide_download($entity_id) {
+    $node = \Drupal\node\Entity\Node::load($entity_id);
+    $build = general_guide_page($entity_id);
+    $html = general_download_html_alter(drupal_render($build));
+    $html = '<html><head><title>' . $node->getTitle() . '</title><style>' . general_download_css() . '</style></head><body>' . $html . '</body></html>';
+    $dompdf = new Dompdf(array('enable_remote' => true));
+    $dompdf->loadHtml($html);
+    $dompdf->render();
+    $dompdf->stream(general_taxonomy_path($node->getTitle()) . '.pdf');
+  }
+  
+  public function page_download($entity_id) {
+    $node = \Drupal\node\Entity\Node::load($entity_id);
+    $buid = [];
+    $build[] = [
+      '#type' => 'markup',
+      '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="https://' . $_SERVER['HTTP_HOST'] . '/themes/custom/acas/toplogo.png" alt="Home"></section></div>
+        <br /><br /><br /><header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</span></h1></header><br /><br /><br />'
+    ];
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $build[] = $view_builder->view($node, 'print_download');
+    $html = general_download_html_alter(drupal_render($build));
+    $html = '<html><head><title>' . $node->getTitle() . '</title><style>' . general_download_css() . '</style></head><body>' . $html . '</body></html>';
+    $dompdf = new Dompdf(array('enable_remote' => true));
+    $dompdf->loadHtml($html);
+    $dompdf->render();
+    $dompdf->stream(general_taxonomy_path($node->getTitle()) . '.pdf');
+    /*
+    $output = $dompdf->output();
+    file_put_contents('/tmp/' . $node->getTitle() . '.pdf', $output);
+    return ['#markup' => $html];
+    */
   }
   
   public function sync_prod() {

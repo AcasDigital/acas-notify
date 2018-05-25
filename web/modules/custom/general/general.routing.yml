@@ -108,3 +108,35 @@ general.guide-print-download:
     _title: ''
   requirements:
     _permission: 'access content'
+    
+general.guide-print:
+  path: '/guide-print/{entity_id}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::guide_print'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
+general.page-print:
+  path: '/page-print/{entity_id}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::page_print'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
+general.guide-download:
+  path: '/guide-download/{entity_id}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::guide_download'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
+general.page-download:
+  path: '/page-download/{entity_id}'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::page_download'
+    _title: ''
+  requirements:
+    _permission: 'access content'

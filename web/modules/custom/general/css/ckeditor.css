@@ -5,3 +5,23 @@
   max-width: 26rem;
   padding: 1em;
 }
+.phone-callout {
+  background: #008C95;
+  color: #fff;
+  max-width: 20em;
+  padding: 1em 4em 1em 1em;
+  position: relative;
+  text-align: center;
+}
+.phone-callout::after {
+  content: "";
+  background-image: url(/themes/custom/acas/dist/images/icons/icon-telephone.png);
+  background-repeat: no-repeat;
+  background-size: 1.5em auto;
+  background-position: 50% 50%;
+  height: 100%;
+  position: absolute;
+  right: .5em;
+  top: 0;
+  width: 3em;
+}
