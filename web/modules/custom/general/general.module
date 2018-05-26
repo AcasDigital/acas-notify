@@ -131,18 +131,49 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $print_guide = '';
       $download_guide = '';
       if ($parent = _is_guide($entity)) {
-        $print_guide = '<a id="print_guide" class="print" href="/guide-print/' . $parent . '">Print guide</a>';
-        $download_guide = '<a id="download_guide" href="/guide-download/' . $parent . '">Download guide</a>';
+        $build['print_download_email'] = [
+          '#markup' => '<div class="print-download-email">
+            <a class="btn-cta btn-cta--print print-opener" href="/guide-print/' . $parent . '">Print</a>
+            <a class="btn-cta btn-cta--download download-opener" href="/guide-download/' . $parent . '">Download</a>
+            <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+            <div id="guide_print_download_overlay" class="hidden"></div>
+            <div id="guide_print_modal" class="modal hidden">
+              <div class="title-wrapper"><span class="title">Print</span><span class="close">close</span></div>
+              <div class="body-wrapper">
+                <div class="action print-page">
+                  <a class="btn-cta btn-cta--print-page" nid="' . $parent . '" href="/page-print/' . $parent . '">Print this page</a>
+                </div>
+                <div class="action print-guide">
+                  <a class="btn-cta btn-cta--print-guide" nid="' . $parent . '" href="/guide-print/' . $parent . '">Print entire guide</a>
+                </div>
+              </div>
+            </div>
+            <div id="guide_download_modal" class="modal hidden">
+              <div class="title-wrapper"><span class="title">Download</span><span class="close">close</span></div>
+              <div class="body-wrapper">
+                <div class="action download-page">
+                  <a class="btn-cta btn-cta--download-page" nid="' . $parent . '" href="/page-download/' . $parent . '">Download this page</a>
+                </div>
+                <div class="action download-guide">
+                  <a class="btn-cta btn-cta--download-guide" nid="' . $parent . '" href="/guide-download/' . $parent . '">Download entire guide</a>
+                </div>
+              </div>
+            </div>
+          </div>',
+          '#weight' => 992,
+        ];
+        $build['print_download_email']['#attached']['library'][] = 'general/guide_print_download';
+      }else{
+        $build['print_download_email'] = [
+          '#markup' => '<div class="print-download-email">
+            <a class="btn-cta btn-cta--print print" href="/page-print/' . $entity->id() . '">Print</a>
+            <a class="btn-cta btn-cta--download" href="/page-download/' . $entity->id() . '">Download</a>
+            <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+          </div>',
+          '#weight' => 992,
+        ];
+        $build['print_download_email']['#attached']['library'][] = 'general/print';
       }
-      $build['print_download_email'] = [
-        '#markup' => '<div class="print-download-email">
-          <a class="btn-cta btn-cta--print print" href="/page-print/' . $entity->id() . '">Print</a>' . $print_guide . '
-          <a class="btn-cta btn-cta--download" href="/page-download/' . $entity->id() . '">Download</a>' . $download_guide . '
-          <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
-        </div>',
-        '#weight' => 992,
-      ];
-      $build['print_download_email']['#attached']['library'][] = 'general/print';
     }
     if ($entity->getType() == 'details_page') {
       $query = \Drupal::database()->select('taxonomy_index', 'ti');
@@ -546,7 +577,10 @@ function general_menu_full_first_level() {
   $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('acas', 0, 1);
   $termIds = [];
   foreach ($children as $value) {
-    $termIds[$value->tid] = $value->tid;
+    $term = \Drupal\taxonomy\Entity\Term::load($value->tid);
+    if ($term->get('field_enabled')->value) {
+      $termIds[$value->tid] = $value->tid;
+    }
   }
   $query = \Drupal::database()->select('taxonomy_index', 'ti');
   $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
@@ -575,39 +609,41 @@ function general_menu_full_first_level() {
 function general_menu_full_second_level($first_level, $tid, &$weight) {
   if ($children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($tid)) {
     foreach ($children as $key => $value) {
-      // See if have node
-      $query = \Drupal::database()->select('taxonomy_index', 'ti');
-      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-      $query->fields('ti', array('nid'));
-      $query->condition('ti.tid', $key, '=');
-      $result = $query->execute();
-      if ($nid = $result->fetchCol()) {
-        $node = \Drupal\node\Entity\Node::load($nid[0]);
-        if ($node->getType() != 'secondary_page') {
+      if ($value->get('field_enabled')->value) {
+        // See if have node
+        $query = \Drupal::database()->select('taxonomy_index', 'ti');
+        $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+        $query->fields('ti', array('nid'));
+        $query->condition('ti.tid', $key, '=');
+        $result = $query->execute();
+        if ($nid = $result->fetchCol()) {
+          $node = \Drupal\node\Entity\Node::load($nid[0]);
+          if ($node->getType() != 'secondary_page') {
+            $second_level = MenuLinkContent::create([
+              'title' => $node->getTitle(),
+              'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+              'parent' => $first_level->getPluginId(),
+              'expanded' => TRUE,
+              'weight' => $weight,
+            ]);
+          }
+          $second_level->save();
+          $weight++;
+          if ($node->getType() == 'details_page') {
+            general_menu_secondary_pages($second_level, $node, $weight);
+          }
+        }else{
+          // No node. See if have link to external site
           $second_level = MenuLinkContent::create([
-            'title' => $node->getTitle(),
-            'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+            'title' => $value->getName(),
+            'link' => ['uri' => 'internal:' . $value->toUrl()->toString()],
             'parent' => $first_level->getPluginId(),
             'expanded' => TRUE,
             'weight' => $weight,
           ]);
+          $second_level->save();
+          $weight++;
         }
-        $second_level->save();
-        $weight++;
-        if ($node->getType() == 'details_page') {
-          general_menu_secondary_pages($second_level, $node, $weight);
-        }
-      }else{
-        // No node. See if have link to external site
-        $second_level = MenuLinkContent::create([
-          'title' => $value->getName(),
-          'link' => ['uri' => 'internal:' . $value->toUrl()->toString()],
-          'parent' => $first_level->getPluginId(),
-          'expanded' => TRUE,
-          'weight' => $weight,
-        ]);
-        $second_level->save();
-        $weight++;
       }
       general_menu_full_second_level($second_level, $key, $weight);
     }

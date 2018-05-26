@@ -65,3 +65,13 @@ print:
   dependencies:
     - core/jquery
     - core/drupal
+    
+guide_print_download:
+  css:
+    theme:
+      css/guide_print_download.css: {}
+  js:
+    js/guide_print_download.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
