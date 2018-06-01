@@ -2,46 +2,75 @@
   margin-top: 2em;
   margin-bottom: 1em;
 }
-#views-exposed-form-solr-search-content-page-1 {
+#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1 {
   margin-top: 0.25em;
   .form-group {
     float: left;
   }
   .form-item {
-    width: 75%;
+    width: 85%;
   }
   .form-actions {
-    width: 25%;
+    width: 15%;
   }
-  input, #edit-submit-solr-search-content {
+  input, #edit-submit-solr-search-content, #edit-submit-search-content {
     border: none;
     height: 2.25em;
     padding: .25em .5em;
     width: 100%;
   }
-  #edit-submit-solr-search-content {
+  #edit-submit-solr-search-content, #edit-submit-search-content {
     background-color: $gray-dark;
     color: $white;
     margin: 0;
+    img {
+      height: 1em;
+      margin-top: .25em;
+    }
   }
   .form--inline {
-    border: 2px solid $gray-dark;
+    border: 1px solid $gray-medium-light;
     border-radius: 2px;
-    display: inline-block;
+    display: block;
     &.active {
-      border: 2px solid $acas-teal;
+      border-color: $acas-teal;
       #edit-submit-solr-search-content {
         background-color: $acas-teal;
       }
     }
   }
   &:active, &:focus, &:hover {
-    #edit-submit-solr-search-content {
+    #edit-submit-solr-search-content, #edit-submit-search-content {
       background-color: $acas-teal;
     }
     .form--inline {
-      border: 2px solid $acas-teal;
+      border-color: $acas-teal;
     }
+  }
+}
+
+@if $compile-IE {
+  #views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1 {
+    .form-item {
+      width: 75%;
+    }
+    .form-actions {
+      width: 25%;
+    }
+    .search-text {
+      display: block;
+    }
+  }
+  #edit-submit-solr-search-content, #edit-submit-search-content {
+    img {
+      display: none;
+    }
+  }
+}
+
+@else {
+  .search-text {
+    display: none;
   }
 }
 

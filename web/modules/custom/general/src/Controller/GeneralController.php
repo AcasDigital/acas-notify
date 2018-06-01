@@ -132,7 +132,7 @@ class GeneralController extends ControllerBase {
     $dompdf = new Dompdf(array('enable_remote' => true));
     $dompdf->loadHtml($html);
     $dompdf->render();
-    $dompdf->stream(general_taxonomy_path($node->getTitle()) . '.pdf');
+    $dompdf->stream(trim(general_taxonomy_path($node->getTitle())) . '.pdf');
   }
   
   public function page_download($entity_id) {
@@ -150,7 +150,7 @@ class GeneralController extends ControllerBase {
     $dompdf = new Dompdf(array('enable_remote' => true));
     $dompdf->loadHtml($html);
     $dompdf->render();
-    $dompdf->stream(general_taxonomy_path($node->getTitle()) . '.pdf');
+    $dompdf->stream(trim(general_taxonomy_path($node->getTitle())) . '.pdf');
     /*
     $output = $dompdf->output();
     file_put_contents('/tmp/' . $node->getTitle() . '.pdf', $output);

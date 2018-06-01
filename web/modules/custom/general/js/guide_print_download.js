@@ -1,3 +1,5 @@
+var win;
+
 Drupal.behaviors.guide_print_download = {
   attach: function(context, settings) {
     // Print modal
@@ -7,17 +9,19 @@ Drupal.behaviors.guide_print_download = {
       return false;
     });
     jQuery(".print-download-email .print-page .btn-cta--print-page").click(function() {
+      win = window.open(this.href);
+      jQuery(win.document).ready(function() {
+        setTimeout(doPrint, 1000);
+      });
       closeModals();
-      var win = window.open(this.href);
-      win.print();
-      win.close();
       return false;
     });
     jQuery(".print-download-email .print-guide .btn-cta--print-guide").click(function() {
+      win = window.open(this.href);
+      jQuery(win.document).ready(function() {
+         setTimeout(doPrint, 1000);
+      });
       closeModals();
-      var win = window.open(this.href);
-      win.print();
-      win.close();
       return false;
     });
     
@@ -43,6 +47,11 @@ Drupal.behaviors.guide_print_download = {
     });
   }
 };
+
+function doPrint() {
+  win.print();
+  win.close();
+}
 
 function closeModals() {
   jQuery(".modal").hide();

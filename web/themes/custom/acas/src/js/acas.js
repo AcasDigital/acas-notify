@@ -48,7 +48,7 @@ jQuery( document ).ready( function( $ ) {
 
   for (var i = 0; i < secondaryMenus.length; i++) {
     var siblingLink = $(secondaryMenus[i]).siblings('.menu-primary__link');
-    var secondaryMenuTitle = "<li class='menu-secondary__item'><h3>"+$(siblingLink).clone().html()+"</h3></li>";
+    var secondaryMenuTitle = "<li class='menu-secondary__title'><h3>"+$(siblingLink).clone().html()+"</h3></li>";
     $(secondaryMenus[i]).prepend(secondaryMenuTitle);
   }
 

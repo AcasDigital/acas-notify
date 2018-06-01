@@ -1,5 +1,5 @@
 .btn-cta {
-  background: $acas-teal;
+  background: $acas-teal-dark;
   color: $white;
   display: block;
   padding: .75em;
@@ -8,14 +8,13 @@
   text-decoration: none;
   width: fit-content;
   &:hover, &:focus {
-    @extend .outline;
     color: $white;
   }
 }
 
 .btn-standard {
   background: $white;
-  color: $acas-teal;
+  color: $acas-teal-dark;
   display: block;
   font-weight: $font-weight-body;
   padding: .75em;
@@ -58,6 +57,10 @@
   overflow: auto;
   text-align: center;
   width: 100%;
+  li {
+    display: block;
+    list-style: none;
+  }
 }
 
 .btn-cta--print,
@@ -100,7 +103,15 @@
 }
 
 @include bp(MD) {
-  .btn-standard {
-    display: inline-block;
+  .print-download-email {
+    li {
+      float: left;
+      width: 33.33%;
+    }
+  }
+  .btn-cta--print,
+  .btn-cta--download,
+  .btn-cta--email {
+    margin: .75em auto;
   }
 }

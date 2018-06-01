@@ -24,17 +24,26 @@ p {
 
 table {
   margin: 1em 0 2em;
-  th {
-    @extend h4;
+  p {
+    margin-bottom: 0;
+  }
+  thead {
+    background: $acas-teal-dark;
+    color: $white;
+    font-family: $font-family-bold;
+    text-align: left;
   }
   td, th {
-    border: 1px solid $gray-medium;
+    border: 2px solid $white;
     padding: 0.5em 1em;
+  }
+  td {
+    background: $gray-light;
   }
 }
 
 strong {
-  font-family: $font-family-bold;
+  font-family: $font-family-semibold;
 }
 
 .details-page, .support-page, .page, .secondary-page {

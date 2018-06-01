@@ -36,7 +36,7 @@ function general_help($route_name, RouteMatchInterface $route_match) {
  */
 function general_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
-    general_menu_first_level();
+    general_menu_full_first_level();
   }
 }
 
@@ -45,7 +45,7 @@ function general_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
  */
 function general_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
-    general_menu_first_level();
+    general_menu_full_first_level();
   }
 }
 
@@ -54,7 +54,7 @@ function general_entity_delete(Drupal\Core\Entity\EntityInterface $entity) {
  */
 function general_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && ($entity->bundle() == 'landing_page' || $entity->bundle() == 'details_page')) {
-    general_menu_first_level();
+    general_menu_full_first_level();
   }
   if ($entity->getEntityTypeId() == 'taxonomy_term' && $entity->bundle() == 'acas') {
     $query = \Drupal::database()->select('taxonomy_index', 'ti');
@@ -67,7 +67,7 @@ function general_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
       if ($node->getTitle() != $entity->getName()) {
         $node->setTitle($entity->getName());
         $node->save();
-        general_menu_first_level();
+        general_menu_full_first_level();
       }
     }
   }
@@ -133,12 +133,18 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       if ($parent = _is_guide($entity)) {
         $build['print_download_email'] = [
           '#markup' => '<div class="print-download-email">
-            <a class="btn-cta btn-cta--print print-opener" href="/guide-print/' . $parent . '">Print</a>
-            <a class="btn-cta btn-cta--download download-opener" href="/guide-download/' . $parent . '">Download</a>
-            <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+            <li>
+              <a class="btn-cta btn-cta--print print-opener" href="/guide-print/' . $parent . '">Print</a>
+            </li>
+            <li>
+              <a class="btn-cta btn-cta--download download-opener" href="/guide-download/' . $parent . '">Download</a>
+            </li>
+            <li>
+              <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+            </li>
             <div id="guide_print_download_overlay" class="hidden"></div>
             <div id="guide_print_modal" class="modal hidden">
-              <div class="title-wrapper"><span class="title">Print</span><span class="close">close</span></div>
+              <div class="title-wrapper"><span class="title">Print</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action print-page">
                   <a class="btn-cta btn-cta--print-page" nid="' . $parent . '" href="/page-print/' . $parent . '">Print this page</a>
@@ -149,7 +155,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               </div>
             </div>
             <div id="guide_download_modal" class="modal hidden">
-              <div class="title-wrapper"><span class="title">Download</span><span class="close">close</span></div>
+              <div class="title-wrapper"><span class="title">Download</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action download-page">
                   <a class="btn-cta btn-cta--download-page" nid="' . $parent . '" href="/page-download/' . $parent . '">Download this page</a>
@@ -166,9 +172,15 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       }else{
         $build['print_download_email'] = [
           '#markup' => '<div class="print-download-email">
+          <li>
             <a class="btn-cta btn-cta--print print" href="/page-print/' . $entity->id() . '">Print</a>
+          </li>
+          <li>
             <a class="btn-cta btn-cta--download" href="/page-download/' . $entity->id() . '">Download</a>
+          </li>
+          <li>
             <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . $entity->toUrl('canonical', ['absolute' => TRUE])->toString() . '">Email</a>
+          </li>
           </div>',
           '#weight' => 992,
         ];
@@ -331,9 +343,9 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form') {
-    $form['keys']['#attributes']['placeholder'] = t("Search Acas");
+    $form['keys']['#attributes']['placeholder'] = t("Search Acas Beta");
     $form['keys']['#attributes']['autocomplete'] = 'off';
-    $form['keys']['#title'] = t("Search Acas");
+    $form['keys']['#title'] = t("Search Acas Beta");
     $form['keys']['#title_display'] = 'invisible';
     //$form['search_api_fulltext']['#required'] = TRUE;
   }
@@ -364,15 +376,21 @@ function general_page_attachments_alter(&$build) {
   if ($route_name == 'general.sync_prod' || $route_name == 'general.test_prod') {
     $build['#attached']['library'][] = 'general/test_prod';
   }
+  if ($theme == 'acas') {
+    $user = \Drupal::currentUser();
+    if ($user->id()) {
+      $build['#attached']['library'][] = 'general/missing';
+    }
+  }
 }
 
 /**
  * Implements hook_entity_presave().
- * 
+ *
  * Convert the file to html via the CloudConvert service
  * https://cloudconvert.com
  */
-function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) { 
+function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'media' && $entity->bundle() == 'file') {
     $apiKey = \Drupal::config('cloudconvert.settings')->get('api_key');
     $scheme = Drupal::service('flysystem_factory')->getSchemes();
@@ -385,7 +403,7 @@ function general_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
     $path = pathinfo($filepath, PATHINFO_DIRNAME);
     $url = 'https://s3-' . $config['region'] . '.amazonaws.com/' . $config['bucket'] . '/' . str_replace('.' . $type, '.html', $filepath);
     $entity->field_html_url->setValue($url);
-    
+
     $api = new Api($apiKey);
     $cmd = [
       "inputformat" => $type,
@@ -456,7 +474,7 @@ function general_taxonomy_path($name) {
 function general_taxonomy_overview_terms_submit($form, &$form_state) {
   $args = $form_state->getBuildInfo()['args'];
   if ($args[0]->id() == 'acas') {
-    general_menu_first_level();
+    general_menu_full_first_level();
   }
 }
 
@@ -465,111 +483,16 @@ function general_taxonomy_overview_terms_submit($form, &$form_state) {
  */
 function general_taxonomy_term_update($term) {
   if ($term->getVocabularyId() == 'acas') {
-    general_menu_first_level();
+    general_menu_full_first_level();
   }
 }
 
-function general_menu_first_level() {
-  general_menu_full_first_level();
-  return;
-
-  $menu_name = 'main';
-  $menu_handler = \Drupal::service('plugin.manager.menu.link');
-  $menu_handler->deleteLinksInMenu($menu_name);
-  // Get top level
-  $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('acas', 0, 1);
-  $termIds = [];
-  foreach ($children as $value) {
-    $termIds[$value->tid] = $value->tid;
-  }
-  $query = \Drupal::database()->select('taxonomy_index', 'ti');
-  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-  $query->fields('ti', array('nid'));
-  $query->condition('ti.tid', $termIds, 'IN');
-  $query->orderBy('fd.weight', 'ASC');
-  $result = $query->execute();
-  $weight = 0;
-  if($nodeIds = $result->fetchCol()){
-    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
-    foreach($nodes as $node) {
-      $first_level = MenuLinkContent::create([
-        'title' => $node->getTitle(),
-        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
-        'menu_name' => $menu_name,
-        'expanded' => TRUE,
-        'weight' => $weight,
-      ]);
-      $first_level->save();
-      $weight++;
-      general_menu_second_level($first_level, $node, $weight);
-    }
-  }
-}
-
-function general_menu_second_level($first_level, $node, &$weight) {
-  if ($children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadChildren($node->get('field_taxonomy')->target_id)) {
-    $termIds = [];
-    foreach ($children as $key => $value) {
-      $termIds[$key] = $key;
-    }
-    $query = \Drupal::database()->select('taxonomy_index', 'ti');
-    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-    $query->fields('ti', array('nid'));
-    $query->condition('ti.tid', $termIds, 'IN');
-    $query->orderBy('fd.weight', 'ASC');
-    $result = $query->execute();
-    $output = '';
-    if($nodeIds = $result->fetchCol()){
-      $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
-      foreach($nodes as $node) {
-        if ($node->getType() != 'secondary_page') {
-          $second_level = MenuLinkContent::create([
-            'title' => $node->getTitle(),
-            'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
-            'parent' => $first_level->getPluginId(),
-            'expanded' => TRUE,
-            'weight' => $weight,
-          ]);
-          $second_level->save();
-          $weight++;
-          if ($node->getType() == 'details_page') {
-            general_menu_secondary_pages($second_level, $node, $weight);
-          }
-        }
-        general_menu_second_level($second_level, $node, $weight);
-      }
-    }
-  }
-}
-
-function general_menu_secondary_pages($first_level, $node, $weight) {
-  $query = \Drupal::database()->select('taxonomy_index', 'ti');
-  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-  $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
-  $query->fields('ti', array('nid'));
-  $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
-  $query->condition('nfd.type', 'secondary_page', '=');
-  $query->orderBy('fd.weight', 'ASC');
-  $result = $query->execute();
-  if($nodeIds = $result->fetchCol()){
-    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
-    foreach($nodes as $node) {
-      $second_level = MenuLinkContent::create([
-        'title' => $node->getTitle(),
-        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
-        'parent' => $first_level->getPluginId(),
-        'expanded' => TRUE,
-        'weight' => $weight,
-      ]);
-      $second_level->save();
-      $weight++;
-    }
-  }
-}
-
-
-// Full menu
-function general_menu_full_first_level() {
+/**
+ * general_menu_full_first_level().
+ * Builds the Main navigation menu
+ * Called whenever Taxonomy changes
+ */
+ function general_menu_full_first_level() {
   $menu_name = 'main';
   $menu_handler = \Drupal::service('plugin.manager.menu.link');
   $menu_handler->deleteLinksInMenu($menu_name);
@@ -632,7 +555,8 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
           if ($node->getType() == 'details_page') {
             general_menu_secondary_pages($second_level, $node, $weight);
           }
-        }else{
+        }else if ($first_level){
+          /*
           // No node. See if have link to external site
           $second_level = MenuLinkContent::create([
             'title' => $value->getName(),
@@ -643,14 +567,44 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
           ]);
           $second_level->save();
           $weight++;
+          */
         }
       }
-      general_menu_full_second_level($second_level, $key, $weight);
+      if (@$second_level) {
+        general_menu_full_second_level($second_level, $key, $weight);
+      }
     }
   }
 }
 
+function general_menu_secondary_pages($first_level, $node, $weight) {
+  $query = \Drupal::database()->select('taxonomy_index', 'ti');
+  $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
+  $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+  $query->fields('ti', array('nid'));
+  $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
+  $query->condition('nfd.type', 'secondary_page', '=');
+  $query->orderBy('fd.weight', 'ASC');
+  $result = $query->execute();
+  if($nodeIds = $result->fetchCol()){
+    $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+    foreach($nodes as $node) {
+      $second_level = MenuLinkContent::create([
+        'title' => $node->getTitle(),
+        'link' => ['uri' => 'internal:' . $node->toUrl()->toString()],
+        'parent' => $first_level->getPluginId(),
+        'expanded' => TRUE,
+        'weight' => $weight,
+      ]);
+      $second_level->save();
+      $weight++;
+    }
+  }
+}
 
+/**
+ * Implements hook_views_query_alter().
+ */
 function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
   if (strpos($view->current_display, 'rest_export') !== FALSE) {
     $filters = $view->display_handler->getOption('filters');
@@ -825,7 +779,7 @@ function general_download_css() {
 }
 
 /**
- * 
+ *
  * Health check
  * Called by Amazon Route53 health checks
  */

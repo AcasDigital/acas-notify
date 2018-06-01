@@ -71,7 +71,7 @@
 
 .menu-primary__link,
 .menu-secondary__link {
-  color: $acas-teal;
+  color: $acas-teal-dark;
   text-decoration: none;
 }
 
@@ -117,7 +117,7 @@
     display: block;
     width: 100%;
     .menu-secondary {
-      border-top: 0.5em solid $acas-teal;
+      border-top: 0.5em solid $acas-teal-dark;
       display: block;
       margin-top: .75em;
       position: absolute;
@@ -140,7 +140,7 @@
       }
       &:after {
         content: "";
-        border-bottom: 1em solid $acas-teal;
+        border-bottom: 1em solid $acas-teal-dark;
         border-right: 1em solid transparent;
         border-top: 1em solid transparent;
         border-left: 1em solid transparent;
@@ -151,6 +151,11 @@
         position: absolute;
         top: -2.25em;
         width: 0px;
+      }
+      .menu-secondary__item {
+        &:hover {
+          background: $gray-light;
+        }
       }
     }
   }
@@ -169,11 +174,11 @@
     }
     &[aria-expanded="true"] {
       .menu-primary__link {
-        background: $acas-teal;
+        background: $acas-teal-dark;
         color: $white;
         &:before {
           content: "";
-          background: $acas-teal;
+          background: $acas-teal-dark;
           display: block;
           height: 5px;
           left: 0;
@@ -195,11 +200,11 @@
     }
     .menu-primary__link {
       &:hover, &:focus {
-        background: $acas-teal;
+        background: $acas-teal-dark;
         color: $white;
         &:before {
           content: "";
-          background: $acas-teal;
+          background: $acas-teal-dark;
           display: block;
           height: 5px;
           left: 0;

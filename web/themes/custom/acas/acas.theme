@@ -141,6 +141,14 @@ function acas_preprocess_input(&$variables) {
   //}
 }
 
+function acas_theme_suggestions_input_alter(&$suggestions, array $variables) {
+  $element = $variables['element'];
+  if ($element['#type'] == 'submit' && ($element['#id'] == 'edit-submit-solr-search-content' || $element['#id'] == 'edit-submit-search-content')) {
+    $suggestions[] = 'input__button__search__submit';
+  }
+}
+
+
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */

@@ -5,15 +5,24 @@
   }
 }
 
-strong.node_view {
-  display: inline-block;
-  float: left;
-  margin-right: 20px;
-  .glyphicon {
-    margin-left: 10px;
+#block-block-landingpagesblock {
+  .view-content {
+    .views-col {
+      article {
+        width: 100%;
+      }
+    }
   }
-  ul {
-    padding: 0;
+}
+.views-exposed-form {
+  .control-label {
+    display: none;
+  }
+  .form-type-textfield, .form-actions {
+    display: inline-block;
+  }
+  .form-actions {
+    position: relative;
   }
 }
 

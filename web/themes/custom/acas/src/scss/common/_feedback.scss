@@ -1,29 +1,18 @@
-#feedback_wrapper {
-  position: relative;
-  &:after {
-    content: "";
-    background: $acas-teal;
-    display: block;
-    height: 10px;
-    left: 0;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-  }
-}
 #useful_wrapper {
   @extend .container;
-  background: $acas-teal;
+  background: $acas-teal-dark;
   color: $white;
+  font-size: .85em;
   font-weight: $font-weight-bold;
   margin-top: 1.5em;
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   position: relative;
   text-align: center;
   a {
     color: $white;
     border-radius: 5px;
+    float: left;
     font-weight: $font-weight-normal;
     margin: 0 1em;
     text-decoration: none;
@@ -33,18 +22,40 @@
     }
   }
   .text {
+    float: left;
     font-family: $font-family-semibold;
     display: block;
-    padding: 0 1em 0.75em;
+  }
+}
+
+@include bp(SM) {
+  #feedback_wrapper {
+    position: relative;
+    &:after {
+      content: "";
+      background: $acas-teal-dark;
+      display: block;
+      height: 10px;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      width: 100%;
+    }
+  }
+  #useful_wrapper {
+    font-size: 1em;
+    max-width: 80%;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    text-align: left;
+    .text {
+      padding: 0 1em;
+    }
   }
 }
 
 @include bp(MD) {
   #useful_wrapper {
-    text-align: left;
-    .text {
-      display: inline-block;
-      padding: 0 1em;
-    }
+    max-width: 100%;
   }
 }

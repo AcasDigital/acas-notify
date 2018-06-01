@@ -75,3 +75,11 @@ guide_print_download:
   dependencies:
     - core/jquery
     - core/drupal
+    
+missing:
+  js:
+    /core/assets/vendor/modernizr/modernizr.min.js: { weight: -100 }
+    /core/misc/ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
