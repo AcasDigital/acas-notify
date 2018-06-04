@@ -54,11 +54,14 @@ class RelatedContent extends BlockBase {
       $path = $url;
       foreach($terms as $term) {
         if (!$term->depth) {
-          $url = $path . '/' . general_taxonomy_path($term->name);
-          if ($node->get('field_taxonomy')->target_id != $term->tid) {
-            $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
-          }else{
-            $output .= '<li class="active">' . $term->name . '</li>';
+          $t = \Drupal\taxonomy\Entity\Term::load($term->tid);
+          if ($t->get('field_enabled')->value) {
+            $url = $path . '/' . general_taxonomy_path($term->name);
+            if ($node->get('field_taxonomy')->target_id != $term->tid) {
+              $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
+            }else{
+              $output .= '<li class="active">' . $term->name . '</li>';
+            }
           }
         }
       }

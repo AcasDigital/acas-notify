@@ -30,7 +30,7 @@ class InThisSection extends BlockBase {
       $result = $query->execute();
       if($nodeIds = $result->fetchCol()) {
         if ($node->getType() == 'details_page') {
-          $output .= '<li class="active">Overview</li>';
+          $output .= '<li class="active">' . $node->get('field_overview_title')->value . '</li>';
         }else{
           $query2 = \Drupal::database()->select('taxonomy_index', 'ti');
           $query2->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
@@ -41,7 +41,7 @@ class InThisSection extends BlockBase {
           $result2 = $query2->execute();
           $nid = $result2->fetchCol();
           $node2 = \Drupal\node\Entity\Node::load($nid[0]);
-          $output .= '<li><a href="' . $node2->toUrl()->toString() . '">Overview</a></li>';
+          $output .= '<li><a href="' . $node2->toUrl()->toString() . '">' . $node2->get('field_overview_title')->value . '</a></li>';
         }
         $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
         foreach($nodes as $n) {

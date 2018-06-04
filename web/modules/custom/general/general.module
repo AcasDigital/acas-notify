@@ -270,7 +270,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="left_arrow"></div>
               <div class="details">
                 <div class="text">Previous</div>
-                <div class="title">Overview</div>
+                <div class="title">' . $node2->get('field_overview_title')->value . '</div>
               </div>
             </div>
           </a>';
@@ -733,8 +733,9 @@ function _is_guide($entity) {
     $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
     $query->condition('nfd.type', 'details_page', '=');
     $result = $query->execute();
-    $nid = $result->fetchCol();
-    return $nid[0];
+    if ($nid = $result->fetchCol()) {
+      return $nid[0];
+    }
   }else if ($entity->getType() == 'details_page') {
     // See if has secondary pages
     $query = \Drupal::database()->select('taxonomy_index', 'ti');
