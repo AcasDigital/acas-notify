@@ -10,6 +10,9 @@
     .details_wrapper {
       background: $gray-light;
     }
+    .text, .title {
+      color: $black;
+    }
   }
   .text {
     position: relative;
@@ -21,23 +24,23 @@
       height: 100%;
       position: absolute;
       top: 0;
-      width: 2em;
+      width: 1em;
     }
   }
 }
 
 .previous {
   .text {
-    margin-left: 2em;
+    padding-left: 1.5em;
     &:after {
-      background-image: url(../images/icons/icon-arrow-left.png);
-      right: 100%;
+      background-image: url(../images/icons/icon-arrow-teal-left.svg);
+      left: 0;
     }
   }
   &:hover, &:focus {
     .text {
       &:after {
-        background-image: url(../images/icons/icon-arrow-left-black.png);
+        background-image: url(../images/icons/icon-arrow-black-left.svg);
       }
     }
   }
@@ -45,16 +48,16 @@
 
 .next {
   .text {
-    margin-right: 2em;
+    padding-right: 1.5em;
     &:after {
-      background-image: url(../images/icons/icon-arrow-right.png);
-      left: 100%;
+      background-image: url(../images/icons/icon-arrow-teal-right.svg);
+      right: 0;
     }
   }
   &:hover, &:focus {
     .text {
       &:after {
-        background-image: url(../images/icons/icon-arrow-right-black.png);
+        background-image: url(../images/icons/icon-arrow-black-right.svg);
       }
     }
   }

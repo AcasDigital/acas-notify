@@ -2389,11 +2389,15 @@ a:hover, a:focus {
 .previous:hover .details_wrapper, .previous:focus .details_wrapper, .next:hover .details_wrapper, .next:focus .details_wrapper {
   background: #F7F7F7;
 }
-/* line 14, ../../src/scss/common/_pagination.scss */
+/* line 13, ../../src/scss/common/_pagination.scss */
+.previous:hover .text, .previous:hover .title, .previous:focus .text, .previous:focus .title, .next:hover .text, .next:hover .title, .next:focus .text, .next:focus .title {
+  color: #000;
+}
+/* line 17, ../../src/scss/common/_pagination.scss */
 .previous .text, .next .text {
   position: relative;
 }
-/* line 16, ../../src/scss/common/_pagination.scss */
+/* line 19, ../../src/scss/common/_pagination.scss */
 .previous .text:after, .next .text:after {
   content: "";
   background-repeat: no-repeat;
@@ -2402,65 +2406,65 @@ a:hover, a:focus {
   height: 100%;
   position: absolute;
   top: 0;
-  width: 2em;
+  width: 1em;
 }
 
-/* line 30, ../../src/scss/common/_pagination.scss */
+/* line 33, ../../src/scss/common/_pagination.scss */
 .previous .text {
-  margin-left: 2em;
+  padding-left: 1.5em;
 }
-/* line 32, ../../src/scss/common/_pagination.scss */
+/* line 35, ../../src/scss/common/_pagination.scss */
 .previous .text:after {
-  background-image: url(../images/icons/icon-arrow-left.png);
-  right: 100%;
+  background-image: url(../images/icons/icon-arrow-teal-left.svg);
+  left: 0;
 }
-/* line 39, ../../src/scss/common/_pagination.scss */
+/* line 42, ../../src/scss/common/_pagination.scss */
 .previous:hover .text:after, .previous:focus .text:after {
-  background-image: url(../images/icons/icon-arrow-left-black.png);
+  background-image: url(../images/icons/icon-arrow-black-left.svg);
 }
 
-/* line 47, ../../src/scss/common/_pagination.scss */
+/* line 50, ../../src/scss/common/_pagination.scss */
 .next .text {
-  margin-right: 2em;
+  padding-right: 1.5em;
 }
-/* line 49, ../../src/scss/common/_pagination.scss */
+/* line 52, ../../src/scss/common/_pagination.scss */
 .next .text:after {
-  background-image: url(../images/icons/icon-arrow-right.png);
-  left: 100%;
+  background-image: url(../images/icons/icon-arrow-teal-right.svg);
+  right: 0;
 }
-/* line 56, ../../src/scss/common/_pagination.scss */
+/* line 59, ../../src/scss/common/_pagination.scss */
 .next:hover .text:after, .next:focus .text:after {
-  background-image: url(../images/icons/icon-arrow-right-black.png);
+  background-image: url(../images/icons/icon-arrow-black-right.svg);
 }
 
-/* line 64, ../../src/scss/common/_pagination.scss */
+/* line 67, ../../src/scss/common/_pagination.scss */
 .details_wrapper {
   padding: 1em;
 }
-/* line 66, ../../src/scss/common/_pagination.scss */
+/* line 69, ../../src/scss/common/_pagination.scss */
 .details_wrapper .text {
   display: block;
   font-size: 1.45em;
 }
-/* line 70, ../../src/scss/common/_pagination.scss */
+/* line 73, ../../src/scss/common/_pagination.scss */
 .details_wrapper .title {
   font-size: 0.875em;
   text-decoration: underline;
 }
 
-/* line 77, ../../src/scss/common/_pagination.scss */
+/* line 80, ../../src/scss/common/_pagination.scss */
 .previous, .next {
   float: left;
   width: 50%;
 }
 
-/* line 83, ../../src/scss/common/_pagination.scss */
+/* line 86, ../../src/scss/common/_pagination.scss */
 .previous, .next {
   float: left;
   width: 50%;
 }
 
-/* line 87, ../../src/scss/common/_pagination.scss */
+/* line 90, ../../src/scss/common/_pagination.scss */
 .next {
   float: right;
   text-align: right;
@@ -2651,7 +2655,7 @@ ul.breadcrumb--search li:first-child:after {
 /* line 82, ../../src/scss/structures/_header.scss */
 .menu-primary__link:after {
   content: "";
-  background-image: url(../images/icons/icon-chevron-teal-right.png);
+  background-image: url(../images/icons/icon-chevron-teal-right.svg);
   background-size: 100% auto;
   background-position: 50% 50%;
   background-repeat: no-repeat;

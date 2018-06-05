@@ -552,10 +552,12 @@ function general_menu_full_second_level($first_level, $tid, &$weight) {
               'weight' => $weight,
             ]);
           }
-          $second_level->save();
-          $weight++;
-          if ($node->getType() == 'details_page') {
-            general_menu_secondary_pages($second_level, $node, $weight);
+          if (@$second_level) {
+            $second_level->save();
+            $weight++;
+            if ($node->getType() == 'details_page') {
+              general_menu_secondary_pages($second_level, $node, $weight);
+            }
           }
         }else if ($first_level){
           /*

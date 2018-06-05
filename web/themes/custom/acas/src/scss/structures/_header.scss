@@ -81,7 +81,7 @@
   position: relative;
   &:after {
     content: "";
-    background-image: url(../images/icons/icon-chevron-teal-right.png);
+    background-image: url(../images/icons/icon-chevron-teal-right.svg);
     background-size: 100% auto;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -193,7 +193,7 @@
         }
         @else {
           &:after {
-            background-image: url(../images/icons/icon-chevron-white-down.png);
+            background-image: url(../images/icons/icon-chevron-white-down.svg);
           }
         }
       }
@@ -219,7 +219,7 @@
         }
         @else {
           &:after {
-            background-image: url(../images/icons/icon-chevron-white-down.png);
+            background-image: url(../images/icons/icon-chevron-white-down.svg);
           }
         }
       }
@@ -234,7 +234,7 @@
     }
     @else {
       &:after {
-        background-image: url(../images/icons/icon-chevron-teal-down.svg); 
+        background-image: url(../images/icons/icon-chevron-teal-down.svg);
         position: absolute;
         right: 1em;
         top: .75em;
