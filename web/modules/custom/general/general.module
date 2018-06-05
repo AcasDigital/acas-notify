@@ -191,10 +191,11 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $query = \Drupal::database()->select('taxonomy_index', 'ti');
       $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
       $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->join('node__field_weight', 'w' , 'w.entity_id = ti.nid');
       $query->fields('ti', array('nid'));
       $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
       $query->condition('nfd.type', 'secondary_page', '=');
-      $query->orderBy('fd.weight', 'ASC');
+      $query->orderBy('w.field_weight_value', 'ASC');
       $result = $query->execute();
       if ($nodeIds = $result->fetchCol()) {
         $node = \Drupal\node\Entity\Node::load($nodeIds[0]);
@@ -219,10 +220,11 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $query = \Drupal::database()->select('taxonomy_index', 'ti');
       $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
       $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
+      $query->join('node__field_weight', 'w' , 'w.entity_id = ti.nid');
       $query->fields('ti', array('nid'));
       $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
       $query->condition('nfd.type', 'secondary_page', '=');
-      $query->orderBy('fd.weight', 'ASC');
+      $query->orderBy('w.field_weight_value', 'ASC');
       $result = $query->execute();
       if($nodeIds = $result->fetchCol()){
         $p_nid = 0;
