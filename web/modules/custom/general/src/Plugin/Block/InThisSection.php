@@ -62,7 +62,7 @@ class InThisSection extends BlockBase {
       }
     }
     if ($output) {
-      $output = '<h2>Content</h2><ul>' . $output . '</ul>';
+      $output = '<h2>Chapters</h2><ul>' . $output . '</ul>';
     }
     return ['#markup' => $output];
   }
