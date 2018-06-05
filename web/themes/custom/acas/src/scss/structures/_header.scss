@@ -49,7 +49,7 @@
     }
     .menu-primary__link {
       &:after {
-        background-image: url(../images/icons/icon-chevron-teal-down.png);
+        background-image: url(../images/icons/icon-chevron-teal-down.svg);
         width: 1em;
       }
     }
@@ -234,7 +234,7 @@
     }
     @else {
       &:after {
-        background-image: url(../images/icons/icon-chevron-teal-down.png);
+        background-image: url(../images/icons/icon-chevron-teal-down.svg); 
         position: absolute;
         right: 1em;
         top: .75em;

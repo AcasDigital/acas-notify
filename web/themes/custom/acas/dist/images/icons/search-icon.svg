@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>search icon</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-Copy-19" transform="translate(-503.000000, -368.000000)" fill="#FFFFFF">
-            <g id="Group-Copy" transform="translate(84.000000, 354.000000)">
-                <g id="Search-box/corner-rectangle">
-                    <path d="M428,19.5 C428,21.4296875 426.429688,23 424.5,23 C422.570312,23 421,21.4296875 421,19.5 C421,17.5703125 422.570312,16 424.5,16 C426.429688,16 428,17.5703125 428,19.5 L428,19.5 Z M431.710938,25.296875 L429.03125,22.6171875 C429.664062,21.703125 430,20.609375 430,19.5 C430,16.4609375 427.539062,14 424.5,14 C421.460938,14 419,16.4609375 419,19.5 C419,22.5390625 421.460938,25 424.5,25 C425.609375,25 426.703125,24.6640625 427.617188,24.03125 L430.296875,26.703125 C430.476562,26.890625 430.734375,27 431,27 C431.546875,27 432,26.546875 432,26 C432,25.734375 431.890625,25.4765625 431.710938,25.296875 Z" id="search-icon"></path>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"><title>search icon</title><desc>Created with Sketch.</desc><g fill="none"><g fill="#fff"><g><g><path d="M9 5.5C9 7.43 7.43 9 5.5 9S2 7.43 2 5.5 3.57 2 5.5 2 9 3.57 9 5.5zm3.7 5.8l-2.67-2.68c.63-.92.97-2 .97-3.12C11 2.46 8.54 0 5.5 0S0 2.46 0 5.5 2.46 11 5.5 11c1.1 0 2.2-.34 3.12-.97l2.68 2.67c.18.2.43.3.7.3.55 0 1-.45 1-1 0-.27-.1-.52-.3-.7z"/></g></g></g></g></svg>

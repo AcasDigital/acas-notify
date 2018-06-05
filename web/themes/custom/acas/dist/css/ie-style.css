@@ -1610,47 +1610,51 @@ table {
   margin: 1em 0 2em;
 }
 /* line 27, ../../src/scss/_base.scss */
+table p {
+  margin-bottom: 0;
+}
+/* line 30, ../../src/scss/_base.scss */
 table thead {
   background: #007C85;
   color: #fff;
   font-family: "Open Sans Bold", sans-serif;
   text-align: left;
 }
-/* line 33, ../../src/scss/_base.scss */
+/* line 36, ../../src/scss/_base.scss */
 table td, table th {
   border: 2px solid #fff;
   padding: 0.5em 1em;
 }
-/* line 37, ../../src/scss/_base.scss */
+/* line 40, ../../src/scss/_base.scss */
 table td {
   background: #F7F7F7;
 }
 
-/* line 42, ../../src/scss/_base.scss */
+/* line 45, ../../src/scss/_base.scss */
 strong {
   font-family: "Open Sans Semibold", sans-serif;
 }
 
-/* line 47, ../../src/scss/_base.scss */
+/* line 50, ../../src/scss/_base.scss */
 .details-page ul, .support-page ul, .page ul, .secondary-page ul {
   list-style-type: disc;
 }
-/* line 50, ../../src/scss/_base.scss */
+/* line 53, ../../src/scss/_base.scss */
 .details-page ol, .support-page ol, .page ol, .secondary-page ol {
   list-style-type: decimal;
 }
-/* line 53, ../../src/scss/_base.scss */
+/* line 56, ../../src/scss/_base.scss */
 .details-page ul, .details-page ol, .support-page ul, .support-page ol, .page ul, .page ol, .secondary-page ul, .secondary-page ol {
   margin-left: 1.5em;
   margin-bottom: 1.25em;
 }
-/* line 57, ../../src/scss/_base.scss */
+/* line 60, ../../src/scss/_base.scss */
 .details-page .paragraph, .support-page .paragraph, .page .paragraph, .secondary-page .paragraph {
   margin: 1em 0 2em;
 }
 
 /* Screenreader Code */
-/* line 63, ../../src/scss/_base.scss */
+/* line 66, ../../src/scss/_base.scss */
 .screenreader, .sr-only {
   border: 0;
   clip: rect(0 0 0 0);
@@ -1662,7 +1666,7 @@ strong {
   width: 1px;
 }
 
-/* line 79, ../../src/scss/_base.scss */
+/* line 82, ../../src/scss/_base.scss */
 .clearfix::after {
   content: "";
   clear: both;
@@ -2612,7 +2616,7 @@ ul.breadcrumb--search li:first-child:after {
 }
 /* line 51, ../../src/scss/structures/_header.scss */
 .menu-primary__item.menu-primary__item--active .menu-primary__link:after {
-  background-image: url(../images/icons/icon-chevron-teal-down.png);
+  background-image: url(../images/icons/icon-chevron-teal-down.svg);
   width: 1em;
 }
 /* line 57, ../../src/scss/structures/_header.scss */
@@ -3140,7 +3144,11 @@ section#block-landingpagesblock {
   padding-left: 0;
   margin-top: 0;
 }
-/* line 29, ../../src/scss/templates/_search-results.scss */
+/* line 28, ../../src/scss/templates/_search-results.scss */
+.view-solr-search-content .views-row h2:before {
+  display: none;
+}
+/* line 32, ../../src/scss/templates/_search-results.scss */
 .view-solr-search-content .views-row.odd {
   background-color: #F7F7F7;
 }

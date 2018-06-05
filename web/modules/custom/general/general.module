@@ -618,6 +618,13 @@ function general_views_query_alter(ViewExecutable $view, QueryPluginBase $query)
 }
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function general_views_pre_render(\Drupal\views\ViewExecutable $view) {
+
+}
+
+/**
  * Implements hook_ckeditor_css_alter().
  */
 function general_ckeditor_css_alter(&$css, $editor) {

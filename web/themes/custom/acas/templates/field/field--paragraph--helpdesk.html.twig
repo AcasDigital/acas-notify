@@ -57,19 +57,19 @@
 
 {% if label_hidden %}
   {% if multiple %}
-    <a {{ attributes.addClass(classes, 'field--items') }} href="/support/call-the-acas-helpline">
+    <a {{ attributes.addClass(classes, 'field--items') }} href="/helpline">
       {% for item in items %}
         <div{{ item.attributes.addClass('field--item') }}>{{ item.content }}</div>
       {% endfor %}
     </a>
   {% else %}
     {% for item in items %}
-      <a{{ attributes.addClass(classes, 'field--item') }} href="/support/call-the-acas-helpline">{{ item.content }}</a>
+      <a{{ attributes.addClass(classes, 'field--item') }} href="/helpline">{{ item.content }}</a>
     {% endfor %}
   {% endif %}
 {% else %}
   <div{{ attributes.addClass(classes) }}>
-    <a{{ title_attributes.addClass(title_classes) }} href="/support/call-the-acas-helpline">{{ label }}</div>
+    <a{{ title_attributes.addClass(title_classes) }} href="/helpline">{{ label }}</div>
     {% if multiple %}
       <div class="field--items">
     {% endif %}
