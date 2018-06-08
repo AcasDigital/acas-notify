@@ -52,14 +52,16 @@ jQuery( document ).ready( function( $ ) {
     $(secondaryMenus[i]).prepend(secondaryMenuTitle);
   }
 
-
+  /* Search form focus code */
   $('#edit-keys').on("click focus", function() {
     $('.form--inline').addClass('active');
   });
   $('#edit-keys').on("focusout", function() {
     $('.form--inline').removeClass('active');
   });
-	$( '.menu-primary' ).on( 'mouseenter focus', '.menu-primary__item > .menu-primary__link', function( e ) {
+
+  /* Main Navigation Code */
+	$( '.menu-primary__item' ).on( 'mouseenter focus', '.menu-primary__item > .menu-primary__link', function( e ) {
 			var el = $( this );
       setTimeout( function() {
 	       el.toggleClass( 'has-focus' );

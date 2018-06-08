@@ -1,4 +1,5 @@
 #social-share {
+  @extend %list-no-format;
   background: $gray-light;
   border-radius: 30px;
   margin-bottom: 1em;

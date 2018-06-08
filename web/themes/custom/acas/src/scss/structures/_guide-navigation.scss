@@ -1,4 +1,5 @@
-.block-in-this-section-block {
+ .block-in-this-section-block {
+  @extend %list-no-format;
   clear: left;
   padding-bottom: 2em;
   margin-top: -45px;
@@ -17,8 +18,4 @@
       display: none;
     }
   }
-}
-
-.secondary-page {
-  clear: left;
 }

@@ -23,6 +23,7 @@ class AdminForm extends ConfigFormBase {
   protected function getEditableConfigNames() {
     return [
       'acas.settings',
+      'cloudfront.settings'
     ];
   }
   
@@ -31,6 +32,7 @@ class AdminForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('acas.settings');
+    $cloudfront_config = $this->config('cloudfront.settings');
     $form['feedback_email'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('contact_email') ?: 'john@johnburch.co.uk',
@@ -60,6 +62,29 @@ class AdminForm extends ConfigFormBase {
       '#title' => t('Configuration names to ignore'),
       '#description' => t('Enter the configuration names to ignore, one per line'),
     );
+    $form['cloudfront'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('CloudFront'),
+      '#collapsible' => TRUE,
+    );
+    $form['cloudfront']['id'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $cloudfront_config->get('id') ?: 'ER9FC5MXDG96X',
+      '#title' => t('Distribution ID'),
+      '#required' => TRUE,
+    );
+    $form['cloudfront']['key'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $cloudfront_config->get('key') ?: 'AKIAIKOTK75DYAYK7MUA',
+      '#title' => t('AWS Key'),
+      '#required' => TRUE,
+    );
+    $form['cloudfront']['secret'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $cloudfront_config->get('secret') ?: 'nxsvPvrGmJVyZIyl4BWpfSXPbTdhkZUfYjfkZ4ZU',
+      '#title' => t('AWS Secret'),
+      '#required' => TRUE,
+    );
     return parent::buildForm($form, $form_state);
   }
   
@@ -79,6 +104,12 @@ class AdminForm extends ConfigFormBase {
     ->set('prod', $form_state->getValue('prod'))
     ->set('tables', $form_state->getValue('tables'))
     ->set('config', $form_state->getValue('config'))
+    ->save();
+    
+    \Drupal::configFactory()->getEditable('cloudfront.settings')
+    ->set('id', $form_state->getValue('id'))
+    ->set('key', $form_state->getValue('key'))
+    ->set('secret', $form_state->getValue('secret'))
     ->save();
     parent::submitForm($form, $form_state);
   }

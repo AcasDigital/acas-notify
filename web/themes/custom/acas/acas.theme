@@ -76,7 +76,7 @@ function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block' || $variables['plugin_id'] == 'in_this_section_block') {
     $variables['#cache']['max-age'] = 0;
   }
-  if ($variables['plugin_id'] == 'in_this_section_block') {
+  if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
     if (!$variables['content']['#markup']) {
       $variables['no_display'] = TRUE;
     }else{
@@ -141,10 +141,34 @@ function acas_preprocess_input(&$variables) {
   //}
 }
 
+function acas_preprocess_item_list(&$variables) {
+  if ($variables['title'] == 'Did you mean') {
+    $variables['did_you_mean'] = TRUE;
+  }
+}
+
 function acas_theme_suggestions_input_alter(&$suggestions, array $variables) {
   $element = $variables['element'];
   if ($element['#type'] == 'submit' && ($element['#id'] == 'edit-submit-solr-search-content' || $element['#id'] == 'edit-submit-search-content')) {
     $suggestions[] = 'input__button__search__submit';
+  }
+}
+
+function acas_preprocess_views_view(&$variables) {
+  if ($variables['id'] == 'solr_search_content') {
+    $view = $variables['view'];
+    $exposed_input = $view->getExposedInput();
+    $search_term = $exposed_input['keys'];
+    if ($view->total_rows === 0) {
+      $text = $variables['empty']['area']['#text'];
+      $text = str_replace('KEYS', $search_term, $text);
+      $text = str_replace('?articleid=1411', '?q=' . $search_term . '&searchmethod=ANY&continue=Continue&articleid=1411', $text);
+      $variables['empty']['area']['#text'] = $text;
+    }else {
+      $text = $variables['header']['result']['#markup'];
+      $text = str_replace('?articleid=1411', '?q=' . $search_term . '&searchmethod=ANY&continue=Continue&articleid=1411', $text);
+      $variables['header']['result']['#markup'] = $text;
+    }
   }
 }
 

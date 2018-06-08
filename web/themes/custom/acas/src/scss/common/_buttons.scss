@@ -12,6 +12,29 @@
   }
 }
 
+.btn-cta--helpline {
+  min-width: 100%;
+  padding: 1.25em 4em 1.25em 1.25em;
+  position: relative;
+  text-align: left;
+  text-decoration: underline;
+  p {
+    margin-bottom: 0;
+  }
+  &:after {
+    content: "";
+    background-image: url(../images/icons/icon-telephone.png);
+    background-repeat: no-repeat;
+    background-size: 1.5em auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: .5em;
+    top: 0;
+    width: 3em;
+  }
+}
+
 .btn-standard {
   background: $white;
   color: $acas-teal-dark;
@@ -27,91 +50,20 @@
   }
 }
 
-.btn-cta--helpline {
-  min-width: 100%;
-  padding: 1.25em 4em 1.25em 1.25em;
-  position: relative;
-  text-align: left;
-  text-decoration: underline;
-  p {
-    margin-bottom: 0;
-  }
-  &:after {
-    content: "";
-    background-image: url(../images/icons/icon-telephone.svg);
-    background-repeat: no-repeat;
-    background-size: 1.5em auto;
-    background-position: 50% 50%;
-    height: 100%;
-    position: absolute;
-    right: .5em;
-    top: 0;
-    width: 3em;
-  }
-}
-
-.print-download-email {
-  border: 2px solid $acas-teal;
-  border-spacing: 1em 0;
-  margin: 1em 0;
-  overflow: auto;
-  text-align: center;
+.btn-panel {
+  border: 3px solid $acas-teal;
+  border-radius: 10px;
+  float: left;
+  margin-top: 1em;
+  min-height: 14em;
+  padding: 1em;
   width: 100%;
-  li {
-    display: block;
-    list-style: none;
-  }
-}
-
-.btn-cta--print,
-.btn-cta--download,
-.btn-cta--email {
-  @extend .btn-standard;
-  padding: 0 2.5rem 0 0;
-  margin: .75em 1em;
-  position: relative;
-  text-transform: capitalize;
-  &:after {
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 50% auto;
+  .icon {
     background-position: 50% 50%;
-    height: 100%;
-    position: absolute;
-    right: 0.5rem;
-    top: 0;
-    width: 2rem;
-  }
-}
-
-.btn-cta--print {
-  &:after {
-    background-image: url(../images/icons/icon-print.png);
-  }
-}
-
-.btn-cta--download {
-  &:after {
-    background-image: url(../images/icons/icon-download.png);
-  }
-}
-
-.btn-cta--email {
-  &:after {
-    background-image: url(../images/icons/icon-email.png);
-  }
-}
-
-@include bp(MD) {
-  .print-download-email {
-    li {
-      float: left;
-      width: 33.33%;
-    }
-  }
-  .btn-cta--print,
-  .btn-cta--download,
-  .btn-cta--email {
-    margin: .75em auto;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: 6em;
+    margin: .5em auto 1.5em;
+    width: 4em;
   }
 }

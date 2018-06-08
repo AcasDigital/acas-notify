@@ -24,8 +24,13 @@
     not attributes.hasClass('toolbar-menu-administration') ? 'form-group',
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper',
+    'container'
   ]
 %}
 {% if no_display != true %}
-  <div{{ attributes.addClass(classes) }}>{{ children }}</div>
+  <section{{ attributes.addClass(classes) }}>
+    <div class="row">
+      {{ children }}
+    </div>
+  </section>
 {% endif %}

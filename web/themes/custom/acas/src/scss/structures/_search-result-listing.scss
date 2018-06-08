@@ -17,6 +17,12 @@
 .view-solr-search-content {
   @extend .col-xs-12;
   padding-bottom: 2em;
+  .view-header {
+    padding: 2em 0 1em;
+    p {
+      margin-bottom: 0;
+    }
+  }
   .views-row {
     margin: 1em 0;
     overflow: auto;

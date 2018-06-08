@@ -141,3 +141,10 @@ general.page-download:
   requirements:
     _permission: 'access content'
     
+general.cloudfront-invalidate:
+  path: '/cloudfront-invalidate'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::cloudfront_invalidate'
+    _title: ''
+  requirements:
+    _permission: 'access content'

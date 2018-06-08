@@ -46,7 +46,7 @@ strong {
   font-family: $font-family-semibold;
 }
 
-.details-page, .support-page, .page, .secondary-page {
+.region-content {
   ul {
     list-style-type: disc;
   }
@@ -56,9 +56,26 @@ strong {
   ul, ol {
     margin-left: 1.5em;
     margin-bottom: 1.25em;
+    p {
+      margin-bottom: 0;
+    }
+    li {
+      padding: .125em 0;
+    }
   }
   .paragraph {
     margin: 1em 0 2em;
+  }
+}
+
+%list-no-format {
+  ul {
+    list-style-type: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    li {
+      padding: 0;
+    }
   }
 }
 

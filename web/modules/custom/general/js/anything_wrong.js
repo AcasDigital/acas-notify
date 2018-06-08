@@ -14,12 +14,12 @@
       });
       $(".form-item-page-url input").val(location.origin + location.pathname);
       var options = {
-        beforeSubmit:  showAnythingWrongRequest,  // pre-submit callback 
-        success:       showAnythingWrongResponse  // post-submit callback 
+        beforeSubmit:  showAnythingWrongRequest,  // pre-submit callback
+        success:       showAnythingWrongResponse  // post-submit callback
       };
       $('.webform-submission-form').ajaxForm(options);
-      
-      $("#feedback_wrapper #useful_wrapper a").click(function() {
+
+      $("#feedback-wrapper #feedback-form a").click(function() {
         jQuery.ajax({
           url: "/feedback/" + jQuery(this).attr('nid') + "/" + jQuery(this).text() ,
           type: "GET",
@@ -27,10 +27,10 @@
           cache: false,
           timeout: 60000,
           error: function(XMLHttpRequest, textStatus, errorThrown){
-            
+
           },
           success: function(data){
-            $("#feedback_wrapper #useful_wrapper").html("Thank you for your feedback");
+            $("#feedback-wrapper #feedback-form").html("Thank you for your feedback");
           }
         });
         return false;
@@ -40,7 +40,7 @@
         $(".webform-submission-form").slideUp();
       }
       function showAnythingWrongResponse(responseText, statusText, xhr, $form)  {
-        
+
       }
       function anythingWrongTextareaFocus() {
         $(".webform-submission-form .form-type-textarea .form-textarea").focus();

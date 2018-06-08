@@ -68,16 +68,23 @@ class RelatedContent extends BlockBase {
       if ($node->hasField('field_related_content')) {
         foreach($node->get('field_related_content') as $link) {
           $url = $link->getUrl()->toString();
+          $title = $link->title;
           if (strpos($url, 'http') === 0) {
-            $html = file_get_contents($url);
-            $a = explode('<h1>', $html);
-            $b = explode('</h1>', $a[1]);
-            $output .= '<li class="extra"><a class="external-link" href="' . $url . '">' . $b[0] . '</a></li>';
+            if (!$title) {
+              $html = file_get_contents($url);
+              $a = explode('<h1>', $html);
+              $b = explode('</h1>', $a[1]);
+              $title = $b[0];
+            }
+            $output .= '<li class="extra"><a class="external-link" href="' . $url . '">' . $title . '</a></li>';
           }else{
             $params = $link->getUrl()->getRouteParameters();
             $entity_type = key($params);
             if ($entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type])) {
-              $output .= '<li class="extra"><a href="' . $url . '">' . $entity->getTitle() . '</a></li>';
+              if (!$title) {
+                $title = $entity->getTitle();
+              }
+              $output .= '<li class="extra"><a href="' . $url . '">' . $title . '</a></li>';
             }
           }
         }
@@ -88,23 +95,30 @@ class RelatedContent extends BlockBase {
         $links = '';
         foreach($node->get('field_related_content') as $link) {
           $url = $link->getUrl()->toString();
+          $title = $link->title;
           if (strpos($url, 'http') === 0) {
-            $html = file_get_contents($url);
-            $a = explode('<h1>', $html);
-            $b = explode('</h1>', $a[1]);
-            $output .= '<li class="extra"><a class="external-link" href="' . $url . '">' . $b[0] . '</a></li>';
+            if (!$title) {
+              $html = file_get_contents($url);
+              $a = explode('<h1>', $html);
+              $b = explode('</h1>', $a[1]);
+              $title = $b[0];
+            }
+            $output .= '<li class="extra"><a class="external-link" href="' . $url . '">' . $title . '</a></li>';
           }else{
             $params = $link->getUrl()->getRouteParameters();
             $entity_type = key($params);
             if ($entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type])) {
-              $links .= '<li class="extra"><a href="' . $url . '">' . $entity->getTitle() . '</a></li>';
+              if (!$title) {
+                $title = $entity->getTitle();
+              }
+              $links .= '<li class="extra"><a href="' . $url . '">' . $title . '</a></li>';
             }
           }
         }
         if ($links) {
           $output .= '<nav class="nav-related" aria-labelledby="nav-related__title">
             <h3 id="nav-related__title">
-              Related Content
+              Related content
             </h3>
             <ul id="section-nav-list" tabindex="-1">
               <li>

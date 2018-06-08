@@ -1,16 +1,15 @@
-article.landing-page {
-  @extend .col-xs-12;
+#block-landingpagesblock, #block-landingpagebottomblock {
+  clear: left;
+  margin-bottom: 45px;
 }
 
-section#block-landingpagesblock {
-  margin-bottom: 60px;
+#block-landingpagebottomblock {
+  h2 {
+    margin-top: 0;
+  }
 }
 
 #block-landingpagesblock, .block-home-page-block {
-  section#block-landingpagesblock {
-    clear: left;
-    display: block;
-  }
   article {
     @extend .col-xs-12;
     @extend .col-md-4;
@@ -35,7 +34,6 @@ section#block-landingpagesblock {
       }
       h2 {
         border-left: none;
-        line-height: 1;
         margin-top: 0;
         padding-left: 0;
         &:before {

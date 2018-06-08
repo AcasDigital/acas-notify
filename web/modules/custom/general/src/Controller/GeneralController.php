@@ -220,6 +220,7 @@ class GeneralController extends ControllerBase {
     chdir($old_path);
     drupal_flush_all_caches();
     \Drupal::service('simple_sitemap.generator')->generateSitemap();
+    general_cloudfront_invalidate();
     return new JsonResponse('ok');
   }
   
@@ -243,5 +244,13 @@ class GeneralController extends ControllerBase {
       }
     }
     return new JsonResponse($return);
+  }
+  
+  /**
+  * cloudfront_invalidate().
+  * PROD
+  */
+  public function cloudfront_invalidate() {
+    return array('#markup' => general_cloudfront_invalidate());
   }
 }

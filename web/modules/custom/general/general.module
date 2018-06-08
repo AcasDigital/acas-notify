@@ -147,10 +147,16 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="title-wrapper"><span class="title">Print</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action print-page">
-                  <a class="btn-cta btn-cta--print-page" nid="' . $parent . '" href="/page-print/' . $parent . '">Print this page</a>
+                  <a class="btn-panel btn-panel--print-page" nid="' . $parent . '" href="/page-print/' . $parent . '">
+                    <div class="icon"></div>
+                    <span>Print this page</span>
+                  </a>
                 </div>
                 <div class="action print-guide">
-                  <a class="btn-cta btn-cta--print-guide" nid="' . $parent . '" href="/guide-print/' . $parent . '">Print entire guide</a>
+                  <a class="btn-panel btn-panel--print-guide" nid="' . $parent . '" href="/guide-print/' . $parent . '">
+                    <div class="icon"></div>
+                    <span>Print entire guide</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -158,10 +164,16 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="title-wrapper"><span class="title">Download</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action download-page">
-                  <a class="btn-cta btn-cta--download-page" nid="' . $parent . '" href="/page-download/' . $parent . '">Download this page</a>
+                  <a class="btn-panel btn-panel--download-page" nid="' . $parent . '" href="/page-download/' . $parent . '">
+                    <div class="icon"></div>
+                    <span>Download this page</span>
+                  </a>
                 </div>
                 <div class="action download-guide">
-                  <a class="btn-cta btn-cta--download-guide" nid="' . $parent . '" href="/guide-download/' . $parent . '">Download entire guide</a>
+                  <a class="btn-panel btn-panel--download-guide" nid="' . $parent . '" href="/guide-download/' . $parent . '">
+                    <div class="icon"></div>
+                    <span>Download entire guide</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -345,9 +357,9 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'views_exposed_form') {
-    $form['keys']['#attributes']['placeholder'] = t("Search Acas Beta");
+    $form['keys']['#attributes']['placeholder'] = t("Search beta website");
     $form['keys']['#attributes']['autocomplete'] = 'off';
-    $form['keys']['#title'] = t("Search Acas Beta");
+    $form['keys']['#title'] = t("Search beta website");
     $form['keys']['#title_display'] = 'invisible';
     //$form['search_api_fulltext']['#required'] = TRUE;
   }
@@ -359,6 +371,9 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }
   if ($form_id == 'sync_form') {
     $form['actions']['submit']['#value'] = 'Start syncronisation to Productioon';
+  }
+  if ($form_id == 'system_performance_settings') {
+    $form['caching']['page_cache_maximum_age']['#options'][31557600] = '1 year (for CloudFront)';
   }
 }
 
@@ -788,6 +803,60 @@ function general_download_css() {
   $css = file_get_contents(drupal_get_path('module', 'general') . '/css/download.css');
   $css = str_replace('[SITE]', 'https://' . $_SERVER['HTTP_HOST'], $css);
   return $css;
+}
+
+/**
+  * general_cloudfront_invalidate().
+  * Invalidate the CloudFront cache for new content
+  */
+function general_cloudfront_invalidate() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('cloudfront.settings');
+  if (!$last = $config->get('last_sync')) {
+    $last = 0;
+  }
+  $query = \Drupal::database()->select('node_field_data', 'nfd');
+  $query->fields('nfd', array('nid'));
+  $query->condition('nfd.changed', $last, '>');
+  $result = $query->execute();
+  if ($nodeIds = $result->fetchCol()) {
+    $paths = '';
+    foreach($nodeIds as $n) {
+      $paths .= '<Path>' . \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $n) . '</Path>';
+    }
+    $distribution = $config->get('id');
+    $access_key = $config->get('key');
+    $epoch = date('U');
+    $xml = "<InvalidationBatch>$paths<CallerReference>{$distribution}{$epoch}</CallerReference></InvalidationBatch>";
+    $len = strlen($xml);
+    $date = gmdate('D, d M Y G:i:s T');
+    $sig = base64_encode(
+      hash_hmac('sha1', $date, $config->get('secret'), true)
+    );
+    $msg = "POST /2010-11-01/distribution/{$distribution}/invalidation HTTP/1.0\r\n";
+    $msg .= "Host: cloudfront.amazonaws.com\r\n";
+    $msg .= "Date: {$date}\r\n";
+    $msg .= "Content-Type: text/xml; charset=UTF-8\r\n";
+    $msg .= "Authorization: AWS {$access_key}:{$sig}\r\n";
+    $msg .= "Content-Length: {$len}\r\n\r\n";
+    $msg .= $xml;
+    $fp = fsockopen('ssl://cloudfront.amazonaws.com', 443, 
+      $errno, $errstr, 30
+    );
+    if (!$fp) {
+      return "Connection failed: {$errno} {$errstr}\n";
+    }
+    fwrite($fp, $msg);
+    $resp = '';
+    while(! feof($fp)) {
+      $resp .= fgets($fp, 1024);
+    }
+    fclose($fp);
+    $config->set('last_sync', time());
+    $config->save();
+    return $resp;
+  }
+  return 'Nothing to invalidate';
 }
 
 /**

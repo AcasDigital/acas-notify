@@ -1,4 +1,4 @@
-#useful_wrapper {
+#feedback-form {
   @extend .container;
   background: $acas-teal-dark;
   color: $white;
@@ -12,50 +12,39 @@
   a {
     color: $white;
     border-radius: 5px;
-    float: left;
+    display: inline-block;
     font-weight: $font-weight-normal;
-    margin: 0 1em;
+    margin: 0 .5em;
+    padding: 0 .5em;
     text-decoration: none;
     &:hover, &:focus {
       @extend .outline;
       outline-color: $acas-lime;
     }
   }
-  .text {
+  .feedback-text {
     float: left;
     font-family: $font-family-semibold;
     display: block;
+    padding: 0 0.25em;
   }
 }
 
 @include bp(SM) {
-  #feedback_wrapper {
+  #feedback-wrapper {
     position: relative;
-    &:after {
-      content: "";
-      background: $acas-teal-dark;
-      display: block;
-      height: 10px;
-      left: 0;
-      position: absolute;
-      top: 100%;
-      width: 100%;
-    }
   }
-  #useful_wrapper {
+  #feedback-form {
     font-size: 1em;
     max-width: 80%;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
     text-align: left;
-    .text {
-      padding: 0 1em;
-    }
   }
 }
 
 @include bp(MD) {
-  #useful_wrapper {
+  #feedback-form {
     max-width: 100%;
   }
 }
