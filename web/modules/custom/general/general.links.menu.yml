@@ -24,4 +24,11 @@ general.test:
   description: 'Test content on Prod'
   route_name: general.test_prod
   parent: general.production
-  weight: 1
+  weight: 2
+  
+general.invalidate:
+  title: 'Invalidate CloudFront'
+  description: 'Invalidate all CloudFront content'
+  route_name: general.cloudfront-invalidate
+  parent: general.production
+  weight: 3

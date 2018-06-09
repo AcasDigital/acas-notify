@@ -60,7 +60,7 @@ html, body, div, span, applet, object, iframe,
 h1,
 article.home-page h2,
 article.home-page .print-download-email .modal .title,
-.print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title, h3, h4, .print-download-email .modal .close, h5, h6, p, blockquote, pre,
+.print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title, h3, .home-page .embedded-entity h2, .home-page .embedded-entity .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity .title, h4, .print-download-email .modal .close, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -439,14 +439,20 @@ th {
   p,
   h2,
   .print-download-email .modal .title,
-  h3 {
+  h3,
+  .home-page .embedded-entity h2,
+  .home-page .embedded-entity .print-download-email .modal .title,
+  .print-download-email .modal .home-page .embedded-entity .title {
     orphans: 3;
     widows: 3;
   }
 
   /* line 64, ../../src/bootstrap/assets/stylesheets/bootstrap/_print.scss */
   h2, .print-download-email .modal .title,
-  h3 {
+  h3,
+  .home-page .embedded-entity h2,
+  .home-page .embedded-entity .print-download-email .modal .title,
+  .print-download-email .modal .home-page .embedded-entity .title {
     page-break-after: avoid;
   }
 
@@ -550,7 +556,7 @@ th {
 }
 
 /* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .home-page .embedded-entity, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .home-page .embedded-entity, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -558,7 +564,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
   float: left;
 }
 
@@ -618,7 +624,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-12, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
+.col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
   width: 100%;
 }
 
@@ -819,7 +825,7 @@ th {
 
 @media (min-width: 768px) {
   /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .home-page .embedded-entity, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
   }
 
@@ -849,7 +855,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-6 {
+  .col-sm-6, .home-page .embedded-entity {
     width: 50%;
   }
 
@@ -1080,7 +1086,7 @@ th {
 }
 @media (min-width: 992px) {
   /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .home-page .embedded-entity, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -1095,7 +1101,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-3 {
+  .col-md-3, .home-page .embedded-entity {
     width: 25%;
   }
 
@@ -1999,14 +2005,14 @@ strong {
 
 /* Base Components */
 /* line 2, ../../src/scss/global/_headers.scss */
-h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h1 a, article.home-page h2 a, article.home-page .print-download-email .modal .title a, .print-download-email .modal article.home-page .title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, h3 a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
+h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h1 a, article.home-page h2 a, article.home-page .print-download-email .modal .title a, .print-download-email .modal article.home-page .title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, .home-page .embedded-entity h2, .home-page .embedded-entity .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity .title, h3 a, .home-page .embedded-entity h2 a, .home-page .embedded-entity .print-download-email .modal .title a, .print-download-email .modal .home-page .embedded-entity .title a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
   color: #008C95;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 /* line 9, ../../src/scss/global/_headers.scss */
-h1 a:hover, article.home-page h2 a:hover, article.home-page .print-download-email .modal .title a:hover, .print-download-email .modal article.home-page .title a:hover, h1 a:focus, article.home-page h2 a:focus, article.home-page .print-download-email .modal .title a:focus, .print-download-email .modal article.home-page .title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, h3 a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
+h1 a:hover, article.home-page h2 a:hover, article.home-page .print-download-email .modal .title a:hover, .print-download-email .modal article.home-page .title a:hover, h1 a:focus, article.home-page h2 a:focus, article.home-page .print-download-email .modal .title a:focus, .print-download-email .modal article.home-page .title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, .home-page .embedded-entity h2 a:hover, .home-page .embedded-entity .print-download-email .modal .title a:hover, .print-download-email .modal .home-page .embedded-entity .title a:hover, h3 a:focus, .home-page .embedded-entity h2 a:focus, .home-page .embedded-entity .print-download-email .modal .title a:focus, .print-download-email .modal .home-page .embedded-entity .title a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
   color: #008C95;
   text-decoration: underline;
 }
@@ -2042,33 +2048,37 @@ h2, .print-download-email .modal .title {
 }
 
 /* line 43, ../../src/scss/global/_headers.scss */
-h3, h3 a {
+h3:before, .home-page .embedded-entity h2:before, .home-page .embedded-entity .print-download-email .modal .title:before, .print-download-email .modal .home-page .embedded-entity .title:before {
+  display: none;
+}
+/* line 46, ../../src/scss/global/_headers.scss */
+h3, .home-page .embedded-entity h2, .home-page .embedded-entity .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity .title, h3 a, .home-page .embedded-entity h2 a, .home-page .embedded-entity .print-download-email .modal .title a, .print-download-email .modal .home-page .embedded-entity .title a {
   color: #008C95;
   font-size: 1em;
 }
 
-/* line 49, ../../src/scss/global/_headers.scss */
+/* line 52, ../../src/scss/global/_headers.scss */
 h4, .print-download-email .modal .close {
   font-size: 1em;
 }
 
-/* line 53, ../../src/scss/global/_headers.scss */
+/* line 56, ../../src/scss/global/_headers.scss */
 h5 {
   font-size: 1em;
 }
 
-/* line 57, ../../src/scss/global/_headers.scss */
+/* line 60, ../../src/scss/global/_headers.scss */
 h6 {
   font-size: 1em;
 }
 
 @media (min-width: 992px) {
-  /* line 62, ../../src/scss/global/_headers.scss */
+  /* line 65, ../../src/scss/global/_headers.scss */
   h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
     font-size: 2.42em;
   }
 }
-/* line 67, ../../src/scss/global/_headers.scss */
+/* line 70, ../../src/scss/global/_headers.scss */
 .header-no-border {
   border-left: none;
   padding-left: 0;
@@ -2086,34 +2096,31 @@ a:hover, a:focus {
 
 /* line 2, ../../src/scss/global/_page-content.scss */
 article.home-page {
-  padding-top: 2em;
   padding-bottom: 2em;
 }
 
-/* line 11, ../../src/scss/global/_page-content.scss */
+/* line 10, ../../src/scss/global/_page-content.scss */
 article.secondary-page {
   clear: left;
 }
 
-/* line 15, ../../src/scss/global/_page-content.scss */
+/* line 14, ../../src/scss/global/_page-content.scss */
 #header-front-page {
-  background: #F7F7F7;
   padding-top: 2em;
-  padding-bottom: 4em;
 }
-/* line 20, ../../src/scss/global/_page-content.scss */
+/* line 17, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
   width: 100%;
 }
-/* line 22, ../../src/scss/global/_page-content.scss */
+/* line 19, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
   width: 100%;
 }
-/* line 25, ../../src/scss/global/_page-content.scss */
+/* line 22, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
   width: 40px;
 }
-/* line 29, ../../src/scss/global/_page-content.scss */
+/* line 26, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
   display: none !important;
   margin-top: 20px;
@@ -2121,24 +2128,43 @@ article.secondary-page {
   width: 72%;
 }
 @media screen and (min-width: 768px) {
-  /* line 29, ../../src/scss/global/_page-content.scss */
+  /* line 26, ../../src/scss/global/_page-content.scss */
   #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
     width: 80%;
   }
 }
-/* line 37, ../../src/scss/global/_page-content.scss */
+/* line 34, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
 }
-/* line 43, ../../src/scss/global/_page-content.scss */
+/* line 40, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 #edit-actions {
   display: inline-block;
 }
-/* line 47, ../../src/scss/global/_page-content.scss */
+/* line 44, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-views-block-google-analytics-summary-block-1 {
   overflow: auto;
+}
+
+/* line 52, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity:first-child {
+  margin-left: -15px;
+}
+/* line 55, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity:last-child {
+  margin-right: -15px;
+}
+/* line 59, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity h2, .home-page .embedded-entity .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity .title {
+  margin-top: 0;
+}
+/* line 63, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity article {
+  border: 4px solid #CEDC00;
+  border-radius: 10px;
+  padding: 1em;
 }
 
 /* Common Components */
@@ -2914,7 +2940,7 @@ ul.breadcrumb--search li:first-child:after {
     box-shadow: 2px 2px 16px 0px #cccccc;
   }
   /* line 130, ../../src/scss/structures/_navigation.scss */
-  .menu-secondary h3 {
+  .menu-secondary h3, .menu-secondary .home-page .embedded-entity h2, .home-page .embedded-entity .menu-secondary h2, .menu-secondary .home-page .embedded-entity .print-download-email .modal .title, .home-page .embedded-entity .print-download-email .modal .menu-secondary .title, .menu-secondary .print-download-email .modal .home-page .embedded-entity .title, .print-download-email .modal .home-page .embedded-entity .menu-secondary .title {
     margin: 0;
   }
   /* line 133, ../../src/scss/structures/_navigation.scss */

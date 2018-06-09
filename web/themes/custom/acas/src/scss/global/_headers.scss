@@ -40,6 +40,9 @@ h2 {
 }
 
 h3 {
+  &:before {
+    display: none;
+  }
   &, a {
     color: $acas-teal;
     font-size: 1em;

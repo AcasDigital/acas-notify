@@ -4,3 +4,7 @@ services:
     tags:
       - { name: event_subscriber }
       
+  remove_x_generator_response_header:
+    class: Drupal\general\EventSubscriber\RemoveXGeneratorResponseHeader
+    tags:
+      - { name: event_subscriber }

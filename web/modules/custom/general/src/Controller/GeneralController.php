@@ -11,6 +11,7 @@ use Drupal\votingapi\Entity\VoteType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use ZipArchive;
 use Dompdf\Dompdf;
+use Drupal\Component\Utility\Html;
 
 class GeneralController extends ControllerBase {
   public function searchheader() {
@@ -251,6 +252,16 @@ class GeneralController extends ControllerBase {
   * PROD
   */
   public function cloudfront_invalidate() {
-    return array('#markup' => general_cloudfront_invalidate());
+    $output = '<h1>Invalidate all CloudFront content</h1>';
+    $result = general_cloudfront_invalidate(TRUE);
+    if (strpos($result, '<?xml version="1.0"?>') !== FALSE) {
+      $a = explode('<?xml version="1.0"?>', $result);
+      $b = explode('<InvalidationBatch>', $a[1]);
+      $c = explode('<CallerReference>', $b[1]);
+      $data = str_replace('Path', 'div', $c[0]);
+      return array('#markup' => $output . '<h2>Invalidated paths</h2><div class="code">' . $data . '</div><br />');
+    }else{
+      return array('#markup' => $output . $result);
+    }
   }
 }

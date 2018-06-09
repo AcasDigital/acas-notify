@@ -35,6 +35,12 @@ class SyncForm extends ConfigFormBase {
       return array('#markup' => '<h3>Not allowed</h3>');
     }
     $config = $this->config('acas.settings');
+    $form['invalidate'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Invalidate CloudFront content',
+      '#default_value' => TRUE,
+      '#description' => 'If any CSS changes'
+    ];
     $form['#prefix'] = '<h2>Syncronise content to Production</h2>';
     $form['#action'] = '/admin/config/development/sync-prod';
     $form['#attached']['library'][] = 'general/sync_prod';
