@@ -817,7 +817,7 @@ function general_download_css() {
 function general_cloudfront_invalidate($all = FALSE) {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('cloudfront.settings');
-  if (!$last = $config->get('last_sync') || $all) {
+  if ((!$last = $config->get('last_sync')) || $all) {
     $last = 0;
   }
   $query = \Drupal::database()->select('node_field_data', 'nfd');

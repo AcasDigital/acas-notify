@@ -152,11 +152,6 @@ class GeneralController extends ControllerBase {
     $dompdf->loadHtml($html);
     $dompdf->render();
     $dompdf->stream(trim(general_taxonomy_path($node->getTitle())) . '.pdf');
-    /*
-    $output = $dompdf->output();
-    file_put_contents('/tmp/' . $node->getTitle() . '.pdf', $output);
-    return ['#markup' => $html];
-    */
   }
   
   public function sync_prod() {
@@ -213,15 +208,18 @@ class GeneralController extends ControllerBase {
   * sync_cleanup().
   * PROD
   * Called after the DB update from UAT
+  * Runs git_pull.sh that performs a "git pull origin master" that returns 0 if nothing
+  * to pull or 1 if any changes. If 1 then invalidate all content on CloudFront
+  * in case of any CSS changes else invalidate only new/changed content.
   */
   public function sync_cleanup() {
     $old_path = getcwd();
     chdir('/var/www/html/');
-    $output = shell_exec('./git_pull.sh');
+    $invalidate_all = (bool)trim(shell_exec('./git_pull.sh'));
     chdir($old_path);
     drupal_flush_all_caches();
     \Drupal::service('simple_sitemap.generator')->generateSitemap();
-    general_cloudfront_invalidate();
+    general_cloudfront_invalidate($invalidate_all);
     return new JsonResponse('ok');
   }
   
