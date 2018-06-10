@@ -813,6 +813,7 @@ function general_download_css() {
 /**
   * general_cloudfront_invalidate().
   * Invalidate the CloudFront cache for new content
+  * or if $all, invalidate all content
   */
 function general_cloudfront_invalidate($all = FALSE) {
   $config_factory = \Drupal::configFactory();
@@ -820,48 +821,57 @@ function general_cloudfront_invalidate($all = FALSE) {
   if ((!$last = $config->get('last_sync')) || $all) {
     $last = 0;
   }
-  $query = \Drupal::database()->select('node_field_data', 'nfd');
-  $query->fields('nfd', array('nid'));
-  $query->condition('nfd.changed', $last, '>');
-  $result = $query->execute();
-  if ($nodeIds = $result->fetchCol()) {
-    $paths = '';
-    foreach($nodeIds as $n) {
-      $paths .= '<Path>' . \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $n) . '</Path>';
+  if (!$all) {
+    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query->fields('nfd', array('nid'));
+    $query->condition('nfd.changed', $last, '>');
+    $result = $query->execute();
+    if ($nodeIds = $result->fetchCol()) {
+      $paths = '';
+      foreach($nodeIds as $n) {
+        $path = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $n);
+        $paths .= '<Path>' . $path . '</Path>';
+        if ($path == '/home') {
+          $paths .= '<Path>/</Path>';
+        }
+      }
+    }else{
+      return 'Nothing to invalidate';
     }
-    $distribution = $config->get('id');
-    $access_key = $config->get('key');
-    $epoch = date('U');
-    $xml = "<InvalidationBatch>$paths<CallerReference>{$distribution}{$epoch}</CallerReference></InvalidationBatch>";
-    $len = strlen($xml);
-    $date = gmdate('D, d M Y G:i:s T');
-    $sig = base64_encode(
-      hash_hmac('sha1', $date, $config->get('secret'), true)
-    );
-    $msg = "POST /2010-11-01/distribution/{$distribution}/invalidation HTTP/1.0\r\n";
-    $msg .= "Host: cloudfront.amazonaws.com\r\n";
-    $msg .= "Date: {$date}\r\n";
-    $msg .= "Content-Type: text/xml; charset=UTF-8\r\n";
-    $msg .= "Authorization: AWS {$access_key}:{$sig}\r\n";
-    $msg .= "Content-Length: {$len}\r\n\r\n";
-    $msg .= $xml;
-    $fp = fsockopen('ssl://cloudfront.amazonaws.com', 443, 
-      $errno, $errstr, 30
-    );
-    if (!$fp) {
-      return "Connection failed: {$errno} {$errstr}\n";
-    }
-    fwrite($fp, $msg);
-    $resp = '';
-    while(! feof($fp)) {
-      $resp .= fgets($fp, 1024);
-    }
-    fclose($fp);
-    $config->set('last_sync', time());
-    $config->save();
-    return $resp;
+  }else{
+    $paths = '<Path>/*</Path>';
   }
-  return 'Nothing to invalidate';
+  $distribution = $config->get('id');
+  $access_key = $config->get('key');
+  $epoch = date('U');
+  $xml = "<InvalidationBatch>$paths<CallerReference>{$distribution}{$epoch}</CallerReference></InvalidationBatch>";
+  $len = strlen($xml);
+  $date = gmdate('D, d M Y G:i:s T');
+  $sig = base64_encode(
+    hash_hmac('sha1', $date, $config->get('secret'), true)
+  );
+  $msg = "POST /2010-11-01/distribution/{$distribution}/invalidation HTTP/1.0\r\n";
+  $msg .= "Host: cloudfront.amazonaws.com\r\n";
+  $msg .= "Date: {$date}\r\n";
+  $msg .= "Content-Type: text/xml; charset=UTF-8\r\n";
+  $msg .= "Authorization: AWS {$access_key}:{$sig}\r\n";
+  $msg .= "Content-Length: {$len}\r\n\r\n";
+  $msg .= $xml;
+  $fp = fsockopen('ssl://cloudfront.amazonaws.com', 443, 
+    $errno, $errstr, 30
+  );
+  if (!$fp) {
+    return "Connection failed: {$errno} {$errstr}\n";
+  }
+  fwrite($fp, $msg);
+  $resp = '';
+  while(! feof($fp)) {
+    $resp .= fgets($fp, 1024);
+  }
+  fclose($fp);
+  $config->set('last_sync', time());
+  $config->save();
+  return $resp;  
 }
 
 /**
