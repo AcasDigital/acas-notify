@@ -30,7 +30,7 @@ if [[ $cmd_output = *"index.lock': File exists"* ]]; then
 	cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-dev.pem ubuntu@34.243.107.7 'cd /var/www/html; git pull origin master' 2>&1)
 fi
 if [[ $cmd_output = *"Your local changes to the following files would be overwritten by merge"* ]]; then
-	echo -e "\n*** WARNING Git Pull on UAT failed ***\n"
+	echo -e "\n\e[0;31m*** WARNING Git Pull on UAT failed ***\e[00m\n"
 	echo $cmd_output
 	exit 1
 fi
