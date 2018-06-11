@@ -76,15 +76,13 @@
     'col-xs-12'
   ]
 %}
-<article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
-{% if view_mode == "teaser" %}
-  <a href="{{ url }}" rel="bookmark">
-{% endif %}
+
+<article{{ attributes.addClass(classes) }}>
   <div class="article__wrapper">
     {{ title_prefix }}
-    {% if view_mode == "teaser" %}
+    {% if not page %}
       <h2{{ title_attributes }}>
-        {{ label }}
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
       </h2>
     {% endif %}
     {{ title_suffix }}
@@ -103,7 +101,4 @@
       {{ content }}
     </div>
   </div>
-  {% if view_mode == "teaser" %}
-    </a>
-  {% endif %}
 </article>

@@ -77,14 +77,11 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }} last-changed="{{ changed }}">
-{% if view_mode == "teaser" %}
-  <a href="{{ url }}" rel="bookmark">
-{% endif %}
-  <div class="article__wrapper">
+  <div class="page__wrapper">
     {{ title_prefix }}
-    {% if view_mode == "teaser" %}
+    {% if not page %}
       <h2{{ title_attributes }}>
-        {{ label }}
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
       </h2>
     {% endif %}
     {{ title_suffix }}
@@ -99,11 +96,8 @@
       </footer>
     {% endif %}
 
-    <div{{ content_attributes.addClass('article__content') }}>
+    <div{{ content_attributes.addClass('page__content') }}>
       {{ content }}
     </div>
   </div>
-  {% if view_mode == "teaser" %}
-    </a>
-  {% endif %}
 </article>

@@ -1,3 +1,4 @@
+/* Base search page styles */
 .search-index {
   a {
     text-decoration: none;
@@ -14,11 +15,35 @@
   }
 }
 
+/* Did you mean... */
+.search-alternative {
+  margin-top: 0;
+  ul {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: 0;
+    margin-left: .25em;
+    a {
+      &:hover, &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+/* No results */
+.view-empty {
+  p {
+    margin-bottom: 1em;
+  }
+}
+
+/* Content Listings */
 .view-solr-search-content {
   @extend .col-xs-12;
   padding-bottom: 2em;
   .view-header {
-    padding: 2em 0 1em;
+    padding: 1.5em 0 1em;
     p {
       margin-bottom: 0;
     }

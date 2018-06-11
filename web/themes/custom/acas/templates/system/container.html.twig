@@ -28,8 +28,6 @@
 %}
 {% if no_display != true %}
   <section{{ attributes.addClass(classes) }}>
-    <div class="row">
-      {{ children }}
-    </div>
+    {{ children }}
   </section>
 {% endif %}

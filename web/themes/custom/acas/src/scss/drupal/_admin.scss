@@ -5,15 +5,25 @@
   }
 }
 
-#block-block-landingpagesblock {
-  .view-content {
-    .views-col {
-      article {
-        width: 100%;
-      }
-    }
+form#user-login-form {
+  margin-bottom: 2em;
+  .control-label {
+    clear: left;
+    display: block;
+    padding: .5em 0;
+  }
+  .form-item {
+    margin-bottom: 1em;
+  }
+  .description {
+    font-size: 0.85em;
+    color: $gray-medium;
+  }
+  #edit-submit {
+    @extend .btn-cta;
   }
 }
+
 .views-exposed-form {
   .control-label {
     display: none;

@@ -537,7 +537,7 @@ th {
 }
 
 /* line 11, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .home-page .embedded-entity, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .home-page .embedded-entity, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .home-page .embedded-entity, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .home-page .embedded-entity, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, article.secondary-page, article.details-page, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -545,7 +545,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   float: left;
 }
 
@@ -605,7 +605,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-12, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, .view-solr-search-content, #block-landingpagesblock article, .block-home-page-block article {
+.col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   width: 100%;
 }
 
@@ -805,7 +805,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .home-page .embedded-entity, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .home-page .embedded-entity, #block-landingpagesblock article, .block-home-page-block article, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
   float: left;
 }
 
@@ -835,7 +835,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-sm-6, .home-page .embedded-entity {
+.col-sm-6, .home-page .embedded-entity, #block-landingpagesblock article, .block-home-page-block article {
   width: 50%;
 }
 
@@ -1065,7 +1065,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-1, .col-md-2, .col-md-3, .home-page .embedded-entity, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+.col-md-1, .col-md-2, .col-md-3, .home-page .embedded-entity, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.secondary-page, article.details-page, .col-md-8, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
   float: left;
 }
 
@@ -1100,7 +1100,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-7 {
+.col-md-7, article.secondary-page, article.details-page {
   width: 58.33333%;
 }
 
@@ -1110,7 +1110,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-9 {
+.col-md-9, article.secondary-page.search-index, article.details-page.search-index {
   width: 75%;
 }
 
@@ -1640,7 +1640,7 @@ table td {
 }
 
 /* line 45, ../../src/scss/_base.scss */
-strong {
+strong, b {
   font-family: "Open Sans Semibold", sans-serif;
 }
 
@@ -1671,13 +1671,13 @@ strong {
 }
 
 /* line 72, ../../src/scss/_base.scss */
-#block-acas-breadcrumbs ul, .block-in-this-section-block ul, .nav-related ul, #social-share ul {
+#block-acas-breadcrumbs ul, .nav-related ul, #social-share ul, .block-in-this-section-block ul {
   list-style-type: none;
   margin-left: 0;
   margin-bottom: 0;
 }
 /* line 76, ../../src/scss/_base.scss */
-#block-acas-breadcrumbs ul li, .block-in-this-section-block ul li, .nav-related ul li, #social-share ul li {
+#block-acas-breadcrumbs ul li, .nav-related ul li, #social-share ul li, .block-in-this-section-block ul li {
   padding: 0;
 }
 
@@ -1709,50 +1709,65 @@ strong {
   }
 }
 
-/* line 11, ../../src/scss/drupal/_admin.scss */
-#block-block-landingpagesblock .view-content .views-col article {
-  width: 100%;
+/* line 8, ../../src/scss/drupal/_admin.scss */
+form#user-login-form {
+  margin-bottom: 2em;
+}
+/* line 10, ../../src/scss/drupal/_admin.scss */
+form#user-login-form .control-label {
+  clear: left;
+  display: block;
+  padding: .5em 0;
+}
+/* line 15, ../../src/scss/drupal/_admin.scss */
+form#user-login-form .form-item {
+  margin-bottom: 1em;
+}
+/* line 18, ../../src/scss/drupal/_admin.scss */
+form#user-login-form .description {
+  font-size: 0.85em;
+  color: #999;
 }
 
-/* line 18, ../../src/scss/drupal/_admin.scss */
+/* line 28, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .control-label {
   display: none;
 }
-/* line 21, ../../src/scss/drupal/_admin.scss */
+/* line 31, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-type-textfield, .views-exposed-form .form-actions {
   display: inline-block;
 }
-/* line 24, ../../src/scss/drupal/_admin.scss */
+/* line 34, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-actions {
   position: relative;
 }
 
-/* line 29, ../../src/scss/drupal/_admin.scss */
+/* line 39, ../../src/scss/drupal/_admin.scss */
 .print__wrapper--pdf, .node_view {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 35, ../../src/scss/drupal/_admin.scss */
+/* line 45, ../../src/scss/drupal/_admin.scss */
 .page-node-type-home-page strong.node_view, .page-node-type-landing-page strong.node_view {
   display: none;
 }
 
-/* line 41, ../../src/scss/drupal/_admin.scss */
+/* line 51, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent, .page-node-type-support-page .field--name-field-taxonomy, .page-node-type-support-page .taxonomy-parent {
   display: none;
 }
-/* line 44, ../../src/scss/drupal/_admin.scss */
+/* line 54, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page article, .page-node-type-support-page article {
   margin-bottom: 20px;
 }
-/* line 47, ../../src/scss/drupal/_admin.scss */
+/* line 57, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .node_view ul.pre_link-colors li:first-child, .page-node-type-support-page .node_view ul.pre_link-colors li:first-child {
   background: none;
   padding: 0;
 }
 
-/* line 53, ../../src/scss/drupal/_admin.scss */
+/* line 63, ../../src/scss/drupal/_admin.scss */
 .chosen-container {
   border: 0 !important;
   padding: 0 !important;
@@ -1761,32 +1776,32 @@ strong {
   -webkit-box-shadow: none !important;
 }
 
-/* line 62, ../../src/scss/drupal/_admin.scss */
+/* line 72, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 66, ../../src/scss/drupal/_admin.scss */
+/* line 76, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label {
   margin-top: 14px;
   margin-right: 5px;
 }
-/* line 70, ../../src/scss/drupal/_admin.scss */
+/* line 80, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .form-type-select {
   position: relative;
   top: 7px;
 }
-/* line 74, ../../src/scss/drupal/_admin.scss */
+/* line 84, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .useful-rating {
   font-size: 2em;
 }
-/* line 77, ../../src/scss/drupal/_admin.scss */
+/* line 87, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none;
 }
 
 /* Navigation Tabs for Admin Backend */
-/* line 91, ../../src/scss/drupal/_admin.scss */
+/* line 101, ../../src/scss/drupal/_admin.scss */
 .nav {
   margin-bottom: 0;
   padding-left: 0;
@@ -1801,71 +1816,71 @@ strong {
 .nav:after {
   clear: both;
 }
-/* line 97, ../../src/scss/drupal/_admin.scss */
+/* line 107, ../../src/scss/drupal/_admin.scss */
 .nav > li {
   position: relative;
   display: block;
 }
-/* line 101, ../../src/scss/drupal/_admin.scss */
+/* line 111, ../../src/scss/drupal/_admin.scss */
 .nav > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
 }
-/* line 105, ../../src/scss/drupal/_admin.scss */
+/* line 115, ../../src/scss/drupal/_admin.scss */
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
   background-color: #eeeeee;
 }
-/* line 113, ../../src/scss/drupal/_admin.scss */
+/* line 123, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a {
   color: #F7F7F7;
 }
-/* line 116, ../../src/scss/drupal/_admin.scss */
+/* line 126, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a:hover, .nav > li.disabled > a:focus {
   color: #F7F7F7;
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
 }
-/* line 128, ../../src/scss/drupal/_admin.scss */
+/* line 138, ../../src/scss/drupal/_admin.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #eeeeee;
   border-color: #008C95;
 }
-/* line 141, ../../src/scss/drupal/_admin.scss */
+/* line 151, ../../src/scss/drupal/_admin.scss */
 .nav .nav-divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
-/* line 148, ../../src/scss/drupal/_admin.scss */
+/* line 158, ../../src/scss/drupal/_admin.scss */
 .nav > li > a > img {
   max-width: none;
 }
 
-/* line 158, ../../src/scss/drupal/_admin.scss */
+/* line 168, ../../src/scss/drupal/_admin.scss */
 .nav-tabs {
   border-bottom: 1px solid #ddd;
 }
-/* line 160, ../../src/scss/drupal/_admin.scss */
+/* line 170, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
 }
-/* line 166, ../../src/scss/drupal/_admin.scss */
+/* line 176, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
-/* line 171, ../../src/scss/drupal/_admin.scss */
+/* line 181, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #ddd;
 }
-/* line 178, ../../src/scss/drupal/_admin.scss */
+/* line 188, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #CCC;
   background-color: #fff;
@@ -1874,74 +1889,74 @@ strong {
   cursor: default;
 }
 
-/* line 200, ../../src/scss/drupal/_admin.scss */
+/* line 210, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li {
   float: left;
 }
-/* line 204, ../../src/scss/drupal/_admin.scss */
+/* line 214, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li > a {
   border-radius: 4px;
 }
-/* line 207, ../../src/scss/drupal/_admin.scss */
+/* line 217, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li + li {
   margin-left: 2px;
 }
-/* line 213, ../../src/scss/drupal/_admin.scss */
+/* line 223, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #337ab7;
 }
 
-/* line 226, ../../src/scss/drupal/_admin.scss */
+/* line 236, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li {
   float: none;
 }
-/* line 228, ../../src/scss/drupal/_admin.scss */
+/* line 238, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li + li {
   margin-top: 2px;
   margin-left: 0;
 }
 
-/* line 242, ../../src/scss/drupal/_admin.scss */
+/* line 252, ../../src/scss/drupal/_admin.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%;
 }
-/* line 245, ../../src/scss/drupal/_admin.scss */
+/* line 255, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li, .nav-tabs.nav-justified > li {
   float: none;
 }
-/* line 247, ../../src/scss/drupal/_admin.scss */
+/* line 257, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
   text-align: center;
   margin-bottom: 5px;
 }
-/* line 253, ../../src/scss/drupal/_admin.scss */
+/* line 263, ../../src/scss/drupal/_admin.scss */
 .nav-justified > .dropdown .dropdown-menu {
   top: auto;
   left: auto;
 }
 @media (min-width: 768px) {
-  /* line 259, ../../src/scss/drupal/_admin.scss */
+  /* line 269, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     display: table-cell;
     width: 1%;
   }
-  /* line 262, ../../src/scss/drupal/_admin.scss */
+  /* line 272, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
     margin-bottom: 0;
   }
 }
 
-/* line 272, ../../src/scss/drupal/_admin.scss */
+/* line 282, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0;
 }
-/* line 275, ../../src/scss/drupal/_admin.scss */
+/* line 285, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
   margin-right: 0;
   border-radius: 4px;
 }
-/* line 281, ../../src/scss/drupal/_admin.scss */
+/* line 291, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:hover,
@@ -1950,12 +1965,12 @@ strong {
   border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
-  /* line 288, ../../src/scss/drupal/_admin.scss */
+  /* line 298, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
-  /* line 292, ../../src/scss/drupal/_admin.scss */
+  /* line 302, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:hover,
@@ -1965,16 +1980,16 @@ strong {
   }
 }
 
-/* line 306, ../../src/scss/drupal/_admin.scss */
+/* line 316, ../../src/scss/drupal/_admin.scss */
 .tab-content > .tab-pane {
   display: none;
 }
-/* line 309, ../../src/scss/drupal/_admin.scss */
+/* line 319, ../../src/scss/drupal/_admin.scss */
 .tab-content > .active {
   display: block;
 }
 
-/* line 319, ../../src/scss/drupal/_admin.scss */
+/* line 329, ../../src/scss/drupal/_admin.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;
@@ -2075,29 +2090,28 @@ a:hover, a:focus {
 article.home-page {
   padding-bottom: 2em;
 }
-
-/* line 10, ../../src/scss/global/_page-content.scss */
-article.secondary-page {
+/* line 13, ../../src/scss/global/_page-content.scss */
+article.secondary-page .full, article.details-page .full {
   clear: left;
 }
 
-/* line 14, ../../src/scss/global/_page-content.scss */
+/* line 22, ../../src/scss/global/_page-content.scss */
 #header-front-page {
   padding-top: 2em;
 }
-/* line 17, ../../src/scss/global/_page-content.scss */
+/* line 25, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
   width: 100%;
 }
-/* line 19, ../../src/scss/global/_page-content.scss */
+/* line 27, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
   width: 100%;
 }
-/* line 22, ../../src/scss/global/_page-content.scss */
+/* line 30, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
   width: 40px;
 }
-/* line 26, ../../src/scss/global/_page-content.scss */
+/* line 34, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
   display: none !important;
   margin-top: 20px;
@@ -2105,43 +2119,59 @@ article.secondary-page {
   width: 72%;
 }
 @media screen and (min-width: 768px) {
-  /* line 26, ../../src/scss/global/_page-content.scss */
+  /* line 34, ../../src/scss/global/_page-content.scss */
   #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
     width: 80%;
   }
 }
-/* line 34, ../../src/scss/global/_page-content.scss */
+/* line 42, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
 }
-/* line 40, ../../src/scss/global/_page-content.scss */
+/* line 48, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 #edit-actions {
   display: inline-block;
 }
-/* line 44, ../../src/scss/global/_page-content.scss */
+/* line 52, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-views-block-google-analytics-summary-block-1 {
   overflow: auto;
 }
 
-/* line 52, ../../src/scss/global/_page-content.scss */
+/* line 60, ../../src/scss/global/_page-content.scss */
 .home-page .embedded-entity:first-child {
   margin-left: -15px;
 }
-/* line 55, ../../src/scss/global/_page-content.scss */
+/* line 63, ../../src/scss/global/_page-content.scss */
 .home-page .embedded-entity:last-child {
   margin-right: -15px;
 }
-/* line 59, ../../src/scss/global/_page-content.scss */
+/* line 67, ../../src/scss/global/_page-content.scss */
 .home-page .embedded-entity h2, .home-page .embedded-entity .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity .title {
   margin-top: 0;
 }
-/* line 63, ../../src/scss/global/_page-content.scss */
+/* line 71, ../../src/scss/global/_page-content.scss */
 .home-page .embedded-entity article {
   border: 4px solid #CEDC00;
   border-radius: 10px;
   padding: 1em;
+}
+/* line 76, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity article:hover {
+  background-color: #F7F7F7;
+}
+/* line 80, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity a {
+  text-decoration: none;
+}
+/* line 83, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity a:hover h2, .home-page .embedded-entity a:hover .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity a:hover .title, .home-page .embedded-entity a:focus h2, .home-page .embedded-entity a:focus .print-download-email .modal .title, .print-download-email .modal .home-page .embedded-entity a:focus .title {
+  text-decoration: underline;
+}
+/* line 87, ../../src/scss/global/_page-content.scss */
+.home-page .embedded-entity a .article__content {
+  color: #000;
 }
 
 /* Common Components */
@@ -2224,7 +2254,7 @@ ul.breadcrumb--search li:first-child:after {
 }
 
 /* line 1, ../../src/scss/common/_buttons.scss */
-.btn-cta {
+.btn-cta, form#user-login-form #edit-submit {
   background: #007C85;
   color: #fff;
   display: block;
@@ -2235,7 +2265,7 @@ ul.breadcrumb--search li:first-child:after {
   width: fit-content;
 }
 /* line 10, ../../src/scss/common/_buttons.scss */
-.btn-cta:hover, .btn-cta:focus {
+.btn-cta:hover, form#user-login-form #edit-submit:hover, .btn-cta:focus, form#user-login-form #edit-submit:focus {
   color: #fff;
 }
 
@@ -2318,9 +2348,102 @@ ul.breadcrumb--search li:first-child:after {
   padding: 0.25em 20px;
 }
 
-/* line 15, ../../src/scss/common/_callout.scss */
+/* line 14, ../../src/scss/common/_callout.scss */
+.callout-beta {
+  background: #F7F7F7;
+  border-left: 5px solid #CEDC00;
+  padding: 1em;
+  margin: 3em 0 0;
+  padding-left: 1.25em;
+}
+/* line 20, ../../src/scss/common/_callout.scss */
+.callout-beta p {
+  margin-bottom: 0;
+}
+
+/* line 26, ../../src/scss/common/_callout.scss */
 .callout {
   font-size: 1.45em;
+}
+
+/* line 1, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner {
+  background-color: #008C95;
+}
+/* line 3, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner .eu-cookie-compliance-content {
+  color: #fff;
+  font-style: normal;
+  max-width: none;
+  padding: 1em 0.75em;
+  width: 1200px;
+}
+/* line 9, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message {
+  max-width: none;
+}
+/* line 11, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message p {
+  margin-bottom: 0;
+}
+/* line 14, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .title {
+  display: inline-block;
+  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-right: 50px;
+  vertical-align: middle;
+  width: 180px;
+}
+/* line 23, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .text {
+  display: inline-block;
+  font-family: 'Open Sans';
+  font-size: 0.8em;
+  font-weight: 400;
+  vertical-align: middle;
+}
+/* line 32, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons {
+  margin-top: 0.875em;
+}
+/* line 34, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons button {
+  background: #CEDC00;
+  border: none;
+  border-bottom: 5px solid #8e9e23;
+  color: #007C85;
+  font-size: 0.745em;
+  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
+  padding: 0.5em 2em 0.5em 1em;
+  position: relative;
+}
+/* line 43, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons button:first-child {
+  margin-right: .5em;
+}
+/* line 46, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons button:after {
+  content: "";
+  display: inline-block;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #007C85;
+  position: absolute;
+  right: .75em;
+  top: 14px;
+  height: 0;
+  width: 0;
+}
+/* line 58, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons button:hover, .eu-cookie-compliance-banner #popup-buttons button:focus {
+  background: #007C85;
+  color: #CEDC00;
+}
+/* line 61, ../../src/scss/common/_cookie-compliance.scss */
+.eu-cookie-compliance-banner #popup-buttons button:hover:after, .eu-cookie-compliance-banner #popup-buttons button:focus:after {
+  border-left-color: #CEDC00;
 }
 
 /* line 1, ../../src/scss/common/_feedback.scss */
@@ -2374,103 +2497,6 @@ ul.breadcrumb--search li:first-child:after {
 /* line 47, ../../src/scss/common/_feedback.scss */
 #feedback-form {
   max-width: 100%;
-}
-
-/* line 1, ../../src/scss/common/_search.scss */
-#block-exposedformsolr-search-contentpage-1-3 {
-  margin-top: 2em;
-  margin-bottom: 1em;
-}
-
-/* line 5, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1 {
-  margin-top: 0.25em;
-}
-/* line 7, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-group, #views-exposed-form-search-content-page-1 .form-group {
-  float: left;
-}
-/* line 10, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item {
-  width: 85%;
-}
-/* line 13, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions {
-  width: 15%;
-}
-/* line 16, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 input, #views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 input, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content {
-  border: none;
-  height: 2.25em;
-  padding: .25em .5em;
-  width: 100%;
-}
-/* line 22, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content {
-  background-color: #666;
-  color: #fff;
-  margin: 0;
-}
-/* line 26, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content img, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-search-content-page-1 #edit-submit-search-content img {
-  height: 1em;
-  margin-top: .25em;
-}
-/* line 31, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline, #views-exposed-form-search-content-page-1 .form--inline {
-  border: 1px solid #cacaca;
-  border-radius: 2px;
-  display: block;
-}
-/* line 35, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline.active, #views-exposed-form-search-content-page-1 .form--inline.active {
-  border-color: #008C95;
-}
-/* line 37, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form--inline.active #edit-submit-solr-search-content {
-  background-color: #008C95;
-}
-/* line 43, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-search-content {
-  background-color: #008C95;
-}
-/* line 46, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1:active .form--inline, #views-exposed-form-solr-search-content-page-1:focus .form--inline, #views-exposed-form-solr-search-content-page-1:hover .form--inline, #views-exposed-form-search-content-page-1:active .form--inline, #views-exposed-form-search-content-page-1:focus .form--inline, #views-exposed-form-search-content-page-1:hover .form--inline {
-  border-color: #008C95;
-}
-
-/* line 54, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item {
-  width: 75%;
-}
-/* line 57, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions {
-  width: 25%;
-}
-/* line 60, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .search-text, #views-exposed-form-search-content-page-1 .search-text {
-  display: block;
-}
-
-/* line 65, ../../src/scss/common/_search.scss */
-#edit-submit-solr-search-content img, #edit-submit-search-content img {
-  display: none;
-}
-
-/* line 78, ../../src/scss/common/_search.scss */
-#block-exposedformsolr-search-contentpage-1-3 {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-
-/* line 83, ../../src/scss/common/_search.scss */
-#header-main #views-exposed-form-solr-search-content-page-1 {
-  float: right;
-}
-
-/* line 88, ../../src/scss/common/_search.scss */
-#header-front-page #views-exposed-form-solr-search-content-page-1 {
-  float: left;
 }
 
 /* line 1, ../../src/scss/common/_pagination.scss */
@@ -2617,88 +2643,249 @@ ul.breadcrumb--search li:first-child:after {
   text-align: right;
 }
 
-/* Structures */
-/* Structures */
-/* line 1, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner {
-  background-color: #008C95;
+/* line 1, ../../src/scss/common/_print-download-email.scss */
+.print-download-email {
+  border: 2px solid #008C95;
+  border-spacing: 1em 0;
+  margin: 1em 0;
+  padding: .5em 0;
+  overflow: auto;
+  text-align: center;
+  width: 100%;
 }
-/* line 3, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner .eu-cookie-compliance-content {
-  color: #fff;
-  font-style: normal;
-  max-width: none;
-  padding: 1em 0.75em;
-  width: 1200px;
+/* line 9, ../../src/scss/common/_print-download-email.scss */
+.print-download-email li {
+  display: block;
+  list-style: none;
 }
-/* line 9, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message {
-  max-width: none;
+/* line 13, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal {
+  border: 3px solid #CEDC00;
 }
-/* line 11, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message p {
-  margin-bottom: 0;
-}
-/* line 14, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .title {
+/* line 15, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .action {
   display: inline-block;
-  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
-  font-weight: 700;
-  font-size: 1.1em;
-  margin-right: 50px;
-  vertical-align: middle;
-  width: 180px;
+  margin: 1em;
+  width: 40%;
 }
-/* line 23, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .text {
-  display: inline-block;
-  font-family: 'Open Sans';
-  font-size: 0.8em;
-  font-weight: 400;
-  vertical-align: middle;
+/* line 20, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .title-wrapper {
+  border-bottom: 3px solid #CEDC00;
+  overflow: auto;
+  padding: 0 1em;
 }
-/* line 32, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons {
-  margin-top: 0.875em;
+/* line 31, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .x {
+  margin-left: .75em;
+  font-size: 1.25em;
 }
-/* line 34, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons button {
-  background: #CEDC00;
-  border: none;
-  border-bottom: 5px solid #8e9e23;
-  color: #007C85;
-  font-size: 0.745em;
-  font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
-  padding: 0.5em 2em 0.5em 1em;
-  position: relative;
+/* line 36, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .download-page .icon {
+  background-image: url(../images/icons/icon-download-page.svg);
 }
-/* line 43, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons button:first-child {
-  margin-right: .5em;
+/* line 41, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .download-guide .icon {
+  background-image: url(../images/icons/icon-download-guide.svg);
 }
-/* line 46, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons button:after {
-  content: "";
-  display: inline-block;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid #007C85;
-  position: absolute;
-  right: .75em;
-  top: 14px;
-  height: 0;
-  width: 0;
+/* line 46, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .print-page .icon {
+  background-image: url(../images/icons/icon-print-page.svg);
 }
-/* line 58, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons button:hover, .eu-cookie-compliance-banner #popup-buttons button:focus {
-  background: #007C85;
-  color: #CEDC00;
-}
-/* line 61, ../../src/scss/structures/_cookie-compliance.scss */
-.eu-cookie-compliance-banner #popup-buttons button:hover:after, .eu-cookie-compliance-banner #popup-buttons button:focus:after {
-  border-left-color: #CEDC00;
+/* line 51, ../../src/scss/common/_print-download-email.scss */
+.print-download-email .modal .print-guide .icon {
+  background-image: url(../images/icons/icon-print-guide.svg);
 }
 
+/* line 58, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--print,
+.btn-cta--download,
+.btn-cta--email {
+  padding: 0 2.5rem 0 0;
+  margin: .75em 1em;
+  position: relative;
+  text-transform: capitalize;
+}
+/* line 66, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--print:after,
+.btn-cta--download:after,
+.btn-cta--email:after {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: 50% auto;
+  background-position: 50% 50%;
+  height: 100%;
+  position: absolute;
+  right: 0.5rem;
+  top: 0;
+  width: 2rem;
+}
+
+/* line 80, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--print:after {
+  background-image: url(../images/icons/icon-print.png);
+}
+
+/* line 86, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--download:after {
+  background-image: url(../images/icons/icon-download.png);
+}
+
+/* line 92, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--email:after {
+  background-image: url(../images/icons/icon-email.png);
+}
+
+/* line 100, ../../src/scss/common/_print-download-email.scss */
+.print-download-email li {
+  float: left;
+  width: 33.33%;
+}
+
+/* line 105, ../../src/scss/common/_print-download-email.scss */
+.btn-cta--print,
+.btn-cta--download,
+.btn-cta--email {
+  margin: .75em auto;
+}
+
+/* line 1, ../../src/scss/common/_related.scss */
+.nav-related {
+  max-width: 20em;
+  padding: .5em 0;
+}
+/* line 6, ../../src/scss/common/_related.scss */
+.nav-related ul a {
+  color: #666;
+  display: inline-block;
+  margin: .5em 0;
+}
+
+/* line 1, ../../src/scss/common/_search.scss */
+#block-exposedformsolr-search-contentpage-1-3 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+/* line 5, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1 {
+  margin-top: 0.25em;
+}
+/* line 7, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-group, #views-exposed-form-search-content-page-1 .form-group {
+  float: left;
+}
+/* line 10, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item {
+  width: 85%;
+}
+/* line 13, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions {
+  width: 15%;
+}
+/* line 16, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 input, #views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 input, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content {
+  border: none;
+  height: 2.25em;
+  padding: .25em .5em;
+  width: 100%;
+}
+/* line 22, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content {
+  background-color: #666;
+  color: #fff;
+  margin: 0;
+}
+/* line 26, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content img, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-search-content-page-1 #edit-submit-search-content img {
+  height: 1em;
+  margin-top: .25em;
+}
+/* line 31, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline, #views-exposed-form-search-content-page-1 .form--inline {
+  border: 1px solid #cacaca;
+  border-radius: 2px;
+  display: block;
+}
+/* line 35, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline.active, #views-exposed-form-search-content-page-1 .form--inline.active {
+  border-color: #008C95;
+}
+/* line 37, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form--inline.active #edit-submit-solr-search-content {
+  background-color: #008C95;
+}
+/* line 43, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-search-content {
+  background-color: #008C95;
+}
+/* line 46, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1:active .form--inline, #views-exposed-form-solr-search-content-page-1:focus .form--inline, #views-exposed-form-solr-search-content-page-1:hover .form--inline, #views-exposed-form-search-content-page-1:active .form--inline, #views-exposed-form-search-content-page-1:focus .form--inline, #views-exposed-form-search-content-page-1:hover .form--inline {
+  border-color: #008C95;
+}
+
+/* line 54, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item {
+  width: 75%;
+}
+/* line 57, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions {
+  width: 25%;
+}
+/* line 60, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .search-text, #views-exposed-form-search-content-page-1 .search-text {
+  display: block;
+}
+
+/* line 65, ../../src/scss/common/_search.scss */
+#edit-submit-solr-search-content img, #edit-submit-search-content img {
+  display: none;
+}
+
+/* line 78, ../../src/scss/common/_search.scss */
+#block-exposedformsolr-search-contentpage-1-3 {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+/* line 83, ../../src/scss/common/_search.scss */
+#header-main #views-exposed-form-solr-search-content-page-1 {
+  float: right;
+}
+
+/* line 88, ../../src/scss/common/_search.scss */
+#header-front-page #views-exposed-form-solr-search-content-page-1 {
+  float: left;
+}
+
+/* line 1, ../../src/scss/common/_social-share.scss */
+#social-share {
+  background: #F7F7F7;
+  border-radius: 30px;
+  margin-bottom: 1em;
+  overflow: hidden;
+  padding: 0.225em 1em;
+}
+/* line 8, ../../src/scss/common/_social-share.scss */
+#social-share .text {
+  float: left;
+  font-size: 0.85em;
+  padding: .125em 0;
+}
+/* line 13, ../../src/scss/common/_social-share.scss */
+#social-share .social-media-sharing {
+  float: right;
+  clear: right;
+  padding-top: .125em;
+}
+/* line 23, ../../src/scss/common/_social-share.scss */
+#social-share img {
+  height: auto;
+  vertical-align: text-top;
+  width: 1.25em;
+}
+
+/* Structures */
+/* Structures */
 /* line 1, ../../src/scss/structures/_footer.scss */
 .footer {
   border-top: 5px solid #007C85;
@@ -2783,6 +2970,81 @@ ul.breadcrumb--search li:first-child:after {
 #header-main .region-branding-bar {
   padding-top: 0.75em;
   padding-bottom: 0.75em;
+}
+
+/* line 1, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock, #block-landingpagebottomblock {
+  clear: left;
+  margin-bottom: 45px;
+}
+
+/* line 7, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagebottomblock h2, #block-landingpagebottomblock .print-download-email .modal .title, .print-download-email .modal #block-landingpagebottomblock .title {
+  margin-top: 0;
+}
+
+/* line 13, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article, .block-home-page-block article {
+  margin-bottom: 1em;
+}
+/* line 18, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article a, .block-home-page-block article a {
+  text-decoration: none;
+}
+/* line 20, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article a:hover, #block-landingpagesblock article a:focus, .block-home-page-block article a:hover, .block-home-page-block article a:focus {
+  text-decoration: underline;
+}
+/* line 24, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
+  border: 4px solid #CEDC00;
+  border-radius: 1em;
+  min-height: 10em;
+  padding: 1em 1.25em;
+  position: relative;
+}
+/* line 30, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper:hover, #block-landingpagesblock article .article__wrapper:focus, .block-home-page-block article .article__wrapper:hover, .block-home-page-block article .article__wrapper:focus {
+  background: #F7F7F7;
+}
+/* line 32, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper:hover h2, #block-landingpagesblock article .article__wrapper:hover .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper:hover .title, #block-landingpagesblock article .article__wrapper:focus h2, #block-landingpagesblock article .article__wrapper:focus .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper:focus .title, .block-home-page-block article .article__wrapper:hover h2, .block-home-page-block article .article__wrapper:hover .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper:hover .title, .block-home-page-block article .article__wrapper:focus h2, .block-home-page-block article .article__wrapper:focus .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper:focus .title {
+  color: #007C85;
+}
+/* line 36, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper h2, #block-landingpagesblock article .article__wrapper .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper .title, .block-home-page-block article .article__wrapper h2, .block-home-page-block article .article__wrapper .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper .title {
+  border-left: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+/* line 40, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper h2:before, #block-landingpagesblock article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal #block-landingpagesblock article .article__wrapper .title:before, .block-home-page-block article .article__wrapper h2:before, .block-home-page-block article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal .block-home-page-block article .article__wrapper .title:before {
+  display: none;
+}
+/* line 44, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
+  bottom: 1em;
+  color: #000;
+  font-size: 85%;
+  left: 0;
+  max-height: 6em;
+  overflow: hidden;
+  width: 100%;
+}
+/* line 52, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper .article__content p, .block-home-page-block article .article__wrapper .article__content p {
+  margin-bottom: 0;
+}
+
+/* line 63, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
+  min-height: 12em;
+}
+
+/* line 74, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
+  padding: 0 1.5em;
+  position: absolute;
 }
 
 /* Region / container styles */
@@ -3016,166 +3278,75 @@ ul.breadcrumb--search li:first-child:after {
   display: none;
 }
 
-/* line 1, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email {
-  border: 2px solid #008C95;
-  border-spacing: 1em 0;
-  margin: 1em 0;
-  overflow: auto;
-  text-align: center;
-  width: 100%;
-}
-/* line 8, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email li {
-  display: block;
-  list-style: none;
-}
-/* line 12, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal {
-  border: 3px solid #CEDC00;
-}
-/* line 14, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .action {
-  display: inline-block;
-  margin: 1em;
-  width: 40%;
-}
-/* line 19, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .title-wrapper {
-  border-bottom: 3px solid #CEDC00;
-  overflow: auto;
-  padding: 0 1em;
-}
-/* line 30, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .x {
-  margin-left: .75em;
-  font-size: 1.25em;
-}
-/* line 35, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .download-page .icon {
-  background-image: url(../images/icons/icon-download-page.svg);
-}
-/* line 40, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .download-guide .icon {
-  background-image: url(../images/icons/icon-download-guide.svg);
-}
-/* line 45, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .print-page .icon {
-  background-image: url(../images/icons/icon-print-page.svg);
-}
-/* line 50, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email .modal .print-guide .icon {
-  background-image: url(../images/icons/icon-print-guide.svg);
-}
-
-/* line 57, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--print,
-.btn-cta--download,
-.btn-cta--email {
-  padding: 0 2.5rem 0 0;
-  margin: .75em 1em;
-  position: relative;
-  text-transform: capitalize;
-}
-/* line 65, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--print:after,
-.btn-cta--download:after,
-.btn-cta--email:after {
-  content: "";
-  background-repeat: no-repeat;
-  background-size: 50% auto;
-  background-position: 50% 50%;
-  height: 100%;
-  position: absolute;
-  right: 0.5rem;
-  top: 0;
-  width: 2rem;
-}
-
-/* line 79, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--print:after {
-  background-image: url(../images/icons/icon-print.png);
-}
-
-/* line 85, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--download:after {
-  background-image: url(../images/icons/icon-download.png);
-}
-
-/* line 91, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--email:after {
-  background-image: url(../images/icons/icon-email.png);
-}
-
-/* line 99, ../../src/scss/structures/_print-download-email.scss */
-.print-download-email li {
-  float: left;
-  width: 33.33%;
-}
-
-/* line 104, ../../src/scss/structures/_print-download-email.scss */
-.btn-cta--print,
-.btn-cta--download,
-.btn-cta--email {
-  margin: .75em auto;
-}
-
-/* line 1, ../../src/scss/structures/_related.scss */
-.nav-related {
-  max-width: 20em;
-  padding: .5em 0;
-}
-/* line 6, ../../src/scss/structures/_related.scss */
-.nav-related ul a {
-  color: #666;
-  display: inline-block;
-  margin: .5em 0;
-}
-
-/* line 2, ../../src/scss/structures/_search-result-listing.scss */
+/* Base search page styles */
+/* line 3, ../../src/scss/structures/_search-result-listing.scss */
 .search-index a {
   text-decoration: none;
 }
-/* line 4, ../../src/scss/structures/_search-result-listing.scss */
+/* line 5, ../../src/scss/structures/_search-result-listing.scss */
 .search-index a:hover, .search-index a:focus {
   text-decoration: underline;
 }
 
 /* Search */
-/* line 12, ../../src/scss/structures/_search-result-listing.scss */
+/* line 13, ../../src/scss/structures/_search-result-listing.scss */
 .path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy, .path-solr-search .print__wrapper--pdf {
   display: none;
 }
 
-/* line 17, ../../src/scss/structures/_search-result-listing.scss */
+/* Did you mean... */
+/* line 19, ../../src/scss/structures/_search-result-listing.scss */
+.search-alternative {
+  margin-top: 0;
+}
+/* line 21, ../../src/scss/structures/_search-result-listing.scss */
+.search-alternative ul {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: 0;
+  margin-left: .25em;
+}
+/* line 27, ../../src/scss/structures/_search-result-listing.scss */
+.search-alternative ul a:hover, .search-alternative ul a:focus {
+  text-decoration: none;
+}
+
+/* No results */
+/* line 36, ../../src/scss/structures/_search-result-listing.scss */
+.view-empty p {
+  margin-bottom: 1em;
+}
+
+/* Content Listings */
+/* line 42, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content {
   padding-bottom: 2em;
 }
-/* line 20, ../../src/scss/structures/_search-result-listing.scss */
+/* line 45, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .view-header {
-  padding: 2em 0 1em;
+  padding: 1.5em 0 1em;
 }
-/* line 22, ../../src/scss/structures/_search-result-listing.scss */
+/* line 47, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .view-header p {
   margin-bottom: 0;
 }
-/* line 26, ../../src/scss/structures/_search-result-listing.scss */
+/* line 51, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row {
   margin: 1em 0;
   overflow: auto;
   padding: 1em 0;
 }
-/* line 30, ../../src/scss/structures/_search-result-listing.scss */
+/* line 55, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2, .view-solr-search-content .views-row .print-download-email .modal .title, .print-download-email .modal .view-solr-search-content .views-row .title {
   border-left: none;
   padding-left: 0;
   margin-top: 0;
 }
-/* line 34, ../../src/scss/structures/_search-result-listing.scss */
+/* line 59, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2:before, .view-solr-search-content .views-row .print-download-email .modal .title:before, .print-download-email .modal .view-solr-search-content .views-row .title:before {
   display: none;
 }
-/* line 38, ../../src/scss/structures/_search-result-listing.scss */
+/* line 63, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row.odd {
   background-color: #F7F7F7;
 }
@@ -3192,106 +3363,4 @@ ul.breadcrumb--search li:first-child:after {
 /* line 9, ../../src/scss/structures/_sitemap.scss */
 .sitemap .sitemap-box ul > .expanded {
   margin-top: 1rem;
-}
-
-/* line 1, ../../src/scss/structures/_social-share.scss */
-#social-share {
-  background: #F7F7F7;
-  border-radius: 30px;
-  margin-bottom: 1em;
-  overflow: hidden;
-  padding: 0.225em 1em;
-}
-/* line 8, ../../src/scss/structures/_social-share.scss */
-#social-share .text {
-  float: left;
-  font-size: 0.85em;
-  padding: .125em 0;
-}
-/* line 13, ../../src/scss/structures/_social-share.scss */
-#social-share .social-media-sharing {
-  float: right;
-  clear: right;
-  padding-top: .125em;
-}
-/* line 23, ../../src/scss/structures/_social-share.scss */
-#social-share img {
-  height: auto;
-  vertical-align: text-top;
-  width: 1.25em;
-}
-
-/* Templates */
-/* line 1, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock, #block-landingpagebottomblock {
-  clear: left;
-  margin-bottom: 45px;
-}
-
-/* line 7, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagebottomblock h2, #block-landingpagebottomblock .print-download-email .modal .title, .print-download-email .modal #block-landingpagebottomblock .title {
-  margin-top: 0;
-}
-
-/* line 13, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article, .block-home-page-block article {
-  margin-bottom: 1em;
-}
-/* line 17, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article a, .block-home-page-block article a {
-  text-decoration: none;
-}
-/* line 19, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article a:hover, #block-landingpagesblock article a:focus, .block-home-page-block article a:hover, .block-home-page-block article a:focus {
-  text-decoration: underline;
-}
-/* line 23, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
-  border: 4px solid #CEDC00;
-  border-radius: 1em;
-  min-height: 10em;
-  padding: 1em 1.25em;
-  position: relative;
-}
-/* line 29, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper:hover, #block-landingpagesblock article .article__wrapper:focus, .block-home-page-block article .article__wrapper:hover, .block-home-page-block article .article__wrapper:focus {
-  background: #F7F7F7;
-}
-/* line 31, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper:hover h2, #block-landingpagesblock article .article__wrapper:hover .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper:hover .title, #block-landingpagesblock article .article__wrapper:focus h2, #block-landingpagesblock article .article__wrapper:focus .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper:focus .title, .block-home-page-block article .article__wrapper:hover h2, .block-home-page-block article .article__wrapper:hover .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper:hover .title, .block-home-page-block article .article__wrapper:focus h2, .block-home-page-block article .article__wrapper:focus .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper:focus .title {
-  color: #007C85;
-}
-/* line 35, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper h2, #block-landingpagesblock article .article__wrapper .print-download-email .modal .title, .print-download-email .modal #block-landingpagesblock article .article__wrapper .title, .block-home-page-block article .article__wrapper h2, .block-home-page-block article .article__wrapper .print-download-email .modal .title, .print-download-email .modal .block-home-page-block article .article__wrapper .title {
-  border-left: none;
-  margin-top: 0;
-  padding-left: 0;
-}
-/* line 39, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper h2:before, #block-landingpagesblock article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal #block-landingpagesblock article .article__wrapper .title:before, .block-home-page-block article .article__wrapper h2:before, .block-home-page-block article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal .block-home-page-block article .article__wrapper .title:before {
-  display: none;
-}
-/* line 43, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
-  bottom: 1em;
-  color: #000;
-  font-size: 85%;
-  left: 0;
-  max-height: 6em;
-  overflow: hidden;
-  width: 100%;
-}
-/* line 51, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper .article__content p, .block-home-page-block article .article__wrapper .article__content p {
-  margin-bottom: 0;
-}
-
-/* line 62, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
-  min-height: 12em;
-}
-/* line 64, ../../src/scss/templates/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
-  padding: 0 1.5em;
-  position: absolute;
 }

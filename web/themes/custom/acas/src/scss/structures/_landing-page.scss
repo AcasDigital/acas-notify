@@ -12,6 +12,7 @@
 #block-landingpagesblock, .block-home-page-block {
   article {
     @extend .col-xs-12;
+    @extend .col-sm-6;
     @extend .col-md-4;
     margin-bottom: 1em;
     a {
@@ -56,11 +57,20 @@
   }
 }
 
-@include bp(MD) {
+@include bp(SM) {
   #block-landingpagesblock, .block-home-page-block {
     article {
       .article__wrapper {
         min-height: 12em;
+      }
+    }
+  }
+}
+
+@include bp(MD) {
+  #block-landingpagesblock, .block-home-page-block {
+    article {
+      .article__wrapper {
         .article__content {
           padding: 0 1.5em;
           position: absolute;
