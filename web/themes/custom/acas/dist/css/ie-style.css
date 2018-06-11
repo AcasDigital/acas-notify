@@ -537,7 +537,7 @@ th {
 }
 
 /* line 11, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .home-page .embedded-entity, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .home-page .embedded-entity, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, article.secondary-page, article.details-page, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .home-page .embedded-entity, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .home-page .embedded-entity, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, article.secondary-page, article.details-page, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, form#user-login-form, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -545,7 +545,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, form#user-login-form, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   float: left;
 }
 
@@ -605,7 +605,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-12, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
+.col-xs-12, form#user-login-form, article.landing-page, article.secondary-page, article.details-page, .home-page, .home-page .embedded-entity, .home-page .embedded-entity article, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   width: 100%;
 }
 
@@ -1713,61 +1713,61 @@ strong, b {
 form#user-login-form {
   margin-bottom: 2em;
 }
-/* line 10, ../../src/scss/drupal/_admin.scss */
+/* line 11, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .control-label {
   clear: left;
   display: block;
   padding: .5em 0;
 }
-/* line 15, ../../src/scss/drupal/_admin.scss */
+/* line 16, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .form-item {
   margin-bottom: 1em;
 }
-/* line 18, ../../src/scss/drupal/_admin.scss */
+/* line 19, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .description {
   font-size: 0.85em;
   color: #999;
 }
 
-/* line 28, ../../src/scss/drupal/_admin.scss */
+/* line 29, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .control-label {
   display: none;
 }
-/* line 31, ../../src/scss/drupal/_admin.scss */
+/* line 32, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-type-textfield, .views-exposed-form .form-actions {
   display: inline-block;
 }
-/* line 34, ../../src/scss/drupal/_admin.scss */
+/* line 35, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-actions {
   position: relative;
 }
 
-/* line 39, ../../src/scss/drupal/_admin.scss */
+/* line 40, ../../src/scss/drupal/_admin.scss */
 .print__wrapper--pdf, .node_view {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 45, ../../src/scss/drupal/_admin.scss */
+/* line 46, ../../src/scss/drupal/_admin.scss */
 .page-node-type-home-page strong.node_view, .page-node-type-landing-page strong.node_view {
   display: none;
 }
 
-/* line 51, ../../src/scss/drupal/_admin.scss */
+/* line 52, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent, .page-node-type-support-page .field--name-field-taxonomy, .page-node-type-support-page .taxonomy-parent {
   display: none;
 }
-/* line 54, ../../src/scss/drupal/_admin.scss */
+/* line 55, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page article, .page-node-type-support-page article {
   margin-bottom: 20px;
 }
-/* line 57, ../../src/scss/drupal/_admin.scss */
+/* line 58, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .node_view ul.pre_link-colors li:first-child, .page-node-type-support-page .node_view ul.pre_link-colors li:first-child {
   background: none;
   padding: 0;
 }
 
-/* line 63, ../../src/scss/drupal/_admin.scss */
+/* line 64, ../../src/scss/drupal/_admin.scss */
 .chosen-container {
   border: 0 !important;
   padding: 0 !important;
@@ -1776,32 +1776,32 @@ form#user-login-form .description {
   -webkit-box-shadow: none !important;
 }
 
-/* line 72, ../../src/scss/drupal/_admin.scss */
+/* line 73, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 76, ../../src/scss/drupal/_admin.scss */
+/* line 77, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label {
   margin-top: 14px;
   margin-right: 5px;
 }
-/* line 80, ../../src/scss/drupal/_admin.scss */
+/* line 81, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .form-type-select {
   position: relative;
   top: 7px;
 }
-/* line 84, ../../src/scss/drupal/_admin.scss */
+/* line 85, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .useful-rating {
   font-size: 2em;
 }
-/* line 87, ../../src/scss/drupal/_admin.scss */
+/* line 88, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none;
 }
 
 /* Navigation Tabs for Admin Backend */
-/* line 101, ../../src/scss/drupal/_admin.scss */
+/* line 102, ../../src/scss/drupal/_admin.scss */
 .nav {
   margin-bottom: 0;
   padding-left: 0;
@@ -1816,71 +1816,76 @@ form#user-login-form .description {
 .nav:after {
   clear: both;
 }
-/* line 107, ../../src/scss/drupal/_admin.scss */
+/* line 108, ../../src/scss/drupal/_admin.scss */
 .nav > li {
   position: relative;
   display: block;
 }
-/* line 111, ../../src/scss/drupal/_admin.scss */
+/* line 112, ../../src/scss/drupal/_admin.scss */
 .nav > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
 }
-/* line 115, ../../src/scss/drupal/_admin.scss */
+/* line 116, ../../src/scss/drupal/_admin.scss */
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
   background-color: #eeeeee;
 }
-/* line 123, ../../src/scss/drupal/_admin.scss */
+/* line 124, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a {
   color: #F7F7F7;
 }
-/* line 126, ../../src/scss/drupal/_admin.scss */
+/* line 127, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a:hover, .nav > li.disabled > a:focus {
   color: #F7F7F7;
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
 }
-/* line 138, ../../src/scss/drupal/_admin.scss */
+/* line 139, ../../src/scss/drupal/_admin.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #eeeeee;
   border-color: #008C95;
 }
-/* line 151, ../../src/scss/drupal/_admin.scss */
+/* line 152, ../../src/scss/drupal/_admin.scss */
 .nav .nav-divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
-/* line 158, ../../src/scss/drupal/_admin.scss */
+/* line 159, ../../src/scss/drupal/_admin.scss */
 .nav > li > a > img {
   max-width: none;
 }
 
-/* line 168, ../../src/scss/drupal/_admin.scss */
+/* line 169, ../../src/scss/drupal/_admin.scss */
+nav.tabs {
+  clear: left;
+}
+
+/* line 173, ../../src/scss/drupal/_admin.scss */
 .nav-tabs {
   border-bottom: 1px solid #ddd;
 }
-/* line 170, ../../src/scss/drupal/_admin.scss */
+/* line 175, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
 }
-/* line 176, ../../src/scss/drupal/_admin.scss */
+/* line 181, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
-/* line 181, ../../src/scss/drupal/_admin.scss */
+/* line 186, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #ddd;
 }
-/* line 188, ../../src/scss/drupal/_admin.scss */
+/* line 193, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #CCC;
   background-color: #fff;
@@ -1889,74 +1894,74 @@ form#user-login-form .description {
   cursor: default;
 }
 
-/* line 210, ../../src/scss/drupal/_admin.scss */
+/* line 215, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li {
   float: left;
 }
-/* line 214, ../../src/scss/drupal/_admin.scss */
+/* line 219, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li > a {
   border-radius: 4px;
 }
-/* line 217, ../../src/scss/drupal/_admin.scss */
+/* line 222, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li + li {
   margin-left: 2px;
 }
-/* line 223, ../../src/scss/drupal/_admin.scss */
+/* line 228, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #337ab7;
 }
 
-/* line 236, ../../src/scss/drupal/_admin.scss */
+/* line 241, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li {
   float: none;
 }
-/* line 238, ../../src/scss/drupal/_admin.scss */
+/* line 243, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li + li {
   margin-top: 2px;
   margin-left: 0;
 }
 
-/* line 252, ../../src/scss/drupal/_admin.scss */
+/* line 257, ../../src/scss/drupal/_admin.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%;
 }
-/* line 255, ../../src/scss/drupal/_admin.scss */
+/* line 260, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li, .nav-tabs.nav-justified > li {
   float: none;
 }
-/* line 257, ../../src/scss/drupal/_admin.scss */
+/* line 262, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
   text-align: center;
   margin-bottom: 5px;
 }
-/* line 263, ../../src/scss/drupal/_admin.scss */
+/* line 268, ../../src/scss/drupal/_admin.scss */
 .nav-justified > .dropdown .dropdown-menu {
   top: auto;
   left: auto;
 }
 @media (min-width: 768px) {
-  /* line 269, ../../src/scss/drupal/_admin.scss */
+  /* line 274, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     display: table-cell;
     width: 1%;
   }
-  /* line 272, ../../src/scss/drupal/_admin.scss */
+  /* line 277, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
     margin-bottom: 0;
   }
 }
 
-/* line 282, ../../src/scss/drupal/_admin.scss */
+/* line 287, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0;
 }
-/* line 285, ../../src/scss/drupal/_admin.scss */
+/* line 290, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
   margin-right: 0;
   border-radius: 4px;
 }
-/* line 291, ../../src/scss/drupal/_admin.scss */
+/* line 296, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:hover,
@@ -1965,12 +1970,12 @@ form#user-login-form .description {
   border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
-  /* line 298, ../../src/scss/drupal/_admin.scss */
+  /* line 303, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
-  /* line 302, ../../src/scss/drupal/_admin.scss */
+  /* line 307, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:hover,
@@ -1980,16 +1985,16 @@ form#user-login-form .description {
   }
 }
 
-/* line 316, ../../src/scss/drupal/_admin.scss */
+/* line 321, ../../src/scss/drupal/_admin.scss */
 .tab-content > .tab-pane {
   display: none;
 }
-/* line 319, ../../src/scss/drupal/_admin.scss */
+/* line 324, ../../src/scss/drupal/_admin.scss */
 .tab-content > .active {
   display: block;
 }
 
-/* line 329, ../../src/scss/drupal/_admin.scss */
+/* line 334, ../../src/scss/drupal/_admin.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;

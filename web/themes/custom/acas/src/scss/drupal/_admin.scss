@@ -6,6 +6,7 @@
 }
 
 form#user-login-form {
+  @extend .col-xs-12;
   margin-bottom: 2em;
   .control-label {
     clear: left;
@@ -165,6 +166,10 @@ form#user-login-form {
 // -------------------------
 
 // Give the tabs something to sit on
+nav.tabs {
+  clear: left;
+}
+
 .nav-tabs {
   border-bottom: 1px solid $nav-tabs-border-color;
   > li {
