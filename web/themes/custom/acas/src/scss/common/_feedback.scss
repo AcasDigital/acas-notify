@@ -14,19 +14,22 @@
     border-radius: 5px;
     display: inline-block;
     font-weight: $font-weight-normal;
-    margin: 0 .225em;
-    padding: 0 .225em;
+    margin: 0 .125em;
+    padding: 0 .125em;
     text-decoration: none;
     &:hover, &:focus {
       @extend .outline;
       outline-color: $acas-lime;
     }
   }
-  .feedback-text {
+  .text, a {
+    font-size: 0.85em;
+  }
+  .text {
     float: left;
     font-family: $font-family-semibold;
     display: block;
-    padding: 0 0.25em;
+    padding: 0.125em 0.25em;
   }
 }
 

@@ -1,13 +1,16 @@
 .eu-cookie-compliance-banner {
   background-color: $acas-teal;
   .eu-cookie-compliance-content {
+    @extend .container;
     color: $white;
     font-style: normal;
-    max-width: none;
     padding: 1em 0.75em;
-    width: 1200px;
+    max-width: 100%;
     .eu-cookie-compliance-message {
-      max-width: none;
+      @extend .col-xs-12;
+      @extend .col-sm-8;
+      @extend .col-lg-9;
+      max-width: 100%;
       p {
         margin-bottom: 0;
       }
@@ -15,10 +18,9 @@
         display: inline-block;
         font-family: $font-family-headers;
         font-weight: 700;
-        font-size: 1.1em;
+        font-size: 1em;
         margin-right: 50px;
         vertical-align: middle;
-        width: 180px;
       }
       .text {
         display: inline-block;
@@ -28,38 +30,69 @@
         vertical-align: middle;
       }
     }
-  }
-  #popup-buttons {
-    margin-top: 0.875em;
-    button {
-      background: $acas-lime;
-      border: none;
-      border-bottom: 5px solid $acas-lime-dark;
-      color: $acas-teal-dark;
-      font-size: 0.745em;
-      font-family: $font-family-headers;
-      padding: 0.5em 2em 0.5em 1em;
-      position: relative;
-      &:first-child {
-        margin-right: .5em;
-      }
-      &:after {
-        content: "";
-        display: inline-block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 8px solid $acas-teal-dark;
-        position: absolute;
-        right: .75em;
-        top: 14px;
-        height: 0;
-        width: 0;
-      }
-      &:hover, &:focus {
-        background: $acas-teal-dark;
-        color: $acas-lime;
+    .eu-cookie-compliance-buttons {
+      @extend .col-xs-12;
+      @extend .col-sm-4;
+      @extend .col-lg-3;
+      margin-top: 0.875em;
+      button {
+        background: $acas-lime;
+        border: none;
+        border-bottom: 5px solid $acas-lime-dark;
+        color: $acas-teal-dark;
+        font-size: 0.745em;
+        font-family: $font-family-headers;
+        padding: 0.5em 2em 0.5em 1em;
+        position: relative;
+        &:first-child {
+          margin-right: .5em;
+        }
         &:after {
-          border-left-color: $acas-lime;
+          content: "";
+          display: inline-block;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 8px solid $acas-teal-dark;
+          position: absolute;
+          right: .75em;
+          top: 14px;
+          height: 0;
+          width: 0;
+        }
+        &:hover, &:focus {
+          background: $acas-teal-dark;
+          color: $acas-lime;
+          &:after {
+            border-left-color: $acas-lime;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include bp(MD) {
+  .eu-cookie-compliance-banner {
+    .eu-cookie-compliance-content {
+      .eu-cookie-compliance-message {
+        .title {
+          font-size: 1.1em;
+        }
+      }
+      .eu-cookie-compliance-buttons {
+        margin-top: 1.875em;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@include bp(LG) {
+  .eu-cookie-compliance-banner {
+    .eu-cookie-compliance-content {
+      .eu-cookie-compliance-message {
+        .text {
+          max-width: 75%;
         }
       }
     }
