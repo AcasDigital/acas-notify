@@ -6,43 +6,54 @@ Drupal.behaviors.acas = {
       jQuery('body').addClass('ie' + parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
     }
     document.body.style.display="block";
-  }
-};
-
-document.getElementById("menu-primary__icon").addEventListener("click", function(e) {
-  e.preventDefault();
-  openNavigation();
-});
-
-function openNavigation() {
-  var x = document.getElementById("menu-primary");
-  if (x.className === "menu-primary") {
-      x.className += " menu-primary--active";
-  } else {
-      x.className = "menu-primary";
-  }
-}
-
-if (document.documentElement.clientWidth < 768) {
-  var primaryListItems = document.getElementsByClassName("menu-primary__item");
-
-  // window.isMobile = /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
-
-  for(var i = 0; i < primaryListItems.length; i++) {
-    var primaryLink = primaryListItems[i].querySelectorAll('.menu-primary__link')[0];
-    primaryLink.addEventListener("click", function(e) {
-      e.preventDefault();
-      if(this.parentNode.classList.contains('menu-primary__item--active')) {
-        this.parentNode.classList.remove('menu-primary__item--active')
-      }
-      else {
-        this.parentNode.classList.add('menu-primary__item--active')
+    jQuery('a').each(function() {
+      if (jQuery(this).attr('href')) {
+        if (jQuery(this).attr('href').indexOf('http') != -1) {
+          jQuery(this).attr('target', '_blank');
+          jQuery(this).addClass('link--external');
+        }
       }
     });
   }
-}
+};
+
+
 
 jQuery( document ).ready( function( $ ) {
+
+  function openNavigation() {
+    console.log('in here');
+    var primaryMenu = $(".menu-primary");
+    if (!primaryMenu.hasClass("menu-primary--active")) {
+        primaryMenu.addClass("menu-primary--active");
+    } else {
+        primaryMenu.removeClass("menu-primary--active");
+    }
+  }
+
+  $("#menu-primary__icon").click(function(e) {
+    e.preventDefault();
+    openNavigation();
+  });
+
+  if (document.documentElement.clientWidth <= 768) {
+    var primaryListItems = $(".menu-primary__item");
+
+    for(var i = 0; i < primaryListItems.length; i++) {
+      var primaryLink = $(primaryListItems[i]).children('.menu-primary__link');
+      console.log(primaryLink);
+      primaryLink.click(function(e) {
+        e.preventDefault();
+        var linkParent = $(this).parent('.menu-primary__item');
+        if(linkParent.hasClass('menu-primary__item--active')) {
+          linkParent.removeClass('menu-primary__item--active')
+        }
+        else {
+          linkParent.addClass('menu-primary__item--active')
+        }
+      });
+    }
+  }
 
   var secondaryMenus = $('.menu-secondary');
 
@@ -61,14 +72,14 @@ jQuery( document ).ready( function( $ ) {
   });
 
   /* Main Navigation Code */
-	$( '.menu-primary__item' ).on( 'mouseenter focus', '.menu-primary__item > .menu-primary__link', function( e ) {
+	$( '.menu-primary__item' ).on( 'mouseenter focus', '> .menu-primary__link', function( e ) {
 			var el = $( this );
       setTimeout( function() {
 	       el.toggleClass( 'has-focus' );
       }, 100 );
 			// Show sub-menu
 			el.parents( '.menu-primary__item' ).attr( 'aria-expanded', 'true' );
-		}).on( 'mouseleave blur', '.menu-primary__item > .menu-primary__link', function( e ) {
+		}).on( 'mouseleave blur', '> .menu-primary__link', function( e ) {
 			var el = $( this );
 	    el.toggleClass( 'has-focus' );
 			// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing

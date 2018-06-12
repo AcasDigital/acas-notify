@@ -8,7 +8,7 @@
 }
 
 .phone-callout {
-  @extend .btn-cta--helpline;
+  @extend .btn-cta, .btn-cta--helpline;
 }
 
 .callout-beta {

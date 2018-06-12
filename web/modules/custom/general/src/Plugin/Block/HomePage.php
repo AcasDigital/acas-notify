@@ -17,23 +17,15 @@ class HomePage extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('acas', 0, 1);
-    $termIds = [];
-    foreach ($children as $value) {
-      $termIds[$value->tid] = $value->tid;
-    }
-    $query = \Drupal::database()->select('taxonomy_index', 'ti');
-    $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-    $query->fields('ti', array('nid'));
-    $query->condition('ti.tid', $termIds, 'IN');
-    $query->orderBy('fd.weight', 'ASC');
-    $result = $query->execute();
     $output = '';
-    if($nodeIds = $result->fetchCol()){
-      $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->hasField('field_recent_content')) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      foreach($nodes as $node) {
-        $view = $view_builder->view($node, 'teaser');
+      foreach($node->get('field_recent_content') as $link) {
+        $params = \Drupal\Core\Url::fromUri("internal:" . $link->getUrl()->toString())->getRouteParameters();
+        $entity_type = key($params);
+        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+        $view = $view_builder->view($entity, 'teaser');
         $output .= drupal_render($view);
       }
     }

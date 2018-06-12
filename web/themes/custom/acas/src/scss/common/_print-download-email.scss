@@ -10,6 +10,9 @@
     display: block;
     list-style: none;
   }
+  .btn-cta--print, .btn-cta--download {
+    display: none;
+  }
   .modal {
     border: 3px solid $acas-lime;
     .action {
@@ -95,11 +98,14 @@
 }
 
 
-@include bp(MD) {
+@include bp(SM) {
   .print-download-email {
     li {
       float: left;
       width: 33.33%;
+    }
+    .btn-cta--print, .btn-cta--download {
+      display: block;
     }
   }
   .btn-cta--print,

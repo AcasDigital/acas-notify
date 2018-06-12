@@ -147,7 +147,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="title-wrapper"><span class="title">Print</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action print-page">
-                  <a class="btn-panel btn-panel--print-page" nid="' . $parent . '" href="/page-print/' . $parent . '">
+                  <a class="btn-panel btn-panel--print-page" nid="' . $parent . '" href="/page-print/' . $entity->id() . '">
                     <div class="icon"></div>
                     <span>Print this page</span>
                   </a>
@@ -164,7 +164,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="title-wrapper"><span class="title">Download</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action download-page">
-                  <a class="btn-panel btn-panel--download-page" nid="' . $parent . '" href="/page-download/' . $parent . '">
+                  <a class="btn-panel btn-panel--download-page" nid="' . $parent . '" href="/page-download/' . $entity->id() . '">
                     <div class="icon"></div>
                     <span>Download this page</span>
                   </a>
@@ -499,9 +499,10 @@ function general_pathauto_alias_alter(&$alias, array &$context) {
 
 function general_taxonomy_path($name) {
   $name = str_replace('/', ' ', strtolower($name));
-  $name = str_replace(':', ' ', $name);
+  $name = str_replace(':', '', $name);
   $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
-  $name = str_replace(' ', '-', $name);
+  $name = str_replace('  ', ' ', $name);
+  $name = str_replace(' ', '-', trim($name));
   return $name;
 }
 

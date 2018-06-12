@@ -14,8 +14,8 @@
     border-radius: 5px;
     display: inline-block;
     font-weight: $font-weight-normal;
-    margin: 0 .5em;
-    padding: 0 .5em;
+    margin: 0 .225em;
+    padding: 0 .225em;
     text-decoration: none;
     &:hover, &:focus {
       @extend .outline;

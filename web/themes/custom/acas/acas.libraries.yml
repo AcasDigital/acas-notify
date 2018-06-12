@@ -3,7 +3,7 @@ global-styling:
     theme:
       dist/css/style.css: {}
   js:
-    dist/js/acas.min.js: {}
+    src/js/acas.js: {}
 
 # bootstrap-scripts:
 #   js:

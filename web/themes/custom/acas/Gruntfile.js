@@ -29,7 +29,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['src/js/{,**/}*.js', '!js/{,**/}*.min.js'],
-        tasks: ['jshint', 'uglify:dev']
+
       }
     },
 
@@ -101,19 +101,19 @@ module.exports = function (grunt) {
           }
         }]
       },
-	  jshint: {
-		  all: [
-			'Gruntfile.js',
-			'src/**/*.js',
-			'test/**/*.js',
-			'!test/mocha.js',
-			'!test/expect.js'
-		  ],
-		  options: {
-			jshintrc: '.jshintrc',
-			jshintignore: '.jshintignore'
-		  }
-		},
+  	  jshint: {
+  		  all: [
+  			'Gruntfile.js',
+  			'src/**/*.js',
+  			'test/**/*.js',
+  			'!test/mocha.js',
+  			'!test/expect.js'
+  		  ],
+  		  options: {
+  			jshintrc: '.jshintrc',
+  			jshintignore: '.jshintignore'
+  		  }
+  		},
       dist: {
         options: {
           mangle: true,
@@ -145,7 +145,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'uglify:dev',
-    'sass:dev',
+    'compass:dev',
     'copy:dist'
   ]);
 

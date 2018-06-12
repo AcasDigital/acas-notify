@@ -34,9 +34,16 @@
   position: relative;
 }
 
+.menu-secondary__title {
+  display: none;
+}
+
+.menu-secondary__item {
+  display: block;
+}
+
 .menu-secondary__item,
 .menu-secondary__title {
-  display: block;
   padding: 0.5em 1em;
   width: 100%;
 }
@@ -77,7 +84,7 @@
         height: 1.125em;
         margin-left: 1em;
         position: absolute;
-        top: 0.5em;
+        top: 0.25em;
         display: inline-block;
         width: 0.5em;
       }
@@ -153,6 +160,10 @@
       top: -2.25em;
       width: 0px;
     }
+  }
+
+  .menu-secondary__title {
+    display: block;
   }
 
   /* Menu item styles */
@@ -238,7 +249,7 @@
             &:after {
               background-image: url(../images/icons/icon-chevron-white-down.svg);
             }
-          }  
+          }
         }
       }
     }
