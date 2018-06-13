@@ -154,6 +154,7 @@
         "drupal/better_exposed_filters": "^3.0",
         "drupal/blazy": "^1.0",
         "drupal/block_field": "^1.0",
+        "drupal/block_in_page_not_found": "^4.0",
         "drupal/blockgroup": "^1.0",
         "drupal/bootstrap": "^3.9",
         "drupal/captcha": "^1.0",

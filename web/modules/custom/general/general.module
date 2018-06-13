@@ -74,7 +74,7 @@ function general_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /**
- * Implements hook_entity_view().
+ * Implements hook_module_implements_alter().
  */
 function general_module_implements_alter(&$implementations, $hook) {
   if ($hook == 'entity_view') {
@@ -386,6 +386,10 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }
   if ($form_id == 'system_performance_settings') {
     $form['caching']['page_cache_maximum_age']['#options'][31557600] = '1 year (for CloudFront)';
+  }
+  if (strpos($form_id, 'node_') !== FALSE && strpos($form_id, '_edit_form') !== FALSE) {
+    $form['moderation_state']['widget'][0]['state']['#default_value'] = 'draft';
+    $form['field_summary']['widget'][0]['summary']['#description'] = t('The summary does not appear on the page. It is shown on Landing Pages and in the search results and is the meta-description tag (for Google etc.)');
   }
 }
 
@@ -900,7 +904,20 @@ function general_library_info_alter(&$libraries, $extension) {
       $lib['version'] = 7;
       $lib['js'] = ['/' . drupal_get_path('module', 'general') . '/js/eu_cookie_compliance.js' => $js_options];
     }
+    $lib = &$libraries['eu_cookie_compliance_bare'];
+    $js_options = end($lib['js']);
+    if (is_array($js_options)) {
+      $lib['version'] = 7;
+      $lib['js'] = ['/' . drupal_get_path('module', 'general') . '/js/eu_cookie_compliance.js' => $js_options];
+    }
   }
+  if ($extension === 'filter') {
+    $lib = &$libraries['drupal.filter.filter_html.admin'];
+    $js_options = end($lib['js']);
+    if (is_array($js_options)) {
+      $lib['js'] = ['/' . drupal_get_path('module', 'general') . '/js/filter.filter_html.admin.js' => $js_options];
+    }
+  }    
 }
 
 /**

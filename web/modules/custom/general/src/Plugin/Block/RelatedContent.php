@@ -49,7 +49,7 @@ class RelatedContent extends BlockBase {
         </h3>
         <ul id="section-nav-list" tabindex="-1">
           <li>
-            <a class="section-nav__parent" href="' . $url . '">' . $parent->getName() . '</a>
+
             <ul>';
         $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($parent->getVocabularyId(), $parent->id());
         $path = $url;
@@ -61,7 +61,7 @@ class RelatedContent extends BlockBase {
               if ($node->get('field_taxonomy')->target_id != $term->tid) {
                 $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
               }else{
-                $output .= '<li class="active">' . $term->name . '</li>';
+                //$output .= '<li class="active">' . $term->name . '</li>';
               }
             }
           }

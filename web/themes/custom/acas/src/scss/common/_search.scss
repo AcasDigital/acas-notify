@@ -2,7 +2,7 @@
   margin-top: 2em;
   margin-bottom: 1em;
 }
-#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1 {
+#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1, #search-form {
   margin-top: 0.25em;
   .form-group {
     float: left;
@@ -19,7 +19,7 @@
     padding: .25em .5em;
     width: 100%;
   }
-  #edit-submit-solr-search-content, #edit-submit-search-content {
+  #edit-submit-solr-search-content, #edit-submit-search-content, #edit-submit {
     background-color: $gray-dark;
     color: $white;
     margin: 0;
@@ -28,7 +28,7 @@
       margin-top: .25em;
     }
   }
-  .form--inline {
+  .form--inline, .form-item-edit-keys {
     border: 1px solid $gray-medium-light;
     border-radius: 2px;
     display: block;

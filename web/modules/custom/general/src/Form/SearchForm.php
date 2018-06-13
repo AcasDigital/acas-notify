@@ -6,18 +6,17 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class HeaderSearch.
+ * Class SearchForm.
  *
- * @package Drupal\my_search\Form
  */
-class HeaderSearch extends FormBase {
+class SearchForm extends FormBase {
 
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'header_search';
+    return 'search_form';
   }
 
   /**
@@ -27,18 +26,15 @@ class HeaderSearch extends FormBase {
 
     $form['#action'] = '/search';
     $form['#method'] = 'get';
-    $form['k'] = [
-      '#type' => 'search',
-      '#title' => $this->t('Search ACAS'),
-      '#maxlength' => 64,
-      '#size' => 15,
+    $form['edit-keys'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Search beta website'),
       '#title_display' => 'invisible',
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Search'),
-      // Prevent op from showing up in the query string.
       '#name' => '',
     ];
 
