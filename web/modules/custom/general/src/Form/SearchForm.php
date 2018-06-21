@@ -42,6 +42,8 @@ class SearchForm extends FormBase {
       '#prefix' => '<section data-drupal-selector="edit-actions" class="form-actions form-group js-form-wrapper form-wrapper" id="edit-search-actions">',
       '#suffix' => '</section></div>',
     ];
+    $form['#attributes']['onsubmit'] = 'return viewsExposedSubmitForm(this);';
+    $form['#attached']['library'][] = 'general/views_exposed_form_submit';
     return $form;
   }
 

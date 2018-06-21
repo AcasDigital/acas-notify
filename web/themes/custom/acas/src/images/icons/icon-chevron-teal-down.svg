@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="15px" height="9px" viewBox="0 0 15 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Shape Copy 4</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard" transform="translate(-3.000000, -6.000000)" stroke="#138997" stroke-width="2">
-            <polyline id="Shape-Copy-4" points="4 7 10.2 13.3 16.5 7"></polyline>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="9"><title>Shape Copy 4</title><desc>Created with Sketch.</desc><path fill="none" stroke="#138997" stroke-width="2" d="M1 1l6.2 6.3L13.5 1"/></svg>
