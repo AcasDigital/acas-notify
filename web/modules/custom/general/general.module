@@ -292,17 +292,18 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
           $query2->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
           $query2->condition('nfd.type', 'details_page', '=');
           $result2 = $query2->execute();
-          $nid = $result2->fetchCol();
-          if ($node2 = \Drupal\node\Entity\Node::load($nid[0])) {
-            $previous = '<a class="previous" href="' . $node2->toUrl()->toString() . '">
-              <div class="details_wrapper">
-                <div class="left_arrow"></div>
-                <div class="details">
-                  <div class="text">Previous</div>
-                  <div class="title">' . $node2->get('field_overview_title')->value . '</div>
+          if ($nid = $result2->fetchCol()) {
+            if ($node2 = \Drupal\node\Entity\Node::load($nid[0])) {
+              $previous = '<a class="previous" href="' . $node2->toUrl()->toString() . '">
+                <div class="details_wrapper">
+                  <div class="left_arrow"></div>
+                  <div class="details">
+                    <div class="text">Previous</div>
+                    <div class="title">' . $node2->get('field_overview_title')->value . '</div>
+                  </div>
                 </div>
-              </div>
-            </a>';
+              </a>';
+            }
           }
         }
         if ($n_nid) {
