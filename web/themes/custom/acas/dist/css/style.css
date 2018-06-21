@@ -3548,71 +3548,75 @@ ul.breadcrumb li:last-child:after, ul.breadcrumb--search li:last-child:after {
 }
 
 /* No results */
-/* line 36, ../../src/scss/structures/_search-result-listing.scss */
+/* line 35, ../../src/scss/structures/_search-result-listing.scss */
+.view-empty {
+  padding: 1.5em 0;
+}
+/* line 37, ../../src/scss/structures/_search-result-listing.scss */
 .view-empty p {
   margin-bottom: 1em;
 }
 
 /* Content Listings */
-/* line 42, ../../src/scss/structures/_search-result-listing.scss */
+/* line 43, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content {
   padding-bottom: 2em;
 }
-/* line 45, ../../src/scss/structures/_search-result-listing.scss */
+/* line 46, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .view-header {
   padding: 1.5em 0 1em;
 }
-/* line 47, ../../src/scss/structures/_search-result-listing.scss */
+/* line 48, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .view-header p {
   margin-bottom: 0;
 }
-/* line 51, ../../src/scss/structures/_search-result-listing.scss */
+/* line 52, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row {
   overflow: auto;
   padding: 1em 0 1.5em;
 }
-/* line 54, ../../src/scss/structures/_search-result-listing.scss */
+/* line 55, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2, .view-solr-search-content .views-row .print-download-email .modal .title, .print-download-email .modal .view-solr-search-content .views-row .title {
   margin-bottom: .75em;
   margin-top: 0;
   padding-left: 0;
 }
-/* line 58, ../../src/scss/structures/_search-result-listing.scss */
+/* line 59, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2:before, .view-solr-search-content .views-row .print-download-email .modal .title:before, .print-download-email .modal .view-solr-search-content .views-row .title:before {
   display: none;
 }
-/* line 62, ../../src/scss/structures/_search-result-listing.scss */
+/* line 63, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row.odd {
   background-color: #F7F7F7;
 }
 
-/* line 68, ../../src/scss/structures/_search-result-listing.scss */
+/* line 69, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search {
   margin-left: 0;
   margin-bottom: 0;
   padding-top: .6em;
 }
-/* line 73, ../../src/scss/structures/_search-result-listing.scss */
+/* line 74, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li {
   padding: 0;
 }
-/* line 75, ../../src/scss/structures/_search-result-listing.scss */
+/* line 76, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li:first-child {
   display: none;
 }
-/* line 77, ../../src/scss/structures/_search-result-listing.scss */
+/* line 78, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li:first-child:after {
   display: none;
 }
 
 @media (min-width: 992px) {
-  /* line 86, ../../src/scss/structures/_search-result-listing.scss */
+  /* line 87, ../../src/scss/structures/_search-result-listing.scss */
   .view-solr-search-content .field--name-field-summary {
     max-width: 75%;
   }
 }
 @media (min-width: 1200px) {
-  /* line 94, ../../src/scss/structures/_search-result-listing.scss */
+  /* line 95, ../../src/scss/structures/_search-result-listing.scss */
   .view-solr-search-content .field--name-field-summary {
     max-width: 70%;
   }

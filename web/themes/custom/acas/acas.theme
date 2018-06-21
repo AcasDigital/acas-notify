@@ -166,7 +166,7 @@ function acas_preprocess_views_view(&$variables) {
       $text = str_replace('KEYS', $search_term, $text);
       $text = str_replace('?articleid=1411', '?q=' . $search_term . '&searchmethod=ANY&continue=Continue&articleid=1411', $text);
       $variables['empty']['area']['#text'] = $text;
-    }else {
+    }else if (@$variables['header']['result']) {
       $text = $variables['header']['result']['#markup'];
       $text = str_replace('?articleid=1411', '?q=' . $search_term . '&searchmethod=ANY&continue=Continue&articleid=1411', $text);
       $variables['header']['result']['#markup'] = $text;
