@@ -44,8 +44,9 @@ class InThisSection extends BlockBase {
           $query2->condition('nfd.type', 'details_page', '=');
           $result2 = $query2->execute();
           $nid = $result2->fetchCol();
-          $node2 = \Drupal\node\Entity\Node::load($nid[0]);
-          $output .= '<li><a href="' . $node2->toUrl()->toString() . '">' . $node2->get('field_overview_title')->value . '</a></li>';
+          if ($node2 = \Drupal\node\Entity\Node::load($nid[0])) {
+            $output .= '<li><a href="' . $node2->toUrl()->toString() . '">' . $node2->get('field_overview_title')->value . '</a></li>';
+          }
         }
         $nodes = \Drupal\node\Entity\Node::loadMultiple($nodeIds);
         foreach($nodes as $n) {
