@@ -122,6 +122,7 @@ class GeneralController extends ControllerBase {
     ];
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build[] = $view_builder->view($node, 'print_download');
+    $build['#attached']['library'][] = 'general/guide_print_modify';
     return $build;
   }
   
@@ -142,7 +143,7 @@ class GeneralController extends ControllerBase {
     $build[] = [
       '#type' => 'markup',
       '#markup' => '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="https://' . $_SERVER['HTTP_HOST'] . '/themes/custom/acas/toplogo.png" alt="Home"></section></div>
-        <br /><br /><br /><header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</span></h1></header><br /><br /><br />'
+        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>' . $node->getTitle() . '</span></h1></header>'
     ];
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build[] = $view_builder->view($node, 'print_download');

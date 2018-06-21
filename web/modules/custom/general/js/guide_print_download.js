@@ -11,7 +11,7 @@ Drupal.behaviors.guide_print_download = {
     jQuery(".print-download-email .print-page .btn-panel--print-page").click(function() {
       win = window.open(this.href);
       jQuery(win.document).ready(function() {
-        setTimeout(doPrint, 1000);
+        setTimeout(doPrint, 2000);
       });
       closeModals();
       return false;
@@ -19,7 +19,7 @@ Drupal.behaviors.guide_print_download = {
     jQuery(".print-download-email .print-guide .btn-panel--print-guide").click(function() {
       win = window.open(this.href);
       jQuery(win.document).ready(function() {
-         setTimeout(doPrint, 1000);
+        setTimeout(doPrint, 2000);
       });
       closeModals();
       return false;

@@ -2,6 +2,7 @@ a {
   color: $acas-teal-dark;
   text-decoration: underline;
   &:hover, &:focus {
+    color: $acas-teal-light;
     text-decoration: none;
   }
 }

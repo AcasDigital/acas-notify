@@ -23,21 +23,25 @@ class SearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
+    $config = \Drupal::config('acas.settings');
     $form['#action'] = '/search';
     $form['#method'] = 'get';
-    $form['edit-keys'] = [
+    $form['keys'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Search beta website'),
+      '#title' => $config->get('search_placeholder'),
       '#title_display' => 'invisible',
+      '#prefix' => '<div class="form--inline form-inline clearfix">',
+      '#attributes' => ['placeholder' => $config->get('search_placeholder')],
+      '#required' => TRUE,
     ];
 
-    $form['submit'] = [
+    $form['submit_search'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Search'),
+      '#value' => '',
       '#name' => '',
+      '#prefix' => '<section data-drupal-selector="edit-actions" class="form-actions form-group js-form-wrapper form-wrapper" id="edit-search-actions">',
+      '#suffix' => '</section></div>',
     ];
-
     return $form;
   }
 

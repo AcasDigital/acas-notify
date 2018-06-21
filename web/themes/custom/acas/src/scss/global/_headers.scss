@@ -7,7 +7,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   a {
     &:hover, &:focus {
-      color: $acas-teal;
       text-decoration: underline;
     }
   }
@@ -31,12 +30,16 @@ h1, h2, {
 
 h1 {
   font-size: 1.68em;
-  margin-top: 55px;
-  margin-bottom: 45px;
+  margin-top: 45px;
+  margin-bottom: 35px;
 }
 
 h2 {
   font-size: 1.36em;
+}
+
+h2.guide-page-title {
+  @extend h1;
 }
 
 h3 {
@@ -61,13 +64,15 @@ h6 {
   font-size: 1em;
 }
 
-@include bp(MD) {
-  h1 {
-    font-size: 2.42em;
-  }
-}
-
 .header-no-border {
   border-left: none;
   padding-left: 0;
+}
+
+@include bp(MD) {
+  h1 {
+    font-size: 2.42em;
+    margin-top: 55px;
+    margin-bottom: 45px;
+  }
 }

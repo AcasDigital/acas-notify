@@ -4,8 +4,9 @@
 }
 
 .previous, .next {
+  display: block;
   text-decoration: none;
-  width: fit-content;
+  width: 75%;
   &:hover, &:focus {
     .details_wrapper {
       background: $gray-light;
@@ -47,6 +48,8 @@
 }
 
 .next {
+  float: right;
+  text-align: right;
   .text {
     padding-right: 1.5em;
     &:after {
@@ -64,7 +67,7 @@
 }
 
 .details_wrapper {
-  padding: 1em;
+  padding: .5em;
   .text {
     display: block;
     font-size: 1.45em;
@@ -122,22 +125,22 @@
     }
   }
 }
+
 @include bp(SM) {
-  .previous, .next {
-    float: left;
-    width: 50%;
+  .details_wrapper {
+    padding: 1em;
   }
-}
-@include bp(MD) {
   .previous, .next {
     float: left;
     width: 50%;
   }
   .next {
     float: right;
-    text-align: right;
   }
-  .details_wrapper {
+}
 
+@include bp(MD) {
+  .previous, .next {
+    width: 50%;
   }
 }

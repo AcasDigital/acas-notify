@@ -1,6 +1,7 @@
 .node-landing-page-form .field--name-title, .node-landing-page-edit-form .field--name-title,
 .node-details-page-form .field--name-title, .node-details-page-edit-form .field--name-title,
-.media-form .field--name-field-file-html, .media-form .field--name-field-html-body {
+.media-form .field--name-field-file-html, .media-form .field--name-field-html-body,
+.filter-wrapper {
   display: none;
 }
 #group-bottom-elements .field--type-boolean {

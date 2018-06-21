@@ -34,6 +34,9 @@
         else {
           Drupal.eu_cookie_compliance.execute();
         }
+        if (location.href.indexOf('cookies') != -1) {
+          $('.find-more-button').remove();
+        }
       });
     },
   };

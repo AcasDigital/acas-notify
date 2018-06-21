@@ -7,8 +7,13 @@
  * Place your custom PHP code in this file.
  */
 
+use Drupal\Core\Link;
+
 function acas_preprocess_page(&$variables) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     if ($node->hasField('field_useful') && $node->get('field_useful')->value) {
       $variables['useful'] = TRUE;
       $variables['nodeid'] = $node->id();
@@ -27,6 +32,9 @@ function acas_preprocess_field(&$variables) {
   /*
   if (@$variables['entity_type'] == 'node' && @$variables['field_name'] == 'title') {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      if (is_numeric($node)) {
+        $node = \Drupal\node\Entity\Node::load($node);
+      }
       if ($node->getType() == 'details_page') {
         $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($node->get('field_taxonomy')->target_id);
         foreach($parents as $parent) {
@@ -44,6 +52,9 @@ function acas_preprocess_field(&$variables) {
   }
   if (@$variables['entity_type'] == 'node' && @$variables['element']['#bundle'] == 'secondary_page' && @$variables['field_name'] == 'title') {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      if (is_numeric($node)) {
+        $node = \Drupal\node\Entity\Node::load($node);
+      }
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($node->get('field_taxonomy')->target_id);
       $variables['items'][0]['content']['#context']['value'] = $term->getName();
     }
@@ -60,6 +71,9 @@ function acas_preprocess_views_view_field(&$variables) {
 function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'local_tasks_block') {
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      if (is_numeric($node)) {
+        $node = \Drupal\node\Entity\Node::load($node);
+      }
       if ($node->getType() == 'details_page') {
         
       }
@@ -67,6 +81,9 @@ function acas_preprocess_block(&$variables) {
   }
   if ($variables['plugin_id'] == 'social_sharing_block') {
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
       if (!$node->get('field_social_share')->value) {
         $variables['no_display'] = TRUE;
@@ -76,37 +93,28 @@ function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block' || $variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
     $variables['#cache']['max-age'] = 0;
   }
-  if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom' || $variables['plugin_id'] == 'landing_pages_block') {
-    if (!$variables['content']['#markup']) {
+  //if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
+  if (@$variables['content']) {
+    if (!@$variables['content']['#markup']) {
       $variables['no_display'] = TRUE;
     }else{
       $variables['no_display'] = FALSE;
     }
   }
-}
-
-function acas_preprocess_links(&$variables) {
-  if (isset($variables['links']['print'])) {
-    //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
-    //$variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
-  }
+  //}
 }
 
 function acas_preprocess_node(&$variables) {
   $variables['changed'] = $variables['node']->getChangedTime();
 }
 
-function acas_preprocess_image(&$variables) {
-  if (isset($variables['links']['print'])) {
-    //$variables['links']['print']['link']['#options']['attributes']['class'][] = 'btn btn-primary';
-    //$variables['links']['print']['link']['#options']['attributes']['role'] = 'button';
-  }
-}
-
 function acas_preprocess_container(&$variables) {
   $variables['no_display'] = FALSE;
   if (@$variables['element']['#export_type'] == 'pdf') {
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
       if (!$node->get('field_print_download')->value) {
         $variables['no_display'] = TRUE;
@@ -126,30 +134,24 @@ function acas_preprocess_html(&$variables) {
   }
 }
 
-function acas_local_tasks_alter(&$local_tasks) {
-  
-}
-
-function acas_preprocess_file_link(&$variables) {
-  $file = $variables['file'];
-  //$variables['file_contents'];
-}
-
-function acas_preprocess_input(&$variables) {
-  //if ($variables['type'] == 'submit' && $variables['label'] == 'Search') {
-    //$variables['icon_only'] = TRUE;
-  //}
-}
-
 function acas_preprocess_item_list(&$variables) {
   if ($variables['title'] == 'Did you mean') {
     $variables['did_you_mean'] = TRUE;
   }
 }
 
+function acas_preprocess_breadcrumb(&$variables) {
+  /*
+  if (count($variables['links']) > 2) {
+    unset($variables['links'][0]);
+    unset($variables['breadcrumb'][0]);
+  }
+  */
+}
+
 function acas_theme_suggestions_input_alter(&$suggestions, array $variables) {
   $element = $variables['element'];
-  if ($element['#type'] == 'submit' && ($element['#id'] == 'edit-submit-solr-search-content' || $element['#id'] == 'edit-submit-search-content')) {
+  if ($element['#type'] == 'submit' && ($element['#id'] == 'edit-submit-solr-search-content' || $element['#id'] == 'edit-submit-search-content' || $element['#id'] == 'edit-submit-search')) {
     $suggestions[] = 'input__button__search__submit';
   }
 }

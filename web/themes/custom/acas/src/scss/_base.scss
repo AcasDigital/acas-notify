@@ -32,6 +32,9 @@ table {
     color: $white;
     font-family: $font-family-bold;
     text-align: left;
+    a {
+      color: white;
+    }
   }
   td, th {
     border: 2px solid $white;

@@ -1,6 +1,6 @@
-/* Region / container styles */
-.region-navigation-collapsible {
+#header-main #block-acas-main-menu {
   background-color: $gray-light;
+  padding: 0 0.5em;
 }
 
 /* Menu icon styles */
@@ -9,6 +9,26 @@
   font-size: 2em;
   float: right;
   text-decoration: none;
+  padding: 0 .25em;
+  position: relative;
+  &:hover, &:focus {
+    color: $black;
+  }
+  &.menu-primary__icon--active {
+    background: $gray-light;
+    color: $acas-teal;
+    &:after {
+      content: "";
+      background-color: $gray-light;
+      display: block;
+      height: 1em;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      width: 100%;
+    }
+  }
+
 }
 
 /* Menu List Styles */
@@ -67,6 +87,7 @@
   line-height: 1;
   text-decoration: none;
   &:hover, &:focus {
+    color: $black;
     text-decoration: underline;
   }
 }
@@ -103,11 +124,24 @@
   }
 }
 
-
+@include bp(SM) {
+  /* Menu List Styles */
+  .menu-primary {
+    &.menu-primary--active {
+      padding: 1em;
+    }
+  }
+}
 /* Medium Screens and Up */
 @include bp(MD) {
+  .region-navigation-collapsible {
+    background-color: $gray-light;
+  }
+  #header-main #block-acas-main-menu {
+    padding: 0;
+  }
   /* Region / container styles */
-  #block-acas-main-menu {
+  #block-acas-main-menu, #mainnavigation {
     margin-left: -15px;
     margin-right: -15px;
   }
@@ -157,7 +191,7 @@
       left: calc(50% - 1em);
       margin: auto;
       position: absolute;
-      top: -2.25em;
+      top: -2em;
       width: 0px;
     }
   }

@@ -15,6 +15,14 @@
   }
   .region-branding-bar {
     padding-top: 0.75em;
-    padding-bottom: 0.75em;
+    padding-bottom: 0.25em;
+  }
+}
+
+@include bp(MD) {
+  #header-main {
+    .region-branding-bar {
+      padding-bottom: 0.75em;
+    }
   }
 }

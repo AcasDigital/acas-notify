@@ -76,10 +76,22 @@ guide_print_download:
     - core/jquery
     - core/drupal
     
+guide_print_modify:
+  css:
+    theme:
+      css/guide_print_modify.css: {}
+    
 missing:
   js:
     /core/assets/vendor/modernizr/modernizr.min.js: { weight: -100 }
     /core/misc/ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    
+views_exposed_form:
+  js:
+    js/views_exposed_form.js: {}
   dependencies:
     - core/jquery
     - core/drupal

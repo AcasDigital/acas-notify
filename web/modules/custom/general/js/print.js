@@ -5,7 +5,7 @@ Drupal.behaviors.print = {
     jQuery(".print-download-email .print").click(function() {
       win = window.open(this.href);
       jQuery(win.document).ready(function() {
-        setTimeout(doPrint, 1000);
+        setTimeout(doPrint, 2000);
       });
       return false;
     });

@@ -19,6 +19,9 @@ class HomePage extends BlockBase {
   public function build() {
     $output = '';
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     if ($node->hasField('field_recent_content')) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
       foreach($node->get('field_recent_content') as $link) {
@@ -31,7 +34,4 @@ class HomePage extends BlockBase {
     }
     return ['#markup' => $output];
   }
-  
-  
-
 }

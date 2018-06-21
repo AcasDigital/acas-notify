@@ -58,6 +58,8 @@ Custom Variables
 /* line 6, ../../src/scss/_reset.scss */
 html, body, div, span, applet, object, iframe,
 h1,
+h2.guide-page-title,
+.print-download-email .modal .guide-page-title.title,
 article.home-page h2,
 article.home-page .print-download-email .modal .title,
 .print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title, h3, h4, .print-download-email .modal .close, h5, h6, p, blockquote, pre,
@@ -199,7 +201,7 @@ dfn {
 }
 
 /* line 136, ../../src/bootstrap/assets/stylesheets/bootstrap/_normalize.scss */
-h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
   font-size: 2em;
   margin: 0.67em 0;
 }
@@ -535,22 +537,22 @@ th {
 }
 
 /* line 39, ../../src/bootstrap/assets/stylesheets/bootstrap/_grid.scss */
-.row {
+.row, #block-searchblock {
   margin-left: -15px;
   margin-right: -15px;
 }
 /* line 14, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:before, .row:after {
+.row:before, #block-searchblock:before, .row:after, #block-searchblock:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:after {
+.row:after, #block-searchblock:after {
   clear: both;
 }
 
 /* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, #block-homepageblock article, .col-lg-3, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, article.home-page, .col-xs-7, .col-sm-7, .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page, .col-lg-7, article.page, .col-xs-8, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-md-8, article.page, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-homepageblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, #block-homepageblock article, #block-block-landingpagesblock article, .col-lg-3, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, article.home-page, .col-xs-7, .col-sm-7, .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-lg-7, article.page, .col-xs-8, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, #block-searchblock form, .col-md-8, article.page, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-searchblock form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -558,7 +560,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-homepageblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-searchblock form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   float: left;
 }
 
@@ -618,7 +620,7 @@ th {
 }
 
 /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-homepageblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
+.col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-searchblock form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content {
   width: 100%;
 }
 
@@ -819,7 +821,7 @@ th {
 
 @media (min-width: 768px) {
   /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-sm-5, .col-sm-6, #block-homepageblock article, #block-landingpagesblock article, .block-home-page-block article, .col-sm-7, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-sm-9, article.home-page, article.page, .col-sm-10, .col-sm-11, .col-sm-12 {
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-sm-5, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-sm-7, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, #block-searchblock form, .col-sm-9, article.home-page, article.page, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
   }
 
@@ -849,7 +851,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-6, #block-homepageblock article, #block-landingpagesblock article, .block-home-page-block article {
+  .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article {
     width: 50%;
   }
 
@@ -859,7 +861,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message {
+  .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, #block-searchblock form {
     width: 66.66667%;
   }
 
@@ -1080,7 +1082,7 @@ th {
 }
 @media (min-width: 992px) {
   /* line 27, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, #block-homepageblock article, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page, .col-md-8, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, #block-homepageblock article, #block-block-landingpagesblock article, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-md-8, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -1095,7 +1097,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-3, #block-homepageblock article {
+  .col-md-3, #block-homepageblock article, #block-block-landingpagesblock article {
     width: 25%;
   }
 
@@ -1115,7 +1117,7 @@ th {
   }
 
   /* line 35, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page {
+  .col-md-7, article.home-page, article.support-page, article.secondary-page, article.details-page, #block-404footer {
     width: 58.33333%;
   }
 
@@ -1645,60 +1647,64 @@ table thead {
   font-family: "Open Sans Bold", sans-serif;
   text-align: left;
 }
-/* line 36, ../../src/scss/_base.scss */
+/* line 35, ../../src/scss/_base.scss */
+table thead a {
+  color: white;
+}
+/* line 39, ../../src/scss/_base.scss */
 table td, table th {
   border: 2px solid #fff;
   padding: 0.5em 1em;
 }
-/* line 40, ../../src/scss/_base.scss */
+/* line 43, ../../src/scss/_base.scss */
 table td {
   background: #F7F7F7;
 }
 
-/* line 45, ../../src/scss/_base.scss */
+/* line 48, ../../src/scss/_base.scss */
 strong, b {
   font-family: "Open Sans Semibold", sans-serif;
 }
 
-/* line 50, ../../src/scss/_base.scss */
+/* line 53, ../../src/scss/_base.scss */
 .region-content ul {
   list-style-type: disc;
 }
-/* line 53, ../../src/scss/_base.scss */
+/* line 56, ../../src/scss/_base.scss */
 .region-content ol {
   list-style-type: decimal;
 }
-/* line 56, ../../src/scss/_base.scss */
+/* line 59, ../../src/scss/_base.scss */
 .region-content ul, .region-content ol {
   margin-left: 1.5em;
   margin-bottom: 1.25em;
 }
-/* line 59, ../../src/scss/_base.scss */
+/* line 62, ../../src/scss/_base.scss */
 .region-content ul p, .region-content ol p {
   margin-bottom: 0;
 }
-/* line 62, ../../src/scss/_base.scss */
+/* line 65, ../../src/scss/_base.scss */
 .region-content ul li, .region-content ol li {
   padding: .125em 0;
 }
-/* line 66, ../../src/scss/_base.scss */
+/* line 69, ../../src/scss/_base.scss */
 .region-content .paragraph {
   margin: 1em 0 2em;
 }
 
-/* line 72, ../../src/scss/_base.scss */
+/* line 75, ../../src/scss/_base.scss */
 #block-acas-breadcrumbs ul, .nav-related ul, #social-share ul, .block-in-this-section-block ul {
   list-style-type: none;
   margin-left: 0;
   margin-bottom: 0;
 }
-/* line 76, ../../src/scss/_base.scss */
+/* line 79, ../../src/scss/_base.scss */
 #block-acas-breadcrumbs ul li, .nav-related ul li, #social-share ul li, .block-in-this-section-block ul li {
   padding: 0;
 }
 
 /* Screenreader Code */
-/* line 83, ../../src/scss/_base.scss */
+/* line 86, ../../src/scss/_base.scss */
 .screenreader, .sr-only {
   border: 0;
   clip: rect(0 0 0 0);
@@ -1710,7 +1716,7 @@ strong, b {
   width: 1px;
 }
 
-/* line 99, ../../src/scss/_base.scss */
+/* line 102, ../../src/scss/_base.scss */
 .clearfix::after {
   content: "";
   clear: both;
@@ -2019,26 +2025,25 @@ nav.tabs {
 
 /* Base Components */
 /* line 2, ../../src/scss/global/_headers.scss */
-h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h1 a, article.home-page h2 a, article.home-page .print-download-email .modal .title a, .print-download-email .modal article.home-page .title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, h3 a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
+h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h1 a, h2.guide-page-title a, .print-download-email .modal .guide-page-title.title a, article.home-page h2 a, article.home-page .print-download-email .modal .title a, .print-download-email .modal article.home-page .title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, h3 a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
   color: #008C95;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 /* line 9, ../../src/scss/global/_headers.scss */
-h1 a:hover, article.home-page h2 a:hover, article.home-page .print-download-email .modal .title a:hover, .print-download-email .modal article.home-page .title a:hover, h1 a:focus, article.home-page h2 a:focus, article.home-page .print-download-email .modal .title a:focus, .print-download-email .modal article.home-page .title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, h3 a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
-  color: #008C95;
+h1 a:hover, h2.guide-page-title a:hover, .print-download-email .modal .guide-page-title.title a:hover, article.home-page h2 a:hover, article.home-page .print-download-email .modal .title a:hover, .print-download-email .modal article.home-page .title a:hover, h1 a:focus, h2.guide-page-title a:focus, .print-download-email .modal .guide-page-title.title a:focus, article.home-page h2 a:focus, article.home-page .print-download-email .modal .title a:focus, .print-download-email .modal article.home-page .title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, h3 a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
   text-decoration: underline;
 }
 
-/* line 16, ../../src/scss/global/_headers.scss */
-h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title {
+/* line 15, ../../src/scss/global/_headers.scss */
+h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title {
   line-height: 1.25;
   padding-left: 20px;
   position: relative;
 }
-/* line 20, ../../src/scss/global/_headers.scss */
-h1:before, article.home-page h2:before, article.home-page .print-download-email .modal .title:before, .print-download-email .modal article.home-page .title:before, h2:before, .print-download-email .modal .title:before {
+/* line 19, ../../src/scss/global/_headers.scss */
+h1:before, h2.guide-page-title:before, .print-download-email .modal .guide-page-title.title:before, article.home-page h2:before, article.home-page .print-download-email .modal .title:before, .print-download-email .modal article.home-page .title:before, h2:before, .print-download-email .modal .title:before {
   content: "";
   background: #CEDC00;
   display: block;
@@ -2049,55 +2054,57 @@ h1:before, article.home-page h2:before, article.home-page .print-download-email 
   top: 8%;
 }
 
-/* line 32, ../../src/scss/global/_headers.scss */
-h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+/* line 31, ../../src/scss/global/_headers.scss */
+h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
   font-size: 1.68em;
-  margin-top: 55px;
-  margin-bottom: 45px;
+  margin-top: 45px;
+  margin-bottom: 35px;
 }
 
-/* line 38, ../../src/scss/global/_headers.scss */
+/* line 37, ../../src/scss/global/_headers.scss */
 h2, .print-download-email .modal .title {
   font-size: 1.36em;
 }
 
-/* line 43, ../../src/scss/global/_headers.scss */
+/* line 46, ../../src/scss/global/_headers.scss */
 h3:before {
   display: none;
 }
-/* line 46, ../../src/scss/global/_headers.scss */
+/* line 49, ../../src/scss/global/_headers.scss */
 h3, h3 a {
   color: #008C95;
   font-size: 1em;
 }
 
-/* line 52, ../../src/scss/global/_headers.scss */
+/* line 55, ../../src/scss/global/_headers.scss */
 h4, .print-download-email .modal .close {
   font-size: 1em;
 }
 
-/* line 56, ../../src/scss/global/_headers.scss */
+/* line 59, ../../src/scss/global/_headers.scss */
 h5 {
   font-size: 1em;
 }
 
-/* line 60, ../../src/scss/global/_headers.scss */
+/* line 63, ../../src/scss/global/_headers.scss */
 h6 {
   font-size: 1em;
 }
 
-@media (min-width: 992px) {
-  /* line 65, ../../src/scss/global/_headers.scss */
-  h1, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
-    font-size: 2.42em;
-  }
-}
-/* line 70, ../../src/scss/global/_headers.scss */
+/* line 67, ../../src/scss/global/_headers.scss */
 .header-no-border {
   border-left: none;
   padding-left: 0;
 }
 
+@media (min-width: 992px) {
+  /* line 73, ../../src/scss/global/_headers.scss */
+  h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+    font-size: 2.42em;
+    margin-top: 55px;
+    margin-bottom: 45px;
+  }
+}
 /* line 1, ../../src/scss/global/_links.scss */
 a {
   color: #007C85;
@@ -2105,11 +2112,12 @@ a {
 }
 /* line 4, ../../src/scss/global/_links.scss */
 a:hover, a:focus {
+  color: #34AFBE;
   text-decoration: none;
 }
 
 /* External Links */
-/* line 13, ../../src/scss/global/_links.scss */
+/* line 14, ../../src/scss/global/_links.scss */
 a.link--external:not(.btn-cta--email):after {
   content: "";
   background-image: url(../images/icons/icon-link-external.png);
@@ -2122,31 +2130,31 @@ a.link--external:not(.btn-cta--email):after {
   position: relative;
   width: .75em;
 }
-/* line 29, ../../src/scss/global/_links.scss */
+/* line 30, ../../src/scss/global/_links.scss */
 a.share.link--external:after {
   display: none;
 }
 
-/* line 30, ../../src/scss/global/_page-content.scss */
-#block-homepageblock {
+/* line 35, ../../src/scss/global/_page-content.scss */
+#block-homepageblock, #block-block-landingpagesblock {
   clear: left;
   overflow: auto;
   margin-bottom: 55px;
 }
 
-/* line 43, ../../src/scss/global/_page-content.scss */
+/* line 48, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
   width: 100%;
 }
-/* line 45, ../../src/scss/global/_page-content.scss */
+/* line 50, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
   width: 100%;
 }
-/* line 48, ../../src/scss/global/_page-content.scss */
+/* line 53, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
   width: 40px;
 }
-/* line 52, ../../src/scss/global/_page-content.scss */
+/* line 57, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
   display: none !important;
   margin-top: 20px;
@@ -2154,24 +2162,56 @@ a.share.link--external:after {
   width: 72%;
 }
 @media screen and (min-width: 768px) {
-  /* line 52, ../../src/scss/global/_page-content.scss */
+  /* line 57, ../../src/scss/global/_page-content.scss */
   #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
     width: 80%;
   }
 }
-/* line 60, ../../src/scss/global/_page-content.scss */
+/* line 65, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
 }
-/* line 66, ../../src/scss/global/_page-content.scss */
+/* line 71, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 #edit-actions {
   display: inline-block;
 }
-/* line 70, ../../src/scss/global/_page-content.scss */
+/* line 75, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-views-block-google-analytics-summary-block-1 {
   overflow: auto;
+}
+
+/* line 79, ../../src/scss/global/_page-content.scss */
+.content-moderation-entity-moderation-form {
+  width: 115%;
+}
+/* line 81, ../../src/scss/global/_page-content.scss */
+.content-moderation-entity-moderation-form .entity-moderation-form {
+  margin-left: 0;
+}
+/* line 83, ../../src/scss/global/_page-content.scss */
+.content-moderation-entity-moderation-form .entity-moderation-form li {
+  margin-right: 1em;
+}
+/* line 87, ../../src/scss/global/_page-content.scss */
+.content-moderation-entity-moderation-form #edit-submit {
+  position: relative;
+  top: -19px;
+}
+/* line 91, ../../src/scss/global/_page-content.scss */
+.content-moderation-entity-moderation-form ul {
+  background: #F7F7F7;
+}
+
+/* line 95, ../../src/scss/global/_page-content.scss */
+.node-preview-container {
+  padding: 20px;
+  background: #F7F7F7;
+}
+/* line 98, ../../src/scss/global/_page-content.scss */
+.node-preview-container .form-type-select {
+  float: right;
 }
 
 /* Common Components */
@@ -2200,22 +2240,22 @@ a.share.link--external:after {
   text-transform: uppercase;
 }
 
-/* line 4, ../../src/scss/common/_breadcrumbs.scss */
+/* line 5, ../../src/scss/common/_breadcrumbs.scss */
 ul.breadcrumb, ul.breadcrumb--search {
   font-size: 0.845em;
   padding: 1.5em 0 0;
 }
-/* line 7, ../../src/scss/common/_breadcrumbs.scss */
+/* line 8, ../../src/scss/common/_breadcrumbs.scss */
 ul.breadcrumb li, ul.breadcrumb--search li {
   display: inline-block;
   position: relative;
 }
-/* line 10, ../../src/scss/common/_breadcrumbs.scss */
+/* line 11, ../../src/scss/common/_breadcrumbs.scss */
 ul.breadcrumb li a, ul.breadcrumb--search li a {
   color: #666;
   position: relative;
 }
-/* line 14, ../../src/scss/common/_breadcrumbs.scss */
+/* line 15, ../../src/scss/common/_breadcrumbs.scss */
 ul.breadcrumb li:after, ul.breadcrumb--search li:after {
   content: "";
   display: inline-block;
@@ -2230,26 +2270,8 @@ ul.breadcrumb li:after, ul.breadcrumb--search li:after {
   top: 0.25em;
   right: 0;
 }
-/* line 29, ../../src/scss/common/_breadcrumbs.scss */
+/* line 30, ../../src/scss/common/_breadcrumbs.scss */
 ul.breadcrumb li:last-child:after, ul.breadcrumb--search li:last-child:after {
-  display: none;
-}
-
-/* line 36, ../../src/scss/common/_breadcrumbs.scss */
-ul.breadcrumb--search {
-  margin-left: 0;
-  margin-bottom: 0;
-}
-/* line 40, ../../src/scss/common/_breadcrumbs.scss */
-ul.breadcrumb--search li {
-  padding: 0 1em 0 0;
-}
-/* line 42, ../../src/scss/common/_breadcrumbs.scss */
-ul.breadcrumb--search li a {
-  padding-right: 1em;
-}
-/* line 46, ../../src/scss/common/_breadcrumbs.scss */
-ul.breadcrumb--search li:first-child:after {
   display: none;
 }
 
@@ -2533,22 +2555,23 @@ ul.breadcrumb--search li:first-child:after {
 
 /* line 6, ../../src/scss/common/_pagination.scss */
 .previous, .next {
+  display: block;
   text-decoration: none;
-  width: fit-content;
+  width: 75%;
 }
-/* line 10, ../../src/scss/common/_pagination.scss */
+/* line 11, ../../src/scss/common/_pagination.scss */
 .previous:hover .details_wrapper, .previous:focus .details_wrapper, .next:hover .details_wrapper, .next:focus .details_wrapper {
   background: #F7F7F7;
 }
-/* line 13, ../../src/scss/common/_pagination.scss */
+/* line 14, ../../src/scss/common/_pagination.scss */
 .previous:hover .text, .previous:hover .title, .previous:focus .text, .previous:focus .title, .next:hover .text, .next:hover .title, .next:focus .text, .next:focus .title {
   color: #000;
 }
-/* line 17, ../../src/scss/common/_pagination.scss */
+/* line 18, ../../src/scss/common/_pagination.scss */
 .previous .text, .next .text {
   position: relative;
 }
-/* line 19, ../../src/scss/common/_pagination.scss */
+/* line 20, ../../src/scss/common/_pagination.scss */
 .previous .text:after, .next .text:after {
   content: "";
   background-repeat: no-repeat;
@@ -2560,61 +2583,66 @@ ul.breadcrumb--search li:first-child:after {
   width: 1em;
 }
 
-/* line 33, ../../src/scss/common/_pagination.scss */
+/* line 34, ../../src/scss/common/_pagination.scss */
 .previous .text {
   padding-left: 1.5em;
 }
-/* line 35, ../../src/scss/common/_pagination.scss */
+/* line 36, ../../src/scss/common/_pagination.scss */
 .previous .text:after {
   background-image: url(../images/icons/icon-arrow-teal-left.svg);
   left: 0;
 }
-/* line 42, ../../src/scss/common/_pagination.scss */
+/* line 43, ../../src/scss/common/_pagination.scss */
 .previous:hover .text:after, .previous:focus .text:after {
   background-image: url(../images/icons/icon-arrow-black-left.svg);
 }
 
 /* line 50, ../../src/scss/common/_pagination.scss */
+.next {
+  float: right;
+  text-align: right;
+}
+/* line 53, ../../src/scss/common/_pagination.scss */
 .next .text {
   padding-right: 1.5em;
 }
-/* line 52, ../../src/scss/common/_pagination.scss */
+/* line 55, ../../src/scss/common/_pagination.scss */
 .next .text:after {
   background-image: url(../images/icons/icon-arrow-teal-right.svg);
   right: 0;
 }
-/* line 59, ../../src/scss/common/_pagination.scss */
+/* line 62, ../../src/scss/common/_pagination.scss */
 .next:hover .text:after, .next:focus .text:after {
   background-image: url(../images/icons/icon-arrow-black-right.svg);
 }
 
-/* line 66, ../../src/scss/common/_pagination.scss */
+/* line 69, ../../src/scss/common/_pagination.scss */
 .details_wrapper {
-  padding: 1em;
+  padding: .5em;
 }
-/* line 68, ../../src/scss/common/_pagination.scss */
+/* line 71, ../../src/scss/common/_pagination.scss */
 .details_wrapper .text {
   display: block;
   font-size: 1.45em;
 }
-/* line 72, ../../src/scss/common/_pagination.scss */
+/* line 75, ../../src/scss/common/_pagination.scss */
 .details_wrapper .title {
   font-size: 0.875em;
   text-decoration: underline;
 }
 
-/* line 78, ../../src/scss/common/_pagination.scss */
+/* line 81, ../../src/scss/common/_pagination.scss */
 .js-pager__items {
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
   margin: 3em 0 1em;
   text-align: center;
 }
-/* line 82, ../../src/scss/common/_pagination.scss */
+/* line 85, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item {
   display: inline-block;
   text-align: center;
 }
-/* line 85, ../../src/scss/common/_pagination.scss */
+/* line 88, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item a {
   color: #007C85;
   display: block;
@@ -2623,19 +2651,19 @@ ul.breadcrumb--search li:first-child:after {
   text-decoration: none;
   width: 2.5em;
 }
-/* line 92, ../../src/scss/common/_pagination.scss */
+/* line 95, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item a:focus, .js-pager__items .pager__item a:hover {
   background: #007C85;
   border-radius: 50%;
   color: #fff;
 }
-/* line 99, ../../src/scss/common/_pagination.scss */
+/* line 102, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item.is-active a {
   background: #007C85;
   border-radius: 50%;
   color: #fff;
 }
-/* line 109, ../../src/scss/common/_pagination.scss */
+/* line 112, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item.pager__item--next a, .js-pager__items .pager__item.pager__item--last a, .js-pager__items .pager__item.pager__item--previous a, .js-pager__items .pager__item.pager__item--first a {
   color: #007C85;
   display: block;
@@ -2644,7 +2672,7 @@ ul.breadcrumb--search li:first-child:after {
   text-decoration: none;
   width: auto;
 }
-/* line 116, ../../src/scss/common/_pagination.scss */
+/* line 119, ../../src/scss/common/_pagination.scss */
 .js-pager__items .pager__item.pager__item--next a:focus, .js-pager__items .pager__item.pager__item--next a:hover, .js-pager__items .pager__item.pager__item--last a:focus, .js-pager__items .pager__item.pager__item--last a:hover, .js-pager__items .pager__item.pager__item--previous a:focus, .js-pager__items .pager__item.pager__item--previous a:hover, .js-pager__items .pager__item.pager__item--first a:focus, .js-pager__items .pager__item.pager__item--first a:hover {
   background: #007C85;
   border-radius: 0;
@@ -2652,23 +2680,26 @@ ul.breadcrumb--search li:first-child:after {
 }
 
 @media (min-width: 768px) {
-  /* line 126, ../../src/scss/common/_pagination.scss */
-  .previous, .next {
-    float: left;
-    width: 50%;
+  /* line 130, ../../src/scss/common/_pagination.scss */
+  .details_wrapper {
+    padding: 1em;
   }
-}
-@media (min-width: 992px) {
-  /* line 132, ../../src/scss/common/_pagination.scss */
+
+  /* line 133, ../../src/scss/common/_pagination.scss */
   .previous, .next {
     float: left;
     width: 50%;
   }
 
-  /* line 136, ../../src/scss/common/_pagination.scss */
+  /* line 137, ../../src/scss/common/_pagination.scss */
   .next {
     float: right;
-    text-align: right;
+  }
+}
+@media (min-width: 992px) {
+  /* line 143, ../../src/scss/common/_pagination.scss */
+  .previous, .next {
+    width: 50%;
   }
 }
 /* line 1, ../../src/scss/common/_print-download-email.scss */
@@ -2799,87 +2830,165 @@ ul.breadcrumb--search li:first-child:after {
 
 /* line 1, ../../src/scss/common/_search.scss */
 #block-exposedformsolr-search-contentpage-1-3 {
+  display: none;
   margin-top: 2em;
   margin-bottom: 1em;
 }
 
-/* line 5, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1, #search-form {
+/* line 7, ../../src/scss/common/_search.scss */
+#block-searchblock {
+  clear: left;
+  display: block;
+  margin-top: .25em;
+  margin-bottom: 1em;
+}
+
+/* line 19, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1, #views-exposed-form-search-content-page-1, #block-exposedformsearch-contentpage-1, #search-form {
   margin-top: 0.25em;
 }
-/* line 7, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-group, #views-exposed-form-search-content-page-1 .form-group, #search-form .form-group {
+/* line 21, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-group, #views-exposed-form-search-content-page-1 .form-group, #block-exposedformsearch-contentpage-1 .form-group, #search-form .form-group {
   float: left;
+  overflow: hidden;
 }
-/* line 10, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item, #search-form .form-item {
+/* line 25, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-item, #views-exposed-form-search-content-page-1 .form-item, #block-exposedformsearch-contentpage-1 .form-item, #search-form .form-item {
   width: 85%;
 }
-/* line 13, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions, #search-form .form-actions {
+/* line 28, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-actions, #views-exposed-form-search-content-page-1 .form-actions, #block-exposedformsearch-contentpage-1 .form-actions, #search-form .form-actions {
   width: 15%;
 }
-/* line 16, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 input, #views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 input, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content, #search-form input, #search-form #edit-submit-solr-search-content, #search-form #edit-submit-search-content {
+/* line 31, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form-type-select, #views-exposed-form-search-content-page-1 .form-type-select, #block-exposedformsearch-contentpage-1 .form-type-select, #search-form .form-type-select {
+  display: none;
+}
+/* line 34, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 input,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search-content,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search, #views-exposed-form-search-content-page-1 input,
+#views-exposed-form-search-content-page-1 #edit-submit-solr-search-content,
+#views-exposed-form-search-content-page-1 #edit-submit-search-content,
+#views-exposed-form-search-content-page-1 #edit-submit-search, #block-exposedformsearch-contentpage-1 input,
+#block-exposedformsearch-contentpage-1 #edit-submit-solr-search-content,
+#block-exposedformsearch-contentpage-1 #edit-submit-search-content,
+#block-exposedformsearch-contentpage-1 #edit-submit-search, #search-form input,
+#search-form #edit-submit-solr-search-content,
+#search-form #edit-submit-search-content,
+#search-form #edit-submit-search {
   border: none;
   height: 2.25em;
   padding: .25em .5em;
   width: 100%;
 }
-/* line 22, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1 #edit-submit, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 #edit-submit-search-content, #views-exposed-form-search-content-page-1 #edit-submit, #search-form #edit-submit-solr-search-content, #search-form #edit-submit-search-content, #search-form #edit-submit {
+/* line 43, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search-content,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content,
+#views-exposed-form-search-content-page-1 #edit-submit-search-content,
+#views-exposed-form-search-content-page-1 #edit-submit-search, #block-exposedformsearch-contentpage-1 #edit-submit-solr-search-content,
+#block-exposedformsearch-contentpage-1 #edit-submit-search-content,
+#block-exposedformsearch-contentpage-1 #edit-submit-search, #search-form #edit-submit-solr-search-content,
+#search-form #edit-submit-search-content,
+#search-form #edit-submit-search {
   background-color: #666;
   color: #fff;
   margin: 0;
 }
-/* line 26, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-solr-search-content-page-1 #edit-submit-search-content img, #views-exposed-form-solr-search-content-page-1 #edit-submit img, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content img, #views-exposed-form-search-content-page-1 #edit-submit-search-content img, #views-exposed-form-search-content-page-1 #edit-submit img, #search-form #edit-submit-solr-search-content img, #search-form #edit-submit-search-content img, #search-form #edit-submit img {
+/* line 49, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 #edit-submit-solr-search-content img,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search-content img,
+#views-exposed-form-solr-search-content-page-1 #edit-submit-search img, #views-exposed-form-search-content-page-1 #edit-submit-solr-search-content img,
+#views-exposed-form-search-content-page-1 #edit-submit-search-content img,
+#views-exposed-form-search-content-page-1 #edit-submit-search img, #block-exposedformsearch-contentpage-1 #edit-submit-solr-search-content img,
+#block-exposedformsearch-contentpage-1 #edit-submit-search-content img,
+#block-exposedformsearch-contentpage-1 #edit-submit-search img, #search-form #edit-submit-solr-search-content img,
+#search-form #edit-submit-search-content img,
+#search-form #edit-submit-search img {
   height: 1em;
   margin-top: .25em;
 }
-/* line 31, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys, #views-exposed-form-search-content-page-1 .form--inline, #views-exposed-form-search-content-page-1 .form-item-edit-keys, #search-form .form--inline, #search-form .form-item-edit-keys {
+/* line 54, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys, #views-exposed-form-search-content-page-1 .form--inline, #views-exposed-form-search-content-page-1 .form-item-edit-keys, #block-exposedformsearch-contentpage-1 .form--inline, #block-exposedformsearch-contentpage-1 .form-item-edit-keys, #search-form .form--inline, #search-form .form-item-edit-keys {
   border: 1px solid #cacaca;
   border-radius: 2px;
   display: block;
 }
-/* line 35, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline.active, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys.active, #views-exposed-form-search-content-page-1 .form--inline.active, #views-exposed-form-search-content-page-1 .form-item-edit-keys.active, #search-form .form--inline.active, #search-form .form-item-edit-keys.active {
+/* line 58, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline.active, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys.active, #views-exposed-form-search-content-page-1 .form--inline.active, #views-exposed-form-search-content-page-1 .form-item-edit-keys.active, #block-exposedformsearch-contentpage-1 .form--inline.active, #block-exposedformsearch-contentpage-1 .form-item-edit-keys.active, #search-form .form--inline.active, #search-form .form-item-edit-keys.active {
   border-color: #008C95;
 }
-/* line 37, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form-item-edit-keys.active #edit-submit-solr-search-content, #search-form .form--inline.active #edit-submit-solr-search-content, #search-form .form-item-edit-keys.active #edit-submit-solr-search-content {
+/* line 60, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1 .form-item-edit-keys.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form--inline.active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1 .form-item-edit-keys.active #edit-submit-solr-search-content, #block-exposedformsearch-contentpage-1 .form--inline.active #edit-submit-solr-search-content, #block-exposedformsearch-contentpage-1 .form-item-edit-keys.active #edit-submit-solr-search-content, #search-form .form--inline.active #edit-submit-solr-search-content, #search-form .form-item-edit-keys.active #edit-submit-solr-search-content {
   background-color: #008C95;
 }
-/* line 43, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:active #edit-submit-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:focus #edit-submit-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-solr-search-content, #views-exposed-form-search-content-page-1:hover #edit-submit-search-content, #search-form:active #edit-submit-solr-search-content, #search-form:active #edit-submit-search-content, #search-form:focus #edit-submit-solr-search-content, #search-form:focus #edit-submit-search-content, #search-form:hover #edit-submit-solr-search-content, #search-form:hover #edit-submit-search-content {
+/* line 66, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1:active #edit-submit-solr-search-content,
+#views-exposed-form-solr-search-content-page-1:active #edit-submit-search-content,
+#views-exposed-form-solr-search-content-page-1:active #edit-submit-search, #views-exposed-form-solr-search-content-page-1:focus #edit-submit-solr-search-content,
+#views-exposed-form-solr-search-content-page-1:focus #edit-submit-search-content,
+#views-exposed-form-solr-search-content-page-1:focus #edit-submit-search, #views-exposed-form-solr-search-content-page-1:hover #edit-submit-solr-search-content,
+#views-exposed-form-solr-search-content-page-1:hover #edit-submit-search-content,
+#views-exposed-form-solr-search-content-page-1:hover #edit-submit-search, #views-exposed-form-search-content-page-1:active #edit-submit-solr-search-content,
+#views-exposed-form-search-content-page-1:active #edit-submit-search-content,
+#views-exposed-form-search-content-page-1:active #edit-submit-search, #views-exposed-form-search-content-page-1:focus #edit-submit-solr-search-content,
+#views-exposed-form-search-content-page-1:focus #edit-submit-search-content,
+#views-exposed-form-search-content-page-1:focus #edit-submit-search, #views-exposed-form-search-content-page-1:hover #edit-submit-solr-search-content,
+#views-exposed-form-search-content-page-1:hover #edit-submit-search-content,
+#views-exposed-form-search-content-page-1:hover #edit-submit-search, #block-exposedformsearch-contentpage-1:active #edit-submit-solr-search-content,
+#block-exposedformsearch-contentpage-1:active #edit-submit-search-content,
+#block-exposedformsearch-contentpage-1:active #edit-submit-search, #block-exposedformsearch-contentpage-1:focus #edit-submit-solr-search-content,
+#block-exposedformsearch-contentpage-1:focus #edit-submit-search-content,
+#block-exposedformsearch-contentpage-1:focus #edit-submit-search, #block-exposedformsearch-contentpage-1:hover #edit-submit-solr-search-content,
+#block-exposedformsearch-contentpage-1:hover #edit-submit-search-content,
+#block-exposedformsearch-contentpage-1:hover #edit-submit-search, #search-form:active #edit-submit-solr-search-content,
+#search-form:active #edit-submit-search-content,
+#search-form:active #edit-submit-search, #search-form:focus #edit-submit-solr-search-content,
+#search-form:focus #edit-submit-search-content,
+#search-form:focus #edit-submit-search, #search-form:hover #edit-submit-solr-search-content,
+#search-form:hover #edit-submit-search-content,
+#search-form:hover #edit-submit-search {
   background-color: #008C95;
 }
-/* line 46, ../../src/scss/common/_search.scss */
-#views-exposed-form-solr-search-content-page-1:active .form--inline, #views-exposed-form-solr-search-content-page-1:focus .form--inline, #views-exposed-form-solr-search-content-page-1:hover .form--inline, #views-exposed-form-search-content-page-1:active .form--inline, #views-exposed-form-search-content-page-1:focus .form--inline, #views-exposed-form-search-content-page-1:hover .form--inline, #search-form:active .form--inline, #search-form:focus .form--inline, #search-form:hover .form--inline {
+/* line 71, ../../src/scss/common/_search.scss */
+#views-exposed-form-solr-search-content-page-1:active .form--inline, #views-exposed-form-solr-search-content-page-1:focus .form--inline, #views-exposed-form-solr-search-content-page-1:hover .form--inline, #views-exposed-form-search-content-page-1:active .form--inline, #views-exposed-form-search-content-page-1:focus .form--inline, #views-exposed-form-search-content-page-1:hover .form--inline, #block-exposedformsearch-contentpage-1:active .form--inline, #block-exposedformsearch-contentpage-1:focus .form--inline, #block-exposedformsearch-contentpage-1:hover .form--inline, #search-form:active .form--inline, #search-form:focus .form--inline, #search-form:hover .form--inline {
   border-color: #008C95;
 }
 
-/* line 72, ../../src/scss/common/_search.scss */
+/* line 76, ../../src/scss/common/_search.scss */
+#search-form {
+  display: table;
+}
+
+/* line 82, ../../src/scss/common/_search.scss */
+.path-search #views-exposed-form-solr-search-content-page-1 .form-type-select,
+.path-search #views-exposed-form-search-content-page-1 .form-type-select {
+  display: block;
+}
+
+/* line 112, ../../src/scss/common/_search.scss */
 .search-text {
   display: none;
 }
 
 @media (min-width: 992px) {
-  /* line 78, ../../src/scss/common/_search.scss */
+  /* line 118, ../../src/scss/common/_search.scss */
+  #block-searchblock {
+    display: none;
+  }
+
+  /* line 121, ../../src/scss/common/_search.scss */
   #block-exposedformsolr-search-contentpage-1-3 {
+    display: block;
     margin-top: 0em;
     margin-bottom: 0em;
   }
 
-  /* line 83, ../../src/scss/common/_search.scss */
-  #header-main #views-exposed-form-solr-search-content-page-1 {
+  /* line 127, ../../src/scss/common/_search.scss */
+  #header-front-page #views-exposed-form-solr-search-content-page-1, #header-main #views-exposed-form-solr-search-content-page-1 {
     float: right;
-  }
-
-  /* line 88, ../../src/scss/common/_search.scss */
-  #header-front-page #views-exposed-form-solr-search-content-page-1 {
-    float: left;
   }
 }
 /* line 1, ../../src/scss/common/_social-share.scss */
@@ -2995,9 +3104,15 @@ ul.breadcrumb--search li:first-child:after {
 /* line 16, ../../src/scss/structures/_header.scss */
 #header-main .region-branding-bar {
   padding-top: 0.75em;
-  padding-bottom: 0.75em;
+  padding-bottom: 0.25em;
 }
 
+@media (min-width: 992px) {
+  /* line 24, ../../src/scss/structures/_header.scss */
+  #header-main .region-branding-bar {
+    padding-bottom: 0.75em;
+  }
+}
 /* line 1, ../../src/scss/structures/_landing-page.scss */
 #block-landingpagesblock, #block-landingpagebottomblock {
   clear: left;
@@ -3047,8 +3162,8 @@ ul.breadcrumb--search li:first-child:after {
 #block-landingpagesblock article .article__wrapper h2:before, #block-landingpagesblock article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal #block-landingpagesblock article .article__wrapper .title:before, .block-home-page-block article .article__wrapper h2:before, .block-home-page-block article .article__wrapper .print-download-email .modal .title:before, .print-download-email .modal .block-home-page-block article .article__wrapper .title:before {
   display: none;
 }
-/* line 44, ../../src/scss/structures/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
+/* line 45, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__content, .block-home-page-block article .article__content {
   bottom: 1em;
   color: #000;
   font-size: 85%;
@@ -3057,28 +3172,52 @@ ul.breadcrumb--search li:first-child:after {
   overflow: hidden;
   width: 100%;
 }
-/* line 52, ../../src/scss/structures/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper .article__content p, .block-home-page-block article .article__wrapper .article__content p {
+/* line 53, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__content p, .block-home-page-block article .article__content p {
   margin-bottom: 0;
 }
 
 @media (min-width: 768px) {
   /* line 63, ../../src/scss/structures/_landing-page.scss */
-  #block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
+  .block-home-page-block article .article__wrapper {
     min-height: 12em;
   }
-}
-@media (min-width: 992px) {
-  /* line 74, ../../src/scss/structures/_landing-page.scss */
-  #block-landingpagesblock article .article__wrapper .article__content, .block-home-page-block article .article__wrapper .article__content {
+  /* line 66, ../../src/scss/structures/_landing-page.scss */
+  .block-home-page-block article .article__content {
+    max-height: 9em;
+  }
+
+  /* line 73, ../../src/scss/structures/_landing-page.scss */
+  #block-landingpagesblock article .article__wrapper {
+    min-height: 12em;
+  }
+
+  /* line 80, ../../src/scss/structures/_landing-page.scss */
+  #block-landingpagesblock article .article__content, .block-home-page-block article .article__content {
     padding: 0 1.5em;
     position: absolute;
   }
 }
-/* Region / container styles */
-/* line 2, ../../src/scss/structures/_navigation.scss */
-.region-navigation-collapsible {
+@media (min-width: 992px) {
+  /* line 91, ../../src/scss/structures/_landing-page.scss */
+  .block-home-page-block article .article__wrapper {
+    min-height: 16em;
+  }
+  /* line 94, ../../src/scss/structures/_landing-page.scss */
+  .block-home-page-block article .article__content {
+    max-height: 9em;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 104, ../../src/scss/structures/_landing-page.scss */
+  .block-home-page-block article .article__wrapper {
+    min-height: 13em;
+  }
+}
+/* line 1, ../../src/scss/structures/_navigation.scss */
+#header-main #block-acas-main-menu {
   background-color: #F7F7F7;
+  padding: 0 0.5em;
 }
 
 /* Menu icon styles */
@@ -3088,19 +3227,41 @@ ul.breadcrumb--search li:first-child:after {
   font-size: 2em;
   float: right;
   text-decoration: none;
+  padding: 0 .25em;
+  position: relative;
+}
+/* line 14, ../../src/scss/structures/_navigation.scss */
+.menu-primary__icon:hover, .menu-primary__icon:focus {
+  color: #000;
+}
+/* line 17, ../../src/scss/structures/_navigation.scss */
+.menu-primary__icon.menu-primary__icon--active {
+  background: #F7F7F7;
+  color: #008C95;
+}
+/* line 20, ../../src/scss/structures/_navigation.scss */
+.menu-primary__icon.menu-primary__icon--active:after {
+  content: "";
+  background-color: #F7F7F7;
+  display: block;
+  height: 1em;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
 }
 
 /* Menu List Styles */
-/* line 15, ../../src/scss/structures/_navigation.scss */
+/* line 35, ../../src/scss/structures/_navigation.scss */
 .menu-primary {
   display: none;
 }
-/* line 17, ../../src/scss/structures/_navigation.scss */
+/* line 37, ../../src/scss/structures/_navigation.scss */
 .menu-primary.menu-primary--active {
   display: block;
 }
 
-/* line 22, ../../src/scss/structures/_navigation.scss */
+/* line 42, ../../src/scss/structures/_navigation.scss */
 .menu-secondary {
   display: none;
   left: 0;
@@ -3111,23 +3272,23 @@ ul.breadcrumb--search li:first-child:after {
 }
 
 /* Menu Item Styles */
-/* line 32, ../../src/scss/structures/_navigation.scss */
+/* line 52, ../../src/scss/structures/_navigation.scss */
 .menu-primary__item {
   padding: .5em 0;
   position: relative;
 }
 
-/* line 37, ../../src/scss/structures/_navigation.scss */
+/* line 57, ../../src/scss/structures/_navigation.scss */
 .menu-secondary__title {
   display: none;
 }
 
-/* line 41, ../../src/scss/structures/_navigation.scss */
+/* line 61, ../../src/scss/structures/_navigation.scss */
 .menu-secondary__item {
   display: block;
 }
 
-/* line 45, ../../src/scss/structures/_navigation.scss */
+/* line 65, ../../src/scss/structures/_navigation.scss */
 .menu-secondary__item,
 .menu-secondary__title {
   padding: 0.5em 1em;
@@ -3135,34 +3296,35 @@ ul.breadcrumb--search li:first-child:after {
 }
 
 /* Menu Link Styles */
-/* line 52, ../../src/scss/structures/_navigation.scss */
+/* line 72, ../../src/scss/structures/_navigation.scss */
 .menu-primary__link,
 .menu-secondary__link {
   color: #007C85;
   text-decoration: none;
 }
 
-/* line 58, ../../src/scss/structures/_navigation.scss */
+/* line 78, ../../src/scss/structures/_navigation.scss */
 .menu-primary__link {
   display: block;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
   position: relative;
 }
 
-/* line 64, ../../src/scss/structures/_navigation.scss */
+/* line 84, ../../src/scss/structures/_navigation.scss */
 .menu-secondary__link {
   color: #000;
   font-size: 0.85em;
   line-height: 1;
   text-decoration: none;
 }
-/* line 69, ../../src/scss/structures/_navigation.scss */
+/* line 89, ../../src/scss/structures/_navigation.scss */
 .menu-secondary__link:hover, .menu-secondary__link:focus {
+  color: #000;
   text-decoration: underline;
 }
 
 /* Interactions and Dropdowns */
-/* line 78, ../../src/scss/structures/_navigation.scss */
+/* line 99, ../../src/scss/structures/_navigation.scss */
 .menu-primary__item.menu-primary__item--has-dropdown .menu-primary__link:after {
   content: "";
   background-image: url(../images/icons/icon-chevron-teal-right.svg);
@@ -3176,39 +3338,56 @@ ul.breadcrumb--search li:first-child:after {
   display: inline-block;
   width: 0.5em;
 }
-/* line 94, ../../src/scss/structures/_navigation.scss */
+/* line 115, ../../src/scss/structures/_navigation.scss */
 .menu-primary__item.menu-primary__item--active .menu-secondary {
   display: block;
 }
-/* line 98, ../../src/scss/structures/_navigation.scss */
+/* line 119, ../../src/scss/structures/_navigation.scss */
 .menu-primary__item.menu-primary__item--active .menu-primary__link:after {
   background-image: url(../images/icons/icon-chevron-teal-down.svg);
   width: 1em;
 }
 
+@media (min-width: 768px) {
+  /* Menu List Styles */
+  /* line 130, ../../src/scss/structures/_navigation.scss */
+  .menu-primary.menu-primary--active {
+    padding: 1em;
+  }
+}
 /* Medium Screens and Up */
 @media (min-width: 992px) {
+  /* line 137, ../../src/scss/structures/_navigation.scss */
+  .region-navigation-collapsible {
+    background-color: #F7F7F7;
+  }
+
+  /* line 140, ../../src/scss/structures/_navigation.scss */
+  #header-main #block-acas-main-menu {
+    padding: 0;
+  }
+
   /* Region / container styles */
-  /* line 110, ../../src/scss/structures/_navigation.scss */
-  #block-acas-main-menu {
+  /* line 144, ../../src/scss/structures/_navigation.scss */
+  #block-acas-main-menu, #mainnavigation {
     margin-left: -15px;
     margin-right: -15px;
   }
 
   /* Menu icon styles */
-  /* line 116, ../../src/scss/structures/_navigation.scss */
+  /* line 150, ../../src/scss/structures/_navigation.scss */
   .menu-primary__icon {
     display: none;
   }
 
   /* Menu styles */
-  /* line 121, ../../src/scss/structures/_navigation.scss */
+  /* line 155, ../../src/scss/structures/_navigation.scss */
   .menu-primary {
     display: block;
     width: 100%;
   }
 
-  /* line 126, ../../src/scss/structures/_navigation.scss */
+  /* line 160, ../../src/scss/structures/_navigation.scss */
   .menu-secondary {
     background: #fff;
     border-top: 0.5em solid #007C85;
@@ -3221,11 +3400,11 @@ ul.breadcrumb--search li:first-child:after {
     -moz-box-shadow: 2px 2px 16px 0px #cccccc;
     box-shadow: 2px 2px 16px 0px #cccccc;
   }
-  /* line 137, ../../src/scss/structures/_navigation.scss */
+  /* line 171, ../../src/scss/structures/_navigation.scss */
   .menu-secondary h3 {
     margin: 0;
   }
-  /* line 140, ../../src/scss/structures/_navigation.scss */
+  /* line 174, ../../src/scss/structures/_navigation.scss */
   .menu-secondary:before {
     content: "";
     background-color: transparent;
@@ -3235,7 +3414,7 @@ ul.breadcrumb--search li:first-child:after {
     top: -1.5em;
     width: 100%;
   }
-  /* line 149, ../../src/scss/structures/_navigation.scss */
+  /* line 183, ../../src/scss/structures/_navigation.scss */
   .menu-secondary:after {
     content: "";
     border-bottom: 1em solid #007C85;
@@ -3247,41 +3426,41 @@ ul.breadcrumb--search li:first-child:after {
     left: calc(50% - 1em);
     margin: auto;
     position: absolute;
-    top: -2.25em;
+    top: -2em;
     width: 0px;
   }
 
-  /* line 165, ../../src/scss/structures/_navigation.scss */
+  /* line 199, ../../src/scss/structures/_navigation.scss */
   .menu-secondary__title {
     display: block;
   }
 
   /* Menu item styles */
-  /* line 170, ../../src/scss/structures/_navigation.scss */
+  /* line 204, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item {
     float: left;
     padding: 0;
     width: 25%;
   }
 
-  /* line 177, ../../src/scss/structures/_navigation.scss */
+  /* line 211, ../../src/scss/structures/_navigation.scss */
   .menu-secondary__item:hover, .menu-secondary__item:focus {
     background: #F7F7F7;
   }
 
   /* Menu link styles */
-  /* line 183, ../../src/scss/structures/_navigation.scss */
+  /* line 217, ../../src/scss/structures/_navigation.scss */
   .menu-primary__link {
     padding: 0.5em 15px;
   }
 
   /* Interactions and Dropdowns */
-  /* line 190, ../../src/scss/structures/_navigation.scss */
+  /* line 224, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item:hover .menu-primary__link, .menu-primary__item:focus .menu-primary__link {
     background: #007C85;
     color: #fff;
   }
-  /* line 193, ../../src/scss/structures/_navigation.scss */
+  /* line 227, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item:hover .menu-primary__link:before, .menu-primary__item:focus .menu-primary__link:before {
     content: "";
     background: #007C85;
@@ -3293,38 +3472,38 @@ ul.breadcrumb--search li:first-child:after {
     width: 100%;
   }
 
-  /* line 216, ../../src/scss/structures/_navigation.scss */
+  /* line 250, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item.menu-primary__item--has-dropdown .menu-primary__link:after {
     background-image: url(../images/icons/icon-chevron-teal-down.svg);
     position: absolute;
     right: 1em;
     top: .75em;
   }
-  /* line 230, ../../src/scss/structures/_navigation.scss */
+  /* line 264, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item.menu-primary__item--has-dropdown .menu-primary__link:hover:after, .menu-primary__item.menu-primary__item--has-dropdown .menu-primary__link:focus:after {
     background-image: url(../images/icons/icon-chevron-white-down.svg);
   }
-  /* line 237, ../../src/scss/structures/_navigation.scss */
+  /* line 271, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item.menu-primary__item--has-dropdown[aria-expanded="false"] .menu-secondary {
     display: none;
   }
-  /* line 249, ../../src/scss/structures/_navigation.scss */
+  /* line 283, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item.menu-primary__item--has-dropdown[aria-expanded="true"] .menu-primary__link:after, .menu-primary__item.menu-primary__item--has-dropdown:hover .menu-primary__link:after, .menu-primary__item.menu-primary__item--has-dropdown:focus .menu-primary__link:after {
     background-image: url(../images/icons/icon-chevron-white-down.svg);
   }
 }
 @media (min-width: 1200px) {
-  /* line 268, ../../src/scss/structures/_navigation.scss */
+  /* line 302, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item {
     margin: 0 3%;
     width: 22%;
   }
-  /* line 271, ../../src/scss/structures/_navigation.scss */
+  /* line 305, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item:first-child, .menu-primary__item:last-child {
     margin: 0;
   }
 
-  /* line 285, ../../src/scss/structures/_navigation.scss */
+  /* line 319, ../../src/scss/structures/_navigation.scss */
   .menu-primary__item.menu-primary__item--has-dropdown .menu-primary__link:after {
     display: inline-block;
     height: .5em;
@@ -3389,25 +3568,55 @@ ul.breadcrumb--search li:first-child:after {
 }
 /* line 51, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row {
-  margin: 1em 0;
   overflow: auto;
-  padding: 1em 0;
+  padding: 1em 0 1.5em;
 }
-/* line 55, ../../src/scss/structures/_search-result-listing.scss */
+/* line 54, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2, .view-solr-search-content .views-row .print-download-email .modal .title, .print-download-email .modal .view-solr-search-content .views-row .title {
-  border-left: none;
-  padding-left: 0;
+  margin-bottom: .75em;
   margin-top: 0;
+  padding-left: 0;
 }
-/* line 59, ../../src/scss/structures/_search-result-listing.scss */
+/* line 58, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row h2:before, .view-solr-search-content .views-row .print-download-email .modal .title:before, .print-download-email .modal .view-solr-search-content .views-row .title:before {
   display: none;
 }
-/* line 63, ../../src/scss/structures/_search-result-listing.scss */
+/* line 62, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .views-row.odd {
   background-color: #F7F7F7;
 }
 
+/* line 68, ../../src/scss/structures/_search-result-listing.scss */
+ul.breadcrumb--search {
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-top: .6em;
+}
+/* line 73, ../../src/scss/structures/_search-result-listing.scss */
+ul.breadcrumb--search li {
+  padding: 0;
+}
+/* line 75, ../../src/scss/structures/_search-result-listing.scss */
+ul.breadcrumb--search li:first-child {
+  display: none;
+}
+/* line 77, ../../src/scss/structures/_search-result-listing.scss */
+ul.breadcrumb--search li:first-child:after {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  /* line 86, ../../src/scss/structures/_search-result-listing.scss */
+  .view-solr-search-content .field--name-field-summary {
+    max-width: 75%;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 94, ../../src/scss/structures/_search-result-listing.scss */
+  .view-solr-search-content .field--name-field-summary {
+    max-width: 70%;
+  }
+}
 /* line 3, ../../src/scss/structures/_sitemap.scss */
 .sitemap .sitemap-box ul {
   padding-left: 0;

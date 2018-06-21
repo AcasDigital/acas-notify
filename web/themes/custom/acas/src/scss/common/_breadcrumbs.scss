@@ -1,6 +1,7 @@
 #block-acas-breadcrumbs {
   @extend %list-no-format;
 }
+
 ul.breadcrumb {
   font-size: 0.845em;
   padding: 1.5em 0 0;
@@ -33,19 +34,8 @@ ul.breadcrumb {
   }
 }
 
-ul.breadcrumb--search {
-  @extend .breadcrumb;
-  margin-left: 0;
-  margin-bottom: 0;
-  li {
-    padding: 0 1em 0 0;
-    a {
-      padding-right: 1em;
-    }
-    &:first-child {
-      &:after {
-        display: none;
-      }
-    }
+@if $compile-IE {
+  ul.breadcrumb {
+    display: none;
   }
 }

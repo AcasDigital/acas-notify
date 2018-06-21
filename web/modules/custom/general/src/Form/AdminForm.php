@@ -40,6 +40,13 @@ class AdminForm extends ConfigFormBase {
       '#description' => t('Emails will be sent to this address when a user completes the feedback form.'),
       '#size' => 100,
     );
+    $form['search_placeholder'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('search_placeholder') ?: 'Search beta website',
+      '#title' => t('Search placeholder'),
+      '#description' => t('Place holder for the Search form'),
+      '#size' => 100,
+    );
     $form['sync'] = array(
       '#type' => 'fieldset',
       '#title' => t('Production content sync'),
@@ -101,6 +108,7 @@ class AdminForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('feedback_email', $form_state->getValue('feedback_email'))
+    ->set('search_placeholder', $form_state->getValue('search_placeholder'))
     ->set('prod', $form_state->getValue('prod'))
     ->set('tables', $form_state->getValue('tables'))
     ->set('config', $form_state->getValue('config'))

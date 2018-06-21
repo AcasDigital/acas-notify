@@ -1,0 +1,5 @@
+#block-sitebranding img {
+  display: inline-block;
+  max-width: 10em;
+  vertical-align: text-top;
+}

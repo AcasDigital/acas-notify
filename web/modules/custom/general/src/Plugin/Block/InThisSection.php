@@ -18,12 +18,15 @@ class InThisSection extends BlockBase {
    */
   public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     $output = '';
     if ($node->hasField('field_taxonomy')) {
       $query = \Drupal::database()->select('taxonomy_index', 'ti');
       $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
       $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
-      $query->join('node__field_weight', 'w' , 'w.entity_id = ti.nid');
+      $query->leftJoin('node__field_weight', 'w' , 'w.entity_id = ti.nid');
       $query->fields('ti', array('nid'));
       $query->condition('ti.tid', $node->get('field_taxonomy')->target_id, '=');
       $query->condition('nfd.type', 'secondary_page', '=');

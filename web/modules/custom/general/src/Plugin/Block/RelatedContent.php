@@ -18,6 +18,9 @@ class RelatedContent extends BlockBase {
    */
   public function build() {
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
     $url = '';
     $parent = NULL;
     if ($node->hasField('field_taxonomy')) {

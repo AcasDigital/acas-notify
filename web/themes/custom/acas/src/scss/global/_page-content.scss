@@ -27,7 +27,12 @@ article {
   }
 }
 
-#block-homepageblock {
+#block-404footer {
+  @extend .col-xs-12;
+  @extend .col-md-7;
+}
+
+#block-homepageblock, #block-block-landingpagesblock {
   clear: left;
   overflow: auto;
   margin-bottom: 55px;
@@ -69,5 +74,28 @@ article {
   }
   #block-views-block-google-analytics-summary-block-1 {
     overflow: auto;
+  }
+}
+.content-moderation-entity-moderation-form {
+  width: 115%;
+  .entity-moderation-form {
+    margin-left: 0;
+    li {
+      margin-right: 1em;
+    }
+  }
+  #edit-submit {
+    position: relative;
+    top: -19px;
+  }
+  ul {
+    background: $gray-light;
+  }
+}
+.node-preview-container {
+  padding: 20px;
+  background: $gray-light;
+  .form-type-select {
+    float: right;
   }
 }
