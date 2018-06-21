@@ -388,6 +388,8 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['keys']['#attributes']['autocomplete'] = 'off';
     $form['keys']['#title'] = $config->get('search_placeholder');
     $form['keys']['#title_display'] = 'invisible';
+    $form['#attributes']['onsubmit'] = 'return viewsExposedSubmitForm(this);';
+    $form['#attached']['library'][] = 'general/views_exposed_form_submit';
     if (@$form['op']) {
       $form['#attached']['library'][] = 'general/views_exposed_form';
     }

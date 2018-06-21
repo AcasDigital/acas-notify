@@ -257,9 +257,13 @@ class GeneralController extends ControllerBase {
     if (strpos($result, '<?xml version="1.0"?>') !== FALSE) {
       $a = explode('<?xml version="1.0"?>', $result);
       $b = explode('<InvalidationBatch>', $a[1]);
-      $c = explode('<CallerReference>', $b[1]);
-      $data = str_replace('Path', 'div', $c[0]);
-      return array('#markup' => $output . '<h2>Invalidated paths</h2><div class="code">' . $data . '</div><br />');
+      if (count($b) > 1) {
+        $c = explode('<CallerReference>', $b[1]);
+        $data = str_replace('Path', 'div', $c[0]);
+        return array('#markup' => $output . '<h2>Invalidated paths</h2><div class="code">' . $data . '</div><br />');
+      }else{
+        return array('#markup' => $output . $result);
+      }
     }else{
       return array('#markup' => $output . $result);
     }

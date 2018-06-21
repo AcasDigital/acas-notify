@@ -95,3 +95,10 @@ views_exposed_form:
   dependencies:
     - core/jquery
     - core/drupal
+    
+views_exposed_form_submit:
+  js:
+    js/views_exposed_form_submit.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
