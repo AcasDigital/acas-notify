@@ -95,10 +95,12 @@ function acas_preprocess_block(&$variables) {
   }
   //if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
   if (@$variables['content']) {
-    if (!@$variables['content']['#markup']) {
-      $variables['no_display'] = TRUE;
-    }else{
-      $variables['no_display'] = FALSE;
+    if (isset($variables['content']['#markup'])) {
+      if (!$variables['content']['#markup']) {
+        $variables['no_display'] = TRUE;
+      }else{
+        $variables['no_display'] = FALSE;
+      }
     }
   }
   //}
