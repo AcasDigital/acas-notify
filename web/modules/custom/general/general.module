@@ -382,7 +382,7 @@ function general_form_header_search_alter(&$form, FormStateInterface $form_state
  */
 
 function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id == 'views_exposed_form') {
+  if ($form_id == 'views_exposed_form' && \Drupal::theme()->getActiveTheme()->getName() == 'acas') {
     $config = \Drupal::config('acas.settings');
     $form['keys']['#attributes']['placeholder'] = $config->get('search_placeholder');
     $form['keys']['#attributes']['autocomplete'] = 'off';

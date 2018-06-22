@@ -135,6 +135,9 @@ class GeneralController extends ControllerBase {
     $dompdf->loadHtml($html);
     $dompdf->render();
     $dompdf->stream(trim(general_taxonomy_path($node->getTitle())) . '.pdf');
+    return array(
+      '#markup' => '',
+    );
   }
   
   public function page_download($entity_id) {
@@ -153,6 +156,9 @@ class GeneralController extends ControllerBase {
     $dompdf->loadHtml($html);
     $dompdf->render();
     $dompdf->stream(trim(general_taxonomy_path($node->getTitle())) . '.pdf');
+    return array(
+      '#markup' => '',
+    );
   }
   
   public function sync_prod() {

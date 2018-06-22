@@ -141,6 +141,13 @@ function acas_preprocess_item_list(&$variables) {
 }
 
 function acas_preprocess_breadcrumb(&$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page' && _is_guide($node)) {
+    $variables['breadcrumb'][] = [
+      'text' => $node->getTitle(),
+      'url' => $node->toUrl()->toString(),
+    ];
+  }
   /*
   if (count($variables['links']) > 2) {
     unset($variables['links'][0]);

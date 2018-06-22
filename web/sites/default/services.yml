@@ -165,7 +165,8 @@ parameters:
     # Specify allowed request methods, specify ['*'] to allow all possible ones.
     allowedMethods: ['*']
     # Configure requests allowed from specific origins.
-    allowedOrigins: ['http://localhost/','http://localhost:3000','http://localhost:3001','http://localhost:3002','*']
+    # allowedOrigins: ['http://localhost/','http://localhost:3000','http://localhost:3001','http://localhost:3002','*']
+    allowedOrigins: ['http://acas-performance-dashboard.herokuapp.com']
     # Sets the Access-Control-Expose-Headers header.
     exposedHeaders: true
     # Sets the Access-Control-Max-Age header.
