@@ -399,6 +399,7 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }
   if ($form_id == 'user_login_form') {
     $form['#submit'][] = 'general_user_login_submit';
+    $form['#https'] = TRUE;
   }
   if ($form_id == 'sync_form') {
     $form['actions']['submit']['#value'] = 'Start syncronisation to Productioon';
