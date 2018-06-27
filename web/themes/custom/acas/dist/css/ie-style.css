@@ -3443,12 +3443,12 @@ ul.breadcrumb, ul.breadcrumb--search {
 
 /* Interactions and Dropdowns */
 /* line 224, ../../src/scss/structures/_navigation.scss */
-.menu-primary__item:hover .menu-primary__link, .menu-primary__item:focus .menu-primary__link {
+.menu-primary__item[aria-expanded="true"] .menu-primary__link, .menu-primary__item:hover .menu-primary__link, .menu-primary__item:focus .menu-primary__link {
   background: #007C85;
   color: #fff;
 }
 /* line 227, ../../src/scss/structures/_navigation.scss */
-.menu-primary__item:hover .menu-primary__link:before, .menu-primary__item:focus .menu-primary__link:before {
+.menu-primary__item[aria-expanded="true"] .menu-primary__link:before, .menu-primary__item:hover .menu-primary__link:before, .menu-primary__item:focus .menu-primary__link:before {
   content: "";
   background: #007C85;
   display: block;

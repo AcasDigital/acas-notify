@@ -407,9 +407,13 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'system_performance_settings') {
     $form['caching']['page_cache_maximum_age']['#options'][31557600] = '1 year (for CloudFront)';
   }
-  if (strpos($form_id, 'node_') !== FALSE && strpos($form_id, '_edit_form') !== FALSE) {
+  if (strpos($form_id, 'node_') !== FALSE && strpos($form_id, '_form') !== FALSE) {
     $form['moderation_state']['widget'][0]['state']['#default_value'] = 'draft';
     $form['field_summary']['widget'][0]['summary']['#description'] = t('The summary does not appear on the page. It is shown on Landing Pages and in the search results and is the meta-description tag (for Google etc.)');
+  }
+  if ($form_id == 'content_moderation_entity_moderation_form') {
+    $form['current']['#suffix'] = '<div id="close">X</div>';
+    $form['#attached']['library'][] = 'general/content_moderation';
   }
 }
 

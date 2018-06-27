@@ -76,19 +76,19 @@ class AdminForm extends ConfigFormBase {
     );
     $form['cloudfront']['id'] = array(
       '#type' => 'textfield',
-      '#default_value' => $cloudfront_config->get('id') ?: 'ER9FC5MXDG96X',
+      '#default_value' => $cloudfront_config->get('id') ?: '',
       '#title' => t('Distribution ID'),
       '#required' => TRUE,
     );
     $form['cloudfront']['key'] = array(
       '#type' => 'textfield',
-      '#default_value' => $cloudfront_config->get('key') ?: 'AKIAIKOTK75DYAYK7MUA',
+      '#default_value' => $cloudfront_config->get('key') ?: '',
       '#title' => t('AWS Key'),
       '#required' => TRUE,
     );
     $form['cloudfront']['secret'] = array(
       '#type' => 'textfield',
-      '#default_value' => $cloudfront_config->get('secret') ?: 'nxsvPvrGmJVyZIyl4BWpfSXPbTdhkZUfYjfkZ4ZU',
+      '#default_value' => $cloudfront_config->get('secret') ?: '',
       '#title' => t('AWS Secret'),
       '#required' => TRUE,
     );

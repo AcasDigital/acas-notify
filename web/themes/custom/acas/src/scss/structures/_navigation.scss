@@ -220,7 +220,7 @@
 
   /* Interactions and Dropdowns */
   .menu-primary__item {
-    &:hover, &:focus {
+    &[aria-expanded="true"], &:hover, &:focus {
       .menu-primary__link {
         background: $acas-teal-dark;
         color: $white;

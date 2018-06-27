@@ -102,3 +102,13 @@ views_exposed_form_submit:
   dependencies:
     - core/jquery
     - core/drupal
+    
+content_moderation:
+  css:
+    theme:
+      css/content_moderation.css: {}
+  js:
+    js/content_moderation.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

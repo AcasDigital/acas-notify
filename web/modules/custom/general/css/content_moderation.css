@@ -1,0 +1,10 @@
+.content-moderation-entity-moderation-form {
+  position: relative;
+}
+.content-moderation-entity-moderation-form #close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
