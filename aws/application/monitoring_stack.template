@@ -17,6 +17,15 @@ Parameters:
     Description: Enter the RDS Cluster name
     Type: String
     Default: 'uat-cluster'
+  pDiskAlarmThreshold:
+    Description: EC2 disk alarm threshold
+    Type: Number
+    Default: 80
+  pMemoryAlarmThreshold:
+    Description: EC2 memory alarm threshold
+    Type: Number
+    Default: 90
+
 
   # Alarm thresholds
   pRDSCommitLatencyAlarmThreshold:
@@ -114,6 +123,66 @@ Resources:
       Dimensions:
         - Name: DBClusterIdentifier
           Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  EC2MemoryThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - EC2-memory-threshold-alarm
+      AlarmDescription: >-
+        If the EC2 memory utilisation exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: System/Linux
+      MetricName: MemoryUtilization
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pMemoryAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: InstanceId
+          Value: i-09b1fe0e8cb84fc05
+      ComparisonOperator: GreaterThanThreshold
+
+  EC2DiskThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - EC2-disk-threshold-alarm
+      AlarmDescription: >-
+        If the EC2 disk utilisation exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: System/Linux
+      MetricName: DiskSpaceUtilization
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pDiskAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: InstanceId
+          Value: i-09b1fe0e8cb84fc05
+        - Name: Filesystem
+          Value: /dev/xvda1
+        - Name: MountPath
+          Value: /   
       ComparisonOperator: GreaterThanThreshold
 
   RDSCPUOverThreshold:
