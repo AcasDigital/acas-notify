@@ -1,0 +1,759 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Acas Advice Application Log Monitoring
+Parameters:
+  pAppName:
+    Type: String
+    Default: 'Advice'
+  pSnsAppStack:
+    Description: Enter the AppStack name which Exports the SNS Topics
+    Type: String
+    Default: 'ACAS-ops-alerts-pre-prod'
+
+  pLoadBalancerName:
+    Description: Enter your Application Load Balancer name.
+    Type: String
+    Default: 'Acas'
+  pRDSName:
+    Description: Enter the RDS Cluster name
+    Type: String
+    Default: 'uat-cluster'
+  pDiskAlarmThreshold:
+    Description: EC2 disk alarm threshold
+    Type: Number
+    Default: 80
+  pMemoryAlarmThreshold:
+    Description: EC2 memory alarm threshold
+    Type: Number
+    Default: 90
+
+
+  # Alarm thresholds
+  pRDSCommitLatencyAlarmThreshold:
+    Description: RDS Commit Latency Alarm Threshold
+    Type: Number
+    Default: '4000'
+  pRDSCPUAlarmThreshold:
+    Description: RDS CPU Alarm Threshold
+    Type: Number
+    Default: '75'
+  pRDSConnectionsAlarmThreshold:
+    Description: RDS Connections Alarm Threshold
+    Type: Number
+    Default: '50'
+  pRDSFreeLocalStorageAlarmThreshold:
+    Description: RDS Aurora Free Local Storage Alarm Threshold
+    Type: Number
+    Default: '5000000'
+  pRDSReplicaLagAlarmThreshold:
+    Description: RDS Aurora Bin Log Replication Alarm Threshold
+    Type: Number
+    Default: '20'
+  pRDSQueryLatencyAlarmThreshold:
+    Description: RDS Query Latency Alarm Threshold
+    Type: Number
+    Default: 10000
+  pRDSQueryRateAlarmThreshold:
+    Description: RDS Query Rate/Throughput Alarm Threshold
+    Type: Number
+    Default: 50
+
+  pALBUnhealthyAlarmThreshold:
+    Description: ALB Unhealthy Hosts Alarm Threshold. We only have a single instance, so we need to know when it stops responding.
+    Type: Number
+    Default: '0'
+  pALBRejectedAlarmThreshold:
+    Description: ALB Rejected Requests Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALBRequestCountAlarmThreshold:
+    Description: ALB Request per minute Alarm Threshold
+    Type: Number
+    Default: '100'
+  pALB5xxAlarmThreshold:
+    Description: ALB Originiating 5xx Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALBTarget5xxAlarmThreshold:
+    Description: ALB Target Originiating 5xx Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALB4xxAlarmThreshold:
+    Description: ALB Originiating 4xx Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALBTarget4xxAlarmThreshold:
+    Description: ALB Target Originiating 4xx Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALBTargetResponseTimeThreshold:
+    Description: ALB Target Response Time Alarm Threshold
+    Type: Number
+    Default: '10'
+  pALBTargetResponseTimeThresholdMaximum:
+    Description: ALB Target Response Time Alarm Threshold Maximum
+    Type: Number
+    Default: '60'
+
+Resources:
+
+# RDS alerting
+  RDSCommitLatencyOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-Commit-Latency-high-threshold-alarm
+      AlarmDescription: >-
+        If the RDS Commit Latency exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: AWS/RDS
+      MetricName: CommitLatency
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSCommitLatencyAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  EC2MemoryThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - EC2-memory-threshold-alarm
+      AlarmDescription: >-
+        If the EC2 memory utilisation exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: System/Linux
+      MetricName: MemoryUtilization
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pMemoryAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: InstanceId
+          Value: i-09b1fe0e8cb84fc05
+      ComparisonOperator: GreaterThanThreshold
+
+  EC2DiskThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - EC2-disk-threshold-alarm
+      AlarmDescription: >-
+        If the EC2 disk utilisation exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: System/Linux
+      MetricName: DiskSpaceUtilization
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pDiskAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: InstanceId
+          Value: i-09b1fe0e8cb84fc05
+        - Name: Filesystem
+          Value: /dev/xvda1
+        - Name: MountPath
+          Value: /   
+      ComparisonOperator: GreaterThanThreshold
+
+  RDSCPUOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-CPU-high-threshold-alarm
+      AlarmDescription: >-
+        If the RDS-CPU exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: AWS/RDS
+      MetricName: CPUUtilization
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSCPUAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  RDSConnectionsOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-Connections-high-threshold-alarm
+      AlarmDescription: >-
+        If the RDS Connections exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: AWS/RDS
+      MetricName: DatabaseConnections
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSConnectionsAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  RDSLocalStorageUnderThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-Free-Local-Storage-low-threshold-alarm
+      AlarmDescription: >-
+        If the RDS Free Local Storage falls below the predefined threshold, this alarm will trigger.
+        Please investigate with AWS.
+      Namespace: AWS/RDS
+      MetricName: FreeLocalStorage
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSFreeLocalStorageAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: LessThanThreshold
+
+  RDSQueryLatencyOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-DML-Latency-high-threshold-alarm
+      AlarmDescription: >-
+        If the RDS DML (select, insert, update etc SQL statements) exceeds the predefined threshold, this alarm will trigger.
+        Please investigate.
+      Namespace: AWS/RDS
+      MetricName: DMLLatency
+      ExtendedStatistic: p99
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSQueryLatencyAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  RDSQueryRateOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-Query-Rate-threshold-alarm
+      AlarmDescription: >-
+        If the RDS Query Throughput exceeds the predefined threshold, this alarm will trigger.
+        Please investigate. We are not expecting this level of load on the service.
+      Namespace: AWS/RDS
+      MetricName: Queries
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSQueryRateAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+  RDSReplicationOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - RDS-Replica-Lag-threshold-alarm
+      AlarmDescription: >-
+        If the RDS Replication Lag exceeds the predefined threshold, this alarm will trigger.
+        Please investigate with AWS.
+      Namespace: AWS/RDS
+      MetricName: AuroraBinlogReplicaLag
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pRDSReplicaLagAlarmThreshold
+      TreatMissingData: breaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: DBClusterIdentifier
+          Value: !Ref pRDSName
+      ComparisonOperator: GreaterThanThreshold
+
+# TODO add EC2/ASG alarms
+
+# Application Load Balancer Alerting
+  TargetResponseTime:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-target-response-time-alarm
+      AlarmDescription: >-
+        The time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received
+      Namespace: AWS/ApplicationELB
+      MetricName: TargetResponseTime
+      ExtendedStatistic: p99
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBTargetResponseTimeThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancerName
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  TargetResponseTimeMaximum:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-target-response-time-alarm-maximum
+      AlarmDescription: >-
+        The time elapsed, in seconds, after the request leaves the load balancer until a response from the target is received. Triggered if response is longer than 60s.
+      Namespace: AWS/ApplicationELB
+      MetricName: TargetResponseTime
+      Statistic: Maximum
+      Period: '60'
+      EvaluationPeriods: '1'
+      Threshold: !Ref pALBTargetResponseTimeThresholdMaximum
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancerName
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  RequestCountOverThreshold:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-request-count-alarm
+      AlarmDescription: >-
+        The number of requests per minute hitting the ALB
+      Namespace: AWS/ApplicationELB
+      MetricName: RequestCount
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBRequestCountAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancerName
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  UnHealthyHosts:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-unhealthy-hosts-alarm
+      AlarmDescription: >-
+        The unhealthy hosts alarm triggers if your load balancer recognises there is an unhealthy host and has been there for over 15 minutes.
+      Namespace: AWS/ApplicationELB
+      MetricName: UnHealthyHostCount
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBUnhealthyAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancerName
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  RejectedConnectionCount:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-rejected-connection-count-alarm
+      AlarmDescription: >-
+        There is no surge queue on ALB's. Alert triggers in ALB rejects too many requests, usually due to backend being busy.
+      Namespace: AWS/ApplicationELB
+      MetricName: RejectedConnectionCount
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBRejectedAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancerName
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  http5xxError:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - http-5xx-error-alarm
+      AlarmDescription: >-
+        This alarm will trigger if we receive 4 5XX http alerts in a 5 minute period.
+      Namespace: AWS/ApplicationELB
+      MetricName: HTTPCode_Target_5XX_Count
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBTarget5xxAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancer
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  ApplicationELB5xxError:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-5xx-error-alarm
+      AlarmDescription: >-
+        This alarm will trigger if we receive 4 5XX elb alerts in a 5 minute period.
+      Namespace: AWS/ApplicationELB
+      MetricName: HTTPCode_ELB_5XX_Count
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALB5xxAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancer
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  http4xxError:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - http-4xx-error-alarm
+      AlarmDescription: >-
+        This alarm will trigger if we receive 4 4XX http alerts in a 5 minute period.
+      Namespace: AWS/ApplicationELB
+      MetricName: HTTPCode_Target_4XX_Count
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALBTarget4xxAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancer
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+  ApplicationELB4xxError:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: !Join
+        - " | "
+        - - !Ref pAppName
+          - alb-4xx-error-alarm
+      AlarmDescription: >-
+        This alarm will trigger if we receive 4 4XX elb alerts in a 5 minute period.
+      Namespace: AWS/ApplicationELB
+      MetricName: HTTPCode_ELB_4XX_Count
+      Statistic: Sum
+      Period: '60'
+      EvaluationPeriods: '5'
+      Threshold: !Ref pALB4xxAlarmThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      OKActions:
+        - Fn::ImportValue:
+            !Sub "${pSnsAppStack}-alert-rSev5SnsTopicArn"
+      Dimensions:
+        - Name: LoadBalancer
+          Value: !Ref pLoadBalancerName
+      ComparisonOperator: GreaterThanThreshold
+
+# Dashboard creation and configuration
+  adviceDashboard:
+    DependsOn: [ApplicationELB4xxError, TargetResponseTime, http4xxError, ApplicationELB5xxError, http5xxError, RejectedConnectionCount, UnHealthyHosts, RDSCPUOverThreshold]
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Join
+          - '-'
+          - - !Ref pAppName
+            - Dashboard
+      DashboardBody: !Sub |
+        {
+          "widgets" : [
+            {
+              "type" : "metric",
+              "x" : 0,
+              "y" : 0,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "Application ELB 5xx Error",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${ApplicationELB5xxError}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 6,
+              "y" : 0,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "Application ELB 4xx Error",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${ApplicationELB4xxError}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 12,
+              "y" : 0,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "Application ELB Target Response Time",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${TargetResponseTime}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 18,
+              "y" : 0,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "Application ELB Queries Per Minute",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${RDSQueryLatencyOverThreshold}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 0,
+              "y" : 6,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "RDS CPU",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${RDSCPUOverThreshold}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 6,
+              "y" : 6,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "RDS Connections",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${RDSConnectionsOverThreshold}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 12,
+              "y" : 6,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "RDS Query Lataency",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${RDSQueryLatencyOverThreshold}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            },
+            {
+              "type" : "metric",
+              "x" : 18,
+              "y" : 6,
+              "width" : 6,
+              "height" : 6,
+              "properties" : {
+                  "title" : "RDS Queries Per Second",
+                  "annotations": {
+                    "alarms": [
+                      "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${RDSQueryRateOverThreshold}"
+                    ]
+                  },
+                  "view": "timeSeries",
+                  "region": "${AWS::Region}",
+                  "stacked": false
+              }
+            }
+          ]
+        }
