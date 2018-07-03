@@ -152,7 +152,7 @@ function acas_preprocess_breadcrumb(&$variables) {
     foreach($parents as $parent) {
       $variables['breadcrumb'][] = [
         'text' => $parent->getName(),
-        'url' => general_taxonomy_path($parent->getName()),
+        'url' => '/' . general_taxonomy_path($parent->getName()),
       ];
     }
     if ($node->getType() == 'secondary_page' && $nid = _is_guide($node)) {
