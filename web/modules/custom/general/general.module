@@ -340,11 +340,11 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       $url = '';
       foreach($parents as $parent) {
         if ($entity->getType() == 'secondary_page') {
-          $url .= '/' . general_taxonomy_path($parent->getName());
+          $url = '/' . general_taxonomy_path($parent->getName());
           $section .= '<li><a href="' . $url . '">' . $parent->getName() . '</a></li>';
         }else{
           if ($entity->get('field_taxonomy')->target_id != $parent->id()) {
-            $url .= '/' . general_taxonomy_path($parent->getName());
+            $url = '/' . general_taxonomy_path($parent->getName());
             $section .= '<li><a href="' . $url . '">' . $parent->getName() . '</a></li>';
           }
         }
