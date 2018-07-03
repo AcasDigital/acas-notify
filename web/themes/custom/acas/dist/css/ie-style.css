@@ -539,7 +539,7 @@ th {
 }
 
 /* line 11, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, #block-homepageblock article, #block-block-landingpagesblock article, .col-lg-3, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, article.home-page, .col-xs-7, .col-sm-7, .col-md-7, article.home-page, article.landing-page.full, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-lg-7, article.page, .col-xs-8, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, #block-searchblock form, .col-md-8, article.page, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-searchblock form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, article.home-page, .col-xs-7, .col-sm-7, .col-md-7, article.home-page, article.landing-page.full, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-lg-7, article.page, .col-xs-8, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, #block-searchblock form, .col-md-8, article.page, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-lg-9, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, form#user-login-form, article.home-page, article.page, article.landing-page, article.support-page, article.secondary-page, article.details-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons, #block-searchblock form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -1067,7 +1067,7 @@ th {
 }
 
 /* line 27, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-1, .col-md-2, .col-md-3, #block-homepageblock article, #block-block-landingpagesblock article, .col-md-4, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.home-page, article.landing-page.full, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-md-8, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, article.home-page, article.landing-page.full, article.support-page, article.secondary-page, article.details-page, #block-404footer, .col-md-8, article.page, .col-md-9, article.secondary-page.search-index, article.details-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
   float: left;
 }
 
@@ -1082,12 +1082,12 @@ th {
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-3, #block-homepageblock article, #block-block-landingpagesblock article {
+.col-md-3 {
   width: 25%;
 }
 
 /* line 35, ../../src/bootstrap-ie8/mixins/_grid-framework.scss */
-.col-md-4, #block-landingpagesblock article, .block-home-page-block article {
+.col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article {
   width: 33.33333%;
 }
 
@@ -3124,7 +3124,7 @@ ul.breadcrumb, ul.breadcrumb--search {
 #block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
   border: 4px solid #CEDC00;
   border-radius: 1em;
-  min-height: 10em;
+  min-height: 12em;
   padding: 1em 1.25em;
   position: relative;
 }
@@ -3152,47 +3152,25 @@ ul.breadcrumb, ul.breadcrumb--search {
   color: #000;
   font-size: 85%;
   left: 0;
-  max-height: 6em;
+  max-height: auto;
   overflow: hidden;
+  padding: 0 1.5em;
+  position: absolute;
   width: 100%;
 }
-/* line 53, ../../src/scss/structures/_landing-page.scss */
+/* line 55, ../../src/scss/structures/_landing-page.scss */
 #block-landingpagesblock article .article__content p, .block-home-page-block article .article__content p {
   margin-bottom: 0;
 }
 
-/* line 63, ../../src/scss/structures/_landing-page.scss */
-.block-home-page-block article .article__wrapper {
+/* line 65, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
+  min-height: 14em;
+}
+
+/* line 75, ../../src/scss/structures/_landing-page.scss */
+#block-landingpagesblock article .article__wrapper, .block-home-page-block article .article__wrapper {
   min-height: 12em;
-}
-/* line 66, ../../src/scss/structures/_landing-page.scss */
-.block-home-page-block article .article__content {
-  max-height: 9em;
-}
-
-/* line 73, ../../src/scss/structures/_landing-page.scss */
-#block-landingpagesblock article .article__wrapper {
-  min-height: 12em;
-}
-
-/* line 80, ../../src/scss/structures/_landing-page.scss */
-#block-landingpagesblock article .article__content, .block-home-page-block article .article__content {
-  padding: 0 1.5em;
-  position: absolute;
-}
-
-/* line 91, ../../src/scss/structures/_landing-page.scss */
-.block-home-page-block article .article__wrapper {
-  min-height: 16em;
-}
-/* line 94, ../../src/scss/structures/_landing-page.scss */
-.block-home-page-block article .article__content {
-  max-height: 9em;
-}
-
-/* line 104, ../../src/scss/structures/_landing-page.scss */
-.block-home-page-block article .article__wrapper {
-  min-height: 13em;
 }
 
 /* line 1, ../../src/scss/structures/_navigation.scss */
@@ -3553,40 +3531,49 @@ ul.breadcrumb, ul.breadcrumb--search {
 /* line 69, ../../src/scss/structures/_search-result-listing.scss */
 .chapters--search ul a {
   color: #000;
+  text-decoration: underline;
+}
+/* line 72, ../../src/scss/structures/_search-result-listing.scss */
+.chapters--search ul a:hover, .chapters--search ul a:focus {
+  text-decoration: none;
 }
 
 /* No results */
-/* line 76, ../../src/scss/structures/_search-result-listing.scss */
+/* line 80, ../../src/scss/structures/_search-result-listing.scss */
 .view-empty {
   padding: 1.5em 0;
 }
-/* line 78, ../../src/scss/structures/_search-result-listing.scss */
+/* line 82, ../../src/scss/structures/_search-result-listing.scss */
 .view-empty p {
   margin-bottom: 1em;
 }
 
 /* Search Breadcrumbs */
-/* line 84, ../../src/scss/structures/_search-result-listing.scss */
+/* line 88, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search {
   margin-left: 0;
   margin-bottom: 0;
   padding-top: .6em;
 }
-/* line 89, ../../src/scss/structures/_search-result-listing.scss */
+/* line 93, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li {
   padding: 0;
 }
-/* line 91, ../../src/scss/structures/_search-result-listing.scss */
+/* line 95, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li:first-child {
   display: none;
 }
-/* line 93, ../../src/scss/structures/_search-result-listing.scss */
+/* line 97, ../../src/scss/structures/_search-result-listing.scss */
 ul.breadcrumb--search li:first-child:after {
   display: none;
 }
 
-/* line 102, ../../src/scss/structures/_search-result-listing.scss */
+/* line 106, ../../src/scss/structures/_search-result-listing.scss */
 .view-solr-search-content .field--name-field-summary {
+  max-width: 75%;
+}
+/* line 109, ../../src/scss/structures/_search-result-listing.scss */
+.view-solr-search-content .view-header {
   max-width: 75%;
 }
 

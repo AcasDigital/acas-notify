@@ -24,7 +24,7 @@
     .article__wrapper {
       border: 4px solid $acas-lime;
       border-radius: 1em;
-      min-height: 10em;
+      min-height: 12em;
       padding: 1em 1.25em;
       position: relative;
       &:hover, &:focus {
@@ -47,8 +47,10 @@
       color: $black;
       font-size: 85%;
       left: 0;
-      max-height: 6em;
+      max-height: auto;
       overflow: hidden;
+      padding: 0 1.5em;
+      position: absolute;
       width: 100%;
       p {
         margin-bottom: 0;
@@ -57,52 +59,21 @@
   }
 }
 
-@include bp(SM) {
-  .block-home-page-block {
-    article {
-      .article__wrapper {
-        min-height: 12em;
-      }
-      .article__content {
-        max-height: 9em;
-      }
-    }
-  }
-  #block-landingpagesblock {
-    article {
-      .article__wrapper {
-        min-height: 12em;
-      }
-    }
-  }
+@include bp(MD) {
   #block-landingpagesblock, .block-home-page-block {
     article {
-      .article__content {
-        padding: 0 1.5em;
-        position: absolute;
-      }
-    }
-  }
-}
-
-@include bp(MD) {
-  .block-home-page-block {
-    article {
       .article__wrapper {
-        min-height: 16em;
-      }
-      .article__content {
-        max-height: 9em;
+        min-height: 14em;
       }
     }
   }
 }
 
 @include bp(LG) {
-  .block-home-page-block {
+  #block-landingpagesblock, .block-home-page-block {
     article {
       .article__wrapper {
-        min-height: 13em;
+        min-height: 12em;
       }
     }
   }

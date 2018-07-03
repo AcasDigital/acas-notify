@@ -68,6 +68,10 @@
   ul {
     a {
       color: $black;
+      text-decoration: underline;
+      &:hover, &:focus {
+        text-decoration: none;
+      }
     }
   }
 }
@@ -102,13 +106,8 @@ ul.breadcrumb--search {
     .field--name-field-summary {
       max-width: 75%;
     }
+    .view-header {
+      max-width: 75%;
+    }
   }
 }
-//
-// @include bp(LG) {
-//   .view-solr-search-content {
-//     .field--name-field-summary {
-//       max-width: 70%;
-//     }
-//   }
-// }
