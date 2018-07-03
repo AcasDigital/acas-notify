@@ -4,7 +4,7 @@
 .content-moderation-entity-moderation-form #close {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 10px;
   font-weight: bold;
   cursor: pointer;
 }

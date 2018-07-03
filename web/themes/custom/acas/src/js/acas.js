@@ -17,8 +17,6 @@ Drupal.behaviors.acas = {
   }
 };
 
-
-
 jQuery( document ).ready( function( $ ) {
 
   function openNavigation() {

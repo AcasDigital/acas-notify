@@ -45,7 +45,7 @@ class RelatedContent extends BlockBase {
       $output .= '<div id="social-share">' . drupal_render($render) . '</div>';
     }
     if ($node->get('field_show_related_content')->value) {
-      if ($parent) {
+      if ($node->getType() == 'details_page' || $node->getType() == 'secondary_page') {
         $output .= '<nav class="nav-related" aria-labelledby="nav-related__title">
         <h3 id="nav-related__title">
           Related content
@@ -60,7 +60,7 @@ class RelatedContent extends BlockBase {
           if (!$term->depth) {
             $t = \Drupal\taxonomy\Entity\Term::load($term->tid);
             if ($t->get('field_enabled')->value) {
-              $url = $path . '/' . general_taxonomy_path($term->name);
+              $url = '/' . general_taxonomy_path($term->name);
               if ($node->get('field_taxonomy')->target_id != $term->tid) {
                 $output .= '<li><a href="' . $url . '">' . $term->name . '</a></li>';
               }else{

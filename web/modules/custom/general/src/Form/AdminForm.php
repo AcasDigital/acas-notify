@@ -47,6 +47,12 @@ class AdminForm extends ConfigFormBase {
       '#description' => t('Place holder for the Search form'),
       '#size' => 100,
     );
+    $form['freeze'] = array(
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('freeze') ?: 0,
+      '#title' => t('Content freeze'),
+      '#description' => t('When checked content can not be added/edited on this site'),
+    );
     $form['sync'] = array(
       '#type' => 'fieldset',
       '#title' => t('Production content sync'),
@@ -109,6 +115,7 @@ class AdminForm extends ConfigFormBase {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('feedback_email', $form_state->getValue('feedback_email'))
     ->set('search_placeholder', $form_state->getValue('search_placeholder'))
+    ->set('freeze', $form_state->getValue('freeze'))
     ->set('prod', $form_state->getValue('prod'))
     ->set('tables', $form_state->getValue('tables'))
     ->set('config', $form_state->getValue('config'))

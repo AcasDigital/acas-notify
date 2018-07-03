@@ -274,4 +274,8 @@ class GeneralController extends ControllerBase {
       return array('#markup' => $output . $result);
     }
   }
+  
+  public function freeze() {
+    return array('#markup' => '<p>Content adding/editing is frozen on this site.</p><p>You can still add/edit content on the UAT site</p>');
+  }
 }

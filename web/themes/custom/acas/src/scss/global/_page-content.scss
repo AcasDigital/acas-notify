@@ -13,6 +13,12 @@ article {
   }
   &.landing-page {
     @extend .col-xs-12;
+    &.full {
+      @extend .col-md-7;
+      p {
+        margin-bottom: 2.125em;
+      }
+    }
   }
   &.support-page {
     @extend .col-xs-12;
@@ -92,6 +98,7 @@ article {
     background: $gray-light;
   }
 }
+
 .node-preview-container {
   padding: 20px;
   background: $gray-light;

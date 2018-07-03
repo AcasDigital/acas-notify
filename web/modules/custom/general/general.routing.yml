@@ -148,3 +148,11 @@ general.cloudfront-invalidate:
     _title: ''
   requirements:
     _permission: 'access administration pages'
+    
+general.freeze:
+  path: '/admin/freeze'
+  defaults:
+    _title: 'Content freeze'
+    _controller: '\Drupal\general\Controller\GeneralController::freeze'
+  requirements:
+    _permission: 'administer site configuration'

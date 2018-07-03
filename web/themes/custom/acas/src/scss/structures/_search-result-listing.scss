@@ -15,31 +15,7 @@
   }
 }
 
-/* Did you mean... */
-.search-alternative {
-  margin-top: 0;
-  ul {
-    display: inline-block;
-    list-style: none;
-    margin-bottom: 0;
-    margin-left: .25em;
-    a {
-      &:hover, &:focus {
-        text-decoration: none;
-      }
-    }
-  }
-}
-
-/* No results */
-.view-empty {
-  padding: 1.5em 0;
-  p {
-    margin-bottom: 1em;
-  }
-}
-
-/* Content Listings */
+/* Result Listings */
 .view-solr-search-content {
   @extend .col-xs-12;
   padding-bottom: 2em;
@@ -66,6 +42,45 @@
   }
 }
 
+
+/* Did you mean... */
+.search-alternative {
+  margin-top: 0;
+  ul {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: 0;
+    margin-left: .25em;
+    a {
+      &:hover, &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+/* Guide results with chapters */
+.chapters--search {
+  padding-top: 1.25em;
+  h2 {
+    @extend h3;
+  }
+  ul {
+    a {
+      color: $black;
+    }
+  }
+}
+
+/* No results */
+.view-empty {
+  padding: 1.5em 0;
+  p {
+    margin-bottom: 1em;
+  }
+}
+
+/* Search Breadcrumbs */
 ul.breadcrumb--search {
   @extend .breadcrumb;
   margin-left: 0;
@@ -89,11 +104,11 @@ ul.breadcrumb--search {
     }
   }
 }
-
-@include bp(LG) {
-  .view-solr-search-content {
-    .field--name-field-summary {
-      max-width: 70%;
-    }
-  }
-}
+//
+// @include bp(LG) {
+//   .view-solr-search-content {
+//     .field--name-field-summary {
+//       max-width: 70%;
+//     }
+//   }
+// }

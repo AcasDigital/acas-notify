@@ -144,18 +144,25 @@ function acas_preprocess_item_list(&$variables) {
 
 function acas_preprocess_breadcrumb(&$variables) {
   $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof \Drupal\node\NodeInterface && $node->getType() == 'details_page' && _is_guide($node)) {
-    $variables['breadcrumb'][] = [
-      'text' => $node->getTitle(),
-      'url' => $node->toUrl()->toString(),
-    ];
+  if ($node instanceof \Drupal\node\NodeInterface && $node->hasField('field_taxonomy')) {
+    $variables['breadcrumb'] = [];
+    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($node->get('field_taxonomy')->target_id);
+    $parents = array_reverse($parents, TRUE);
+    array_pop($parents);
+    foreach($parents as $parent) {
+      $variables['breadcrumb'][] = [
+        'text' => $parent->getName(),
+        'url' => general_taxonomy_path($parent->getName()),
+      ];
+    }
+    if ($node->getType() == 'secondary_page' && $nid = _is_guide($node)) {
+      $node = \Drupal\node\Entity\Node::load($nid);
+      $variables['breadcrumb'][] = [
+        'text' => $node->getTitle(),
+        'url' => $node->toUrl()->toString(),
+      ];
+    }
   }
-  /*
-  if (count($variables['links']) > 2) {
-    unset($variables['links'][0]);
-    unset($variables['breadcrumb'][0]);
-  }
-  */
 }
 
 function acas_theme_suggestions_input_alter(&$suggestions, array $variables) {

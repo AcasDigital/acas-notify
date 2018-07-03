@@ -84,6 +84,11 @@
     }
   }
 }
+.page-node-type-page {
+  .views-exposed-form {
+    padding: 0;
+  }
+}
 
 @if $compile-IE {
   #views-exposed-form-solr-search-content-page-1,
