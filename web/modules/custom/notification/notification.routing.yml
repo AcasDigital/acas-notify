@@ -1,0 +1,16 @@
+notification.acas_webform_confirmation:
+  path: '/webform/{webform}/submission/{webform_submission}/confirmation'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::acas_webform_confirmation'
+    _title: 'Thank you!'
+  requirements:
+    _permission: 'access content'
+    
+notification.company_house:
+  path: '/company-house/{employer}'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::company_house'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    

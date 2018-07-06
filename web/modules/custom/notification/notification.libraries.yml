@@ -1,0 +1,6 @@
+notification_form:
+  js:
+    js/notification_form.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once

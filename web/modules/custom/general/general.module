@@ -186,6 +186,11 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         ];
         $build['print_download_email']['#attached']['library'][] = 'general/guide_print_download';
       }else{
+        if ($entity->getType() == 'support_page' && $entity->getTitle() == 'Report a problem with the beta website') {
+          $email = '<a class="btn-cta btn-cta--email" href="mailto:digitaladvice@acas.org.uk?subject=Beta website feedback&body=Please provide the title or web address of the page you were on, what you were trying to do, why you couldn\'t do it.">Email</a>';
+        }else{
+          $email = '<a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . ($entity->id() ? $entity->toUrl('canonical', ['absolute' => TRUE])->toString() : '') . '">Email</a>';
+        }
         $build['print_download_email'] = [
           '#markup' => '<div class="print-download-email">
           <li>
@@ -195,7 +200,7 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
             <a class="btn-cta btn-cta--download" href="/page-download/' . $entity->id() . '">Download</a>
           </li>
           <li>
-            <a class="btn-cta btn-cta--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . ($entity->id() ? $entity->toUrl('canonical', ['absolute' => TRUE])->toString() : '') . '">Email</a>
+            ' . $email . '
           </li>
           </div>',
           '#weight' => 992,

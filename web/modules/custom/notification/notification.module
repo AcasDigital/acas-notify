@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * @file
+ * Contains notification.module.
+ * Hooks & general code for the Acas notifications
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Entity\Webform;
+use Drupal\webform\Entity\WebformSubmission;
+
+/**
+ * Implements hook_help().
+ */
+function notification_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the general module.
+    case 'help.page.general':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Acas notification module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter
+ */
+
+function notification_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (strpos($form_id, 'acas_notification_form') !== FALSE && \Drupal::theme()->getActiveTheme()->getName() == 'acas') {
+    $form['#attached']['library'][] = 'notification/notification_form';
+  }
+}
+
+function notification_company_house($employer) {
+  $api_key = '94J4fD_J4EY99aKdFVPHKDzT-qQIWkWQv5lwmxqN';
+  $api = new companiesHouseApi($api_key);
+  $response = $api->send('/search/companies', ['q' => $employer]);
+  $return = [];
+  foreach($response['items'] as $item) {
+    if ($item['company_status'] == 'active') {
+      $return[] = $item;
+    }
+  }
+  return $return;
+}
+
+function notification_confirmation($webform, $webform_submission_id) {
+  $webform_submission = WebformSubmission::load($webform_submission_id);
+  // Do the magic
+  
+  $ref = str_pad(rand(20000, 99999), 8, '0', STR_PAD_LEFT );
+  $sub = rand(10, 99);
+  $return = '<p>&nbsp;</p><h1>Thank you!</h1><p>You will receive an email confirmation with a summary of your case, your case reference number and a confirmed date and time for the first call with Acas. Check your \'spam\' folder to make sure it hasn\'t been sent there. If you didn\'t give an email address, you will receive confirmation by post.</p>
+  <p>Your case reference number is ' . $ref . '/' . $sub . ', submitted at ' . date('h:i A \o\n d F Y') . '. You might need this number when Acas contacts you. This is not the same number as the certificate number you need for going to court.</p>';
+  return $return;
+}
+
+final class companiesHouseApi {
+  const API_ENDPOINT = 'https://api.companieshouse.gov.uk';
+  private $api_key = null;
+  /**
+   * @param $api_key
+   */
+  public function __construct($api_key) {
+    if (!empty($api_key)) {
+      $this->api_key = $api_key;
+    } else {
+      throw new InvalidArgumentException('Please supply a valid API key');
+    }
+  }
+  /**
+   * @param string $endpoint
+   * @param array  $payload
+   *
+   * @return mixed
+   */
+  public function send($endpoint, array $payload = []) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $this->getRequestUrl($endpoint, $payload));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERPWD, $this->api_key . ':');
+    $result = curl_exec($ch);
+    curl_close($ch);
+    if ($json = json_decode($result, true)) {
+      $result = $json;
+    }
+    return $result;
+  }
+  /**
+   * @param string $endpoint
+   * @param array  $payload
+   *
+   * @return string
+   */
+  private function getRequestUrl($endpoint, array $payload) {
+    $payload = array_merge($payload, ['ts' => time()]);
+    $qs = '?' . http_build_query($payload);
+    return self::API_ENDPOINT . $endpoint . $qs;
+  }
+}

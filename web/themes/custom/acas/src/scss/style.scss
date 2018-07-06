@@ -27,3 +27,13 @@ $compile-IE: false;
 
 /* Structures */
 @import 'structures/all';
+
+/* Print styles */
+@import 'print';
+
+/* Form styles */
+@import 'common/form';
+
+/* Alerts */
+@import 'global/alerts';
+@import 'global/close';

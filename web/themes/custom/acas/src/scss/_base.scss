@@ -105,3 +105,28 @@ strong, b {
     display: table;
   }
 }
+
+#print-preview,
+.path-guide-print,
+.path-page-print,
+.print {
+  #header-main {
+    display: none;
+  }
+  h1, h2 {
+    padding-left: 0;
+    &:before {
+      display: none;
+    }
+  }
+  .btn-cta--helpline {
+    display: none;
+  }
+  a {
+    &.link--external {
+      &:after {
+        display: none !important;
+      }
+    }
+  }
+}

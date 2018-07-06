@@ -21,12 +21,13 @@ a {
         height: .75em;
         margin: 0 .35em;
         position: relative;
-        width: .75em;
+        width: .75em;;
       }
     }
   }
   &.share {
     &.link--external {
+      padding-right: 0;
       &:after {
         display: none;
       }

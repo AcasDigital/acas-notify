@@ -1729,6 +1729,117 @@ strong, b {
   display: table;
 }
 
+/* line 113, ../../src/scss/_base.scss */
+#print-preview #header-main,
+.path-guide-print #header-main,
+.path-page-print #header-main,
+.print #header-main {
+  display: none;
+}
+/* line 116, ../../src/scss/_base.scss */
+#print-preview h1, #print-preview h2.guide-page-title, #print-preview .print-download-email .modal .guide-page-title.title, .print-download-email .modal #print-preview .guide-page-title.title, #print-preview article.home-page h2, article.home-page #print-preview h2, #print-preview article.home-page .print-download-email .modal .title, article.home-page .print-download-email .modal #print-preview .title, #print-preview .print-download-email .modal article.home-page .title, .print-download-email .modal article.home-page #print-preview .title, #print-preview h2, #print-preview .print-download-email .modal .title, .print-download-email .modal #print-preview .title,
+.path-guide-print h1,
+.path-guide-print h2.guide-page-title,
+.path-guide-print .print-download-email .modal .guide-page-title.title,
+.print-download-email .modal .path-guide-print .guide-page-title.title,
+.path-guide-print article.home-page h2,
+article.home-page .path-guide-print h2,
+.path-guide-print article.home-page .print-download-email .modal .title,
+article.home-page .print-download-email .modal .path-guide-print .title,
+.path-guide-print .print-download-email .modal article.home-page .title,
+.print-download-email .modal article.home-page .path-guide-print .title,
+.path-guide-print h2,
+.path-guide-print .print-download-email .modal .title,
+.print-download-email .modal .path-guide-print .title,
+.path-page-print h1,
+.path-page-print h2.guide-page-title,
+.path-page-print .print-download-email .modal .guide-page-title.title,
+.print-download-email .modal .path-page-print .guide-page-title.title,
+.path-page-print article.home-page h2,
+article.home-page .path-page-print h2,
+.path-page-print article.home-page .print-download-email .modal .title,
+article.home-page .print-download-email .modal .path-page-print .title,
+.path-page-print .print-download-email .modal article.home-page .title,
+.print-download-email .modal article.home-page .path-page-print .title,
+.path-page-print h2,
+.path-page-print .print-download-email .modal .title,
+.print-download-email .modal .path-page-print .title,
+.print h1,
+.print h2.guide-page-title,
+.print .print-download-email .modal .guide-page-title.title,
+.print-download-email .modal .print .guide-page-title.title,
+.print article.home-page h2,
+article.home-page .print h2,
+.print article.home-page .print-download-email .modal .title,
+article.home-page .print-download-email .modal .print .title,
+.print .print-download-email .modal article.home-page .title,
+.print-download-email .modal article.home-page .print .title,
+.print h2,
+.print .print-download-email .modal .title,
+.print-download-email .modal .print .title {
+  padding-left: 0;
+}
+/* line 118, ../../src/scss/_base.scss */
+#print-preview h1:before, #print-preview h2.guide-page-title:before, #print-preview .print-download-email .modal .guide-page-title.title:before, .print-download-email .modal #print-preview .guide-page-title.title:before, #print-preview article.home-page h2:before, article.home-page #print-preview h2:before, #print-preview article.home-page .print-download-email .modal .title:before, article.home-page .print-download-email .modal #print-preview .title:before, #print-preview .print-download-email .modal article.home-page .title:before, .print-download-email .modal article.home-page #print-preview .title:before, #print-preview h2:before, #print-preview .print-download-email .modal .title:before, .print-download-email .modal #print-preview .title:before,
+.path-guide-print h1:before,
+.path-guide-print h2.guide-page-title:before,
+.path-guide-print .print-download-email .modal .guide-page-title.title:before,
+.print-download-email .modal .path-guide-print .guide-page-title.title:before,
+.path-guide-print article.home-page h2:before,
+article.home-page .path-guide-print h2:before,
+.path-guide-print article.home-page .print-download-email .modal .title:before,
+article.home-page .print-download-email .modal .path-guide-print .title:before,
+.path-guide-print .print-download-email .modal article.home-page .title:before,
+.print-download-email .modal article.home-page .path-guide-print .title:before,
+.path-guide-print h2:before,
+.path-guide-print .print-download-email .modal .title:before,
+.print-download-email .modal .path-guide-print .title:before,
+.path-page-print h1:before,
+.path-page-print h2.guide-page-title:before,
+.path-page-print .print-download-email .modal .guide-page-title.title:before,
+.print-download-email .modal .path-page-print .guide-page-title.title:before,
+.path-page-print article.home-page h2:before,
+article.home-page .path-page-print h2:before,
+.path-page-print article.home-page .print-download-email .modal .title:before,
+article.home-page .print-download-email .modal .path-page-print .title:before,
+.path-page-print .print-download-email .modal article.home-page .title:before,
+.print-download-email .modal article.home-page .path-page-print .title:before,
+.path-page-print h2:before,
+.path-page-print .print-download-email .modal .title:before,
+.print-download-email .modal .path-page-print .title:before,
+.print h1:before,
+.print h2.guide-page-title:before,
+.print .print-download-email .modal .guide-page-title.title:before,
+.print-download-email .modal .print .guide-page-title.title:before,
+.print article.home-page h2:before,
+article.home-page .print h2:before,
+.print article.home-page .print-download-email .modal .title:before,
+article.home-page .print-download-email .modal .print .title:before,
+.print .print-download-email .modal article.home-page .title:before,
+.print-download-email .modal article.home-page .print .title:before,
+.print h2:before,
+.print .print-download-email .modal .title:before,
+.print-download-email .modal .print .title:before {
+  display: none;
+}
+/* line 122, ../../src/scss/_base.scss */
+#print-preview .btn-cta--helpline, #print-preview .phone-callout,
+.path-guide-print .btn-cta--helpline,
+.path-guide-print .phone-callout,
+.path-page-print .btn-cta--helpline,
+.path-page-print .phone-callout,
+.print .btn-cta--helpline,
+.print .phone-callout {
+  display: none;
+}
+/* line 127, ../../src/scss/_base.scss */
+#print-preview a.link--external:after,
+.path-guide-print a.link--external:after,
+.path-page-print a.link--external:after,
+.print a.link--external:after {
+  display: none !important;
+}
+
 @media screen and (min-width: 768px) {
   /* line 1, ../../src/scss/drupal/_admin.scss */
   .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
@@ -1737,65 +1848,70 @@ strong, b {
   }
 }
 
-/* line 8, ../../src/scss/drupal/_admin.scss */
+/* line 9, ../../src/scss/drupal/_admin.scss */
+.path-webform .page-header {
+  display: none;
+}
+
+/* line 14, ../../src/scss/drupal/_admin.scss */
 form#user-login-form {
   margin-bottom: 2em;
 }
-/* line 11, ../../src/scss/drupal/_admin.scss */
+/* line 17, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .control-label {
   clear: left;
   display: block;
   padding: .5em 0;
 }
-/* line 16, ../../src/scss/drupal/_admin.scss */
+/* line 22, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .form-item {
   margin-bottom: 1em;
 }
-/* line 19, ../../src/scss/drupal/_admin.scss */
+/* line 25, ../../src/scss/drupal/_admin.scss */
 form#user-login-form .description {
   font-size: 0.85em;
   color: #999;
 }
 
-/* line 29, ../../src/scss/drupal/_admin.scss */
+/* line 35, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .control-label {
   display: none;
 }
-/* line 32, ../../src/scss/drupal/_admin.scss */
+/* line 38, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-type-textfield, .views-exposed-form .form-actions {
   display: inline-block;
 }
-/* line 35, ../../src/scss/drupal/_admin.scss */
+/* line 41, ../../src/scss/drupal/_admin.scss */
 .views-exposed-form .form-actions {
   position: relative;
 }
 
-/* line 40, ../../src/scss/drupal/_admin.scss */
+/* line 46, ../../src/scss/drupal/_admin.scss */
 .print__wrapper--pdf, .node_view {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 46, ../../src/scss/drupal/_admin.scss */
+/* line 52, ../../src/scss/drupal/_admin.scss */
 .page-node-type-home-page strong.node_view, .page-node-type-landing-page strong.node_view {
   display: none;
 }
 
-/* line 52, ../../src/scss/drupal/_admin.scss */
+/* line 58, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .field--name-field-taxonomy, .page-node-type-details-page .taxonomy-parent, .page-node-type-support-page .field--name-field-taxonomy, .page-node-type-support-page .taxonomy-parent {
   display: none;
 }
-/* line 55, ../../src/scss/drupal/_admin.scss */
+/* line 61, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page article, .page-node-type-support-page article {
   margin-bottom: 20px;
 }
-/* line 58, ../../src/scss/drupal/_admin.scss */
+/* line 64, ../../src/scss/drupal/_admin.scss */
 .page-node-type-details-page .node_view ul.pre_link-colors li:first-child, .page-node-type-support-page .node_view ul.pre_link-colors li:first-child {
   background: none;
   padding: 0;
 }
 
-/* line 64, ../../src/scss/drupal/_admin.scss */
+/* line 70, ../../src/scss/drupal/_admin.scss */
 .chosen-container {
   border: 0 !important;
   padding: 0 !important;
@@ -1804,32 +1920,32 @@ form#user-login-form .description {
   -webkit-box-shadow: none !important;
 }
 
-/* line 73, ../../src/scss/drupal/_admin.scss */
+/* line 79, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label, .field--name-field-rate-this-content .field--item, .field--name-field-rate-this-content .form-type-select, .field--name-field-rate-this-content .button {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 77, ../../src/scss/drupal/_admin.scss */
+/* line 83, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .field--label {
   margin-top: 14px;
   margin-right: 5px;
 }
-/* line 81, ../../src/scss/drupal/_admin.scss */
+/* line 87, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .form-type-select {
   position: relative;
   top: 7px;
 }
-/* line 85, ../../src/scss/drupal/_admin.scss */
+/* line 91, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .useful-rating {
   font-size: 2em;
 }
-/* line 88, ../../src/scss/drupal/_admin.scss */
+/* line 94, ../../src/scss/drupal/_admin.scss */
 .field--name-field-rate-this-content .select-wrapper:after {
   display: none;
 }
 
 /* Navigation Tabs for Admin Backend */
-/* line 102, ../../src/scss/drupal/_admin.scss */
+/* line 108, ../../src/scss/drupal/_admin.scss */
 .nav {
   margin-bottom: 0;
   padding-left: 0;
@@ -1844,76 +1960,76 @@ form#user-login-form .description {
 .nav:after {
   clear: both;
 }
-/* line 108, ../../src/scss/drupal/_admin.scss */
+/* line 114, ../../src/scss/drupal/_admin.scss */
 .nav > li {
   position: relative;
   display: block;
 }
-/* line 112, ../../src/scss/drupal/_admin.scss */
+/* line 118, ../../src/scss/drupal/_admin.scss */
 .nav > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
 }
-/* line 116, ../../src/scss/drupal/_admin.scss */
+/* line 122, ../../src/scss/drupal/_admin.scss */
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
   background-color: #eeeeee;
 }
-/* line 124, ../../src/scss/drupal/_admin.scss */
+/* line 130, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a {
   color: #F7F7F7;
 }
-/* line 127, ../../src/scss/drupal/_admin.scss */
+/* line 133, ../../src/scss/drupal/_admin.scss */
 .nav > li.disabled > a:hover, .nav > li.disabled > a:focus {
   color: #F7F7F7;
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
 }
-/* line 139, ../../src/scss/drupal/_admin.scss */
+/* line 145, ../../src/scss/drupal/_admin.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #eeeeee;
   border-color: #008C95;
 }
-/* line 152, ../../src/scss/drupal/_admin.scss */
+/* line 158, ../../src/scss/drupal/_admin.scss */
 .nav .nav-divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
-/* line 159, ../../src/scss/drupal/_admin.scss */
+/* line 165, ../../src/scss/drupal/_admin.scss */
 .nav > li > a > img {
   max-width: none;
 }
 
-/* line 169, ../../src/scss/drupal/_admin.scss */
+/* line 175, ../../src/scss/drupal/_admin.scss */
 nav.tabs {
   clear: left;
 }
 
-/* line 173, ../../src/scss/drupal/_admin.scss */
+/* line 179, ../../src/scss/drupal/_admin.scss */
 .nav-tabs {
   border-bottom: 1px solid #ddd;
 }
-/* line 175, ../../src/scss/drupal/_admin.scss */
+/* line 181, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
 }
-/* line 181, ../../src/scss/drupal/_admin.scss */
+/* line 187, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
-/* line 186, ../../src/scss/drupal/_admin.scss */
+/* line 192, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #ddd;
 }
-/* line 193, ../../src/scss/drupal/_admin.scss */
+/* line 199, ../../src/scss/drupal/_admin.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #CCC;
   background-color: #fff;
@@ -1922,74 +2038,74 @@ nav.tabs {
   cursor: default;
 }
 
-/* line 215, ../../src/scss/drupal/_admin.scss */
+/* line 221, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li {
   float: left;
 }
-/* line 219, ../../src/scss/drupal/_admin.scss */
+/* line 225, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li > a {
   border-radius: 4px;
 }
-/* line 222, ../../src/scss/drupal/_admin.scss */
+/* line 228, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li + li {
   margin-left: 2px;
 }
-/* line 228, ../../src/scss/drupal/_admin.scss */
+/* line 234, ../../src/scss/drupal/_admin.scss */
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #337ab7;
 }
 
-/* line 241, ../../src/scss/drupal/_admin.scss */
+/* line 247, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li {
   float: none;
 }
-/* line 243, ../../src/scss/drupal/_admin.scss */
+/* line 249, ../../src/scss/drupal/_admin.scss */
 .nav-stacked > li + li {
   margin-top: 2px;
   margin-left: 0;
 }
 
-/* line 257, ../../src/scss/drupal/_admin.scss */
+/* line 263, ../../src/scss/drupal/_admin.scss */
 .nav-justified, .nav-tabs.nav-justified {
   width: 100%;
 }
-/* line 260, ../../src/scss/drupal/_admin.scss */
+/* line 266, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li, .nav-tabs.nav-justified > li {
   float: none;
 }
-/* line 262, ../../src/scss/drupal/_admin.scss */
+/* line 268, ../../src/scss/drupal/_admin.scss */
 .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
   text-align: center;
   margin-bottom: 5px;
 }
-/* line 268, ../../src/scss/drupal/_admin.scss */
+/* line 274, ../../src/scss/drupal/_admin.scss */
 .nav-justified > .dropdown .dropdown-menu {
   top: auto;
   left: auto;
 }
 @media (min-width: 768px) {
-  /* line 274, ../../src/scss/drupal/_admin.scss */
+  /* line 280, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li, .nav-tabs.nav-justified > li {
     display: table-cell;
     width: 1%;
   }
-  /* line 277, ../../src/scss/drupal/_admin.scss */
+  /* line 283, ../../src/scss/drupal/_admin.scss */
   .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
     margin-bottom: 0;
   }
 }
 
-/* line 287, ../../src/scss/drupal/_admin.scss */
+/* line 293, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified, .nav-tabs.nav-justified {
   border-bottom: 0;
 }
-/* line 290, ../../src/scss/drupal/_admin.scss */
+/* line 296, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
   margin-right: 0;
   border-radius: 4px;
 }
-/* line 296, ../../src/scss/drupal/_admin.scss */
+/* line 302, ../../src/scss/drupal/_admin.scss */
 .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:hover,
@@ -1998,12 +2114,12 @@ nav.tabs {
   border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
-  /* line 303, ../../src/scss/drupal/_admin.scss */
+  /* line 309, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
-  /* line 307, ../../src/scss/drupal/_admin.scss */
+  /* line 313, ../../src/scss/drupal/_admin.scss */
   .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:hover,
@@ -2013,16 +2129,16 @@ nav.tabs {
   }
 }
 
-/* line 321, ../../src/scss/drupal/_admin.scss */
+/* line 327, ../../src/scss/drupal/_admin.scss */
 .tab-content > .tab-pane {
   display: none;
 }
-/* line 324, ../../src/scss/drupal/_admin.scss */
+/* line 330, ../../src/scss/drupal/_admin.scss */
 .tab-content > .active {
   display: block;
 }
 
-/* line 334, ../../src/scss/drupal/_admin.scss */
+/* line 340, ../../src/scss/drupal/_admin.scss */
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-right-radius: 0;
@@ -2134,7 +2250,11 @@ a.link--external:not(.btn-cta--email):after {
   position: relative;
   width: .75em;
 }
-/* line 30, ../../src/scss/global/_links.scss */
+/* line 29, ../../src/scss/global/_links.scss */
+a.share.link--external {
+  padding-right: 0;
+}
+/* line 31, ../../src/scss/global/_links.scss */
 a.share.link--external:after {
   display: none;
 }
@@ -2544,16 +2664,10 @@ ul.breadcrumb li:last-child:after, ul.breadcrumb--search li:last-child:after {
   /* line 40, ../../src/scss/common/_feedback.scss */
   #feedback-form {
     font-size: 1em;
-    max-width: 80%;
+    max-width: 100%;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
     text-align: left;
-  }
-}
-@media (min-width: 992px) {
-  /* line 50, ../../src/scss/common/_feedback.scss */
-  #feedback-form {
-    max-width: 100%;
   }
 }
 /* line 1, ../../src/scss/common/_pagination.scss */
@@ -3638,4 +3752,190 @@ ul.breadcrumb--search li:first-child:after {
 /* line 9, ../../src/scss/structures/_sitemap.scss */
 .sitemap .sitemap-box ul > .expanded {
   margin-top: 1rem;
+}
+
+/* Print styles */
+/* line 2, ../../src/scss/_print.scss */
+#print-preview .btn-cta--helpline, #print-preview .phone-callout, .path-guide-print .btn-cta--helpline, .path-guide-print .phone-callout, .print .btn-cta--helpline, .print .phone-callout {
+  display: none;
+}
+/* line 5, ../../src/scss/_print.scss */
+#print-preview .link--external, .path-guide-print .link--external, .print .link--external {
+  padding-right: 0;
+}
+/* line 7, ../../src/scss/_print.scss */
+#print-preview .link--external:after, .path-guide-print .link--external:after, .print .link--external:after {
+  display: none;
+}
+
+/* Form styles */
+/* line 2, ../../src/scss/common/_form.scss */
+.webform-submission-form .control-label, .webform-submission-form .fieldset-legend {
+  display: block;
+  color: #008C95;
+  font-weight: bold;
+}
+/* line 7, ../../src/scss/common/_form.scss */
+.webform-submission-form fieldset .control-label {
+  color: #000;
+  font-weight: normal;
+}
+/* line 11, ../../src/scss/common/_form.scss */
+.webform-submission-form .form-item {
+  margin: 20px 0;
+}
+/* line 14, ../../src/scss/common/_form.scss */
+.webform-submission-form .form-submit {
+  color: #fff;
+  background: #007C85;
+  display: inline-block;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+  cursor: pointer;
+}
+/* line 26, ../../src/scss/common/_form.scss */
+.webform-submission-form #employer_message a {
+  cursor: pointer;
+}
+/* line 31, ../../src/scss/common/_form.scss */
+.webform-submission-form .webform-preview #check_employer {
+  display: none;
+}
+/* line 34, ../../src/scss/common/_form.scss */
+.webform-submission-form .webform-preview .panel-heading {
+  border-top: 1px solid #999;
+  padding-top: 10px;
+}
+
+/* Alerts */
+/* line 9, ../../src/scss/global/_alerts.scss */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+/* line 16, ../../src/scss/global/_alerts.scss */
+.alert h4, .alert .print-download-email .modal .close, .print-download-email .modal .alert .close {
+  margin-top: 0;
+  color: inherit;
+}
+/* line 23, ../../src/scss/global/_alerts.scss */
+.alert .alert-link {
+  font-weight: bold;
+}
+/* line 28, ../../src/scss/global/_alerts.scss */
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+/* line 33, ../../src/scss/global/_alerts.scss */
+.alert > p + p {
+  margin-top: 5px;
+}
+
+/* line 42, ../../src/scss/global/_alerts.scss */
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+/* line 47, ../../src/scss/global/_alerts.scss */
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+/* line 59, ../../src/scss/global/_alerts.scss */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+/* line 8, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+/* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+/* line 63, ../../src/scss/global/_alerts.scss */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+/* line 8, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+/* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-info .alert-link {
+  color: #245269;
+}
+
+/* line 67, ../../src/scss/global/_alerts.scss */
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+/* line 8, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+/* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+/* line 71, ../../src/scss/global/_alerts.scss */
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+/* line 8, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+/* line 11, ../../src/bootstrap/assets/stylesheets/bootstrap/mixins/_alerts.scss */
+.alert-danger .alert-link {
+  color: #843534;
+}
+
+/* line 6, ../../src/scss/global/_close.scss */
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+/* line 15, ../../src/scss/global/_close.scss */
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+/* line 30, ../../src/scss/global/_close.scss */
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
 }

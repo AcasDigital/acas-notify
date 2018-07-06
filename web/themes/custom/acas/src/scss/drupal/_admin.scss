@@ -5,6 +5,12 @@
   }
 }
 
+.path-webform {
+  .page-header {
+    display: none;
+  }
+}
+
 form#user-login-form {
   @extend .col-xs-12;
   margin-bottom: 2em;

@@ -1,0 +1,39 @@
+.webform-submission-form {
+  .control-label, .fieldset-legend {
+    display: block;
+    color: $acas-teal;
+    font-weight: bold;
+  }
+  fieldset .control-label {
+    color: $black;
+    font-weight: normal;
+  }
+  .form-item {
+    margin: 20px 0;
+  }
+  .form-submit {
+    color: $white;
+    background: $acas-teal-dark;
+    display: inline-block;
+    padding: .75em;
+    margin: 1em 0;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+    cursor: pointer;
+  }
+  #employer_message {
+    a {
+      cursor: pointer;
+    }
+  }
+  .webform-preview {
+    #check_employer {
+      display: none;
+    }
+    .panel-heading {
+      border-top: 1px solid $gray-medium;
+      padding-top: 10px;
+    }
+  }
+}
