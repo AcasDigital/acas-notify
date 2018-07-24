@@ -58,11 +58,11 @@ Custom Variables
 /* line 6, ../../src/scss/_reset.scss */
 html, body, div, span, applet, object, iframe,
 h1,
+.home-page h2,
+.home-page .print-download-email .modal .title,
+.print-download-email .modal .home-page .title,
 h2.guide-page-title,
-.print-download-email .modal .guide-page-title.title,
-article.home-page h2,
-article.home-page .print-download-email .modal .title,
-.print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title, h3, .chapters--search h2, .chapters--search .print-download-email .modal .title, .print-download-email .modal .chapters--search .title, h4, .print-download-email .modal .close, h5, h6, p, blockquote, pre,
+.print-download-email .modal .guide-page-title.title, h2, .print-download-email .modal .title, h3, .chapters--search h2, .chapters--search .print-download-email .modal .title, .print-download-email .modal .chapters--search .title, h4, .print-download-email .modal .close, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -196,7 +196,7 @@ dfn {
 }
 
 /* line 136, ../../src/bootstrap-ie8/_normalize.scss */
-h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+h1, .home-page h2, .home-page .print-download-email .modal .title, .print-download-email .modal .home-page .title, h2.guide-page-title, .print-download-email .modal .guide-page-title.title {
   font-size: 2em;
   margin: 0.67em 0;
 }
@@ -1715,86 +1715,86 @@ strong, b {
   display: none;
 }
 /* line 116, ../../src/scss/_base.scss */
-#print-preview h1, #print-preview h2.guide-page-title, #print-preview .print-download-email .modal .guide-page-title.title, .print-download-email .modal #print-preview .guide-page-title.title, #print-preview article.home-page h2, article.home-page #print-preview h2, #print-preview article.home-page .print-download-email .modal .title, article.home-page .print-download-email .modal #print-preview .title, #print-preview .print-download-email .modal article.home-page .title, .print-download-email .modal article.home-page #print-preview .title, #print-preview h2, #print-preview .print-download-email .modal .title, .print-download-email .modal #print-preview .title,
+#print-preview h1, #print-preview .home-page h2, .home-page #print-preview h2, #print-preview .home-page .print-download-email .modal .title, .home-page .print-download-email .modal #print-preview .title, #print-preview .print-download-email .modal .home-page .title, .print-download-email .modal .home-page #print-preview .title, #print-preview h2.guide-page-title, #print-preview .print-download-email .modal .guide-page-title.title, .print-download-email .modal #print-preview .guide-page-title.title, #print-preview h2, #print-preview .print-download-email .modal .title, .print-download-email .modal #print-preview .title,
 .path-guide-print h1,
+.path-guide-print .home-page h2,
+.home-page .path-guide-print h2,
+.path-guide-print .home-page .print-download-email .modal .title,
+.home-page .print-download-email .modal .path-guide-print .title,
+.path-guide-print .print-download-email .modal .home-page .title,
+.print-download-email .modal .home-page .path-guide-print .title,
 .path-guide-print h2.guide-page-title,
 .path-guide-print .print-download-email .modal .guide-page-title.title,
 .print-download-email .modal .path-guide-print .guide-page-title.title,
-.path-guide-print article.home-page h2,
-article.home-page .path-guide-print h2,
-.path-guide-print article.home-page .print-download-email .modal .title,
-article.home-page .print-download-email .modal .path-guide-print .title,
-.path-guide-print .print-download-email .modal article.home-page .title,
-.print-download-email .modal article.home-page .path-guide-print .title,
 .path-guide-print h2,
 .path-guide-print .print-download-email .modal .title,
 .print-download-email .modal .path-guide-print .title,
 .path-page-print h1,
+.path-page-print .home-page h2,
+.home-page .path-page-print h2,
+.path-page-print .home-page .print-download-email .modal .title,
+.home-page .print-download-email .modal .path-page-print .title,
+.path-page-print .print-download-email .modal .home-page .title,
+.print-download-email .modal .home-page .path-page-print .title,
 .path-page-print h2.guide-page-title,
 .path-page-print .print-download-email .modal .guide-page-title.title,
 .print-download-email .modal .path-page-print .guide-page-title.title,
-.path-page-print article.home-page h2,
-article.home-page .path-page-print h2,
-.path-page-print article.home-page .print-download-email .modal .title,
-article.home-page .print-download-email .modal .path-page-print .title,
-.path-page-print .print-download-email .modal article.home-page .title,
-.print-download-email .modal article.home-page .path-page-print .title,
 .path-page-print h2,
 .path-page-print .print-download-email .modal .title,
 .print-download-email .modal .path-page-print .title,
 .print h1,
+.print .home-page h2,
+.home-page .print h2,
+.print .home-page .print-download-email .modal .title,
+.home-page .print-download-email .modal .print .title,
+.print .print-download-email .modal .home-page .title,
+.print-download-email .modal .home-page .print .title,
 .print h2.guide-page-title,
 .print .print-download-email .modal .guide-page-title.title,
 .print-download-email .modal .print .guide-page-title.title,
-.print article.home-page h2,
-article.home-page .print h2,
-.print article.home-page .print-download-email .modal .title,
-article.home-page .print-download-email .modal .print .title,
-.print .print-download-email .modal article.home-page .title,
-.print-download-email .modal article.home-page .print .title,
 .print h2,
 .print .print-download-email .modal .title,
 .print-download-email .modal .print .title {
   padding-left: 0;
 }
 /* line 118, ../../src/scss/_base.scss */
-#print-preview h1:before, #print-preview h2.guide-page-title:before, #print-preview .print-download-email .modal .guide-page-title.title:before, .print-download-email .modal #print-preview .guide-page-title.title:before, #print-preview article.home-page h2:before, article.home-page #print-preview h2:before, #print-preview article.home-page .print-download-email .modal .title:before, article.home-page .print-download-email .modal #print-preview .title:before, #print-preview .print-download-email .modal article.home-page .title:before, .print-download-email .modal article.home-page #print-preview .title:before, #print-preview h2:before, #print-preview .print-download-email .modal .title:before, .print-download-email .modal #print-preview .title:before,
+#print-preview h1:before, #print-preview .home-page h2:before, .home-page #print-preview h2:before, #print-preview .home-page .print-download-email .modal .title:before, .home-page .print-download-email .modal #print-preview .title:before, #print-preview .print-download-email .modal .home-page .title:before, .print-download-email .modal .home-page #print-preview .title:before, #print-preview h2.guide-page-title:before, #print-preview .print-download-email .modal .guide-page-title.title:before, .print-download-email .modal #print-preview .guide-page-title.title:before, #print-preview h2:before, #print-preview .print-download-email .modal .title:before, .print-download-email .modal #print-preview .title:before,
 .path-guide-print h1:before,
+.path-guide-print .home-page h2:before,
+.home-page .path-guide-print h2:before,
+.path-guide-print .home-page .print-download-email .modal .title:before,
+.home-page .print-download-email .modal .path-guide-print .title:before,
+.path-guide-print .print-download-email .modal .home-page .title:before,
+.print-download-email .modal .home-page .path-guide-print .title:before,
 .path-guide-print h2.guide-page-title:before,
 .path-guide-print .print-download-email .modal .guide-page-title.title:before,
 .print-download-email .modal .path-guide-print .guide-page-title.title:before,
-.path-guide-print article.home-page h2:before,
-article.home-page .path-guide-print h2:before,
-.path-guide-print article.home-page .print-download-email .modal .title:before,
-article.home-page .print-download-email .modal .path-guide-print .title:before,
-.path-guide-print .print-download-email .modal article.home-page .title:before,
-.print-download-email .modal article.home-page .path-guide-print .title:before,
 .path-guide-print h2:before,
 .path-guide-print .print-download-email .modal .title:before,
 .print-download-email .modal .path-guide-print .title:before,
 .path-page-print h1:before,
+.path-page-print .home-page h2:before,
+.home-page .path-page-print h2:before,
+.path-page-print .home-page .print-download-email .modal .title:before,
+.home-page .print-download-email .modal .path-page-print .title:before,
+.path-page-print .print-download-email .modal .home-page .title:before,
+.print-download-email .modal .home-page .path-page-print .title:before,
 .path-page-print h2.guide-page-title:before,
 .path-page-print .print-download-email .modal .guide-page-title.title:before,
 .print-download-email .modal .path-page-print .guide-page-title.title:before,
-.path-page-print article.home-page h2:before,
-article.home-page .path-page-print h2:before,
-.path-page-print article.home-page .print-download-email .modal .title:before,
-article.home-page .print-download-email .modal .path-page-print .title:before,
-.path-page-print .print-download-email .modal article.home-page .title:before,
-.print-download-email .modal article.home-page .path-page-print .title:before,
 .path-page-print h2:before,
 .path-page-print .print-download-email .modal .title:before,
 .print-download-email .modal .path-page-print .title:before,
 .print h1:before,
+.print .home-page h2:before,
+.home-page .print h2:before,
+.print .home-page .print-download-email .modal .title:before,
+.home-page .print-download-email .modal .print .title:before,
+.print .print-download-email .modal .home-page .title:before,
+.print-download-email .modal .home-page .print .title:before,
 .print h2.guide-page-title:before,
 .print .print-download-email .modal .guide-page-title.title:before,
 .print-download-email .modal .print .guide-page-title.title:before,
-.print article.home-page h2:before,
-article.home-page .print h2:before,
-.print article.home-page .print-download-email .modal .title:before,
-article.home-page .print-download-email .modal .print .title:before,
-.print .print-download-email .modal article.home-page .title:before,
-.print-download-email .modal article.home-page .print .title:before,
 .print h2:before,
 .print .print-download-email .modal .title:before,
 .print-download-email .modal .print .title:before {
@@ -2125,25 +2125,25 @@ nav.tabs {
 
 /* Base Components */
 /* line 2, ../../src/scss/global/_headers.scss */
-h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h1 a, h2.guide-page-title a, .print-download-email .modal .guide-page-title.title a, article.home-page h2 a, article.home-page .print-download-email .modal .title a, .print-download-email .modal article.home-page .title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, .chapters--search h2, .chapters--search .print-download-email .modal .title, .print-download-email .modal .chapters--search .title, h3 a, .chapters--search h2 a, .chapters--search .print-download-email .modal .title a, .print-download-email .modal .chapters--search .title a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
+h1, .home-page h2, .home-page .print-download-email .modal .title, .print-download-email .modal .home-page .title, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, h1 a, .home-page h2 a, .home-page .print-download-email .modal .title a, .print-download-email .modal .home-page .title a, h2.guide-page-title a, .print-download-email .modal .guide-page-title.title a, h2, .print-download-email .modal .title, h2 a, .print-download-email .modal .title a, h3, .chapters--search h2, .chapters--search .print-download-email .modal .title, .print-download-email .modal .chapters--search .title, h3 a, .chapters--search h2 a, .chapters--search .print-download-email .modal .title a, .print-download-email .modal .chapters--search .title a, h4, .print-download-email .modal .close, h4 a, .print-download-email .modal .close a, h5, h5 a, h6, h6 a {
   color: #008C95;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 /* line 9, ../../src/scss/global/_headers.scss */
-h1 a:hover, h2.guide-page-title a:hover, .print-download-email .modal .guide-page-title.title a:hover, article.home-page h2 a:hover, article.home-page .print-download-email .modal .title a:hover, .print-download-email .modal article.home-page .title a:hover, h1 a:focus, h2.guide-page-title a:focus, .print-download-email .modal .guide-page-title.title a:focus, article.home-page h2 a:focus, article.home-page .print-download-email .modal .title a:focus, .print-download-email .modal article.home-page .title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, .chapters--search h2 a:hover, .chapters--search .print-download-email .modal .title a:hover, .print-download-email .modal .chapters--search .title a:hover, h3 a:focus, .chapters--search h2 a:focus, .chapters--search .print-download-email .modal .title a:focus, .print-download-email .modal .chapters--search .title a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
+h1 a:hover, .home-page h2 a:hover, .home-page .print-download-email .modal .title a:hover, .print-download-email .modal .home-page .title a:hover, h2.guide-page-title a:hover, .print-download-email .modal .guide-page-title.title a:hover, h1 a:focus, .home-page h2 a:focus, .home-page .print-download-email .modal .title a:focus, .print-download-email .modal .home-page .title a:focus, h2.guide-page-title a:focus, .print-download-email .modal .guide-page-title.title a:focus, h2 a:hover, .print-download-email .modal .title a:hover, h2 a:focus, .print-download-email .modal .title a:focus, h3 a:hover, .chapters--search h2 a:hover, .chapters--search .print-download-email .modal .title a:hover, .print-download-email .modal .chapters--search .title a:hover, h3 a:focus, .chapters--search h2 a:focus, .chapters--search .print-download-email .modal .title a:focus, .print-download-email .modal .chapters--search .title a:focus, h4 a:hover, .print-download-email .modal .close a:hover, h4 a:focus, .print-download-email .modal .close a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
   text-decoration: underline;
 }
 
 /* line 15, ../../src/scss/global/_headers.scss */
-h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title, h2, .print-download-email .modal .title {
+h1, .home-page h2, .home-page .print-download-email .modal .title, .print-download-email .modal .home-page .title, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, h2, .print-download-email .modal .title {
   line-height: 1.25;
   padding-left: 20px;
   position: relative;
 }
 /* line 19, ../../src/scss/global/_headers.scss */
-h1:before, h2.guide-page-title:before, .print-download-email .modal .guide-page-title.title:before, article.home-page h2:before, article.home-page .print-download-email .modal .title:before, .print-download-email .modal article.home-page .title:before, h2:before, .print-download-email .modal .title:before {
+h1:before, .home-page h2:before, .home-page .print-download-email .modal .title:before, .print-download-email .modal .home-page .title:before, h2.guide-page-title:before, .print-download-email .modal .guide-page-title.title:before, h2:before, .print-download-email .modal .title:before {
   content: "";
   background: #CEDC00;
   display: block;
@@ -2155,7 +2155,7 @@ h1:before, h2.guide-page-title:before, .print-download-email .modal .guide-page-
 }
 
 /* line 31, ../../src/scss/global/_headers.scss */
-h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+h1, .home-page h2, .home-page .print-download-email .modal .title, .print-download-email .modal .home-page .title, h2.guide-page-title, .print-download-email .modal .guide-page-title.title {
   font-size: 1.68em;
   margin-top: 45px;
   margin-bottom: 35px;
@@ -2198,7 +2198,7 @@ h6 {
 }
 
 /* line 73, ../../src/scss/global/_headers.scss */
-h1, h2.guide-page-title, .print-download-email .modal .guide-page-title.title, article.home-page h2, article.home-page .print-download-email .modal .title, .print-download-email .modal article.home-page .title {
+h1, .home-page h2, .home-page .print-download-email .modal .title, .print-download-email .modal .home-page .title, h2.guide-page-title, .print-download-email .modal .guide-page-title.title {
   font-size: 2.42em;
 }
 
@@ -2236,31 +2236,31 @@ a.share.link--external:after {
   display: none;
 }
 
-/* line 18, ../../src/scss/global/_page-content.scss */
+/* line 15, ../../src/scss/global/_page-content.scss */
 article.landing-page.full p {
   margin-bottom: 2.125em;
 }
 
-/* line 41, ../../src/scss/global/_page-content.scss */
+/* line 38, ../../src/scss/global/_page-content.scss */
 #block-homepageblock, #block-block-landingpagesblock {
   clear: left;
   overflow: auto;
   margin-bottom: 55px;
 }
 
-/* line 54, ../../src/scss/global/_page-content.scss */
+/* line 51, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete {
   width: 100%;
 }
-/* line 56, ../../src/scss/global/_page-content.scss */
+/* line 53, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group {
   width: 100%;
 }
-/* line 59, ../../src/scss/global/_page-content.scss */
+/* line 56, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search-api-autocomplete .input-group-addon {
   width: 40px;
 }
-/* line 63, ../../src/scss/global/_page-content.scss */
+/* line 60, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
   display: none !important;
   margin-top: 20px;
@@ -2268,54 +2268,54 @@ article.landing-page.full p {
   width: 72%;
 }
 @media screen and (min-width: 768px) {
-  /* line 63, ../../src/scss/global/_page-content.scss */
+  /* line 60, ../../src/scss/global/_page-content.scss */
   #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search {
     width: 80%;
   }
 }
-/* line 71, ../../src/scss/global/_page-content.scss */
+/* line 68, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 .form-type-search input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
 }
-/* line 77, ../../src/scss/global/_page-content.scss */
+/* line 74, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-exposedformsolr-search-contentpage-1 #edit-actions {
   display: inline-block;
 }
-/* line 81, ../../src/scss/global/_page-content.scss */
+/* line 78, ../../src/scss/global/_page-content.scss */
 #header-front-page #block-views-block-google-analytics-summary-block-1 {
   overflow: auto;
 }
 
-/* line 85, ../../src/scss/global/_page-content.scss */
+/* line 82, ../../src/scss/global/_page-content.scss */
 .content-moderation-entity-moderation-form {
   width: 115%;
 }
-/* line 87, ../../src/scss/global/_page-content.scss */
+/* line 84, ../../src/scss/global/_page-content.scss */
 .content-moderation-entity-moderation-form .entity-moderation-form {
   margin-left: 0;
 }
-/* line 89, ../../src/scss/global/_page-content.scss */
+/* line 86, ../../src/scss/global/_page-content.scss */
 .content-moderation-entity-moderation-form .entity-moderation-form li {
   margin-right: 1em;
 }
-/* line 93, ../../src/scss/global/_page-content.scss */
+/* line 90, ../../src/scss/global/_page-content.scss */
 .content-moderation-entity-moderation-form #edit-submit {
   position: relative;
   top: -19px;
 }
-/* line 97, ../../src/scss/global/_page-content.scss */
+/* line 94, ../../src/scss/global/_page-content.scss */
 .content-moderation-entity-moderation-form ul {
   background: #F7F7F7;
 }
 
-/* line 102, ../../src/scss/global/_page-content.scss */
+/* line 99, ../../src/scss/global/_page-content.scss */
 .node-preview-container {
   padding: 20px;
   background: #F7F7F7;
 }
-/* line 105, ../../src/scss/global/_page-content.scss */
+/* line 102, ../../src/scss/global/_page-content.scss */
 .node-preview-container .form-type-select {
   float: right;
 }
@@ -2473,6 +2473,11 @@ ul.breadcrumb, ul.breadcrumb--search {
   height: 6em;
   margin: .5em auto 1.5em;
   width: 4em;
+}
+
+/* line 74, ../../src/scss/common/_buttons.scss */
+.btn-group .btn-cta, .btn-group form#user-login-form #edit-submit, form#user-login-form .btn-group #edit-submit, .btn-group .phone-callout {
+  display: inline-block;
 }
 
 /* line 1, ../../src/scss/common/_callout.scss */

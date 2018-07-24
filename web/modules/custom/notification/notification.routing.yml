@@ -1,3 +1,27 @@
+notification.dynamics:
+  path: '/admin/config/system/notification/dynamics'
+  defaults:
+    _form: '\Drupal\notification\Form\DynamicsForm'
+    _title: 'Dynamics 365 Web API Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    
+notification.afd:
+  path: '/admin/config/system/notification/afd'
+  defaults:
+    _form: '\Drupal\notification\Form\AFDForm'
+    _title: 'AFD (postcode lookup) Web API Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    
+notification.companies_house:
+  path: '/admin/config/system/notification/companies-house'
+  defaults:
+    _form: '\Drupal\notification\Form\CompaniesHouseForm'
+    _title: 'Companies House Web API Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    
 notification.acas_webform_confirmation:
   path: '/webform/{webform}/submission/{webform_submission}/confirmation'
   defaults:

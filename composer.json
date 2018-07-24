@@ -142,6 +142,7 @@
         }
     ],
     "require": {
+        "alexacrm/dynamics-webapi-toolkit": "dev-master",
         "aws/aws-php-sns-message-validator": "^1.4",
         "cloudconvert/cloudconvert-php": "^2.2",
         "composer/installers": "^1.5",
@@ -241,7 +242,7 @@
         "drupal/vote_up_down": "^1.0",
         "drupal/votingapi": "^3.0",
         "drupal/votingapi_widgets": "^1.0",
-        "drupal/webform": "^5.0",
+        "drupal/webform": "5.x-dev",
         "drupal/webform_rest": "2.x-dev",
         "drupal/webform_views": "^5.0",
         "drupal/workbench": "^1.0",
