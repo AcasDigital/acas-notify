@@ -1,6 +1,6 @@
-notification.settings:
-  title: 'Acas'
-  description: 'Administer the Acas web services.'
-  route_name: notification.dynamics
-  parent: system.admin_config_services
+notification.ec_entry:
+  title: 'EC Entry'
+  description: 'Administer the EC Entry service.'
+  route_name: notification.ec_entry
+  parent: system.admin_config_system
   weight: -1

@@ -38,3 +38,18 @@ notification.company_house:
   requirements:
     _permission: 'access content'
     
+notification.ec_entry_switch:
+  path: '/ec-entry-switch'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::ec_entry_switch'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
+notification.ec_entry:
+  path: '/admin/config/system/ec-entry'
+  defaults:
+    _form: '\Drupal\notification\Form\EcEntrySwitchForm'
+    _title: 'EC Entry Switch'
+  requirements:
+    _permission: 'administer site configuration'

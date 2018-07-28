@@ -10,6 +10,10 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Entity\Webform;
 use Drupal\webform\Entity\WebformSubmission;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Language\Language;
 
 /**
  * Implements hook_help().
@@ -42,6 +46,54 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
   }
 }
 
+function notification_ec_entry_switch() {
+  $query = \Drupal::database()->select('node_field_data', 'nfd');
+  $query->join('node__field_destination', 'dest', 'dest.entity_id = nfd.nid');
+  $query->fields('dest', ['field_destination_uri']);
+  $query->condition('nfd.title', $_SERVER['REMOTE_ADDR'], '=');
+  $result = $query->execute();
+  if ($dest = $result->fetchCol()) {
+    $response = new RedirectResponse($dest[0]);
+    $response->send();
+    return;
+  }
+  $values = array(
+    'title' => $_SERVER['REMOTE_ADDR'],
+    'type' => 'ec_entry',
+    'language' => Language::LANGCODE_NOT_SPECIFIED,
+    'uid' => 0,
+    'name' => 'Anonymous',
+    'field_referer' => ['uri' => $_SERVER['HTTP_REFERER'], 'title' => '', 'options' => []],
+  );
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('ec_entry_switch.settings');
+  if (!$config->get('enabled') || $config->get('current_in_count') >= $config->get('in_count') || $config->get('current_out_count') >= $config->get('out_count')) {
+    $values['field_destination'] = ['uri' => $config->get('old_url'), 'title' => '', 'options' => []];
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+    $node->save();
+    $response = new RedirectResponse($config->get('old_url'));
+    $response->send();
+    return;
+  }
+  $values['field_destination'] = ['uri' => $config->get('new_url'), 'title' => '', 'options' => []];
+  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+  $node->save();
+  $config->set('current_in_count', $config->get('current_in_count') + 1);
+  $config->save();
+  $response = new RedirectResponse($config->get('new_url'));
+  $response->send();
+}
+
+function notification_cron() {
+  if (date('H') == '03') {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('ec_entry_switch.settings');
+    $config->set('current_in_count', 0);
+    $config->set('current_out_count', 0);
+    $config->save();
+  }
+}
+
 function notification_company_house($employer) {
   $config = \Drupal::config('companies_house.settings');
   $api = new companiesHouseApi($config->get('api'));
@@ -57,6 +109,19 @@ function notification_company_house($employer) {
 
 function notification_confirmation($webform, $webform_submission_id) {
   if ($webform == 'acas_notification_form' && $webform_submission = WebformSubmission::load($webform_submission_id)) {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('ec_entry_switch.settings');
+    $config->set('current_out_count', $config->get('current_out_count') + 1);
+    $config->save();
+    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query->fields('nfd', ['nid']);
+    $query->condition('nfd.title', $_SERVER['REMOTE_ADDR'], '=');
+    $result = $query->execute();
+    if ($nid = $result->fetchCol()) {
+      $node = \Drupal\node\Entity\Node::load($nid[0]);
+      $node->field_end->value = time();
+      $node->save();
+    }
     $ref = notification_build_reference_number();
     $data = $webform_submission->getData();
     $config = \Drupal::config('dynamics.settings');

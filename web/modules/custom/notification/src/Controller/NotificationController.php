@@ -18,4 +18,8 @@ class NotificationController extends ControllerBase {
   public function company_house($employer) {
     return new JsonResponse(notification_company_house($employer));
   }
+  
+  public function ec_entry_switch() {
+    return new JsonResponse(notification_ec_entry_switch());
+  }
 }
