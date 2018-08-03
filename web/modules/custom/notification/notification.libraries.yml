@@ -1,6 +1,18 @@
 notification_form:
   js:
+    js/jquery.bind-first.js: {}
     js/notification_form.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
+    
+icheck:
+  css:
+    theme:
+      /libraries/jquery.icheck/skins/square/aero.css: {}
+  js:
+    /libraries/jquery.icheck/icheck.min.js: {}
+    js/icheck.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

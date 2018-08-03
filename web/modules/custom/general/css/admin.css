@@ -8,3 +8,21 @@
   display: inline-block;
   margin-right: 40px;
 }
+.ec-entry-view .form-actions {
+  display: inline-block;
+  margin-top: 2.4em;
+}
+.ec-entry-switch-form .option {
+  font-weight: bold;
+}
+.ec-entry-switch-form #edit-count .button {
+  position: relative;
+  top: -26px;
+}
+.ec-entry-switch-form #edit-count .form-type-number, .ec-entry-switch-form #edit-times .form-type-time, .ec-entry-switch-form #edit-urls .form-type-url {
+  display: inline-block;
+  margin-right: 20px;
+}
+.ec-entry-switch-form #edit-times .form-type-checkbox {
+  display: inline-block;
+}

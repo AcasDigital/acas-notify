@@ -108,16 +108,18 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       ];
     }
     if ($entity->get('field_feedback_form')->value) {
-      $form = \Drupal\webform\Entity\Webform::load('no_feedback');
-      $build['no_feedback_form'] = \Drupal::entityManager()
-        ->getViewBuilder('webform')
-        ->view($form);
-      $build['no_feedback_form']['#weight'] = 999;
-      $form = \Drupal\webform\Entity\Webform::load('yes_feedback');
-      $build['yes_feedback_form'] = \Drupal::entityManager()
-        ->getViewBuilder('webform')
-        ->view($form);
-      $build['yes_feedback_form']['#weight'] = 999;
+      if ($form = \Drupal\webform\Entity\Webform::load('no_feedback')) {
+        $build['no_feedback_form'] = \Drupal::entityManager()
+          ->getViewBuilder('webform')
+          ->view($form);
+        $build['no_feedback_form']['#weight'] = 999;
+      }
+      if ($form = \Drupal\webform\Entity\Webform::load('yes_feedback')) {
+        $build['yes_feedback_form'] = \Drupal::entityManager()
+          ->getViewBuilder('webform')
+          ->view($form);
+        $build['yes_feedback_form']['#weight'] = 999;
+      }
     }
     if ($entity->get('field_print_download')->value) {
       $print_guide = '';
@@ -206,123 +208,6 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
           '#markup' => '<div class="callout-beta"><p>This is our beta website, pages are being tested and improved. You can <a href="' . $url . '">' . $title . '</a> on the current website.</p></div>',
           '#weight' => 999,
         ];
-      }
-    }
-    if ($entity->getType() == 'details_page') {
-      $query = \Drupal::database()->select('taxonomy_index', 'ti');
-      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
-      $query->join('node__field_weight', 'w' , 'w.entity_id = ti.nid');
-      $query->fields('ti', array('nid'));
-      $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
-      $query->condition('nfd.type', 'secondary_page', '=');
-      $query->orderBy('w.field_weight_value', 'ASC');
-      $result = $query->execute();
-      if ($nodeIds = $result->fetchCol()) {
-        $node = \Drupal\node\Entity\Node::load($nodeIds[0]);
-        $next = '<a class="next" href="' . $node->toUrl()->toString() . '">
-            <div class="details_wrapper">
-              <div class="right_arrow"></div>
-              <div class="details">
-                <div class="text">Next</div>
-                <div class="title">' . $node->getTitle() . '</div>
-              </div>
-            </div>
-          </a>';
-        $build['secondary_page_navigation'] = [
-          '#markup' => '<div class="secondary-page-navigation">' . $next . '</div>',
-          '#weight' => 991,
-        ];
-      }
-      
-    }
-    if ($entity->getType() == 'secondary_page') {
-      //$term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($entity->get('field_taxonomy')->target_id);
-     // $entity->setTitle($term->getName());
-      $query = \Drupal::database()->select('taxonomy_index', 'ti');
-      $query->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-      $query->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
-      $query->join('node__field_weight', 'w' , 'w.entity_id = ti.nid');
-      $query->fields('ti', array('nid'));
-      $query->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
-      $query->condition('nfd.type', 'secondary_page', '=');
-      $query->orderBy('w.field_weight_value', 'ASC');
-      $result = $query->execute();
-      if($nodeIds = $result->fetchCol()){
-        $p_nid = 0;
-        $n_nid = 0;
-        foreach($nodeIds as $key => $value) {
-          if ($value == $entity->id()) {
-            if ($key) {
-              $p_nid = $nodeIds[$key - 1];
-            }
-            if (@$nodeIds[$key + 1]) {
-              $n_nid = $nodeIds[$key + 1];
-            }
-            break;
-          }
-        }
-        $previous = '';
-        $next = '';
-        if ($p_nid) {
-          if ($node = \Drupal\node\Entity\Node::load($p_nid)) {
-            $class = '';
-            if (!$n_nid) {
-              $class = 'no-next';
-            }
-            $previous = '<a class="previous ' . $class . '" href="' . $node->toUrl()->toString() . '">
-              <div class="details_wrapper">
-                <div class="left_arrow"></div>
-                <div class="details">
-                  <div class="text">Previous</div>
-                  <div class="title">' . $node->getTitle() . '</div>
-                </div>
-              </div>
-            </a>';
-          }
-        }else{
-          $query2 = \Drupal::database()->select('taxonomy_index', 'ti');
-          $query2->join('taxonomy_term_field_data', 'fd', 'fd.tid = ti.tid');
-          $query2->join('node_field_data', 'nfd', 'nfd.nid = ti.nid');
-          $query2->fields('ti', array('nid'));
-          $query2->condition('ti.tid', $entity->get('field_taxonomy')->target_id, '=');
-          $query2->condition('nfd.type', 'details_page', '=');
-          $result2 = $query2->execute();
-          if ($nid = $result2->fetchCol()) {
-            if ($node2 = \Drupal\node\Entity\Node::load($nid[0])) {
-              $previous = '<a class="previous" href="' . $node2->toUrl()->toString() . '">
-                <div class="details_wrapper">
-                  <div class="left_arrow"></div>
-                  <div class="details">
-                    <div class="text">Previous</div>
-                    <div class="title">' . $node2->get('field_overview_title')->value . '</div>
-                  </div>
-                </div>
-              </a>';
-            }
-          }
-        }
-        if ($n_nid) {
-          $node = \Drupal\node\Entity\Node::load($n_nid);
-          $class = '';
-          if (!$p_nid) {
-            $class = 'no-previous';
-          }
-          $next = '<a class="next ' . $class . '" href="' . $node->toUrl()->toString() . '">
-            <div class="details_wrapper">
-              <div class="right_arrow"></div>
-              <div class="details">
-                <div class="text">Next</div>
-                <div class="title">' . $node->getTitle() . '</div>
-              </div>
-            </div>
-          </a>';
-        }
-        $build['secondary_page_navigation'] = [
-          '#markup' => '<div class="secondary-page-navigation">' . $previous . $next . '</div>',
-          '#weight' => 991,
-        ];
-        unset($build['field_taxonomy']);
       }
     }
   }elseif ($view_mode == 'search_index' && $entity instanceof \Drupal\node\NodeInterface) {
@@ -449,7 +334,7 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     }else{
       $form['moderation_state']['widget'][0]['state']['#default_value'] = 'draft';
       $form['field_summary']['widget'][0]['summary']['#description'] = t('The summary does not appear on the page. It is shown on Landing Pages and in the search results and is the meta-description tag (for Google etc.)');
-      $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
+      //$form['revision_log']['widget'][0]['value']['#required'] = TRUE;
     }
   }
   if ($form_id == 'content_moderation_entity_moderation_form') {

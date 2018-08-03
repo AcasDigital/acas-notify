@@ -47,15 +47,23 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
 }
 
 function notification_ec_entry_switch() {
-  $query = \Drupal::database()->select('node_field_data', 'nfd');
-  $query->join('node__field_destination', 'dest', 'dest.entity_id = nfd.nid');
-  $query->fields('dest', ['field_destination_uri']);
-  $query->condition('nfd.title', $_SERVER['REMOTE_ADDR'], '=');
-  $result = $query->execute();
-  if ($dest = $result->fetchCol()) {
-    $response = new RedirectResponse($dest[0]);
-    $response->send();
-    return;
+  if (isset($_COOKIE['ec_entry']) && !\Drupal::request()->query->get('nc')) {
+    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query->join('node__field_destination', 'dest', 'dest.entity_id = nfd.nid');
+    $query->fields('dest', ['field_destination_uri']);
+    $query->condition('nfd.title', $_COOKIE['ec_entry'], '=');
+    $result = $query->execute();
+    if ($dest = $result->fetchCol()) {
+      $response = new RedirectResponse($dest[0]);
+      $response->send();
+      return;
+    }
+  }
+  setcookie('ec_entry', $_SERVER['REMOTE_ADDR'], time() + (86400 * 30), '/', '', TRUE);
+  if (isset($_SERVER['HTTP_REFERER'])) {
+    $referer = $_SERVER['HTTP_REFERER'];
+  }else{
+    $referer = 'https://' . $_SERVER['HTTP_HOST'];
   }
   $values = array(
     'title' => $_SERVER['REMOTE_ADDR'],
@@ -63,24 +71,35 @@ function notification_ec_entry_switch() {
     'language' => Language::LANGCODE_NOT_SPECIFIED,
     'uid' => 0,
     'name' => 'Anonymous',
-    'field_referer' => ['uri' => $_SERVER['HTTP_REFERER'], 'title' => '', 'options' => []],
+    'field_referer' => ['uri' => $referer, 'title' => '', 'options' => []],
   );
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('ec_entry_switch.settings');
-  if (!$config->get('enabled') || $config->get('current_in_count') >= $config->get('in_count') || $config->get('current_out_count') >= $config->get('out_count')) {
+  $enabled = TRUE;
+  $now = time() - strtotime("today");
+  $today = date('D');
+  if (!$config->get('enabled')) {
+    $enabled = FALSE;
+  }else if ($config->get('current_in_count') >= $config->get('in_count') || $config->get('current_out_count') >= $config->get('out_count')) {
+    $enabled = FALSE;
+  }else if ($config->get('start_time') && $config->get('end_time') && ($now < $config->get('start_time') || $now > $config->get('end_time'))) {
+    $enabled = FALSE;
+  }else if ($config->get('weekend') && ($today == 'Sat' || $today == 'Sun')) {
+    $enabled = FALSE;
+  }
+  if (!$enabled) {
     $values['field_destination'] = ['uri' => $config->get('old_url'), 'title' => '', 'options' => []];
     $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
     $node->save();
     $response = new RedirectResponse($config->get('old_url'));
-    $response->send();
-    return;
+  }else{
+    $values['field_destination'] = ['uri' => $config->get('new_url'), 'title' => '', 'options' => []];
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
+    $node->save();
+    $config->set('current_in_count', $config->get('current_in_count') + 1);
+    $config->save();
+    $response = new RedirectResponse($config->get('new_url'));
   }
-  $values['field_destination'] = ['uri' => $config->get('new_url'), 'title' => '', 'options' => []];
-  $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
-  $node->save();
-  $config->set('current_in_count', $config->get('current_in_count') + 1);
-  $config->save();
-  $response = new RedirectResponse($config->get('new_url'));
   $response->send();
 }
 
@@ -108,21 +127,22 @@ function notification_company_house($employer) {
 }
 
 function notification_confirmation($webform, $webform_submission_id) {
-  if ($webform == 'acas_notification_form' && $webform_submission = WebformSubmission::load($webform_submission_id)) {
+  if (strpos($webform, 'notification') !== FALSE && $webform_submission = WebformSubmission::load($webform_submission_id)) {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     $config->set('current_out_count', $config->get('current_out_count') + 1);
     $config->save();
     $query = \Drupal::database()->select('node_field_data', 'nfd');
     $query->fields('nfd', ['nid']);
-    $query->condition('nfd.title', $_SERVER['REMOTE_ADDR'], '=');
+    $query->condition('nfd.title', @$_COOKIE['ec_entry'], '=');
     $result = $query->execute();
     if ($nid = $result->fetchCol()) {
       $node = \Drupal\node\Entity\Node::load($nid[0]);
-      $node->field_end->value = time();
+      $node->field_end->value = date('Y-m-d\TH:i:s', time() - date('Z'));
       $node->save();
     }
     $ref = notification_build_reference_number();
+    /*
     $data = $webform_submission->getData();
     $config = \Drupal::config('dynamics.settings');
     $client = \AlexaCRM\WebAPI\ClientFactory::createOnlineClient(
@@ -160,6 +180,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       $accountId,
       new \AlexaCRM\Xrm\Relationship( 'contact_customer_accounts' ), $associate
     );
+    */
   }
   $return = '<p>&nbsp;</p><h1>Thank you!</h1><p>You will receive an email confirmation with a summary of your case, your case reference number and a confirmed date and time for the first call with Acas. Check your \'spam\' folder to make sure it hasn\'t been sent there. If you didn\'t give an email address, you will receive confirmation by post.</p>
   <p>Your case reference number is <span class="reference">' . $ref . '</span>, submitted at ' . date('h:i A \o\n d F Y') . '. You might need this number when Acas contacts you. This is not the same number as the certificate number you need for going to court.</p>';

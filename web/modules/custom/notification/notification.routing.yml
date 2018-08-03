@@ -53,3 +53,4 @@ notification.ec_entry:
     _title: 'EC Entry Switch'
   requirements:
     _permission: 'administer site configuration'
+    
