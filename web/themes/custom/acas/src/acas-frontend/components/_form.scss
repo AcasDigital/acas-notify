@@ -1,0 +1,120 @@
+.webform-submission-form {
+  @extend .col-xs-12;
+  @extend .col-md-8;
+  @extend .col-lg-7;
+  @extend .col--centered !optional;
+
+  &.webform-submission-notification-prototype-form-1-form {
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
+
+  .webform-progress-tracker {
+    margin-left: 0;
+  }
+
+  .form-control {
+    padding: .375em .75em;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid $gray-medium-light;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  .control-label, .fieldset-legend {
+    color: $acas-teal;
+    display: block;
+    font-family: $font-family-semibold;
+    margin-bottom: .5rem;
+    font-size: 1em;
+  }
+
+  .fieldset-legend, .form-type-textarea label, .form-item-employer-name label {
+    font-size: 1.25em;
+  }
+
+  fieldset {
+    .control-label {
+      color: $black;
+      font-weight: normal;
+      font-size: 1em;
+    }
+  }
+
+  .form-group, .webform-options-display-one-column {
+    margin-bottom: 1em;
+    .form-item {
+      .invalid {
+        border: 4px solid $red;
+      }
+      .valid {
+        border: 4px solid $green;
+      }
+    }
+  }
+  .form-type-checkbox, .form-type-radio {
+    margin-bottom: 20px;
+  }
+  .form-item-find-address {
+    margin: 0;
+  }
+  .description {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .form-submit {
+    color: $white;
+    background: $acas-teal-dark;
+    display: inline-block;
+    padding: .75em;
+    margin: 1em 0;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+    cursor: pointer;
+  }
+  .btn-cta {
+    display: inline-block;
+  }
+  #employer_message {
+    a {
+      cursor: pointer;
+    }
+  }
+  .invalid-feedback {
+    border-left: 4px solid $red;
+    padding-left: 16px;
+    font-size: 19px;
+    line-height: 25px;
+    padding: 10px;
+    font-weight: 500;
+    margin: 10px 0px;
+    color: $red;
+    display: none;
+  }
+  .panel-heading {
+    display: none;
+  }
+  .webform-preview {
+    #check_employer, #acas_notification_form--find_address {
+      display: none;
+    }
+    .panel-heading {
+      display: block;
+      padding-top: .5em;
+    }
+  }
+  .form-item-employer-name {
+    .invalid-feedback {
+      position: relative;
+      top: -22px;
+    }
+  }
+  .g-recaptcha {
+    margin-top: 40px;
+  }
+}

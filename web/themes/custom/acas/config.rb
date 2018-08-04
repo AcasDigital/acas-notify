@@ -5,7 +5,7 @@ preferred_syntax = :scss
 css_dir = 'dist/css'
 
 # Where we want to put our source SASS Files
-sass_dir = 'src/scss'
+sass_dir = 'src/acas-frontend'
 
 # While in Dev, we can use this feature to easily debug the CSS styles
 line_comments = true

@@ -1,0 +1,19 @@
+$compile-IE: true;
+
+/* Settings */
+@import 'settings/all';
+
+// IE8 Bootstrap Framework.
+@import '../bootstrap-ie8/bootstrap-ie8';
+
+// Admin styles
+@import 'drupal/admin';
+
+/* Core styles */
+@import 'core/all';
+
+/* Component styles */
+@import 'components/all';
+
+/* Override styles */
+@import 'overrides/all';

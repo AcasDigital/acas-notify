@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         livereload: true
       },
       sass: {
-        files: ['src/scss/{,**/}*.{scss,sass}', 'src/bootstrap/assets/stylesheets/bootstrap/*.scss'],
+        files: ['src/acas-frontend/{,**/}*.{scss,sass}', 'src/bootstrap/assets/stylesheets/bootstrap/*.scss'],
         tasks: ['compass:dev'],
         options: {
           livereload: false

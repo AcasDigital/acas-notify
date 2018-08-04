@@ -63,7 +63,7 @@ Drupal.behaviors.notification_form = {
         }
         jQuery('#edit-contact-address-postal-code').val('');
         jQuery.ajax({
-          url: 'https://pce.afd.co.uk/afddata.pce?Serial=' + drupalSettings.afd.serial + '&Password=' + drupalSettings.afd.password + '&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=' + jQuery('#edit-find-address').val(),
+          url: 'https://pce.afd.co.uk/afddata.pce?Serial=' + drupalSettings.afd.serial + '&Password=' + drupalSettings.afd.password + '&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=' + jQuery('.form-item-find-address .form-text').val(),
           type: "GET",
           dataType: "xml",
           cache: false,
@@ -85,7 +85,7 @@ Drupal.behaviors.notification_form = {
               addresses.push(jQuery(this).find('List').text().replace(postcode, '').trim());
               if (!jQuery('#edit-contact-address-postal-code').val()) {
                 jQuery('#edit-contact-address-postal-code').val(postcode);
-                jQuery('#edit-find-address').val(postcode);
+                jQuery('.form-item-find-address .form-text').val(postcode);
               }
             });
             if (!addresses.length) {
