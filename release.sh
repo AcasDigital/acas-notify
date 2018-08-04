@@ -39,3 +39,4 @@ echo -e "\nRunning 'composer update', 'drush updb' and 'drush cr' on UAT. Please
 cmd_output=$(/usr/bin/ssh -i /home/ubuntu/Acas-tell.pem ubuntu@34.246.85.82 'cd /var/www/html; composer update; drush updb; drush cr' 2>&1)
 echo $cmd_output
 echo -e "\n\e[1;32mFinished release to UAT :)\e[00m\n"
+
