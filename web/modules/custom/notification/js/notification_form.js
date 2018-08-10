@@ -3,7 +3,7 @@ var companies;
 
 Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
-    jQuery('.webform-submission-form', context).once('mySecondBehavior').each(function () {
+    jQuery('.webform-submission-form', context).once('notificationFormBehavior').each(function () {
       if (jQuery('.webform-submission-form .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form .webform-wizard-pages-link').html(jQuery('.webform-submission-form .webform-wizard-pages-link').html().replace('Edit', 'Change'));
       }
@@ -168,21 +168,21 @@ Drupal.behaviors.notification_form = {
 };
 
 function populateAddress() {
-  jQuery('#edit-contact-address-address-2').val('');
-  jQuery('#edit-contact-address-city').val('');
+  jQuery('[data-drupal-selector=edit-contact-address-address-2]').val('');
+  jQuery('[data-drupal-selector=edit-contact-address-city]').val('');
   var address = addresses[jQuery('#addresses').val()].replace(/ ,/g, '').split(',');
-  jQuery('#edit-contact-address-city').val(address.pop().trim());
-  checkValidate(jQuery('#edit-contact-address-city'));
+  jQuery('[data-drupal-selector=edit-contact-address-city]').val(address.pop().trim());
+  checkValidate(jQuery('[data-drupal-selector=edit-contact-address-city]'));
   if (address.length > 2) {
-    jQuery('#edit-contact-address-address').val(address[0] + address[1].trim());
-    checkValidate(jQuery('#edit-contact-address-address'));
-    jQuery('#edit-contact-address-address-2').val(address[2].trim());
+    jQuery('[data-drupal-selector=edit-contact-address-address]').val(address[0] + address[1].trim());
+    checkValidate(jQuery('[data-drupal-selector=edit-contact-address-address]'));
+    jQuery('[data-drupal-selector=edit-contact-address-address-2]').val(address[2].trim());
   }else{
-    jQuery('#edit-contact-address-address').val(address[0].trim());
-    checkValidate(jQuery('#edit-contact-address-address'));
-    jQuery('#edit-contact-address-address-2').val(address[1].trim());
+    jQuery('[data-drupal-selector=edit-contact-address-address]').val(address[0].trim());
+    checkValidate(jQuery('[data-drupal-selector=edit-contact-address-address]'));
+    jQuery('[data-drupal-selector=edit-contact-address-address-2]').val(address[1].trim());
   }
-  checkValidate(jQuery('#edit-contact-address-postal-code'));
+  checkValidate(jQuery('[data-drupal-selector=edit-contact-address-postal-code]'));
   jQuery('#address_results').html('');
 }
 

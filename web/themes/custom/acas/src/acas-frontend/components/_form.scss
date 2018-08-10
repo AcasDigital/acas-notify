@@ -25,7 +25,7 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 
-  .control-label, .fieldset-legend {
+  .control-label, .fieldset-legend, .panel-title {
     color: $acas-teal;
     display: block;
     font-family: $font-family-semibold;
@@ -33,7 +33,7 @@
     font-size: 1em;
   }
 
-  .fieldset-legend, .form-type-textarea label, .form-item-employer-name label {
+  .fieldset-legend, .form-type-textarea label, .form-item-employer-name label, .panel-title {
     font-size: 1.25em;
   }
 
@@ -98,6 +98,14 @@
   }
   .panel-heading {
     display: none;
+  }
+  .webform-date-composite--wrapper {
+    .panel-heading {
+      display: block;
+    }
+    label {
+      color: $black;
+    }
   }
   .webform-preview {
     #check_employer, #acas_notification_form--find_address {

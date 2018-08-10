@@ -1,0 +1,20 @@
+/**
+ * @file
+ * Webform date composite styles.
+ */
+
+.webform-date-composite--wrapper .form-type-number {
+  margin-right: 20px;
+  margin-bottom: 0;
+  display: inline-block;
+  max-width: 8ex;
+}
+.webform-date-composite--wrapper .form-type-number:nth-child(3) {
+  max-width: 12ex;
+}
+.webform-date-composite--wrapper .form-type-number input {
+  width: 100%;
+}
+
+
+

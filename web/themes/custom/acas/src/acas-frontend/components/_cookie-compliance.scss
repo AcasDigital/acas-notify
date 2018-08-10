@@ -15,18 +15,15 @@
         margin-bottom: 0;
       }
       .title {
-        display: inline-block;
         font-family: $font-family-headers;
-        font-weight: 700;
         font-size: 1em;
         margin-right: 50px;
         vertical-align: middle;
       }
       .text {
         display: inline-block;
-        font-family: 'Open Sans';
+        font-family: $font-family-base;
         font-size: 0.8em;
-        font-weight: 400;
         vertical-align: middle;
       }
     }

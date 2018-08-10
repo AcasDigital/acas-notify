@@ -2707,26 +2707,23 @@ button.close {
 }
 /* line 17, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .title {
-  display: inline-block;
   font-family: "Century Gothic Bold", "AppleGothic", sans-serif;
-  font-weight: 700;
   font-size: 1em;
   margin-right: 50px;
   vertical-align: middle;
 }
-/* line 25, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 23, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .text {
   display: inline-block;
-  font-family: 'Open Sans';
+  font-family: "Open Sans", sans-serif;
   font-size: 0.8em;
-  font-weight: 400;
   vertical-align: middle;
 }
-/* line 33, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 30, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons {
   margin-top: 0.875em;
 }
-/* line 38, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 35, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button {
   background: #CEDC00;
   border: none;
@@ -2737,11 +2734,11 @@ button.close {
   padding: 0.5em 2em 0.5em 1em;
   position: relative;
 }
-/* line 47, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 44, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:first-child {
   margin-right: .5em;
 }
-/* line 50, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 47, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:after {
   content: "";
   display: inline-block;
@@ -2754,29 +2751,29 @@ button.close {
   height: 0;
   width: 0;
 }
-/* line 62, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 59, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:hover, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:focus {
   background: #007C85;
   color: #CEDC00;
 }
-/* line 65, ../../src/acas-frontend/components/_cookie-compliance.scss */
+/* line 62, ../../src/acas-frontend/components/_cookie-compliance.scss */
 .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:hover:after, .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons button:focus:after {
   border-left-color: #CEDC00;
 }
 
 @media (min-width: 992px) {
-  /* line 78, ../../src/acas-frontend/components/_cookie-compliance.scss */
+  /* line 75, ../../src/acas-frontend/components/_cookie-compliance.scss */
   .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .title {
     font-size: 1.1em;
   }
-  /* line 82, ../../src/acas-frontend/components/_cookie-compliance.scss */
+  /* line 79, ../../src/acas-frontend/components/_cookie-compliance.scss */
   .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-buttons {
     margin-top: 1.875em;
     text-align: center;
   }
 }
 @media (min-width: 1200px) {
-  /* line 94, ../../src/acas-frontend/components/_cookie-compliance.scss */
+  /* line 91, ../../src/acas-frontend/components/_cookie-compliance.scss */
   .eu-cookie-compliance-banner .eu-cookie-compliance-content .eu-cookie-compliance-message .text {
     max-width: 75%;
   }
@@ -2911,7 +2908,7 @@ button.close {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 /* line 28, ../../src/acas-frontend/components/_form.scss */
-.webform-submission-form .control-label, .webform-submission-form .fieldset-legend {
+.webform-submission-form .control-label, .webform-submission-form .fieldset-legend, .webform-submission-form .panel-title {
   color: #008C95;
   display: block;
   font-family: "Open Sans Semibold", sans-serif;
@@ -2919,7 +2916,7 @@ button.close {
   font-size: 1em;
 }
 /* line 36, ../../src/acas-frontend/components/_form.scss */
-.webform-submission-form .fieldset-legend, .webform-submission-form .form-type-textarea label, .webform-submission-form .form-item-employer-name label {
+.webform-submission-form .fieldset-legend, .webform-submission-form .form-type-textarea label, .webform-submission-form .form-item-employer-name label, .webform-submission-form .panel-title {
   font-size: 1.25em;
 }
 /* line 41, ../../src/acas-frontend/components/_form.scss */
@@ -2990,20 +2987,28 @@ button.close {
   display: none;
 }
 /* line 103, ../../src/acas-frontend/components/_form.scss */
+.webform-submission-form .webform-date-composite--wrapper .panel-heading {
+  display: block;
+}
+/* line 106, ../../src/acas-frontend/components/_form.scss */
+.webform-submission-form .webform-date-composite--wrapper label {
+  color: #000;
+}
+/* line 111, ../../src/acas-frontend/components/_form.scss */
 .webform-submission-form .webform-preview #check_employer, .webform-submission-form .webform-preview #acas_notification_form--find_address {
   display: none;
 }
-/* line 106, ../../src/acas-frontend/components/_form.scss */
+/* line 114, ../../src/acas-frontend/components/_form.scss */
 .webform-submission-form .webform-preview .panel-heading {
   display: block;
   padding-top: .5em;
 }
-/* line 112, ../../src/acas-frontend/components/_form.scss */
+/* line 120, ../../src/acas-frontend/components/_form.scss */
 .webform-submission-form .form-item-employer-name .invalid-feedback {
   position: relative;
   top: -22px;
 }
-/* line 117, ../../src/acas-frontend/components/_form.scss */
+/* line 125, ../../src/acas-frontend/components/_form.scss */
 .webform-submission-form .g-recaptcha {
   margin-top: 40px;
 }
