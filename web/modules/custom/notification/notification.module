@@ -47,6 +47,8 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
       $form['back'] = $form['actions']['wizard_prev'];
       $form['back']['#value'] = 'Back';
       $form['back']['#weight'] = -10;
+      $form['back']['#attributes']['class'][] = 'back--link';
+      unset($form['actions']['wizard_prev']);
     }
   }
 }
@@ -187,36 +189,16 @@ function notification_confirmation($webform, $webform_submission_id) {
     );
     */
   }
-  $return = '<p>&nbsp;</p><h1>Thank you!</h1>
-  <p>You have now submitted your early conciliation notification to Acas.</p>
-  <p class="reference">Your case reference number is <span class="reference_no">' . $ref .'</span>, submitted at ' . date('h:i A \o\n d F Y') . '.</p>
-  <h3>You will need your case reference number when you contact us.</h3>
-  <p>You will shortly receive an email that contains:</p>
-  <ul>
-    <li>a summary of your case</li>
-    <li>your case reference number</li>
-    <li>a confirmed date and time for your first call with Acas</li>
-  </ul>
-  <p>Check your \'spam\' folder to make sure this email hasn\'t been sent there.</p>
-  <p>If you didn\'t give an email address, you will receive confirmation by post.</p>
-  <p>Please note that your case reference number is not the same as the certificate number you need if you choose to go to court.</p>
-  <h3>What happens next</h3>
-  <p>We aim to contact you within 5 working days. We\'ll contact you the way you told us and aim to do so on one of the days and times you have said are good for you. We\'ll ask some basic questions about your claim and explain the process of early conciliation. This usually takes about 10 minutes.</p>
-  <h3>What Acas does</h3>
-  <p>If you are happy to take part in early conciliation, someone who works at Acas, called a \'conciliator\', will talk to you about the details of your case. They should be able to tell you how strong your case is, but their main role is to advise you and your employer on possible solutions.</p>
-  <p>Your Acas conciliator will also want to speak to your employer, to see if they are interested in trying to resolve things instead of going to court. The conciliator will only discuss things with your employer if you agree.</p>
-  <p>Acas conciliators do not take sides or pass judgement.</p>
-  <p>We recommend that you get legal advice to help your claim.</p>
-  <h3>How long it takes</h3>
-  <p>Early conciliation usually lasts a month, but each case is different.</p>
-  <h3>Your personal information</h3>
-  <p>Early conciliation is confidential and we will not pass on information you don\'t want to be shared.</p>
-  <p>Any personal information you provide us will be held securely and your personal information will not be sold or traded to third parties. Find out how we use and protect your <a href="http://www.acas.org.uk/index.aspx?articleid=1922" target="_blank">personal information.</a></p>
-  <h3>If conciliation fails</h3>
-  <p>If we cannot help you and your employer resolve the dispute, we issue the certificate that you need to lodge an employment tribunal claim. You will have at least one calendar month after early conciliation in which to do this.</p>
-  <p>Other sources of advice <a href="https://www.citizensadvice.org.uk/law-and-courts/discrimination" target="_blank">www.citizensadvice.org.uk/law-and-courts/discrimination</a></p>';
-
-  return $return;
+  $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+  $node = \Drupal\node\Entity\Node::load(94);
+  $view = $view_builder->view($node, 'full');
+  $html = drupal_render($view);
+  $html = str_replace('[REFERENCE]', $ref, $html);
+  $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
+  $a = explode('</h2>', $html, 2);
+  $b = explode('<h2>', $a[0]);
+  $html = $b[0] . '<h1 class="thank-you-page-header">Thank you!</h1>' . $a[1];
+  return $html;
 }
 
 function notification_build_field(&$entities, $field, $data) {

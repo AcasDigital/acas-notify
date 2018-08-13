@@ -99,7 +99,7 @@
   .panel-heading {
     display: none;
   }
-  .webform-date-composite--wrapper {
+  .govuk-webform-elements--wrapper {
     .panel-heading {
       display: block;
     }
@@ -124,5 +124,15 @@
   }
   .g-recaptcha {
     margin-top: 40px;
+  }
+}
+.path-webform {
+  .page-header {
+    display: none;
+  }
+}
+.path-webform.path-feedback {
+  .page-header {
+    display: block;
   }
 }

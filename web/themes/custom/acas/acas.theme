@@ -14,12 +14,10 @@ function acas_preprocess_page(&$variables) {
     if (is_numeric($node)) {
       $node = \Drupal\node\Entity\Node::load($node);
     }
-    if ($node->hasField('field_useful') && $node->get('field_useful')->value) {
-      $variables['useful'] = TRUE;
-      $variables['nodeid'] = $node->id();
-      $variables['#attached']['library'][] =  'general/anything_wrong';
-    }
+    $variables['nodeid'] = $node->id();
   }
+  $variables['useful'] = TRUE;
+  $variables['#attached']['library'][] =  'general/anything_wrong';
 }
 
 function acas_preprocess_menu(&$variables) {

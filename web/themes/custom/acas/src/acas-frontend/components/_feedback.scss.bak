@@ -1,10 +1,9 @@
-#feedback-form { 
+#feedback-form {
   @extend .container;
   background: $acas-teal-dark;
   color: $white;
   font-size: .85em;
   font-weight: $font-weight-bold;
-  margin-top: 1.5em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   position: relative;
@@ -46,17 +45,6 @@
     cursor: pointer;
     display: none;
   }
-}
-.feedback-report {
-  .views-exposed-form {
-    clear: both;
-    .control-label, .form-type-date {
-      display: inline-block;
-    }
-  }
-}
-#block-feedbackformsblock {
-  display: none;
 }
 
 @include bp(SM) {

@@ -1,5 +1,5 @@
 notification.ec_entry:
-  title: 'EC Entry'
+  title: 'EC Entry Switch'
   description: 'Administer the EC Entry service.'
   route_name: notification.ec_entry
   parent: system.admin_config_system

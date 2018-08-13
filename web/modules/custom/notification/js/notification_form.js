@@ -8,6 +8,9 @@ Drupal.behaviors.notification_form = {
         jQuery('.webform-submission-form .webform-wizard-pages-link').html(jQuery('.webform-submission-form .webform-wizard-pages-link').html().replace('Edit', 'Change'));
       }
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
+        if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
+          return;
+        }
         var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><span class="title">Sending your notification to Acas</span></div>';
         html += '<div class="spinner-wrapper"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>';
         html += '<div class="modal-description">Please wait...</div></div>';

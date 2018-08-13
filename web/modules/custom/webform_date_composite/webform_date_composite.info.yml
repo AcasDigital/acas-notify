@@ -1,7 +1,0 @@
-name: 'Webform Date Composite'
-type: module
-description: 'Webform GOV date composite.'
-package: 'Webform'
-core: 8.x
-dependencies:
-  - 'webform:webform'

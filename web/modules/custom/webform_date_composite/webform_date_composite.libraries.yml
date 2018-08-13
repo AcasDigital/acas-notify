@@ -1,7 +1,0 @@
-webform_date_composite:
-  version: VERSION
-  css:
-    theme:
-      css/webform_date_composite.css: {}
-  dependencies:
-    - webform/webform.composite
