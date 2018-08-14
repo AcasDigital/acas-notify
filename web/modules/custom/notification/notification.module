@@ -53,7 +53,12 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
   }
 }
 
+/**
+ * Implements the EC Entry Switch
+ */
 function notification_ec_entry_switch() {
+  // See if a returning user (ec_entry cookie is set)
+  // For testing, can bypass this test by adding ?nc=1 to URL
   if (isset($_COOKIE['ec_entry']) && !\Drupal::request()->query->get('nc')) {
     $query = \Drupal::database()->select('node_field_data', 'nfd');
     $query->join('node__field_destination', 'dest', 'dest.entity_id = nfd.nid');
@@ -66,14 +71,17 @@ function notification_ec_entry_switch() {
       return;
     }
   }
-  setcookie('ec_entry', $_SERVER['REMOTE_ADDR'], time() + (86400 * 30), '/', '', TRUE);
+  // Set the cookie so a returning user will always be re-directed to their original path
+  $cookie = time() . rand(1, 9999);
+  setcookie('ec_entry', $cookie, time() + (86400 * 30), '/', '', TRUE);
   if (isset($_SERVER['HTTP_REFERER'])) {
     $referer = $_SERVER['HTTP_REFERER'];
   }else{
     $referer = 'https://' . $_SERVER['HTTP_HOST'];
   }
+  // Set the values for the ec_entry node
   $values = array(
-    'title' => $_SERVER['REMOTE_ADDR'],
+    'title' => $cookie,
     'type' => 'ec_entry',
     'language' => Language::LANGCODE_NOT_SPECIFIED,
     'uid' => 0,
@@ -85,6 +93,7 @@ function notification_ec_entry_switch() {
   $enabled = TRUE;
   $now = time() - strtotime("today");
   $today = date('D');
+  // Test if the user should be re-directed to the new form
   if (!$config->get('enabled')) {
     $enabled = FALSE;
   }else if ($config->get('current_in_count') >= $config->get('in_count') || $config->get('current_out_count') >= $config->get('out_count')) {
@@ -95,18 +104,22 @@ function notification_ec_entry_switch() {
     $enabled = FALSE;
   }
   if (!$enabled) {
+    // Re-direct to the old form
     $values['field_destination'] = ['uri' => $config->get('old_url'), 'title' => '', 'options' => []];
     $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
     $node->save();
     $response = new RedirectResponse($config->get('old_url'));
   }else{
+    // Re-direct to the new form
     $values['field_destination'] = ['uri' => $config->get('new_url'), 'title' => '', 'options' => []];
     $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
     $node->save();
+    // Update the in count
     $config->set('current_in_count', $config->get('current_in_count') + 1);
     $config->save();
     $response = new RedirectResponse($config->get('new_url'));
   }
+  // Send the re-direct response
   $response->send();
 }
 

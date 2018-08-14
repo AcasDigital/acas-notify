@@ -164,6 +164,7 @@
         "drupal/chosen": "^2.4",
         "drupal/ckeditor_font": "^1.0",
         "drupal/cloudconvert": "^1.0",
+        "drupal/codesnippet": "^1.6",
         "drupal/coffee": "^1.0",
         "drupal/colorbutton": "^1.1",
         "drupal/config_ignore": "^2.1",
