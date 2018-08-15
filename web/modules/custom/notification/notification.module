@@ -50,6 +50,15 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
       $form['back']['#attributes']['class'][] = 'back--link';
       unset($form['actions']['wizard_prev']);
     }
+    if (@$form['actions']['draft']) {
+      $form['actions']['draft']['#attributes']['class'][] = 'btn--secondary';
+    }
+    if (@$form['actions']['wizard_next']) {
+      $form['actions']['wizard_next']['#attributes']['class'][] = 'btn--primary';
+    }
+    if (@$form['actions']['submit']) {
+      $form['actions']['submit']['#attributes']['class'][] = 'btn--primary';
+    }
   }
 }
 

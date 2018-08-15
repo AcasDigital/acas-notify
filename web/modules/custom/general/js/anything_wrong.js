@@ -51,21 +51,23 @@
         $("#feedback-form .webform-submission-form").slideUp();
       }
       function sendVote(element, simple) {
-        jQuery.ajax({
-          url: "/feedback/" + jQuery(element).attr('nid') + "/" + jQuery(element).text() ,
-          type: "GET",
-          dataType: "html",
-          cache: false,
-          timeout: 60000,
-          error: function(XMLHttpRequest, textStatus, errorThrown){
-
-          },
-          success: function(data){
-            if (simple) {
-              $("#feedback-wrapper #feedback-form").html("<span class='text'>Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190</span>");
+        if (jQuery(element).attr('nid').length) {
+          jQuery.ajax({
+            url: "/feedback/" + jQuery(element).attr('nid') + "/" + jQuery(element).text() ,
+            type: "GET",
+            dataType: "html",
+            cache: false,
+            timeout: 60000,
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+  
+            },
+            success: function(data){
+              if (simple) {
+                $("#feedback-wrapper #feedback-form").html("<span class='text'>Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190</span>");
+              }
             }
-          }
-        });
+          });
+        }
       }
     }
   };

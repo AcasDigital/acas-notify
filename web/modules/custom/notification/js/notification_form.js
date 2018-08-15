@@ -1,11 +1,27 @@
 var addresses;
 var companies;
+var defaultFeedbackText = '';
 
 Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     jQuery('.webform-submission-form', context).once('notificationFormBehavior').each(function () {
       if (jQuery('.webform-submission-form .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form .webform-wizard-pages-link').html(jQuery('.webform-submission-form .webform-wizard-pages-link').html().replace('Edit', 'Change'));
+      }
+      //Feedback text
+      if (jQuery('#feedback-form .left-wrapper .text').hasClass('default')) {
+        defaultFeedbackText = jQuery('#feedback-form .left-wrapper .text').text();
+        jQuery('#feedback-form .left-wrapper .text').removeClass('default');
+      }
+      if (jQuery('input[name^="feedback_text"]').length) {
+        jQuery('#feedback-form .left-wrapper .text').text(jQuery('input[name^="feedback_text"]').val());
+      }else if (defaultFeedbackText) {
+        jQuery('#feedback-form .left-wrapper .text').text(defaultFeedbackText);
+      }
+      // Date tests
+      if (jQuery('#edit-when-were-you-dismissed--wrapper').length) {
+        dismissedDate
+        jQuery('#edit-when-were-you-dismissed--wrapper').find('#edit-when-were-you-dismissed-day, #edit-when-were-you-dismissed-month, #edit-when-were-you-dismissed-year').on('input', dismissedDate);
       }
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
@@ -221,5 +237,20 @@ function checkValidate(element) {
     jQuery(element).parent().find('.invalid-feedback').hide();
     jQuery(element).removeClass('invalid');
     jQuery(element).addClass('valid');
+  }
+}
+
+function dismissedDate() {
+  var day = jQuery('#edit-when-were-you-dismissed-day').val();
+  var month = jQuery('#edit-when-were-you-dismissed-month').val();
+  var year = jQuery('#edit-when-were-you-dismissed-year').val();
+  if (day && month && year.length == 4) {
+    if (moment().diff(moment(day + '/' + month +'/' + year, 'DD/MM/YYYY'), 'days') >= 90) {
+      jQuery('#edit-conditional-date-test').slideDown();
+    }else{
+      jQuery('#edit-conditional-date-test').slideUp();
+    }
+  }else{
+    jQuery('#edit-conditional-date-test').hide();
   }
 }

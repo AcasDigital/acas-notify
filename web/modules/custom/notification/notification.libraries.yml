@@ -2,6 +2,7 @@ notification_form:
   js:
     js/jquery.bind-first.js: {}
     js/notification_form.js: {}
+    js/moment.js: {}
     /core/assets/vendor/modernizr/modernizr.min.js: { weight: -100 }
   dependencies:
     - core/modernizr
