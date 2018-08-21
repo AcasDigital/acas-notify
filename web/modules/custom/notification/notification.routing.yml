@@ -54,3 +54,11 @@ notification.ec_entry:
   requirements:
     _permission: 'administer site configuration'
     
+notification.notify_test:
+  path: '/notify-test/{webform_submission_id}'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notify_test'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    

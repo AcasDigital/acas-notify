@@ -26,3 +26,12 @@
 .ec-entry-switch-form #edit-times .form-type-checkbox {
   display: inline-block;
 }
+.ec-entry-switch-form .status {
+  font-weight: bold;
+}
+.ec-entry-switch-form .status.red {
+  color: red;
+}
+.ec-entry-switch-form .status.green {
+  color: green;
+}

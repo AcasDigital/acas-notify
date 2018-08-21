@@ -1,10 +1,11 @@
 var addresses;
 var companies;
 var defaultFeedbackText = '';
+var postcode = '';
 
 Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
-    jQuery('.webform-submission-form', context).once('notificationFormBehavior').each(function () {
+    if (jQuery(context).find('.webform-submission-form').once('notification_form').length > 0) {
       if (jQuery('.webform-submission-form .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form .webform-wizard-pages-link').html(jQuery('.webform-submission-form .webform-wizard-pages-link').html().replace('Edit', 'Change'));
       }
@@ -20,11 +21,12 @@ Drupal.behaviors.notification_form = {
       }
       // Date tests
       if (jQuery('#edit-when-were-you-dismissed--wrapper').length) {
-        dismissedDate
+        dismissedDate();
         jQuery('#edit-when-were-you-dismissed--wrapper').find('#edit-when-were-you-dismissed-day, #edit-when-were-you-dismissed-month, #edit-when-were-you-dismissed-year').on('input', dismissedDate);
       }
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
+          // Prevent feedback webforms having wait dialog
           return;
         }
         var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><span class="title">Sending your notification to Acas</span></div>';
@@ -74,15 +76,16 @@ Drupal.behaviors.notification_form = {
         }
         return true;
       });
-      jQuery('#find_address').click(function() {
-        if (!jQuery('[data-drupal-selector=edit-find-address]').val()) {
-          alert("Enter your postcode");
-          jQuery('[data-drupal-selector=edit-find-address]').focus();
+      jQuery('a.find_address').click(function() {
+        if (!jQuery(this).parent().find('.form-text').val()) {
+          alert("Enter a postcode");
+          jQuery(this).parent().find('.form-text').focus();
           return false;
         }
-        jQuery('#edit-contact-address-postal-code').val('');
+        postcode = jQuery(this).parent().find('.form-text').val();
+        jQuery(this).parent().find('.form-text').val('');
         jQuery.ajax({
-          url: 'https://pce.afd.co.uk/afddata.pce?Serial=' + drupalSettings.afd.serial + '&Password=' + drupalSettings.afd.password + '&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=' + jQuery('.form-item-find-address .form-text').val(),
+          url: 'https://pce.afd.co.uk/afddata.pce?Serial=' + drupalSettings.afd.serial + '&Password=' + drupalSettings.afd.password + '&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=' + postcode,
           type: "GET",
           dataType: "xml",
           cache: false,
@@ -100,22 +103,22 @@ Drupal.behaviors.notification_form = {
             addresses = [];
             var item = jQuery(xml).find("Item");
             jQuery(item).each(function() {
-              var postcode = jQuery(this).find('Postcode').text();
+              postcode = jQuery(this).find('Postcode').text();
               addresses.push(jQuery(this).find('List').text().replace(postcode, '').trim());
-              if (!jQuery('#edit-contact-address-postal-code').val()) {
-                jQuery('#edit-contact-address-postal-code').val(postcode);
-                jQuery('.form-item-find-address .form-text').val(postcode);
+              if (!jQuery('.webform-address--wrapper .form-type-textfield:last-child').find('input').val()) {
+                jQuery('.webform-address--wrapper .form-type-textfield:last-child').find('input').val(postcode);
+                jQuery('a.find_address').parent().find('.form-text').val(postcode);
               }
             });
             if (!addresses.length) {
               jQuery('#address_results').html('<div class="red">No addresses could be found for this postcode.</div>');
               return;
             }
-            var html = '<select id="addresses" onchange="populateAddress();"><option value="">-- Select your address --</option>';
+            var html = '<select id="addresses" onchange="populateAddress();"><option value="">-- Select address --</option>';
             for (var i = 0; i < addresses.length; i++) {
               html += '<option value="' + i + '">' + addresses[i] + '</option>';
             }
-            html += '</select>';
+            html += '</select><br /><br />';
             jQuery('#address_results').html(html);
           }
         });
@@ -182,26 +185,26 @@ Drupal.behaviors.notification_form = {
         });
         return false;
       });
-    });
+    };// end once
   }
 };
 
 function populateAddress() {
-  jQuery('[data-drupal-selector=edit-contact-address-address-2]').val('');
-  jQuery('[data-drupal-selector=edit-contact-address-city]').val('');
+  jQuery('.webform-address--wrapper .form-type-textfield:nth-child(2)').find('input').val('');
+  jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input').val('');
   var address = addresses[jQuery('#addresses').val()].replace(/ ,/g, '').split(',');
-  jQuery('[data-drupal-selector=edit-contact-address-city]').val(address.pop().trim());
-  checkValidate(jQuery('[data-drupal-selector=edit-contact-address-city]'));
+  jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input').val(address.pop().trim());
+  checkValidate(jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input'));
   if (address.length > 2) {
-    jQuery('[data-drupal-selector=edit-contact-address-address]').val(address[0] + address[1].trim());
-    checkValidate(jQuery('[data-drupal-selector=edit-contact-address-address]'));
-    jQuery('[data-drupal-selector=edit-contact-address-address-2]').val(address[2].trim());
+    jQuery('.webform-address--wrapper .form-type-textfield:nth-child(1)').find('input').val(address[0] + ', ' + address[1].trim());
+    checkValidate(jQuery('.webform-address--wrapper .form-type-textfield:nth-child(1)').find('input'));
+    jQuery('.webform-address--wrapper .form-type-textfield:nth-child(2)').find('input').val(address[2].trim());
   }else{
-    jQuery('[data-drupal-selector=edit-contact-address-address]').val(address[0].trim());
-    checkValidate(jQuery('[data-drupal-selector=edit-contact-address-address]'));
-    jQuery('[data-drupal-selector=edit-contact-address-address-2]').val(address[1].trim());
+    jQuery('.webform-address--wrapper .form-type-textfield:nth-child(1)').find('input').val(address[0].trim());
+    checkValidate(jQuery('.webform-address--wrapper .form-type-textfield:nth-child(1)').find('input'));
+    jQuery('.webform-address--wrapper .form-type-textfield:nth-child(2)').find('input').val(address[1].trim());
   }
-  checkValidate(jQuery('[data-drupal-selector=edit-contact-address-postal-code]'));
+  checkValidate(jQuery('.webform-address--wrapper .form-type-textfield:last-child').find('input'));
   jQuery('#address_results').html('');
 }
 

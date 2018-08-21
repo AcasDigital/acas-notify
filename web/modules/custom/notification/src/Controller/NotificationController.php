@@ -22,4 +22,7 @@ class NotificationController extends ControllerBase {
   public function ec_entry_switch() {
     return new JsonResponse(notification_ec_entry_switch());
   }
+  public function notify_test($webform_submission_id) {
+    die(notification_send_dynamics($webform_submission_id));
+  }
 }
