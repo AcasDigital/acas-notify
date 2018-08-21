@@ -36,6 +36,46 @@ class EcEntrySwitchForm extends ConfigFormBase {
       '#default_value' => $config->get('enabled') ?: '',
       '#title' => t('Enabled'),
     ];
+    $form['status'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Status'),
+      '#collapsible' => TRUE,
+    ];
+    $enabled = TRUE;
+    $now = time() - strtotime("today");
+    $status = 'Enabled';
+    $today = date('D');
+    // Test if the user should be re-directed to the new form
+    if (!$config->get('enabled')) {
+      $enabled = FALSE;
+      $status = 'Disabled';
+    }else if ($config->get('current_in_count') >= $config->get('in_count') || $config->get('current_out_count') >= $config->get('out_count')) {
+      $enabled = FALSE;
+      if ($config->get('current_in_count') >= $config->get('in_count')) {
+        $status = 'Disabled: In count limit reached';
+      }else{
+        $status = 'Disabled: Out count limit reached';
+      }
+    }else if ($config->get('start_time') && $config->get('end_time') && ($now < $config->get('start_time') || $now > $config->get('end_time'))) {
+      $enabled = FALSE;
+      if ($now < $config->get('start_time')) {
+        $status = 'Disabled: Current time < start time';
+      }else{
+        $status = 'Disabled: Current time > end time';
+      }
+    }else if ($config->get('weekend') && ($today == 'Sat' || $today == 'Sun')) {
+      $enabled = FALSE;
+      $status = 'Disabled: Today is the weekend';
+    }
+    if (!$enabled) {
+      $status = '<div class="red status">' . $status . '</dev>';
+    }else{
+      $status = '<div class="green status">' . $status . '</dev>';
+    }
+    $form['status']['message'] = [
+      '#type' => 'markup',
+      '#markup' => $status,
+    ];
     $form['count'] = [
       '#type' => 'fieldset',
       '#title' => t('Counts'),
@@ -101,14 +141,14 @@ class EcEntrySwitchForm extends ConfigFormBase {
       '#type' => 'url',
       '#default_value' => $config->get('old_url') ?: '',
       '#title' => t('Original'),
-      '#size' => 40,
+      '#size' => 50,
       '#required' => TRUE,
     ];
     $form['urls']['new_url'] = [
       '#type' => 'url',
       '#default_value' => $config->get('new_url') ?: '',
       '#title' => t('New'),
-      '#size' => 40,
+      '#size' => 50,
       '#required' => TRUE,
       '#states' => [
         'visible' => [

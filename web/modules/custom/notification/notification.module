@@ -350,7 +350,6 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
   $json['acas_respondenttype'] = '602700001'; // Personal
   // Now send the data
   $data_string = json_encode(['notification' => $json]);
-  die($data_string);
   $ch = curl_init('https://dev-tell.acas.org.uk/notify-test');                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
