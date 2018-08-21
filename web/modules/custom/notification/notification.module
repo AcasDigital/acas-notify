@@ -221,6 +221,8 @@ function notification_confirmation($webform, $webform_submission_id) {
   $html = drupal_render($view);
   $html = str_replace('[REFERENCE]', $ref, $html);
   $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
+  $webform_submission = WebformSubmission::load($webform_submission_id);
+  $data = $webform_submission->getData();
   if ($data['is_this_employer_still_trading'] == 'No') {
     $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
   }else{
@@ -338,7 +340,7 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
       $info .= "Claimant has worked for 2 years or more for this employer.\n";
     }
     if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
-      $date = $value['year'] . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       $json['acas_incidentdate'] = $date;
       $info .= 'Claimants last day of work was ' . $date . "\n";
     }

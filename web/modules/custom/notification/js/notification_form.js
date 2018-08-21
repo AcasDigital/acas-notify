@@ -20,9 +20,19 @@ Drupal.behaviors.notification_form = {
         jQuery('#feedback-form .left-wrapper .text').text(defaultFeedbackText);
       }
       // Date tests
-      if (jQuery('#edit-when-were-you-dismissed--wrapper').length) {
+      if (jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').length) {
         dismissedDate();
-        jQuery('#edit-when-were-you-dismissed--wrapper').find('#edit-when-were-you-dismissed-day, #edit-when-were-you-dismissed-month, #edit-when-were-you-dismissed-year').on('input', dismissedDate);
+        jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').find('.govuk-webform-elements-day, .govuk-webform-elements-month, .govuk-webform-elements-year').on('input', dismissedDate);
+      }
+      
+      if (jQuery('.form-item-problem-several-colleagues').length) {
+        jQuery('.form-item-problem-several-colleagues input').change(function() {
+            if (this.value == 2) {
+              jQuery('.form-actions').hide();
+            }else{
+              jQuery('.form-actions').show();
+            }
+        });
       }
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
@@ -244,16 +254,16 @@ function checkValidate(element) {
 }
 
 function dismissedDate() {
-  var day = jQuery('#edit-when-were-you-dismissed-day').val();
-  var month = jQuery('#edit-when-were-you-dismissed-month').val();
-  var year = jQuery('#edit-when-were-you-dismissed-year').val();
+  var day = jQuery('.when-was-you-last-day-of-work .govuk-webform-elements-day').val();
+  var month = jQuery('.when-was-you-last-day-of-work .govuk-webform-elements-month').val();
+  var year = jQuery('.when-was-you-last-day-of-work .govuk-webform-elements-year').val();
   if (day && month && year.length == 4) {
     if (moment().diff(moment(day + '/' + month +'/' + year, 'DD/MM/YYYY'), 'days') >= 90) {
-      jQuery('#edit-conditional-date-test').slideDown();
+      jQuery('.last-day-of-work-out-of-time-text').slideDown();
     }else{
-      jQuery('#edit-conditional-date-test').slideUp();
+      jQuery('.last-day-of-work-out-of-time-text').slideUp();
     }
   }else{
-    jQuery('#edit-conditional-date-test').hide();
+    jQuery('.last-day-of-work-out-of-time-text').hide();
   }
 }
