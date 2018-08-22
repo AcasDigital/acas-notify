@@ -31,17 +31,17 @@ class AFDForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('afd.settings');
-    $form['serial'] = array(
+    $form['url'] = array(
       '#type' => 'textfield',
-      '#default_value' => $config->get('serial') ?: '',
-      '#title' => t('Serial No'),
+      '#default_value' => $config->get('url') ?: '',
+      '#title' => t('URL'),
       '#required' => TRUE,
       '#size' => 100,
     );
-    $form['password'] = array(
+    $form['token'] = array(
       '#type' => 'textfield',
-      '#default_value' => $config->get('password') ?: '',
-      '#title' => t('Password'),
+      '#default_value' => $config->get('token') ?: '',
+      '#title' => t('Token'),
       '#required' => TRUE,
       '#size' => 100,
     );
@@ -60,8 +60,8 @@ class AFDForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('afd.settings')
-    ->set('serial', $form_state->getValue('serial'))
-    ->set('password', $form_state->getValue('password'))
+    ->set('url', $form_state->getValue('url'))
+    ->set('token', $form_state->getValue('token'))
     ->save();
     parent::submitForm($form, $form_state);
   }

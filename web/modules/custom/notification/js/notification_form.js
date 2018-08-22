@@ -24,7 +24,7 @@ Drupal.behaviors.notification_form = {
         dismissedDate();
         jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').find('.govuk-webform-elements-day, .govuk-webform-elements-month, .govuk-webform-elements-year').on('input', dismissedDate);
       }
-      
+      // Hide buttons if one of several colleagues
       if (jQuery('.form-item-problem-several-colleagues').length) {
         jQuery('.form-item-problem-several-colleagues input').change(function() {
             if (this.value == 2) {
@@ -95,7 +95,7 @@ Drupal.behaviors.notification_form = {
         postcode = jQuery(this).parent().find('.form-text').val();
         jQuery(this).parent().find('.form-text').val('');
         jQuery.ajax({
-          url: 'https://pce.afd.co.uk/afddata.pce?Serial=' + drupalSettings.afd.serial + '&Password=' + drupalSettings.afd.password + '&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=' + postcode,
+          url: drupalSettings.afd.url + '?si_token=' + drupalSettings.afd.token + '&Lookup=' + postcode,
           type: "GET",
           dataType: "xml",
           cache: false,

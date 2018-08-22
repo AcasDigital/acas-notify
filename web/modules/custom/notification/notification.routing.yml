@@ -1,5 +1,12 @@
+notification.notification:
+  path: '/admin/config/services/notification'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Notification'
+  requirements:
+    _permission: 'access administration pages'
 notification.dynamics:
-  path: '/admin/config/system/notification/dynamics'
+  path: '/admin/config/services/notification/dynamics'
   defaults:
     _form: '\Drupal\notification\Form\DynamicsForm'
     _title: 'Dynamics 365 Web API Settings'
@@ -7,7 +14,7 @@ notification.dynamics:
     _permission: 'administer site configuration'
     
 notification.afd:
-  path: '/admin/config/system/notification/afd'
+  path: '/admin/config/services/notification/afd'
   defaults:
     _form: '\Drupal\notification\Form\AFDForm'
     _title: 'AFD (postcode lookup) Web API Settings'
@@ -15,7 +22,7 @@ notification.afd:
     _permission: 'administer site configuration'
     
 notification.companies_house:
-  path: '/admin/config/system/notification/companies-house'
+  path: '/admin/config/services/notification/companies-house'
   defaults:
     _form: '\Drupal\notification\Form\CompaniesHouseForm'
     _title: 'Companies House Web API Settings'

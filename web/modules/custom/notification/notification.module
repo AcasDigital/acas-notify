@@ -40,8 +40,8 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
-      'serial' => $config->get('serial'),
-      'password' => $config->get('password'),
+      'url' => $config->get('url'),
+      'token' => $config->get('token'),
     ];
     if (@$form['actions']['wizard_prev']) {
       $form['back'] = $form['actions']['wizard_prev'];

@@ -4,3 +4,31 @@ notification.ec_entry:
   route_name: notification.ec_entry
   parent: system.admin_config_system
   weight: -1
+
+notification.notification:
+  title: 'Notification'
+  description: 'Notification settings'
+  route_name: notification.notification
+  parent: system.admin_config_services
+  weight: -1
+  
+notification.dynamics:
+  title: 'Dynamics'
+  description: 'Dynamics settings'
+  route_name: notification.dynamics
+  parent: notification.notification
+  weight: 1
+  
+notification.afd:
+  title: 'AFD settings'
+  description: 'ADF (postcode lookup) settings'
+  route_name: notification.afd
+  parent: notification.notification
+  weight: 2
+  
+general.companies_house:
+  title: 'Companies house'
+  description: 'Companies house settings'
+  route_name: notification.companies_house
+  parent: notification.notification
+  weight: 3
