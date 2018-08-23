@@ -94,8 +94,10 @@ Drupal.behaviors.notification_form = {
         }
         postcode = jQuery(this).parent().find('.form-text').val();
         jQuery(this).parent().find('.form-text').val('');
+        var url = "https://pce.afd.co.uk/afddata.pce?Serial=821447&Password=thursd4y&Data=Address&Task=Lookup&Fields=List&MaxQuantity=100&Country=UK&Lookup=" + postcode;
+        //var url = drupalSettings.afd.url + '?si_token=' + drupalSettings.afd.token + '&Lookup=' + postcode;
         jQuery.ajax({
-          url: drupalSettings.afd.url + '?si_token=' + drupalSettings.afd.token + '&Lookup=' + postcode,
+          url: url,
           type: "GET",
           dataType: "xml",
           cache: false,
