@@ -134,13 +134,15 @@ function notification_ec_entry_switch() {
 
 function notification_cron() {
   $hour = (int)date('H');
-  if ($hour >= 3 && $hour <= 5) {
+  if ($hour >= 3 && $hour <= 7) {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
-    $config->set('current_in_count', 0);
-    $config->set('current_out_count', 0);
-    $config->save();
-    \Drupal::logger('notification')->notice('CRON cleared current counts');
+    if ($config->get('current_in_count')) {
+      $config->set('current_in_count', 0);
+      $config->set('current_out_count', 0);
+      $config->save();
+      \Drupal::logger('notification')->notice('CRON cleared current counts');
+    }
   }
 }
 
@@ -263,12 +265,15 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
     }
     if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
       $incident_type[] = '602700003';
+      unset($data[$key]);
     }
     if ($key == 'do_you_think_you_are_owed_holiday_by_your_employer' && $value) {
       $incident_type[] = '602700001';
+      unset($data[$key]);
     }
     if ($key == 'do_you_think_you_are_owed_wages' && $value) {
       $incident_type[] = '602700000';
+      unset($data[$key]);
     }
     if ($key == 'do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan' && $value) {
       if ($value == 2) {
@@ -278,9 +283,11 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
         // made redundant
         $incident_type[] = '602700004';
       }
+      unset($data[$key]);
     }
     if ($key == 'are_you_currently_unemployed_' && $value == 'Yes') {
       $info .= "Claimant is currently unemployed.\n";
+      unset($data[$key]);
     }
     if ($key == 'did_you_have_a_meeting_with_your_employer_before_you_were_dismis' && $value) {
       if ($value == 'Yes') {
@@ -289,29 +296,36 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
         $h = 'has not';
       }
       $info .= "Claimant $h had a meeting with their employer before they were dismissed.\n";
+      unset($data[$key]);
     }
-    if ($key == 'did_you_have_meet_with_your_employer_after_you_were_dismissed_' && $value) {
+    if ($key == 'did_you_meet_with_your_employer_after_you_were_dismissed_' && $value) {
       if ($value == 'Yes') {
         $h = 'has';
       }else{
         $h = 'has not';
       }
       $info .= "Claimant $h had a meeting with their employer after they were dismissed.\n";
+      unset($data[$key]);
     }
-    if ($key == 'did_your_emplyer_given_any_explanation_optional_' && $value) {
+    if ($key == 'did_your_employer_given_any_explanation_optional_' && $value) {
       $info .= "Employer explanation: $value\n";
+      unset($data[$key]);
     }
     if ($key == 'do_you_know_what_you_want_as_an_outcome_' && $value) {
       $info .= "Claimant wants: $value\n";
+      unset($data[$key]);
     }
     if ($key == 'do_you_know_what_you_want_as_an_outcome_2' && $value) {
       $info .= "Claimant wants: $value\n";
+      unset($data[$key]);
     }
     if ($key == 'do_you_know_what_you_want_as_an_outcome_3' && $value) {
       $info .= "Claimant wants: $value\n";
+      unset($data[$key]);
     }
     if ($key == 'explain_why_you_think_you_are_owed_wages_optional_' && $value) {
       $info .= "Claimant believes they are owed money: $value\n";
+      unset($data[$key]);
     }
     if ($key == 'have_you_told_your_employer_and_asked_them_to_rectify_the_proble' && $value) {
       if ($value == 'Yes') {
@@ -320,31 +334,37 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
         $h = 'has not';
       }
       $info .= "Claimant $h asked the employer for this money.\n";
+      unset($data[$key]);
     }
     if ($key == 'how_much_holiday_do_you_think_you_are_owed' && $value) {
       $info .= "$value holiday days are in dispute.\n";
+      unset($data[$key]);
     }
-    if ($key == 'i_belive_that_my_employer_has_discriminated_against_me_because_' && $value) {
+    if ($key == 'i_believe_that_my_employer_has_discriminated_against_me_because_' && $value) {
       $r = implode(', ', $value);
       $info .= "Claimant is claiming $r discrimination.\n";
+      unset($data[$key]);
     }
-    
-    
     if ($key == 'is_this_employer_still_trading' && $value == 'No') {
       $info .= "Claimant believes employer is insolvent.\n";
+      unset($data[$key]);
     }
     if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value == 'No') {
       $info .= "Claimant has NOT worked for 2 years or more for this employer.\n";
+      unset($data[$key]);
     }
     if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value == 'Yes') {
       $info .= "Claimant has worked for 2 years or more for this employer.\n";
+      unset($data[$key]);
     }
     if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       $json['acas_incidentdate'] = $date;
       $info .= 'Claimants last day of work was ' . $date . "\n";
+      unset($data[$key]);
     }
   }
+  
   $json['acas_incidentinfo'] = $info;
   if ($incident_type) {
     $json['acas_incidenttype'] = implode(',', $incident_type);
