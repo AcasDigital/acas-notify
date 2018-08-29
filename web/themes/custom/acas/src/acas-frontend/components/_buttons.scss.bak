@@ -1,29 +1,14 @@
-.btn-cta, .btn-primary {
-  background: acas-color("teal-dark");
-  border: 1px solid acas-color("teal-dark");
-  color: acas-color("white");
+.btn-cta {
+  background: $acas-teal-dark;
+  color: $white;
   display: block;
   padding: .75em;
   margin: 1em 0;
-  min-width: 6em;
   text-align: center;
   text-decoration: none;
   width: fit-content;
   &:hover, &:focus {
-    background: acas-color("white");
-    border: 1px solid acas-color("teal-dark");
-    color: acas-color("teal-dark");
-  }
-}
-
-.btn-secondary {
-  @extend .btn-primary;
-  background: acas-color("white");
-  border: 1px solid acas-color("teal-dark");
-  color: acas-color("teal-dark");
-  &:hover, &:focus {
-    background: acas-color("teal-dark");
-    color: acas-color("white");
+    color: $white;
   }
 }
 
@@ -37,7 +22,7 @@
     margin-bottom: 0;
   }
   a {
-    color: acas-color("white");
+    color: $white;
   }
   &:after {
     content: "";
@@ -53,8 +38,23 @@
   }
 }
 
+.btn-standard {
+  background: $white;
+  color: $acas-teal-dark;
+  display: block;
+  font-weight: $font-weight-body;
+  padding: .75em;
+  margin: 1em 0;
+  text-align: center;
+  text-decoration: underline;
+  width: fit-content;
+  &:hover, &:focus {
+    color: darken($acas-teal, 20%);
+  }
+}
+
 .btn-panel {
-  border: 3px solid acas-color("teal");
+  border: 3px solid $acas-teal;
   border-radius: 10px;
   float: left;
   margin-top: 1em;

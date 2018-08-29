@@ -307,6 +307,9 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
       $info .= "Claimant $h had a meeting with their employer after they were dismissed.\n";
       unset($data[$key]);
     }
+    if ($key == 'please_give_us_a_brief_explanation_about_your_claim' && $value) {
+      $info .= $value . "\n";
+    }
     if ($key == 'did_your_employer_given_any_explanation_optional_' && $value) {
       $info .= "Employer explanation: $value\n";
       unset($data[$key]);
@@ -361,6 +364,16 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       $json['acas_incidentdate'] = $date;
       $info .= 'Claimants last day of work was ' . $date . "\n";
+      unset($data[$key]);
+    }
+    if ($key == 'when_were_you_made_redundant_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $info .= 'Claimant believes they were made redundant on ' . $date . "\n";
+      unset($data[$key]);
+    }
+    if ($key == 'when_were_you_not_paid_properly_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $info .= 'Claimant believes they were made redundant on ' . $date . "\n";
       unset($data[$key]);
     }
   }
