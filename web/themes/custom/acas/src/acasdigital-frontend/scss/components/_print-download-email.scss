@@ -1,0 +1,75 @@
+.print-download-email {
+  border: 2px solid acas-color("teal");
+  border-spacing: 1em 0;
+  margin: 1em 0;
+  padding: .5em 0;
+  overflow: auto;
+  text-align: center;
+  width: 100%;
+  li {
+    display: block;
+    list-style: none;
+  }
+  .btn-cta--print, .btn-cta--download {
+    display: none;
+  }
+}
+
+.btn-save {
+  color: acas-color("teal-dark");
+  display: block;
+  font-weight: $font-weight-body;
+  padding: 0 2.5rem 0 0;
+  margin: .75em 1em;
+  position: relative;
+  text-transform: capitalize;
+  text-align: center;
+  text-decoration: underline;
+  &:after {
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+    background-position: 50% 50%;
+    height: 100%;
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    width: 2rem;
+  }
+}
+
+.btn-save--print {
+  &:after {
+    background-image: url(../images/icons/icon-print.png);
+  }
+}
+
+.btn-save--download {
+  &:after {
+    background-image: url(../images/icons/icon-download.png);
+  }
+}
+
+.btn-save--email {
+  &:after {
+    background-image: url(../images/icons/icon-email.png);
+  }
+}
+
+
+@include bp(sm) {
+  .print-download-email {
+    li {
+      float: left;
+      width: 33.33%;
+    }
+    .btn-cta--print, .btn-cta--download {
+      display: block;
+    }
+  }
+  .btn-cta--print,
+  .btn-cta--download,
+  .btn-cta--email {
+    margin: .75em auto;
+  }
+}

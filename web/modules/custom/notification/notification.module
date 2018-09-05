@@ -262,6 +262,11 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
         $json['acas_respcitytown'] = $value['city'];
         $json['acas_resppostcode'] = $value['postal_code'];
       }
+    }else if (is_array($value) && @$value['phone']) {
+      $json[$key] = $value['phone'];
+      if ($value['ext']) {
+        $json[$key] .= ';' . $value['ext'];
+      }
     }
     if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
       $incident_type[] = '602700003';

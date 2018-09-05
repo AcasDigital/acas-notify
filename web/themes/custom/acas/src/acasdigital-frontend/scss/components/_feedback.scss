@@ -1,0 +1,68 @@
+#feedback-wrapper {
+  @include clearfix;
+  @extend .container;
+  margin-top: 1.5em;
+  overflow: auto;
+}
+#feedback-form {
+  @include clearfix;
+  @extend .col-xs-12;
+  background: acas-color("teal-dark");
+  color: acas-color("white");
+  font-size: .85em;
+  font-weight: $font-weight-bold;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  position: relative;
+  text-align: center;
+  a {
+    color: acas-color("white");
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: $font-weight-normal;
+    margin: 0 .125em;
+    padding: 0 .125em;
+    text-decoration: none;
+    &:hover, &:focus {
+      outline-color: acas-color("lime");
+    }
+  }
+  .text, a {
+    font-size: 0.85em;
+  }
+  .text {
+    float: left;
+    font-family: $font-family-semibold;
+    display: block;
+    padding: 0.125em 0.25em;
+  }
+  form {
+    background: acas-color("white");
+    padding: 15px;
+    color: acas-color("black");
+    display: none;
+    clear: both;
+    width: 100%;
+  }
+  .left-wrapper {
+    float: left;
+  }
+  .right-wrapper {
+    float: right;
+    cursor: pointer;
+    display: none;
+  }
+}
+
+@include bp(sm) {
+  #feedback-wrapper {
+    position: relative;
+  }
+  #feedback-form {
+    font-size: 1em;
+    max-width: 100%;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    text-align: left;
+  }
+}

@@ -178,8 +178,10 @@
 
     </div>
   </main>
-
     <div id="feedback-wrapper">
+      {% if formname %}
+        <div class="form-name">{{formname}}</div>
+      {% endif %}
       <div id="feedback-form">
         <span class="left-wrapper"><span class="text default">Did you get the information you need from this page?</span>&nbsp;<span class="buttons"><a id="yes" href="/contact" nid="{{ nodeid }}">Yes</a>&nbsp;<a id="no" href="/contact" nid="{{ nodeid }}">No</a></span></span><span class="right-wrapper">Close</span>
       </div>

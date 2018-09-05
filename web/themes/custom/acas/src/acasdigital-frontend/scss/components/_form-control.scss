@@ -1,0 +1,18 @@
+.form-control {
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid acas-color("gray-medium-light");
+  border-radius: .25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: .375rem .75rem;
+  margin: .5em 0 1.5em;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+select {
+  background: acas-color("white");
+  font-size: 1em;
+  height: 2.5em;
+  margin: .5em 0;
+}

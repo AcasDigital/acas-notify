@@ -62,8 +62,8 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token|raw }}">
     <!--[if IE 8]>
-      <script src="/themes/custom/acas/dist/js/html5shiv.js"></script>
-	    <link rel="stylesheet" type="text/css" href="/themes/custom/acas/dist/css/ie-style.css">
+      <script src="/themes/custom/acas/dist/js/html5shiv.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="/themes/custom/acas/dist/css/main-ie8.css">
     <![endif]-->
     <link rel="apple-touch-icon" sizes="57x57" href="/themes/custom/acas/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/themes/custom/acas/favicons/apple-icon-60x60.png">
@@ -98,5 +98,6 @@
     {{ page }}
     {{ page_bottom }}
     <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+    <script src="/themes/custom/acas/dist/js/alert.min.js"></script>
   </body>
 </html>

@@ -1,0 +1,17 @@
+.webform-button--preview {
+  @extend .btn--primary;
+}
+
+.webform-button--previous {
+  &:not(.back--link) {
+    @extend .btn--primary;
+  }
+}
+
+.webform-wizard-pages-link {
+  @extend .btn--primary;
+}
+
+a.find_address {
+  padding: .4em 1em;
+}

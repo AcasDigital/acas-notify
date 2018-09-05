@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         livereload: true
       },
       sass: {
-        files: ['src/acas-frontend/{,**/}*.{scss,sass}', 'src/bootstrap/assets/stylesheets/bootstrap/*.scss'],
+        files: ['src/acasdigital-frontend/scss/{,**/}*.{scss,sass}'],
         tasks: ['compass:dev'],
         options: {
           livereload: false
@@ -62,12 +62,12 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: 'src',
+          cwd: 'src/acasdigital-frontend',
           dest: 'dist',
           src: [
             '*.{ico,png,txt}',
             'images/{,*/}*.{png,jpeg,jpg,gif,webp,svg}',
-            'fonts/{,*/}*.{ttf,otf,woff,eot}'
+            'fonts/{,*/}*.{ttf,otf,woff,woff2,eot}'
           ]
         }]
       }
@@ -90,7 +90,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           flatten: true,
-          cwd: 'src/js',
+          cwd: 'src/acasdigital-frontend/js',
           dest: 'dist/js',
           src: ['**/*.js', '!**/*.min.js'],
           rename: function(dest, src) {

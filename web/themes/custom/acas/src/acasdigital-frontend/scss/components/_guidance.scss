@@ -1,0 +1,13 @@
+.text--guidance {
+  border: 4px solid acas-color("maroon");
+  border-radius: 7px;
+  padding: .75em 1.25em;
+  font-size: .875em;
+  p {
+    margin-bottom: 0;
+  }
+  h2, h3 {
+    color: acas-color("black");
+    margin-top: 0;
+  }
+}

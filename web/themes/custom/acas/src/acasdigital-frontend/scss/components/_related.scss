@@ -1,0 +1,12 @@
+.nav-related {
+  @extend %list-no-format;
+  max-width: 20em;
+  padding: .5em 0;
+  ul {
+    a {
+      color: acas-color("gray-dark");
+      display: inline-block;
+      margin: .5em 0;
+    }
+  }
+}

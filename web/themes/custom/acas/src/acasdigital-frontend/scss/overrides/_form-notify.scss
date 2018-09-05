@@ -1,0 +1,16 @@
+.path-webform {
+  header#block-acas-page-title,
+  .webform-submission-form {
+    @include clearfix;
+    @extend .col-xs-12;
+    @extend .col-md-8;
+    @extend .col-lg-7;
+    @extend .col--centered;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+}
+
+.btn-cta {
+  @extend .btn--primary;
+}

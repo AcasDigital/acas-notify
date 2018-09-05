@@ -1,0 +1,34 @@
+.webform-preview {
+  #check_employer, #acas_notification_form--find_address {
+    display: none;
+  }
+  .panel-heading {
+    display: block;
+    border-top: 1px solid acas-color("gray-medium");
+    padding-top: 10px;
+  }
+}
+
+.webform-container-type-details {
+  position: relative;
+  .control-label {
+    margin: 1em 0 .5em;
+  }
+  .webform-wizard-pages-link {
+    position: absolute;
+    right: .25em;
+    bottom: 0;
+  }
+  .form-item-employer-name {
+    label {
+      font-size: 1em;
+    }
+  }
+  .panel-body {
+    margin: 1.5em 0;
+    margin-left: 1.5em;
+    .webform-element {
+      padding-right: 9em;
+    }
+  }
+}

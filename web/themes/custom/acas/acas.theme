@@ -16,8 +16,17 @@ function acas_preprocess_page(&$variables) {
     }
     $variables['nodeid'] = $node->id();
   }
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
+    $variables['formname'] = 'Early conciliation notification form';
+  }
   $variables['useful'] = TRUE;
   $variables['#attached']['library'][] =  'general/anything_wrong';
+}
+
+function acas_preprocess_page_title(&$variables) {
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
+    $variables['title'] = FALSE;
+  }
 }
 
 function acas_preprocess_menu(&$variables) {
@@ -80,7 +89,7 @@ function acas_preprocess_block(&$variables) {
       }
     }
   }
-  if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block' || $variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
+  if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block' || $variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom' || $variables['plugin_id'] == 'feedback') {
     $variables['#cache']['max-age'] = 0;
   }
   //if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {

@@ -1,0 +1,19 @@
+{
+  "name": "acasdigital-frontend",
+  "version": "1.0.0",
+  "description": "Acas Digital Frontend contains the code and assets needed to start building a user interface for new Acas services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/acasdigital/acasdigital-frontend.git"
+  },
+  "author": "Luka Alexander",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acasdigital/acasdigital-frontend/issues"
+  },
+  "homepage": "https://github.com/acasdigital/acasdigital-frontend#readme"
+}
