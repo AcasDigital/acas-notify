@@ -1,4 +1,7 @@
 notification_form:
+  css:
+    theme:
+      css/notification.css: {}
   js:
     js/jquery.bind-first.js: {}
     js/notification_form.js: {}

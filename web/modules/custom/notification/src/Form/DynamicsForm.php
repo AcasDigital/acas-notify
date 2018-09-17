@@ -31,24 +31,17 @@ class DynamicsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('dynamics.settings');
-    $form['organization_uri'] = array(
+    $form['url'] = array(
       '#type' => 'textfield',
-      '#default_value' => $config->get('organization_uri') ?: '',
-      '#title' => t('Organization URI'),
+      '#default_value' => $config->get('url') ?: '',
+      '#title' => t('URL'),
       '#required' => TRUE,
       '#size' => 100,
     );
-    $form['application_id'] = array(
+    $form['token'] = array(
       '#type' => 'textfield',
-      '#default_value' => $config->get('application_id') ?: '',
-      '#title' => t('Application ID'),
-      '#required' => TRUE,
-      '#size' => 100,
-    );
-    $form['application_secret'] = array(
-      '#type' => 'textfield',
-      '#default_value' => $config->get('application_secret') ?: '',
-      '#title' => t('Application secret'),
+      '#default_value' => $config->get('token') ?: '',
+      '#title' => t('Token'),
       '#required' => TRUE,
       '#size' => 100,
     );
@@ -67,9 +60,8 @@ class DynamicsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('dynamics.settings')
-    ->set('organization_uri', $form_state->getValue('organization_uri'))
-    ->set('application_id', $form_state->getValue('application_id'))
-    ->set('application_secret', $form_state->getValue('application_secret'))
+    ->set('url', $form_state->getValue('url'))
+    ->set('token', $form_state->getValue('token'))
     ->save();
     parent::submitForm($form, $form_state);
   }

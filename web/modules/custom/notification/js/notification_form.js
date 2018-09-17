@@ -25,6 +25,7 @@ Drupal.behaviors.notification_form = {
         jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').find('.govuk-webform-elements-day, .govuk-webform-elements-month, .govuk-webform-elements-year').on('input', dismissedDate);
       }
       // Hide buttons if one of several colleagues
+      /*
       if (jQuery('.form-item-problem-several-colleagues').length) {
         jQuery('.form-item-problem-several-colleagues input').change(function() {
             if (this.value == 2) {
@@ -34,12 +35,13 @@ Drupal.behaviors.notification_form = {
             }
         });
       }
+      */
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
           // Prevent feedback webforms having wait dialog
           return;
         }
-        var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><span class="title">Sending your notification to Acas</span></div>';
+        var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><h2 class="title">Sending your notification to Acas</h2></div>';
         html += '<div class="spinner-wrapper"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>';
         html += '<div class="modal-description">Please wait...</div></div>';
         jQuery('body').append(html);

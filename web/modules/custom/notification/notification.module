@@ -137,7 +137,7 @@ function notification_cron() {
   if ($hour >= 3 && $hour <= 7) {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
-    if ($config->get('current_in_count')) {
+    if ($config->get('current_in_count') || $config->get('current_out_count')) {
       $config->set('current_in_count', 0);
       $config->set('current_out_count', 0);
       $config->save();
@@ -178,54 +178,20 @@ function notification_confirmation($webform, $webform_submission_id) {
     if (notification_send_dynamics($webform_submission_id, $ref)) {
       
     }
-    /*
-    $config = \Drupal::config('dynamics.settings');
-    $client = \AlexaCRM\WebAPI\ClientFactory::createOnlineClient(
-      $config->get('organization_uri'),
-      $config->get('application_id'),
-      $config->get('application_secret')
-    );
-    $entities = [
-      'contact' => new \AlexaCRM\Xrm\Entity('contact'),
-      'account' => new \AlexaCRM\Xrm\Entity('account'),
-      'representative' => new \AlexaCRM\Xrm\Entity('contact'),
-      'employer' => new \AlexaCRM\Xrm\Entity('contact'),
-      'case' => new \AlexaCRM\Xrm\Entity('incident'),
-    ];
-    foreach($data as $field => $value) {
-      notification_build_field($entities, $field, $value);
+    $nid = 94;
+    if ($webform == 'notification_prototype_form') {
+      $nid = 97;
     }
-    $accountId = $client->Create($entities['account']);
-    $contactId = $client->Create($entities['contact']);
-    $associate = [new \AlexaCRM\Xrm\EntityReference( 'contact', $contactId )];
-    if (@$entities['representative']['statuscode']) {
-      $representativeId = $client->Create($entities['representative']);
-      $associate[] = new \AlexaCRM\Xrm\EntityReference( 'contact', $representativeId );
-    }
-    if (@$entities['employer']['statuscode']) {
-      $employerId = $client->Create($entities['employer']);
-      $associate[] = new \AlexaCRM\Xrm\EntityReference( 'contact', $employerId );
-    }
-    $entities['case']['title'] = $entities['contact']['firstname'] . ' ' . $entities['contact']['lastname'];
-    $entities['case']['customerid'] = new AlexaCRM\Xrm\EntityReference( 'account', $accountId );
-    $entities['case']['ticketnumber'] = $ref;
-    $caseId = $client->Create($entities['case']);
-    $client->Associate(
-      'account',
-      $accountId,
-      new \AlexaCRM\Xrm\Relationship( 'contact_customer_accounts' ), $associate
-    );
-    */
   }
   $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-  $node = \Drupal\node\Entity\Node::load(94);
+  $node = \Drupal\node\Entity\Node::load($nid);
   $view = $view_builder->view($node, 'full');
   $html = drupal_render($view);
   $html = str_replace('[REFERENCE]', $ref, $html);
   $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
   $webform_submission = WebformSubmission::load($webform_submission_id);
   $data = $webform_submission->getData();
-  if ($data['is_this_employer_still_trading'] == 'No') {
+  if (@$data['is_this_employer_still_trading'] == 'No') {
     $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
   }else{
     $html = str_replace('[SPECIFIC GUIDANCE]', '', $html);
@@ -389,8 +355,9 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
   }
   $json['acas_respondenttype'] = '602700001'; // Personal
   // Now send the data
-  $data_string = json_encode(['notification' => $json]);
-  $ch = curl_init('https://dev-tell.acas.org.uk/notify-test');                                                                      
+  $data_string = json_encode($json);
+  $config = \Drupal::config('dynamics.settings');
+  $ch = curl_init($config->get('url') . '?si_token=' . $config->get('token'));                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -426,9 +393,12 @@ function notification_build_field(&$entities, $field, $data) {
 }
 
 function notification_build_reference_number() {
-  $ref = str_pad(rand(20000, 99999), 8, '0', STR_PAD_LEFT);
-  $sub = rand(10, 99);
-  return $ref . '/' . $sub;
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('acas.settings');
+  $ref = $config->get('notification_ref_no');
+  $config->set('notification_ref_no', $ref + 1);
+  $config->save();
+  return 'R' . $ref .  '/' . date('y');
 }
 
 final class companiesHouseApi {

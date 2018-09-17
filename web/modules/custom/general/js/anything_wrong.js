@@ -5,7 +5,8 @@
         $('#feedback-form').append($('.webform-submission-no-feedback-add-form'));
         $('#feedback-form').append($('.webform-submission-yes-feedback-add-form'));
         $("#feedback-form #no").click(function() {
-          $("#feedback-form .right-wrapper").show();
+          $("#feedback-form .feedback-close-wrapper").show();
+          $("#feedback-form .feedback-question-wrapper .feedback-buttons").hide();
           $("#feedback-form .webform-submission-yes-feedback-form").slideUp();
           $("#feedback-form .webform-submission-no-feedback-form").slideDown();
           sendVote(this, false);
@@ -15,9 +16,10 @@
           return false;
         });
         $("#feedback-form #yes").click(function() {
-          $("#feedback-form .right-wrapper").show();
+          $("#feedback-form .feedback-close-wrapper").show();
           $("#feedback-form .webform-submission-no-feedback-form").slideUp();
           $("#feedback-form .webform-submission-yes-feedback-form").slideDown();
+          $("#feedback-form .feedback-question-wrapper .feedback-buttons").hide();
           setTimeout(function(){ $("#feedback-form .webform-submission-yes-feedback-form textarea").focus(); }, 500);
           sendVote(this, false);
           $([document.documentElement, document.body]).animate({
@@ -25,9 +27,20 @@
           }, 500);
           return false;
         });
-        $("#feedback-form .right-wrapper").click(function() {
-          $("#feedback-form .right-wrapper").hide();
+        if (!$("#feedback-form #edit-radios").val()) {
+          $("#feedback-form .no-feedback .form-item-answer").hide();
+        }
+        $("#feedback-form #edit-radios").change(function() {
+          var questions = JSON.parse($("[data-drupal-selector=edit-questions]").val());
+          var a = $("#feedback-form #edit-radios input:checked").val();
+          $(".form-item-answer .control-label").text(questions[a]);
+          $("#feedback-form .form-item-answer").slideDown();
+          $("#feedback-form .form-item-answer textarea").focus();
+        });
+        $("#feedback-form .feedback-close-wrapper").click(function() {
+          $("#feedback-form .feedback-close-wrapper").hide();
           $("#feedback-form .webform-submission-form").slideUp();
+          $("#feedback-form .feedback-question-wrapper .feedback-buttons").show();
         });
         $("#feedback-form .webform-button--submit").click(function() {
           //$("#feedback-form .webform-submission-no-feedback-add-form").submit();
@@ -46,28 +59,29 @@
         });
       }
       function showAnythingWrongRequest(formData, jqForm, options) {
-        $("#feedback-form .left-wrapper").html("<span class='text'>Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190</span>");
-        $("#feedback-form .right-wrapper").hide();
+        $("#feedback-form .feedback-question-wrapper .feedback-question").html("Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190.");
+        $("#feedback-form .feedback-close-wrapper").hide();
         $("#feedback-form .webform-submission-form").slideUp();
+        $([document.documentElement, document.body]).animate({
+          scrollTop: $("#feedback-wrapper").offset().top
+        }, 500);
       }
       function sendVote(element, simple) {
-        if (jQuery(element).attr('nid').length) {
-          jQuery.ajax({
-            url: "/feedback/" + jQuery(element).attr('nid') + "/" + jQuery(element).text() ,
-            type: "GET",
-            dataType: "html",
-            cache: false,
-            timeout: 60000,
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-  
-            },
-            success: function(data){
-              if (simple) {
-                $("#feedback-wrapper #feedback-form").html("<span class='text'>Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190</span>");
-              }
+        jQuery.ajax({
+          url: "/feedback/" + jQuery(element).attr('nid') + "/" + jQuery(element).text() ,
+          type: "GET",
+          dataType: "html",
+          cache: false,
+          timeout: 60000,
+          error: function(XMLHttpRequest, textStatus, errorThrown){
+
+          },
+          success: function(data){
+            if (simple) {
+              $("#feedback-form .feedback-question-wrapper .text").html("Thank you. Your feedback will help us improve our advice.<br />Unfortunately we cannot respond to individual feedback. If you need help, call our helpline on 0300 123 1190.");
             }
-          });
-        }
+          }
+        });
       }
     }
   };
