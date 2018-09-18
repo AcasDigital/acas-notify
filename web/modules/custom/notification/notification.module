@@ -354,6 +354,9 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
     $json['acas_incidenttype'] = implode(',', $incident_type);
   }
   $json['acas_respondenttype'] = '602700001'; // Personal
+  if (!@$json['acas_incidenttype']) {
+    $json['acas_incidenttype'] = '602700000';
+  }
   // Now send the data
   $data_string = json_encode($json);
   $config = \Drupal::config('dynamics.settings');
