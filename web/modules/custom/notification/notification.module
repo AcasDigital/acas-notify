@@ -94,6 +94,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
 
 /**
  * Implements the EC Entry Switch
+ * Parameter $mobile. TRUE if from the mobile site, FALSE if from the desktop site
  */
 function notification_ec_entry_switch($mobile = FALSE) {
   // See if a returning user (ec_entry cookie is set)
@@ -125,7 +126,7 @@ function notification_ec_entry_switch($mobile = FALSE) {
     'language' => Language::LANGCODE_NOT_SPECIFIED,
     'uid' => 0,
     'name' => 'Anonymous',
-    'mobile' => $mobile,
+    'field_mobile' => $mobile,
     'field_referer' => ['uri' => $referer, 'title' => '', 'options' => []],
   );
   $config_factory = \Drupal::configFactory();
