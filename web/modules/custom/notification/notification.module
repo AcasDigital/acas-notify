@@ -32,11 +32,22 @@ function notification_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_form_alter
+ * Implements hook_entity_view().
  */
+function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  if ($view_mode == 'full' && $entity instanceof \Drupal\node\NodeInterface && $entity->getType() == 'secondary_page') {
+    if (isset($_COOKIE['webform_preview'])) {
+      unset($_COOKIE['webform_preview']);
+      setcookie('webform_preview', null, -1, '/');
+    }
+  }
+}
 
-function notification_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (strpos($form_id, 'webform_submission') !== FALSE && strpos($form_id, 'notification') !== FALSE && \Drupal::theme()->getActiveTheme()->getName() == 'acas') {
+/**
+ * Implements hook_webform_submission_form_alter
+ */
+function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (strpos($form_id, 'notification') !== FALSE && \Drupal::theme()->getActiveTheme()->getName() == 'acas') {
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
@@ -59,13 +70,32 @@ function notification_form_alter(&$form, FormStateInterface $form_state, $form_i
     if (@$form['actions']['submit']) {
       $form['actions']['submit']['#attributes']['class'][] = 'btn--primary';
     }
+    $element_key = $form_state->getTriggeringElement();
+    if ($element_key && strpos($element_key['#id'], 'edit-actions-wizard-next') !== FALSE) {
+      if (@$_COOKIE['webform_preview']) {
+        $pages = $form_state->get('pages');
+        $all_keys = array_keys($pages);
+        $goto_destination_page_index = array_search('webform_preview', $all_keys);
+        if($goto_destination_page_index > 0){
+          $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
+        }
+      }else {
+        $current_page = $form_state->get('current_page');
+        if ($current_page == 'webform_preview') {
+          setcookie('webform_preview', '1', NULL, '/');
+        }
+      }
+    }
+    if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
+      setcookie('webform_preview', '1', NULL, '/');
+    }
   }
 }
 
 /**
  * Implements the EC Entry Switch
  */
-function notification_ec_entry_switch() {
+function notification_ec_entry_switch($mobile = FALSE) {
   // See if a returning user (ec_entry cookie is set)
   // For testing, can bypass this test by adding ?nc=1 to URL
   if (isset($_COOKIE['ec_entry']) && !\Drupal::request()->query->get('nc')) {
@@ -95,6 +125,7 @@ function notification_ec_entry_switch() {
     'language' => Language::LANGCODE_NOT_SPECIFIED,
     'uid' => 0,
     'name' => 'Anonymous',
+    'mobile' => $mobile,
     'field_referer' => ['uri' => $referer, 'title' => '', 'options' => []],
   );
   $config_factory = \Drupal::configFactory();
@@ -160,7 +191,10 @@ function notification_company_house($employer) {
 }
 
 function notification_confirmation($webform, $webform_submission_id) {
-  if (strpos($webform, 'notification') !== FALSE) {
+  $webform_submission = WebformSubmission::load($webform_submission_id);
+  $data = $webform_submission->getData();
+  drupal_get_messages();
+  if ($data['form_type'] == 'Notification') {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     $config->set('current_out_count', $config->get('current_out_count') + 1);
@@ -175,34 +209,59 @@ function notification_confirmation($webform, $webform_submission_id) {
       $node->save();
     }
     $ref = notification_build_reference_number();
-    if (notification_send_dynamics($webform_submission_id, $ref)) {
-      
-    }
-    $nid = 94;
-    if ($webform == 'notification_prototype_form') {
+    notification_send_dynamics($webform_submission_id, $ref);
+    setcookie('acas_eccaserefnumber', $ref, time() + 2592000, '/');
+    if ($data['are_you_interested_in_settling_your_case_before_tribunal_'] == 'Yes') {
+      if (isset($_COOKIE['webform_preview'])) {
+        unset($_COOKIE['webform_preview']);
+        setcookie('webform_preview', null, -1, '/');
+      }
+      $response = new RedirectResponse('/start-conciliation?acas_eccaserefnumber=' . $ref);
+      $response->send();
+      return;
+    }else{
       $nid = 97;
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+      $node = \Drupal\node\Entity\Node::load($nid);
+      $view = $view_builder->view($node, 'full');
+      $html = drupal_render($view);
+      $html = str_replace('[REFERENCE]', $ref, $html);
+      $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
+      if (@$data['is_this_employer_still_trading'] == 'No') {
+        $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
+      }else{
+        $html = str_replace('[SPECIFIC GUIDANCE]', '', $html);
+      }
+      $a = explode('</h2>', $html, 2);
+      $b = explode('<h2>', $a[0]);
+      $html = $b[0] . '<h1 class="thank-you-page-header">Thank you!</h1>' . $a[1];
+      return $html;
     }
+  }else if ($data['form_type'] == 'Conciliation') {
+    if (!$data['acas_eccaserefnumber'] && @$_COOKIE['acas_eccaserefnumber']) {
+      $data['acas_eccaserefnumber'] = $_COOKIE['acas_eccaserefnumber'];
+    }
+    notification_send_dynamics($webform_submission_id, $data['acas_eccaserefnumber']);
+    $nid = 94;
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $node = \Drupal\node\Entity\Node::load($nid);
+    $view = $view_builder->view($node, 'full');
+    $html = drupal_render($view);
+    $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
+    $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
+    if (@$data['is_this_employer_still_trading'] == 'No') {
+      $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
+    }else{
+      $html = str_replace('[SPECIFIC GUIDANCE]', '', $html);
+    }
+    $a = explode('</h2>', $html, 2);
+    $b = explode('<h2>', $a[0]);
+    $html = $b[0] . '<h1 class="thank-you-page-header">Thank you!</h1>' . $a[1];
+    return $html;
   }
-  $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-  $node = \Drupal\node\Entity\Node::load($nid);
-  $view = $view_builder->view($node, 'full');
-  $html = drupal_render($view);
-  $html = str_replace('[REFERENCE]', $ref, $html);
-  $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
-  $webform_submission = WebformSubmission::load($webform_submission_id);
-  $data = $webform_submission->getData();
-  if (@$data['is_this_employer_still_trading'] == 'No') {
-    $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
-  }else{
-    $html = str_replace('[SPECIFIC GUIDANCE]', '', $html);
-  }
-  $a = explode('</h2>', $html, 2);
-  $b = explode('<h2>', $a[0]);
-  $html = $b[0] . '<h1 class="thank-you-page-header">Thank you!</h1>' . $a[1];
-  return $html;
 }
 
-function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
+function notification_send_dynamics($webform_submission_id, $ref = '') {
   $webform_submission = WebformSubmission::load($webform_submission_id);
   $data = $webform_submission->getData();
   $json = [];
@@ -354,6 +413,7 @@ function notification_send_dynamics($webform_submission_id, $ref = 'TEST') {
     $json['acas_incidenttype'] = implode(',', $incident_type);
   }
   $json['acas_respondenttype'] = '602700001'; // Personal
+  $json['acas_eccaserefnumber'] = $ref;
   if (!@$json['acas_incidenttype']) {
     $json['acas_incidenttype'] = '602700000';
   }

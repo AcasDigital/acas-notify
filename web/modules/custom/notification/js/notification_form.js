@@ -41,7 +41,7 @@ Drupal.behaviors.notification_form = {
           // Prevent feedback webforms having wait dialog
           return;
         }
-        var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><h2 class="title">Sending your notification to Acas</h2></div>';
+        var html = '<div id="overlay"></div><div id="modal"><div class="title-wrapper"><h2 class="title">' + jQuery('.webform-submission-form').attr('dialog-title') + '</h2></div>';
         html += '<div class="spinner-wrapper"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>';
         html += '<div class="modal-description">Please wait...</div></div>';
         jQuery('body').append(html);

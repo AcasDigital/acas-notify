@@ -53,6 +53,14 @@ notification.ec_entry_switch:
   requirements:
     _permission: 'access content'
     
+notification.ec_entry_switch_mobile:
+  path: '/ec-entry-switch-mobile'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::ec_entry_switch_mobile'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
 notification.ec_entry:
   path: '/admin/config/system/ec-entry'
   defaults:

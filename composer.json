@@ -279,6 +279,7 @@
         "behat/mink": "^1.7",
         "behat/mink-zombie-driver": "^1.4",
         "drupal/drupal-extension": "~3.0",
+        "drupal/twig_xdebug": "^1.0",
         "webflo/drupal-core-require-dev": "~8.4"
     },
     "conflict": {
