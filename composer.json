@@ -226,6 +226,7 @@
         "drupal/search_api_exclude": "^1.0",
         "drupal/search_api_solr": "^1.2",
         "drupal/search_api_solr_multilingual": "^1.1",
+        "drupal/seckit": "^1.0",
         "drupal/shs": "^1.0",
         "drupal/simple_sitemap": "^2.12",
         "drupal/sitemap": "^1.3",
