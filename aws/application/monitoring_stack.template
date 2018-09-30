@@ -1,22 +1,22 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Acas Advice Application Log Monitoring
+Description: Acas Notify Application Log Monitoring
 Parameters:
   pAppName:
     Type: String
-    Default: 'Advice'
+    Default: 'Notify'
   pSnsAppStack:
     Description: Enter the AppStack name which Exports the SNS Topics
     Type: String
-    Default: 'ACAS-ops-alerts-pre-prod'
+    Default: 'ACAS-ops-alerts-prod'
 
   pLoadBalancerName:
     Description: Enter your Application Load Balancer name.
     Type: String
-    Default: 'Acas'
+    Default: 'Notify-load-balancer'
   pRDSName:
     Description: Enter the RDS Cluster name
     Type: String
-    Default: 'uat-cluster'
+    Default: 'production-cluster-1'
   pDiskAlarmThreshold:
     Description: EC2 disk alarm threshold
     Type: Number

@@ -17,8 +17,8 @@ for deployment.
 
 ```sh
 aws cloudformation package --template-file "$(pwd)/application/monitoring_stack.template" \
-    --s3-bucket "acas-cfn-${ACAS_ACCOUNT}-eu-west-1" --s3-prefix "advice/$ACAS_ENV" \
-    --output-template-file "$(pwd)/application/advice-monitoring-${ACAS_ENV}.packaged" \
+    --s3-bucket "acas-cfn-${ACAS_ACCOUNT}-eu-west-1" --s3-prefix "notify/$ACAS_ENV" \
+    --output-template-file "$(pwd)/application/notify-monitoring-${ACAS_ENV}.packaged" \
     --profile "acas-${ACAS_ENV}"
 ```
 
@@ -26,9 +26,9 @@ Next, deploy the stack. You might need to use `--parameter-overrides` to
 customise behaviour for different environments.
 
 ```sh
-aws cloudformation deploy --stack-name "ACAS-advice-monitoring-${ACAS_ENV}" \
-    --template-file "$(pwd)/application/advice-monitoring-${ACAS_ENV}.packaged" \
-    --s3-bucket "acas-cfn-${ACAS_ACCOUNT}-eu-west-1" --s3-prefix "advice/$ACAS_ENV" \
+aws cloudformation deploy --stack-name "ACAS-notify-monitoring-${ACAS_ENV}" \
+    --template-file "$(pwd)/application/notify-monitoring-${ACAS_ENV}.packaged" \
+    --s3-bucket "acas-cfn-${ACAS_ACCOUNT}-eu-west-1" --s3-prefix "notify/$ACAS_ENV" \
     --no-execute-changeset \
     --capabilities CAPABILITY_NAMED_IAM \
     --profile "acas-${ACAS_ENV}"
