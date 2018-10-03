@@ -55,23 +55,25 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       'token' => $config->get('token'),
     ];
     if (@$form['actions']['wizard_prev']) {
-      $form['back'] = $form['actions']['wizard_prev'];
-      $form['back']['#value'] = 'Back';
-      $form['back']['#weight'] = -10;
-      $form['back']['#attributes']['class'][] = 'back--link';
+      if (!@$_COOKIE['webform_preview']) {
+        $form['back'] = $form['actions']['wizard_prev'];
+        $form['back']['#value'] = 'Back';
+        $form['back']['#weight'] = -10;
+        $form['back']['#attributes']['class'][] = 'back--link';
+      }
       unset($form['actions']['wizard_prev']);
     }
     if (@$form['actions']['draft']) {
-      $form['actions']['draft']['#attributes']['class'][] = 'btn--secondary';
+      $form['actions']['draft']['#attributes']['class'][] = 'btn-secondary';
     }
     if (@$form['actions']['wizard_next']) {
-      $form['actions']['wizard_next']['#attributes']['class'][] = 'btn--primary';
+      $form['actions']['wizard_next']['#attributes']['class'][] = 'btn-primary';
     }
     if (@$form['actions']['submit']) {
-      $form['actions']['submit']['#attributes']['class'][] = 'btn--primary';
+      $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
     }
     $element_key = $form_state->getTriggeringElement();
-    if ($element_key && strpos($element_key['#id'], 'edit-actions-wizard-next') !== FALSE) {
+    //if ($element_key && strpos($element_key['#id'], 'edit-actions-wizard-next') !== FALSE) {
       if (@$_COOKIE['webform_preview']) {
         $pages = $form_state->get('pages');
         $all_keys = array_keys($pages);
@@ -85,7 +87,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
           setcookie('webform_preview', '1', NULL, '/');
         }
       }
-    }
+    //}
     if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
       setcookie('webform_preview', '1', NULL, '/');
     }
