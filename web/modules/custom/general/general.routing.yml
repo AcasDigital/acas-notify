@@ -6,3 +6,10 @@ general.settings:
   requirements:
     _permission: 'administer site configuration'
     
+general.health:
+  path: '/health'
+  defaults:
+    _controller: '\Drupal\general\Controller\GeneralController::health'
+    _title: 'Health'
+  requirements:
+    _permission: 'access content'
