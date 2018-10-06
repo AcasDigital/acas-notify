@@ -77,10 +77,3 @@ notification.notify_test:
   requirements:
     _permission: 'access content'
     
-notification.health:
-  path: '/health'
-  defaults:
-    _controller: '\Drupal\general\Controller\GeneralController::health'
-    _title: 'Health'
-  requirements:
-    _permission: 'access content'

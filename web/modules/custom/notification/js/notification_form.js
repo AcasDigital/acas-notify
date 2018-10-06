@@ -54,7 +54,9 @@ Drupal.behaviors.notification_form = {
             if (!jQuery(this).val()) {
               jQuery(this).removeClass('valid');
               jQuery(this).addClass('invalid');
-              jQuery('<div class="invalid-feedback">' + jQuery(this).attr('data-webform-required-error') + '</div>').insertBefore(jQuery(this));
+              var e = jQuery(this).parent().find('.invalid-feedback');
+              jQuery(e).text(jQuery(this).attr('data-webform-required-error'));
+              jQuery(e).show();
               jQuery(this).on('input', function() {
                 if (!jQuery(this).val()) {
                   jQuery(this).parent().find('.invalid-feedback').show();

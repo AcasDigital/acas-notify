@@ -113,15 +113,8 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
       if ($parent = _is_guide($entity)) {
         $build['print_download_email'] = [
           '#markup' => '<div class="print-download-email">
-            <li>
-              <a class="btn-save btn-save--print print-opener" href="/guide-print/' . $parent . '">Print</a>
-            </li>
-            <li>
-              <a class="btn-save btn-save--download download-opener" href="/guide-download/' . $parent . '">Download</a>
-            </li>
-            <li>
-              <a class="btn-save btn-save--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . ($entity->id() ? $entity->toUrl('canonical', ['absolute' => TRUE])->toString() : '') . '">Email</a>
-            </li>
+            <a class="btn-save btn-save--print print-opener" href="/guide-print/' . $parent . '"><span>Print</span></a>
+            <a class="btn-save btn-save--download download-opener" href="/guide-download/' . $parent . '"><span>Download</span></a>
             <div id="guide_print_download_overlay" class="hidden"></div>
             <div id="guide_print_modal" class="modal hidden">
               <div class="title-wrapper"><span class="title">Print</span><span class="close">close<span class="x">X</span></span></div>
@@ -144,13 +137,13 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
               <div class="title-wrapper"><span class="title">Download</span><span class="close">close<span class="x">X</span></span></div>
               <div class="body-wrapper">
                 <div class="action download-page">
-                  <a class="btn-panel btn-panel--download-page" nid="' . $parent . '" href="/page-download/' . $entity->id() . '">
+                  <a class="btn-panel btn-panel--download-page" nid="' . $parent . '" href="/page-download/' . $entity->id() . '?' . time() . '">
                     <div class="icon"></div>
                     <span>Download this page</span>
                   </a>
                 </div>
                 <div class="action download-guide">
-                  <a class="btn-panel btn-panel--download-guide" nid="' . $parent . '" href="/guide-download/' . $parent . '">
+                  <a class="btn-panel btn-panel--download-guide" nid="' . $parent . '" href="/guide-download/' . $parent . '?' . time() . '">
                     <div class="icon"></div>
                     <span>Download entire guide</span>
                   </a>
@@ -162,22 +155,10 @@ function general_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface 
         ];
         $build['print_download_email']['#attached']['library'][] = 'general/guide_print_download';
       }else{
-        if ($entity->getType() == 'support_page' && $entity->getTitle() == 'Report a problem with the beta website') {
-          $email = '<a class="btn-save btn-save--email" href="mailto:digitaladvice@acas.org.uk?subject=Beta website feedback&body=Please provide the title or web address of the page you were on, what you were trying to do, why you couldn\'t do it.">Email</a>';
-        }else{
-          $email = '<a class="btn-save btn-save--email" href="mailto:?subject=' . $entity->getTitle() . '&body=Check out this site ' . ($entity->id() ? $entity->toUrl('canonical', ['absolute' => TRUE])->toString() : '') . '">Email</a>';
-        }
         $build['print_download_email'] = [
           '#markup' => '<div class="print-download-email">
-          <li>
-            <a class="btn-save btn-save--print print" href="/page-print/' . $entity->id() . '">Print</a>
-          </li>
-          <li>
-            <a class="btn-save btn-save--download" href="/page-download/' . $entity->id() . '">Download</a>
-          </li>
-          <li>
-            ' . $email . '
-          </li>
+            <a class="btn-save btn-save--print print" href="/page-print/' . $entity->id() . '"><span>Print</span></a>
+            <a class="btn-save btn-save--download" href="/page-download/' . $entity->id() . '"><span>Download</span></a>
           </div>',
           '#weight' => 992,
         ];

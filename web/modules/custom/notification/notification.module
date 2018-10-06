@@ -91,6 +91,9 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
       setcookie('webform_preview', '1', NULL, '/');
     }
+    if ($acas_eccaserefnumber = \Drupal::request()->query->get('acas_eccaserefnumber')) {
+      setcookie('acas_eccaserefnumber', $acas_eccaserefnumber, time() + 2592000, '/');
+    }
   }
 }
 

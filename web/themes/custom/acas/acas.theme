@@ -16,7 +16,7 @@ function acas_preprocess_page(&$variables) {
     }
     $variables['nodeid'] = $node->id();
   }
-  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE && strpos(\Drupal::request()->getRequestUri(), 'submission') === FALSE) {
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
     $variables['formname'] = 'Early conciliation notification form';
   }
   $variables['useful'] = TRUE;
