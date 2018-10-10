@@ -34,3 +34,6 @@
 #modal .modal-description {
   text-align: center;
 }
+#block-notificationpreviewfootermessage, #block-conciliationpreviewfootermessage {
+  display: none;
+}

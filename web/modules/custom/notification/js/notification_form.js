@@ -36,6 +36,11 @@ Drupal.behaviors.notification_form = {
         });
       }
       */
+      // Only show block if preview page
+      jQuery('#block-notificationpreviewfootermessage').hide();
+      jQuery('#block-conciliationpreviewfootermessage').hide();
+      setTimeout('checkForPreview()', 500);
+      
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
           // Prevent feedback webforms having wait dialog
@@ -269,5 +274,12 @@ function dismissedDate() {
     }
   }else{
     jQuery('.last-day-of-work-out-of-time-text').hide();
+  }
+}
+
+function checkForPreview() {
+  if (location.search == "?page=webform_preview") {
+    jQuery('#block-notificationpreviewfootermessage').show();
+    jQuery('#block-conciliationpreviewfootermessage').show();
   }
 }

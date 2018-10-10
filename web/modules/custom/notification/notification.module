@@ -99,9 +99,8 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
 
 /**
  * Implements the EC Entry Switch
- * Parameter $mobile. TRUE if from the mobile site, FALSE if from the desktop site
  */
-function notification_ec_entry_switch($mobile = FALSE) {
+function notification_ec_entry_switch() {
   // See if a returning user (ec_entry cookie is set)
   // For testing, can bypass this test by adding ?nc=1 to URL
   if (isset($_COOKIE['ec_entry']) && !\Drupal::request()->query->get('nc')) {
@@ -124,6 +123,8 @@ function notification_ec_entry_switch($mobile = FALSE) {
   }else{
     $referer = 'https://' . $_SERVER['HTTP_HOST'];
   }
+  // Load service to detect if a mobile
+  $mobileDetector = \Drupal::service('mobile_detect');
   // Set the values for the ec_entry node
   $values = array(
     'title' => $cookie,
@@ -131,7 +132,7 @@ function notification_ec_entry_switch($mobile = FALSE) {
     'language' => Language::LANGCODE_NOT_SPECIFIED,
     'uid' => 0,
     'name' => 'Anonymous',
-    'field_mobile' => $mobile,
+    'field_mobile' => $mobileDetector->isMobile(),
     'field_referer' => ['uri' => $referer, 'title' => '', 'options' => []],
   );
   $config_factory = \Drupal::configFactory();
@@ -151,10 +152,14 @@ function notification_ec_entry_switch($mobile = FALSE) {
   }
   if (!$enabled) {
     // Re-direct to the old form
-    $values['field_destination'] = ['uri' => $config->get('old_url'), 'title' => '', 'options' => []];
+    $url = $config->get('old_url');
+    if ($mobileDetector->isMobile()) {
+      $url = str_replace('www.', 'm.', $url);
+    }
+    $values['field_destination'] = ['uri' => $url, 'title' => '', 'options' => []];
     $node = \Drupal::entityTypeManager()->getStorage('node')->create($values);
     $node->save();
-    $response = new RedirectResponse($config->get('old_url'));
+    $response = new RedirectResponse($url);
   }else{
     // Re-direct to the new form
     $values['field_destination'] = ['uri' => $config->get('new_url'), 'title' => '', 'options' => []];
@@ -178,10 +183,9 @@ function notification_cron() {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     if ($config->get('current_in_count') || $config->get('current_out_count')) {
-      $config->set('current_in_count', 0);
-      $config->set('current_out_count', 0);
-      $config->save();
-      $msg .= '. Cleared current counts';
+      $config->set('current_in_count', 0)->set('current_out_count', 0)->save();
+      $config = $config_factory->getEditable('ec_entry_switch.settings');
+      $msg .= '. Cleared current counts. In = ' . $config->get('current_in_count') . ' Out = ' . $config->get('current_out_count');
     }
   }
   \Drupal::logger('notification')->notice($msg);
@@ -248,9 +252,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       return $html;
     }
   }else if ($data['form_type'] == 'Conciliation') {
-    if (!$data['acas_eccaserefnumber'] && @$_COOKIE['acas_eccaserefnumber']) {
-      $data['acas_eccaserefnumber'] = $_COOKIE['acas_eccaserefnumber'];
-    }
+    $data['acas_eccaserefnumber'] = $_COOKIE['acas_eccaserefnumber'];
     notification_send_dynamics($webform_submission_id, $data['acas_eccaserefnumber']);
     $nid = 94;
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
