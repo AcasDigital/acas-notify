@@ -47,7 +47,7 @@ function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInter
  * Implements hook_webform_submission_form_alter
  */
 function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (strpos($form_id, 'notification') !== FALSE && \Drupal::theme()->getActiveTheme()->getName() == 'acas') {
+  if (strpos($form_id, 'notification') !== FALSE) {
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [

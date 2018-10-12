@@ -15,9 +15,9 @@ Drupal.behaviors.notification_form = {
         jQuery('#feedback-form .left-wrapper .text').removeClass('default');
       }
       if (jQuery('input[name^="feedback_text"]').length) {
-        jQuery('#feedback-form .left-wrapper .text').text(jQuery('input[name^="feedback_text"]').val());
+        jQuery('#feedback-form .feedback-question').text(jQuery('input[name^="feedback_text"]').val());
       }else if (defaultFeedbackText) {
-        jQuery('#feedback-form .left-wrapper .text').text(defaultFeedbackText);
+        jQuery('#feedback-form .feedback-question').text(defaultFeedbackText);
       }
       // Date tests
       if (jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').length) {
@@ -59,9 +59,7 @@ Drupal.behaviors.notification_form = {
             if (!jQuery(this).val()) {
               jQuery(this).removeClass('valid');
               jQuery(this).addClass('invalid');
-              var e = jQuery(this).parent().find('.invalid-feedback');
-              jQuery(e).text(jQuery(this).attr('data-webform-required-error'));
-              jQuery(e).show();
+              jQuery('<div class="invalid-feedback">' + jQuery(this).attr('data-webform-required-error') + '</div>').insertBefore(this);
               jQuery(this).on('input', function() {
                 if (!jQuery(this).val()) {
                   jQuery(this).parent().find('.invalid-feedback').show();
