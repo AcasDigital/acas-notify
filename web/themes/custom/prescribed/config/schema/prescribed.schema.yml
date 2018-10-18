@@ -1,0 +1,5 @@
+# Schema for the theme setting configuration file of the Prescribed theme.
+
+prescribed.settings:
+  type: theme_settings
+  label: 'Prescribed theme settings'

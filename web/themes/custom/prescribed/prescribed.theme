@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+ 
+ // Notification preprocess functions
+
+function prescribed_preprocess_page_title(&$variables) {
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
+    $variables['title'] = FALSE;
+  }
+  $variables['#attached']['library'][] =  'general/anything_wrong';
+}
+
+function prescribed_preprocess_bootstrap_panel(&$variables) {
+  if (isset($variables['element']['#webform']) && strpos($variables['element']['#webform'], 'notification') !== FALSE && $variables['element']['#title_display'] == 'invisible') {
+    unset($variables['heading']);
+  }
+}
+function prescribed_preprocess_form_element_label(&$variables) {
+  if (isset($variables['element']['#id']) && $variables['element']['#id'] == 'edit-find-address' && $variables['element']['#title_display'] == 'invisible') {
+    unset($variables['title']);
+  }
+}
