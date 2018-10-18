@@ -15,9 +15,9 @@ Drupal.behaviors.notification_form = {
         jQuery('#feedback-form .left-wrapper .text').removeClass('default');
       }
       if (jQuery('input[name^="feedback_text"]').length) {
-        jQuery('#feedback-form .feedback-question').text(jQuery('input[name^="feedback_text"]').val());
+        jQuery('#feedback-form .feedback-question span').text(jQuery('input[name^="feedback_text"]').val());
       }else if (defaultFeedbackText) {
-        jQuery('#feedback-form .feedback-question').text(defaultFeedbackText);
+        jQuery('#feedback-form .feedback-question span').text(defaultFeedbackText);
       }
       // Date tests
       if (jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').length) {
@@ -37,9 +37,12 @@ Drupal.behaviors.notification_form = {
       }
       */
       // Only show block if preview page
-      jQuery('#block-notificationpreviewfootermessage').hide();
-      jQuery('#block-conciliationpreviewfootermessage').hide();
-      setTimeout('checkForPreview()', 500);
+      jQuery('section[id$=notificationpreviewfootermessage').hide();
+      jQuery('section[id$=conciliationpreviewfootermessage').hide();
+      if (jQuery('form[data-webform-wizard-current-page=webform_preview]').length) {
+        jQuery('section[id$=notificationpreviewfootermessage').show();
+        jQuery('section[id$=conciliationpreviewfootermessage').show();
+      }
       
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
@@ -272,12 +275,5 @@ function dismissedDate() {
     }
   }else{
     jQuery('.last-day-of-work-out-of-time-text').hide();
-  }
-}
-
-function checkForPreview() {
-  if (location.search == "?page=webform_preview") {
-    jQuery('#block-notificationpreviewfootermessage').show();
-    jQuery('#block-conciliationpreviewfootermessage').show();
   }
 }

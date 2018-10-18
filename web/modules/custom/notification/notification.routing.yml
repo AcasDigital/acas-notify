@@ -21,6 +21,14 @@ notification.afd:
   requirements:
     _permission: 'administer site configuration'
     
+notification.gov_notify:
+  path: '/admin/config/services/notification/gov-notify'
+  defaults:
+    _form: '\Drupal\notification\Form\GovNotifyForm'
+    _title: 'GOV.UK Notification Service'
+  requirements:
+    _permission: 'administer site configuration'
+    
 notification.companies_house:
   path: '/admin/config/services/notification/companies-house'
   defaults:

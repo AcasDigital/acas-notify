@@ -32,3 +32,10 @@ general.companies_house:
   route_name: notification.companies_house
   parent: notification.notification
   weight: 3
+  
+general.gov_notify:
+  title: 'GOV.UK Notification'
+  description: 'GOV.UK Notification Service Settings'
+  route_name: notification.gov_notify
+  parent: notification.notification
+  weight: 3
