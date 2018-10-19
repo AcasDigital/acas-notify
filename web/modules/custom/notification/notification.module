@@ -277,10 +277,12 @@ function notification_confirmation($webform, $webform_submission_id) {
       if (!$node = \Drupal\node\Entity\Node::load($nid)) {
         $node = \Drupal\node\Entity\Node::load(94);
       }
-      $email = [
-        'subject' => $node->field_subject->getString(),
-        'message' => str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $ref, $node->field_message->getString())),
-      ];
+      if ($node->hasField('field_subject')) {
+        $email = [
+          'subject' => $node->field_subject->getString(),
+          'message' => str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $ref, $node->field_message->getString())),
+        ];
+      }
       notification_send_dynamics($webform_submission_id, $ref, $email);
       notification_send($data, $ref);
       $view = $view_builder->view($node, 'full');
