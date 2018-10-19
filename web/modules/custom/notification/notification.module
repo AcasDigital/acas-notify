@@ -274,7 +274,9 @@ function notification_confirmation($webform, $webform_submission_id) {
     }else{
       $nid = 114;
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      $node = \Drupal\node\Entity\Node::load($nid);
+      if (!$node = \Drupal\node\Entity\Node::load($nid)) {
+        $node = \Drupal\node\Entity\Node::load(94);
+      }
       $email = [
         'subject' => $node->field_subject->getString(),
         'message' => str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $ref, $node->field_message->getString())),
@@ -303,7 +305,9 @@ function notification_confirmation($webform, $webform_submission_id) {
       ->execute();
     $nid = 114;
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $node = \Drupal\node\Entity\Node::load($nid);
+    if (!$node = \Drupal\node\Entity\Node::load($nid)) {
+      $node = \Drupal\node\Entity\Node::load(94);
+    }
     $view = $view_builder->view($node, 'full');
     $html = drupal_render($view);
     $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
