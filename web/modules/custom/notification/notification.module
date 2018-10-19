@@ -47,7 +47,8 @@ function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInter
  * Implements hook_webform_submission_form_alter
  */
 function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (strpos($form_id, 'notification') !== FALSE) {
+  if (isset($form['elements']['form_type']['#value'])) {
+    // Either a Notification or Conciliation form
     /*
     if ($form_id == 'webform_submission_notification_dispute_start_add_form') {
       // Test with Dynamics if details have already been submitted
@@ -56,6 +57,32 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       return;
     }
     */
+    // is valid to show this form
+    if ($form['elements']['form_type']['#value'] == 'Notification' && isset($_COOKIE['acas_eccaserefnumber'])) {
+      // Notification form already completed. Goto Conciliation form
+      $response = new RedirectResponse('/start-conciliation');
+      $response->send();
+      return;
+    }else if ($form['elements']['form_type']['#value'] == 'Conciliation') {
+      if (!$acas_eccaserefnumber = \Drupal::request()->query->get('acas_eccaserefnumber')) {
+        $acas_eccaserefnumber = @$_COOKIE['acas_eccaserefnumber'];
+      }
+      if ($acas_eccaserefnumber) {
+        $query = \Drupal::database()->select('acas_ecrefno', 'a');
+        $query->fields('a', array('status', 'timestamp'));
+        $query->condition('a.reference_no', $acas_eccaserefnumber, '=');
+        $result = $query->execute();
+        if($status = $result->fetch()) {
+          if ($status->status) {
+            // Have already completed this form
+            $path = Drupal\Core\URL::fromUserInput('/already-submitted', array('query' => array('ref' => $acas_eccaserefnumber, 'date' => $status->timestamp)))->toString();
+            $response = new RedirectResponse($path);
+            $response->send();
+            return;
+          }
+        }
+      }
+    }
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
@@ -215,6 +242,7 @@ function notification_confirmation($webform, $webform_submission_id) {
   $data = $webform_submission->getData();
   drupal_get_messages();
   if ($data['form_type'] == 'Notification') {
+    $ref = notification_build_reference_number();
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     $config->set('current_out_count', $config->get('current_out_count') + 1);
@@ -228,7 +256,6 @@ function notification_confirmation($webform, $webform_submission_id) {
       $node->field_end->value = date('Y-m-d\TH:i:s', time() - date('Z'));
       $node->save();
     }
-    $ref = notification_build_reference_number();
     setcookie('acas_eccaserefnumber', $ref, time() + 2592000, '/');
     $db = \Drupal::database();
     $fields = ['reference_no' => $ref];
@@ -253,6 +280,7 @@ function notification_confirmation($webform, $webform_submission_id) {
         'message' => str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $ref, $node->field_message->getString())),
       ];
       notification_send_dynamics($webform_submission_id, $ref, $email);
+      notification_send($data, $ref);
       $view = $view_builder->view($node, 'full');
       $html = drupal_render($view);
       $html = str_replace('[REFERENCE]', $ref, $html);
@@ -273,7 +301,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       ->fields(['status' => 1])
       ->condition('reference_no', $data['acas_eccaserefnumber'], '=')
       ->execute();
-    $nid = 94;
+    $nid = 114;
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $node = \Drupal\node\Entity\Node::load($nid);
     $view = $view_builder->view($node, 'full');
@@ -285,9 +313,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }else{
       $html = str_replace('[SPECIFIC GUIDANCE]', '', $html);
     }
-    $a = explode('</h2>', $html, 2);
-    $b = explode('<h2>', $a[0]);
-    $html = $b[0] . '<h1 class="thank-you-page-header">Thank you!</h1>' . $a[1];
+    $html = '<header id="block-acas-page-title left" class="contextual-region block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="thank-you-page-header">' . $node->getTitle() . '</h1></header>' . $html;
     return $html;
   }
 }
@@ -470,6 +496,31 @@ function notification_send_dynamics($webform_submission_id, $ref = '', $email = 
   }
 }
 
+function notification_send($data, $ref) {
+  return;
+  $config = \Drupal::config('gov_notify.settings');
+  if ($data['acas_emailaddress']) {
+    $notifyClient = new \Alphagov\Notifications\Client([
+      'apiKey' => $config->get('key'),
+      'httpClient' => new \Http\Adapter\Guzzle6\Client
+    ]);
+    try {
+      $response = $notifyClient->sendEmail(
+        $data['acas_emailaddress'],
+        '3f2000f6-9e74-4816-ad53-829bc133c422', [
+            'first_name' => $data['acas_firstname'],
+            'reference'  => $ref,
+            'date' => date('h:i A \o\n d F Y'),
+        ],
+          '',
+          NULL
+        );
+    } catch (NotifyException $e){
+      
+    }
+  }
+}
+
 function notification_build_field(&$entities, $field, $data) {
   $a = explode('-', $field);
   if (!isset($entities[$a[0]])) {
@@ -502,61 +553,6 @@ function notification_build_reference_number() {
   return 'R' . $ref .  '/' . date('y');
 }
 
-function notification_json() {
-  $sections = [];
-  $sections[] = [
-    'text' => 'You have now notified Acas about your claim.',
-    'callout' => 'Your case reference number is [REFERENCE], submitted at [DATE]. You will need your case reference number when we speak to you.',
-    'headline' => 'You now need to call us to take your claim to the next stage',
-    'important' => 'Please call us on <a href="tel:+44800123456">0800 123456</a> in order to discuss your claim and agree next steps. Our phone lines are open Monday to Friday, between 09:00 and 17:00.',
-  ];
-  $sections[] = [
-    'text' => 'If you decide you want to settle your dispute before going to tribunal, you can <a href="/settle-a-dispute/settle-a-dispute-before-it-gets-to-tribunal">start conciliation by telling us a bit more about your claim</a>',
-    'headline' => 'What happens next?',
-  ];
-  $sections[] = [
-    'text' => 'You will shortly receive an email that contains your case reference number.',
-  ];
-  $sections[] = [
-    'text' => 'Please check your \'spam\' folder for this email. If you didn\'t give an email address or a phone number, you will receive confirmation by post.',
-  ];
-  $sections[] = [
-    'text' => 'Please try and contact us within the next 14 days.',
-  ];
-  $sections[] = [
-    'text' => '<a href="/privacy">Find out how we use and protect your personal information</a>',
-  ];
-  $json = [
-    'title' => 'Thank you',
-    'sections' =>   $sections,
-  ];
-  return json_encode($json);
-}
-
-function notification_json_page($json_string) {
-  $html = '';
-  $json = json_decode($json_string);
-  foreach ($json as $key => $value) {
-    switch ($key) {
-      case 'title':
-        $html .= '<h1 class="page-title">' . $value . '</h1>';
-        break;
-      case 'text':
-        $html .= '<p>' . $value . '</p>';
-        break;
-      case 'callout':
-        $html .= '<dev class="callout">' . $value . '</dev>';
-        break;
-      case 'headline':
-        $html .= '<h3>' . $value . '</h3>';
-        break;
-      case 'important':
-        $html .= '<p><strong>' . $value . '</strong></p>';
-        break;
-    }
-  }
-  return $html;
-}
 
 final class companiesHouseApi {
   const API_ENDPOINT = 'https://api.companieshouse.gov.uk';

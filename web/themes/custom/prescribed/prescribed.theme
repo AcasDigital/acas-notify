@@ -8,12 +8,25 @@
  */
  
  // Notification preprocess functions
+ 
+function prescribed_preprocess_page(&$variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    if (is_numeric($node)) {
+      $node = \Drupal\node\Entity\Node::load($node);
+    }
+    $variables['nodeid'] = $node->id();
+  }
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
+    $variables['formname'] = 'Early conciliation notification form';
+  }
+  $variables['useful'] = TRUE;
+  $variables['#attached']['library'][] =  'general/anything_wrong';
+}
 
 function prescribed_preprocess_page_title(&$variables) {
   if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
     $variables['title'] = FALSE;
   }
-  $variables['#attached']['library'][] =  'general/anything_wrong';
 }
 
 function prescribed_preprocess_bootstrap_panel(&$variables) {

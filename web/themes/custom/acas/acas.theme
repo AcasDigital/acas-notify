@@ -51,7 +51,19 @@ function acas_preprocess_field(&$variables) {
   if (@$variables['entity_type'] == 'paragraph' && @$variables['element']['#bundle'] == 'helpdesk') {
     $variables['currentPath'] = \Drupal::request()->getRequestUri();
   }
-
+  
+  // Notifications
+  if (@$variables['entity_type'] == 'node' && @$variables['field_name'] == 'field_summary') {
+    $path = urldecode(\Drupal::request()->getRequestUri());
+    if (strpos($path, '/already-submitted?ref=') !== FALSE) {
+      $a = explode('?ref=', $path);
+      $b = explode('&date=', $a[1]);
+      $html = $variables['items'][0]['content'];
+      $html = str_replace('[REFERENCE]', $b[0], $html);
+      $html = str_replace('[DATE]', date('h:i A \o\n d F Y', strtotime($b[1])), $html);
+      $variables['items'][0]['content'] = $html;
+    }
+  }
 }
 
 function acas_preprocess_views_view_field(&$variables) {
