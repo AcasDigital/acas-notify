@@ -330,7 +330,7 @@ function notification_send_dynamics($webform_submission_id, $ref = '', $email = 
   $webform_submission = WebformSubmission::load($webform_submission_id);
   $data = $webform_submission->getData();
   $json = [];
-  $json['form_type'] = $data['form_type'];
+  //$json['form_type'] = $data['form_type'];
   $incident_type = [];
   $info = '';
   foreach($data as $key => $value) {
