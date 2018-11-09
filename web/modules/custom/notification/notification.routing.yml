@@ -85,3 +85,11 @@ notification.notify_test:
   requirements:
     _permission: 'access content'
     
+notification.retry_send_dynamics:
+  path: '/retry-send-dynamics'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::retry_send_dynamics'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+      

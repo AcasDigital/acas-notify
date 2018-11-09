@@ -38,6 +38,21 @@ class AdminForm extends ConfigFormBase {
       '#field_prefix' => 'R',
       '#field_suffix' => '/' . date('y'),
       '#size' => 10,
+      '#required' => TRUE,
+    );
+    $form['g10_fasttrack_phone'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('g10_fasttrack_phone') ?: '',
+      '#title' => t('G10 fast track phone number'),
+      '#size' => 20,
+      '#required' => TRUE,
+    );
+    $form['g10_flagged_phone'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('g10_flagged_phone') ?: '',
+      '#title' => t('G10 flagged phone number'),
+      '#size' => 20,
+      '#required' => TRUE,
     );
     return parent::buildForm($form, $form_state);
   }
@@ -55,6 +70,8 @@ class AdminForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('notification_ref_no', $form_state->getValue('notification_ref_no'))
+    ->set('g10_fasttrack_phone', $form_state->getValue('g10_fasttrack_phone'))
+    ->set('g10_flagged_phone', $form_state->getValue('g10_flagged_phone'))
     ->save();
     parent::submitForm($form, $form_state);
   }

@@ -6,6 +6,7 @@ use Drupal\Core\Block\BlockBase;
 
 /**
  * Provides a 'Feedback' block.
+ * 
  * @Block(
  *   id = "feedback",
  *   admin_label = @Translation("Feedback forms block"),
@@ -31,7 +32,8 @@ class Feedback extends BlockBase {
           ->view($form);
         $build['yes_feedback_form']['#weight'] = 999;
       }
-    }else{
+    }
+    else {
       if ($form = \Drupal\webform\Entity\Webform::load('no_feedback_guidance')) {
         $build['no_feedback_form'] = \Drupal::entityManager()
           ->getViewBuilder('webform')
@@ -49,4 +51,5 @@ class Feedback extends BlockBase {
     }
     return $build;
   }
+  
 }

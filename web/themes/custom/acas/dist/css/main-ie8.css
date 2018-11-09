@@ -72,12 +72,12 @@ table {
   font-family: "Century Gothic Bold";
   src: url("../fonts/b247e158-e647-4a3d-9637-944de5124043.eot?#iefix");
   src: url("../fonts/b247e158-e647-4a3d-9637-944de5124043.eot?#iefix") format("eot"), url("../fonts/bc0668e2-e5c8-45ce-954d-3b998c6b6803.woff2") format("woff2"), url("../fonts/2ef5ecda-1772-45e2-843f-a13f5d76ed3a.woff") format("woff"), url("../fonts/33cf10ca-a6bb-4888-a320-d38720c9847b.ttf") format("truetype"), url("../fonts/3428a0e6-cb4d-408a-8331-cc78554ab49c.svg#3428a0e6-cb4d-408a-8331-cc78554ab49c") format("svg"); }
-.text-small, .block-beta-banner, .breadcrumb, ul.breadcrumb--search, .inset-text--beta, .eu-cookie-compliance-banner .eu-cookie-compliance-message .text, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons button, .form-description, .fieldset-wrapper .description, .webform-element-description, .form-name, .form-progress, .text--progress, .guidance-text, .text--guidance, .prescribed .text--guidance, .guidance-text--light, #block-prescribed-notificationpreviewfootermessage,
+.text-small, .block-beta-banner, .breadcrumb, ul.breadcrumb--search, .eu-cookie-compliance-banner .eu-cookie-compliance-message .text, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons button, .form-description, .fieldset-wrapper .description, .webform-element-description, .form-name, .form-progress, .text--progress, .guidance-text, .text--guidance, .prescribed .text--guidance, .guidance-text--light, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage, #feedback-form, #feedback-form .feedback-question-wrapper,
 #feedback-form .feedback-close-wrapper, #feedback-form-section form .help-block, #feedback-form form .help-block, #block-landingpagesblock article .article__content, .block-home-page-block article .article__content, a.menu-secondary__link, .btn-save, .nav-related .nav-related__list, form#user-login-form .description, .prescribed .guidance-text {
   font-size: 0.85rem; }
 
-.text-tiny, #footer__inner {
+.text-tiny, .inset-text--beta, #footer__inner {
   font-size: 0.75rem; }
 
 .print-download-email .modal .icon {
@@ -432,6 +432,9 @@ ul li, ol li {
 .eu-cookie-compliance-banner .eu-cookie-compliance-buttons button:first-child, .iradio_square-aero, .icheckbox_square-aero {
   margin-right: 10px; }
 
+.js-pager__items .pager__item a {
+  padding: 10px; }
+
 .region.region-top-bar,
 li.menu-secondary__item,
 li.menu-secondary__title,
@@ -445,10 +448,14 @@ li.menu-secondary__title,
 .nav-related {
   padding-bottom: 10px; }
 
-.beta-icon {
+.beta-icon,
+.previous .details-wrapper,
+.next .details-wrapper {
   padding-left: 10px; }
 
-.beta-icon {
+.beta-icon,
+.previous .details-wrapper,
+.next .details-wrapper {
   padding-right: 10px; }
 
 h4 {
@@ -456,6 +463,14 @@ h4 {
 
 .find-address-wrapper a, .print-download-email .modal .x {
   margin-left: 15px; }
+
+.previous .details-wrapper,
+.next .details-wrapper {
+  padding-top: 15px; }
+
+.previous .details-wrapper,
+.next .details-wrapper {
+  padding-bottom: 15px; }
 
 #block-exposedformsolr-search-contentpage-1-3,
 .btn-primary,
@@ -508,7 +523,7 @@ form#user-login-form #edit-submit,
 .print-download-email .modal .action {
   margin-right: 20px; }
 
-.node-preview-container, #feedback-form-section form, #feedback-form form, .previous .details_wrapper, .next .details_wrapper, .print-download-email .modal .title-wrapper, .print-download-email .btn-panel {
+.node-preview-container, #feedback-form-section form, #feedback-form form, .print-download-email .modal .title-wrapper, .print-download-email .btn-panel {
   padding: 20px; }
 
 #block-landingpagesblock article .article__wrapper,
@@ -540,12 +555,14 @@ p {
 .block-home-page-block article .article__wrapper {
   padding-right: 25px; }
 
-.secondary-page-navigation, .print-download-email,
-.webform-container-type-details .panel-body {
+.print-download-email,
+.webform-container-type-details .panel-body,
+.secondary-page-navigation {
   margin-top: 30px; }
 
-ul, ol, h2, .link--back, .back--link, .inset-text, .callout, .secondary-page-navigation,
-.webform-container-type-details .panel-body {
+ul, ol, h2, .link--back, .back--link, .inset-text, .callout,
+.webform-container-type-details .panel-body,
+.secondary-page-navigation {
   margin-bottom: 30px; }
 
 ul, ol, .webform-container-type-details .panel-body {
@@ -560,6 +577,7 @@ ul, ol, .webform-container-type-details .panel-body {
 .eu-cookie-compliance-banner .eu-cookie-compliance-buttons {
   margin-top: 35px; }
 
+.inset-text--beta,
 main.main__content {
   margin-top: 40px; }
 
@@ -576,7 +594,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .eu-cookie-compliance-banner .eu-cookie-compliance-message .title {
   margin-right: 50px; }
 
-.inset-text--beta, .js-pager__items, .page-node-type-page h2,
+.js-pager__items, .page-node-type-page h2,
 .page-node-type-support-page h2,
 .page-node-type-details-page h2,
 .page-node-type-secondary-page h2,
@@ -618,11 +636,11 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
   .row:after, #block-searchblock:after {
     clear: both; }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .page-node-type-home-page .page-header, article.landing-page.full, #block-404footer, .col-lg-7, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .path-webform header#block-acas-page-title,
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-6, section#block-currentwebsiteblock, .col-lg-6, .col-xs-7, .col-sm-7, section#block-currentwebsiteblock, .col-md-7, .page-node-type-home-page .page-header, article.landing-page.full, #block-404footer, .col-lg-7, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage, .col-xs-8, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-message, #block-searchblock form, .col-md-8, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
-#block-conciliationpreviewfootermessage, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .col-md-9, article.home-page.search-index, article.page.search-index, article.secondary-page.search-index, article.details-page.search-index, article.support-page.search-index, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
+#block-conciliationpreviewfootermessage, .col-lg-8, .col-xs-9, .col-sm-9, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .col-md-9, article.home-page.search-index, article.page.search-index, article.secondary-page.search-index, article.details-page.search-index, article.support-page.search-index, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, section#block-currentwebsiteblock, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -630,7 +648,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
   padding-left: 15px;
   padding-right: 15px; }
 
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, section#block-currentwebsiteblock, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage {
   float: left; }
@@ -668,7 +686,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .col-xs-11 {
   width: 91.66667%; }
 
-.col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
+.col-xs-12, .page-node-type-home-page .page-header, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, article.landing-page, #block-404footer, #block-homepageblock article, #block-block-landingpagesblock article, section#block-currentwebsiteblock, .eu-cookie-compliance-banner .eu-cookie-compliance-message, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .alert, #feedback-form .webform-submission-form, #block-landingpagesblock article, .block-home-page-block article, .view-solr-search-content, #block-searchblock form, form#user-login-form, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage {
   width: 100%; }
@@ -790,7 +808,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .col-xs-offset-12 {
   margin-left: 100%; }
 
-.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .col-sm-5, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-sm-7, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-message, #block-searchblock form, .col-sm-9, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .col-sm-10, .col-sm-11, .col-sm-12 {
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons, .col-sm-5, .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-sm-7, section#block-currentwebsiteblock, .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-message, #block-searchblock form, .col-sm-9, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .col-sm-10, .col-sm-11, .col-sm-12 {
   float: left; }
 
 .col-sm-1 {
@@ -811,7 +829,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .col-sm-6, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article {
   width: 50%; }
 
-.col-sm-7 {
+.col-sm-7, section#block-currentwebsiteblock {
   width: 58.33333%; }
 
 .col-sm-8, .eu-cookie-compliance-banner .eu-cookie-compliance-message, #block-searchblock form {
@@ -946,7 +964,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .col-sm-offset-12 {
   margin-left: 100%; }
 
-.col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, .col-md-7, .page-node-type-home-page .page-header, article.landing-page.full, #block-404footer, .col-md-8, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .path-webform header#block-acas-page-title,
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, #block-homepageblock article, #block-block-landingpagesblock article, #block-landingpagesblock article, .block-home-page-block article, .col-md-5, .col-md-6, section#block-currentwebsiteblock, .col-md-7, .page-node-type-home-page .page-header, article.landing-page.full, #block-404footer, .col-md-8, article.home-page, article.page, article.secondary-page, article.details-page, article.support-page, .path-webform header#block-acas-page-title,
 .path-webform .webform-submission-form, .webform-submission-form, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage, .col-md-9, article.home-page.search-index, article.page.search-index, article.secondary-page.search-index, article.details-page.search-index, article.support-page.search-index, .col-md-10, .col-md-11, .col-md-12 {
   float: left; }
@@ -966,7 +984,7 @@ h1, #block-homepageblock, #block-block-landingpagesblock, .block-in-this-section
 .col-md-5 {
   width: 41.66667%; }
 
-.col-md-6 {
+.col-md-6, section#block-currentwebsiteblock {
   width: 50%; }
 
 .col-md-7, .page-node-type-home-page .page-header, article.landing-page.full, #block-404footer {
@@ -1435,8 +1453,14 @@ main.main__content {
     top: 0;
     width: 3em; }
 
+section#block-currentwebsiteblock:before, section#block-currentwebsiteblock:after {
+  content: " ";
+  display: table; }
+section#block-currentwebsiteblock:after {
+  clear: both; }
+
 .inset-text--beta {
-  margin-bottom: -40px; }
+  margin-bottom: -30px; }
 
 .eu-cookie-compliance-banner {
   background-color: #007C85; }
@@ -1794,9 +1818,9 @@ select {
   #feedback-form .feedback-close-wrapper {
     float: left; }
   #feedback-form .feedback-question-wrapper {
-    width: 75%; }
+    width: 85%; }
   #feedback-form .feedback-close-wrapper {
-    width: 25%;
+    width: 15%;
     cursor: pointer;
     display: none;
     text-align: right;
@@ -1841,6 +1865,10 @@ select {
 #feedback-form {
   max-width: 100%; }
 
+#feedback-form .feedback-question-wrapper {
+  width: 75%; }
+#feedback-form .feedback-close-wrapper {
+  width: 25%; }
 #feedback-form form {
   background: #fff;
   color: #000;
@@ -2117,21 +2145,27 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
 .secondary-page-navigation {
   overflow: auto; }
 
-.previous, .next {
+.previous,
+.next {
   display: block;
   text-decoration: none;
   width: 75%; }
-  .previous .text, .previous .title, .next .text, .next .title {
+  .previous .text, .previous .title,
+  .next .text,
+  .next .title {
     color: #000; }
-  .previous .title, .next .title {
+  .previous .title,
+  .next .title {
     font-size: 0.85rem;
     text-decoration: underline; }
-  .previous .text, .next .text {
+  .previous .text,
+  .next .text {
     display: block;
     font-family: "Open Sans Semibold", sans-serif;
     position: relative;
     width: fit-content; }
-    .previous .text:before, .next .text:before {
+    .previous .text:before,
+    .next .text:before {
       content: "";
       background-repeat: no-repeat;
       background-size: 1em auto;
@@ -2140,9 +2174,13 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
       position: absolute;
       top: 0;
       width: 1em; }
-  .previous:hover .details_wrapper, .previous:focus .details_wrapper, .next:hover .details_wrapper, .next:focus .details_wrapper {
+  .previous:hover .details-wrapper, .previous:focus .details-wrapper,
+  .next:hover .details-wrapper,
+  .next:focus .details-wrapper {
     background: #F7F7F7; }
-    .previous:hover .details_wrapper .title, .previous:focus .details_wrapper .title, .next:hover .details_wrapper .title, .next:focus .details_wrapper .title {
+    .previous:hover .details-wrapper .title, .previous:focus .details-wrapper .title,
+    .next:hover .details-wrapper .title,
+    .next:focus .details-wrapper .title {
       text-decoration: none; }
 
 .previous .text:before {
@@ -2163,7 +2201,6 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
       color: #007C85;
       display: block;
       height: 2.5em;
-      padding: .5em;
       text-decoration: none;
       width: 2.5em; }
       .js-pager__items .pager__item a:focus, .js-pager__items .pager__item a:hover {
@@ -2200,7 +2237,7 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
 
 .next {
   float: right; }
-  .next .details_wrapper {
+  .next .details-wrapper {
     text-align: right; }
 
 .btn-save--print,

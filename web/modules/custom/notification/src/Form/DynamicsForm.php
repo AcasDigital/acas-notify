@@ -31,16 +31,40 @@ class DynamicsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('dynamics.settings');
-    $form['url'] = array(
+    $form['form'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Forms'),
+      '#collapsible' => TRUE,
+    ];
+    $form['form']['url'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('url') ?: '',
       '#title' => t('URL'),
       '#required' => TRUE,
       '#size' => 100,
     );
-    $form['token'] = array(
+    $form['form']['token'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('token') ?: '',
+      '#title' => t('Token'),
+      '#required' => TRUE,
+      '#size' => 100,
+    );
+    $form['guid'] = [
+      '#type' => 'fieldset',
+      '#title' => t('GUID'),
+      '#collapsible' => TRUE,
+    ];
+    $form['guid']['guid_url'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('guid_url') ?: '',
+      '#title' => t('URL'),
+      '#required' => TRUE,
+      '#size' => 100,
+    );
+    $form['guid']['guid_token'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('guid_token') ?: '',
       '#title' => t('Token'),
       '#required' => TRUE,
       '#size' => 100,
@@ -62,6 +86,8 @@ class DynamicsForm extends ConfigFormBase {
     \Drupal::configFactory()->getEditable('dynamics.settings')
     ->set('url', $form_state->getValue('url'))
     ->set('token', $form_state->getValue('token'))
+    ->set('guid_url', $form_state->getValue('guid_url'))
+    ->set('guid_token', $form_state->getValue('guid_token'))
     ->save();
     parent::submitForm($form, $form_state);
   }

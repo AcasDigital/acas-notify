@@ -54,6 +54,25 @@ Drupal.behaviors.notification_form = {
         html += '<div class="modal-description">Please wait...</div></div>';
         jQuery('body').append(html);
       });
+      // Validate email address
+      jQuery('.webform-submission-form .form-email').focusout(function(){
+        if (jQuery(this).val()) {
+          if (!validateEmail(jQuery(this).val())) {
+            jQuery(this).addClass('invalid');
+            if (!jQuery(this).parent().find(".invalid-feedback").length) {
+              jQuery('<div class="invalid-feedback">Invalid email address</div>').insertBefore(this);
+            }else{
+              jQuery(this).parent().find(".invalid-feedback").text('Invalid email address');
+              jQuery(this).parent().find(".invalid-feedback").show();
+            }
+          }
+        }
+      });
+      jQuery('.webform-submission-form .form-email').on('input', function() {
+        jQuery(this).parent().find('.invalid-feedback').hide();
+        jQuery(this).removeClass('invalid');
+        jQuery(this).addClass('valid');
+      });
       jQuery('.webform-submission-form .webform-button--next').onFirst('click', function( event ) {
         jQuery('.alert').remove();
         var scrollTo = null;
@@ -62,7 +81,9 @@ Drupal.behaviors.notification_form = {
             if (!jQuery(this).val()) {
               jQuery(this).removeClass('valid');
               jQuery(this).addClass('invalid');
-              jQuery('<div class="invalid-feedback">' + jQuery(this).attr('data-webform-required-error') + '</div>').insertBefore(this);
+              if (!jQuery(this).parent().find(".invalid-feedback").length) {
+                jQuery('<div class="invalid-feedback">' + jQuery(this).attr('data-webform-required-error') + '</div>').insertBefore(this);
+              }
               jQuery(this).on('input', function() {
                 if (!jQuery(this).val()) {
                   jQuery(this).parent().find('.invalid-feedback').show();
@@ -84,6 +105,19 @@ Drupal.behaviors.notification_form = {
             jQuery(this).addClass('valid');
           }
         });
+        if (jQuery('.webform-submission-form .webform-email-confirm').length && (jQuery('.webform-submission-form .webform-email-confirm').val() || jQuery('.webform-submission-form .webform-email').val())) {
+          if (jQuery('.webform-submission-form .webform-email').val() != jQuery('.webform-submission-form .webform-email-confirm').val()) {
+            if (jQuery('.webform-submission-form .webform-email-confirm').parent().find('.invalid-feedback').length) {
+              jQuery('.webform-submission-form .webform-email-confirm').parent().find('.invalid-feedback').text('Emails do not match');
+              jQuery('.webform-submission-form .webform-email-confirm').parent().find('.invalid-feedback').show();
+            }else{
+              jQuery('<div class="invalid-feedback">Emails do not match</div>').insertBefore(jQuery('.webform-submission-form .webform-email-confirm'));
+            }
+            if (!scrollTo) {
+              scrollTo = jQuery(jQuery('.webform-submission-form .webform-email-confirm')).parent();
+            }
+          }
+        }
         if (scrollTo) {
           jQuery(scrollTo).find('.form-control').focus();
           jQuery([document.documentElement, document.body]).animate({
@@ -276,4 +310,9 @@ function dismissedDate() {
   }else{
     jQuery('.last-day-of-work-out-of-time-text').hide();
   }
+}
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 }
