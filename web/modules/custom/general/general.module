@@ -332,9 +332,9 @@ function general_page_attachments_alter(&$build) {
   }
   if ($theme == 'acas') {
     $user = \Drupal::currentUser();
-    if ($user->id()) {
+    //if ($user->id()) {
       $build['#attached']['library'][] = 'general/missing';
-    }
+    //}
   }
   foreach ($build['#attached']['html_head'] as $key => $attachment) {
     if ($attachment[1] == 'system_meta_generator') {
