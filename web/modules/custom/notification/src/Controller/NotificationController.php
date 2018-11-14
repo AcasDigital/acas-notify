@@ -16,6 +16,11 @@ class NotificationController extends ControllerBase {
     return ['#markup' => $markup];
   }
   
+  public function acas_group_webform_confirmation($webform, $webform_submission) {
+    $markup = notification_group_confirmation($webform, $webform_submission);
+    return ['#markup' => $markup];
+  }
+  
   /**
    * {@inheritdoc}
    */
@@ -49,6 +54,13 @@ class NotificationController extends ControllerBase {
    */
   public function retry_send_dynamics() {
     return new JsonResponse(notification_retry_send_dynamics());
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function test_excel() {
+    return ['#markup' => notification_test_excel()];
   }
 
 }

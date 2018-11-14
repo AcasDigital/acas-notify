@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Language\Language;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Implements hook_help().
@@ -49,41 +50,6 @@ function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInter
 function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['elements']['form_type']['#value'])) {
     // Either a Notification or Conciliation form
-    /*
-    if ($form_id == 'webform_submission_notification_dispute_start_add_form') {
-      // Test with Dynamics if details have already been submitted
-      $response = new RedirectResponse('/you-have-already-submitted-your-details-to-acas');
-      $response->send();
-      return;
-    }
-    */
-    // is valid to show this form
-    if ($form['elements']['form_type']['#value'] == 'Notification' && isset($_COOKIE['acas_eccaserefnumber'])) {
-      // Notification form already completed. Goto Conciliation form
-      $response = new RedirectResponse('/start-conciliation');
-      $response->send();
-      return;
-    }
-    elseif ($form['elements']['form_type']['#value'] == 'Conciliation') {
-      if (!$acas_eccaserefnumber = \Drupal::request()->query->get('acas_eccaserefnumber')) {
-        $acas_eccaserefnumber = @$_COOKIE['acas_eccaserefnumber'];
-      }
-      if ($acas_eccaserefnumber) {
-        $query = \Drupal::database()->select('acas_ecrefno', 'a');
-        $query->fields('a', array('status', 'timestamp'));
-        $query->condition('a.reference_no', $acas_eccaserefnumber, '=');
-        $result = $query->execute();
-        if($status = $result->fetch()) {
-          if ($status->status) {
-            // Have already completed this form
-            $path = Drupal\Core\URL::fromUserInput('/already-submitted', array('query' => array('ref' => $acas_eccaserefnumber, 'date' => $status->timestamp)))->toString();
-            $response = new RedirectResponse($path);
-            $response->send();
-            return;
-          }
-        }
-      }
-    }
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
@@ -136,6 +102,37 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       $form['elements']['acas_ecref']['#value'] = $acas_ecref;
     }
     return $form;
+  }
+  
+  if ($form_id == 'webform_submission_notification_template_upload_add_form') {
+    $form['#validate'][] = 'notification_template_upload_validate';
+  }
+}
+
+function notification_template_upload_validate(&$form, FormStateInterface &$form_state) {
+  if ($form_state->getValue('op') == 'Submit' && $template = @$form_state->getValue('template')) {
+    $file = \Drupal\file\Entity\File::load($template);
+    $parts = parse_url($file->getFileUri());
+    module_load_include('inc', 'phpexcel', 'phpexcel');
+    $objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path']);
+    $msg = '';
+    foreach($objPHPExcel[0] as $key => $value) {
+      if (!$value['First name']) {
+        $msg .= 'Row ' . ($key + 1) . " missing First name!<br />";
+      }
+      if (!$value['Address line 1']) {
+        $msg .= 'Row ' . ($key + 1). " missing Address line 1!<br />";
+      }
+      if (!$value['City/Town']) {
+        $msg .= 'Row ' . ($key + 1) . " missing City/Town!<br />";
+      }
+    }
+    if ($msg) {
+      $msg .= 'Please correct these errors and re-upload your file.';
+      $rendered_message = \Drupal\Core\Render\Markup::create($msg);
+      $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
+      $form_state->setErrorByName('template', $error_message);
+    }
   }
 }
 
@@ -501,6 +498,41 @@ function notification_confirmation($webform, $webform_submission_id) {
 }
 
 /**
+ * Implements notification_group_confirmation().
+ *
+ * The submission from the Group Notification & Conciliation WebForms
+ */
+function notification_group_confirmation($webform, $webform_submission_id) {
+  $webform_submission = WebformSubmission::load($webform_submission_id);
+  if (!$data = $webform_submission->getData()) {
+    $response = new RedirectResponse('/');
+    $response->send();
+    return;
+  }
+  drupal_get_messages();
+  if (isset($_COOKIE['webform_preview'])) {
+    unset($_COOKIE['webform_preview']);
+    setcookie('webform_preview', null, -1, '/');
+  }
+  if ($data['form_type'] == 'GroupNotification') {
+    $data['acas_formtype'] = '602700000';
+    $data['acas_eccaserefnumber'] = notification_build_reference_number();
+    $db = \Drupal::database();
+    $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber']];
+    $db->insert('acas_ecrefno')
+      ->fields($fields)
+      ->execute();
+    //notification_send_dynamics($data);
+    $response = new RedirectResponse('/group-conciliation?acas_ecref=' . $data['acas_eccaserefnumber']);
+    $response->send();
+    return;
+  }
+  elseif ($data['form_type'] == 'GroupConciliation') {
+    
+  }
+}
+
+/**
  * Implements notification_flags().
  *
  * Build the flags for Dynamics
@@ -848,6 +880,13 @@ function notification_build_reference_number() {
   $config->save();
   return 'R' . $ref .  '/' . date('y');
 }
+
+function notification_test_excel() {
+  module_load_include('inc', 'phpexcel', 'phpexcel');
+  $objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/example.xlsx');
+}
+
+
 
 
 final class companiesHouseApi {

@@ -39,8 +39,9 @@
   {% endif %}
   </section>
 </div>
-
-<div class="col-xs-4 col-sm-6">
-  <a href="#block-footernavigationblock" id="menu-primary__icon" class="menu-primary__icon">&#9776;</a> 
-</div>
+{% if not no_hamburger %}
+  <div class="col-xs-4 col-sm-6">
+    <a href="#block-footernavigationblock" id="menu-primary__icon" class="menu-primary__icon">&#9776;</a> 
+  </div>
+{% endif %}
 {% endblock %}

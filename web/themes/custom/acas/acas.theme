@@ -109,6 +109,13 @@ function acas_preprocess_block(&$variables) {
     }
   }
   //}
+  // Notification.
+  if (strpos($_SERVER['HTTP_HOST'], 'tell.acas') !== FALSE) {
+    if ($variables['plugin_id'] == 'system_branding_block') {
+      // No mobile hamburger menu
+      $variables['no_hamburger'] = TRUE;
+    }
+  }
 }
 
 function acas_preprocess_node(&$variables) {

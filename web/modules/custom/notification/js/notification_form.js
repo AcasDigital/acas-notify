@@ -168,12 +168,36 @@ Drupal.behaviors.notification_form = {
               jQuery('#address_results').html('<div class="red">No addresses could be found for this postcode.</div>');
               return;
             }
-            var html = '<select id="addresses" onchange="populateAddress();"><option value="">-- Select address --</option>';
+            var html = '<select id="addresses"><option value="">-- Select address --</option>';
             for (var i = 0; i < addresses.length; i++) {
               html += '<option value="' + i + '">' + addresses[i] + '</option>';
             }
             html += '</select><br /><br />';
             jQuery('#address_results').html(html);
+            jQuery('#addresses').focus();
+            // Allow up/down to scroll thru address list without triggering change event.
+            jQuery('#addresses').data('activation', 'activated').bind({
+              keydown: function(event) {
+                if(event.which === 38 || event.which === 40){
+                  jQuery(this).data('activation', 'paused');
+                }
+                if(event.which === 13) {
+                  jQuery(this).data('activation', 'activated');
+                  jQuery(this).trigger('change');
+                }
+              },
+              click: function(event) {
+                if(jQuery(this).data('activation') === 'paused'){
+                  jQuery(this).data('activation', 'activated');
+                  jQuery(this).trigger('change');
+                }
+              },
+              change: function(event) {    
+                if(jQuery(this).data('activation') === 'activated'){
+                  populateAddress();
+                }
+              }
+          });
           }
         });
         return false;
@@ -246,6 +270,7 @@ Drupal.behaviors.notification_form = {
 function populateAddress() {
   jQuery('.webform-address--wrapper .form-type-textfield:nth-child(2)').find('input').val('');
   jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input').val('');
+  jQuery('.webform-address--wrapper .form-type-textfield:nth-child(4)').find('input').val(postcode);
   var address = addresses[jQuery('#addresses').val()].replace(/ ,/g, '').split(',');
   jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input').val(address.pop().trim());
   checkValidate(jQuery('.webform-address--wrapper .form-type-textfield:nth-child(3)').find('input'));

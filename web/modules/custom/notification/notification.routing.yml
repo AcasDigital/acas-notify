@@ -45,6 +45,14 @@ notification.acas_webform_confirmation:
   requirements:
     _permission: 'access content'
     
+notification.acas_group_webform_confirmation:
+  path: '/group/{webform}/submission/{webform_submission}/confirmation'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::acas_group_webform_confirmation'
+    _title: 'Thank you!'
+  requirements:
+    _permission: 'access content'
+    
 notification.company_house:
   path: '/company-house/{employer}'
   defaults:
@@ -90,6 +98,14 @@ notification.retry_send_dynamics:
   defaults:
     _controller: '\Drupal\notification\Controller\NotificationController::retry_send_dynamics'
     _title: ''
+  requirements:
+    _permission: 'access content'
+    
+notification.test_excel:
+  path: '/test-excel'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::test_excel'
+    _title: 'Test Excel'
   requirements:
     _permission: 'access content'
       
