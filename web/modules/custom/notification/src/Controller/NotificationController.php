@@ -59,8 +59,10 @@ class NotificationController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function test_excel() {
-    return ['#markup' => notification_test_excel()];
+  public function test_number() {
+    $data = file_get_contents('http://34.255.101.0/number.php?data=1&XDEBUG_SESSION_START=john');
+    
+    return ['#markup' => $number];
   }
 
 }

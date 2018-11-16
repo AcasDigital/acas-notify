@@ -1,0 +1,9 @@
+general.settings:
+  route_name: general.settings 
+  title: 'General'
+  base_route: general.settings
+  
+general.services:
+  route_name: general.services
+  title: 'Reference Numbers'
+  base_route: general.settings

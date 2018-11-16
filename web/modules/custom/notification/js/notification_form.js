@@ -44,6 +44,23 @@ Drupal.behaviors.notification_form = {
         jQuery('section[id$=conciliationpreviewfootermessage').show();
       }
       
+      // Prevent copy/paste on email fields
+      jQuery('.form-email').bind("cut copy paste", function(e) {
+        e.preventDefault();
+        jQuery('.form-email').bind("contextmenu", function(e) {
+          e.preventDefault();
+        });
+      });
+      if (jQuery('.form-item-claimants').length && jQuery('.alert-danger').length) {
+        // Move error alert to claimants upload
+        // and style
+        var alert = jQuery('.alert-danger');
+        jQuery(alert).removeClass();
+        jQuery(alert).addClass('invalid-feedback');
+        jQuery(alert).find('button').remove();
+        jQuery('.form-item-claimants label.form-required').replaceWith(alert);
+      }
+      
       jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
           // Prevent feedback webforms having wait dialog
@@ -73,9 +90,18 @@ Drupal.behaviors.notification_form = {
         jQuery(this).removeClass('invalid');
         jQuery(this).addClass('valid');
       });
+      jQuery('<span class="no-file">&nbsp;No file chosen.</span>').insertAfter(jQuery('.webform-document-file .webform-file-button'));
       jQuery('.webform-submission-form .webform-button--next').onFirst('click', function( event ) {
         jQuery('.alert').remove();
         var scrollTo = null;
+        if (jQuery('.webform-document-file.required').length) {
+          if (jQuery('.webform-document-file.required .form-file').length && !jQuery('.webform-document-file.required .form-file').val()) {
+            if (!jQuery('.webform-document-file.required').find(".invalid-feedback").length) {
+              jQuery('<div class="invalid-feedback">You must provide a spreadsheet of claimants details.</div>').insertBefore(jQuery('.webform-document-file.required .webform-file-button'));
+            }
+            scrollTo = jQuery('.webform-document-file.required').parent();
+          }
+        }
         jQuery('.form-item .form-control').filter(':visible').each( function () {
           if (jQuery(this).hasClass('required')) {
             if (!jQuery(this).val()) {

@@ -101,37 +101,53 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       //setcookie('acas_ecref', $acas_ecref, NULL, '/');
       $form['elements']['acas_ecref']['#value'] = $acas_ecref;
     }
-    return $form;
   }
   
-  if ($form_id == 'webform_submission_notification_template_upload_add_form') {
-    $form['#validate'][] = 'notification_template_upload_validate';
+  if ($form_id == 'webform_submission_group_notification_add_form') {
+    $form['#validate'][] = 'notification_group_claimants_upload_validate';
   }
 }
 
-function notification_template_upload_validate(&$form, FormStateInterface &$form_state) {
-  if ($form_state->getValue('op') == 'Submit' && $template = @$form_state->getValue('template')) {
+function notification_group_claimants_upload_validate(&$form, FormStateInterface &$form_state) {
+  if ($form_state->getValue('op') == 'Continue' && $template = @$form_state->getValue('claimants')) {
     $file = \Drupal\file\Entity\File::load($template);
     $parts = parse_url($file->getFileUri());
     module_load_include('inc', 'phpexcel', 'phpexcel');
-    $objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path']);
-    $msg = '';
-    foreach($objPHPExcel[0] as $key => $value) {
-      if (!$value['First name']) {
-        $msg .= 'Row ' . ($key + 1) . " missing First name!<br />";
-      }
-      if (!$value['Address line 1']) {
-        $msg .= 'Row ' . ($key + 1). " missing Address line 1!<br />";
-      }
-      if (!$value['City/Town']) {
-        $msg .= 'Row ' . ($key + 1) . " missing City/Town!<br />";
-      }
+    if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
+      $form_state->setErrorByName('claimant', 'You must include at least one claimant in the spreadsheet!');
     }
-    if ($msg) {
-      $msg .= 'Please correct these errors and re-upload your file.';
-      $rendered_message = \Drupal\Core\Render\Markup::create($msg);
-      $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
-      $form_state->setErrorByName('template', $error_message);
+    else {
+      $msg = '';
+      $count = 0;
+      // Check for no header eg
+      if (key($objPHPExcel[0][0]) != 'First name') {
+        $msg .= 'Incorrect or missing Header!<br />';
+      }
+      else {
+        foreach($objPHPExcel[0] as $key => $value) {
+          if (!$value['First name']) {
+            $msg .= 'Row ' . ($key + 2) . " missing <b>First name</b>!<br />";
+          }
+          if (!$value['Address line 1']) {
+            $msg .= 'Row ' . ($key + 2). " missing <b>Address line 1</b>!<br />";
+          }
+          if (!$value['City/Town']) {
+            $msg .= 'Row ' . ($key + 2) . " missing <b>City/Town</b>!<br />";
+          }
+          $count++;
+        }
+      }
+      if ($msg) {
+        $msg .= 'Please correct these errors and re-upload your spreadsheet.';
+        $rendered_message = \Drupal\Core\Render\Markup::create($msg);
+        $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
+        $form_state->setErrorByName('claimant', $error_message);
+      }
+      else {
+        //drupal_set_message("Imported $count Claimants");
+        $form['elements']['your_details']['rep_details_markup_04']['#markup'] = "<p>Imported $count Claimants</p>" . $form['elements']['your_details']['rep_details_markup_04']['#markup'];
+      }
+
     }
   }
 }
@@ -318,6 +334,7 @@ function notification_confirmation($webform, $webform_submission_id) {
   if ($data['form_type'] == 'Notification') {
     $data['acas_formtype'] = '602700000';
     $data['acas_eccaserefnumber'] = notification_build_reference_number();
+    $data['acas_dateofreciept'] = date('Y-m-d');
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     $config->set('current_out_count', $config->get('current_out_count') + 1);
@@ -354,7 +371,6 @@ function notification_confirmation($webform, $webform_submission_id) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
         $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
       }
-      $data['acas_dateofreciept'] = date('Y-m-d');
       if (!$result = notification_send_dynamics($data)) {
         // Set to retry on CRON job, status = 3
         $db->update('acas_ecrefno')
@@ -522,13 +538,74 @@ function notification_group_confirmation($webform, $webform_submission_id) {
     $db->insert('acas_ecrefno')
       ->fields($fields)
       ->execute();
+    notification_group_claiments_generate($data);
     //notification_send_dynamics($data);
+    
     $response = new RedirectResponse('/group-conciliation?acas_ecref=' . $data['acas_eccaserefnumber']);
     $response->send();
     return;
   }
   elseif ($data['form_type'] == 'GroupConciliation') {
-    
+    $data['acas_formtype'] = '602700001';
+    $config = \Drupal::config('acas.settings');
+    $flags = notification_flags($data);
+    $db = \Drupal::database();
+    // Get Notification form data for names in the email & timestamp;
+    $result = $db->select('acas_ecrefno', 'a')
+      ->fields('a', ['sid1', 'timestamp'])
+      ->condition('a.reference_no', $data['acas_ecref'], '=')
+      ->execute()
+      ->fetchAll();
+    if (count($result) && $wfs = WebformSubmission::load($result[0]->sid1)) {
+      $form1_data = $wfs->getData();
+      $date = strtotime($result[0]->timestamp);
+      $form1_sid = $result[0]->sid1;
+    }
+    else {
+      $form1_data = [];
+      $date = time();
+      $form1_sid = 0;
+    }
+    if (!$respondant = $form1_data['acas_resporganisationname']) {
+      $respondant = trim($form1_data['acas_resfirstname'] . ' ' . $form1_data['acas_respsurname']);
+    }
+    $number = '';
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $node = \Drupal\node\Entity\Node::load(130);
+    if ($form1_data && $node->hasField('field_subject')) {
+      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
+      $data['acas_emailbody'] = str_replace('[RESPONDENT]', $respondant, str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
+    }
+    $view = $view_builder->view($node, 'full');
+    $html = drupal_render($view);
+    $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
+    $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
+    $html = str_replace('[NUMBER]', $number, $html);
+    $html = str_replace('[RESPONDENT]', $respondant, $html);
+    //if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
+    //  if ($problem = $node->field_problem_message->getValue()) {
+    //    $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
+    //  }
+    //}
+    //else {
+      $html = str_replace('[PROBLEM]', '', $html);
+    //}
+    $html = '<header id="block-acas-page-title left" class="contextual-region block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="thank-you-page-header">' . $node->getTitle() . '</h1></header>' . $html;
+    return $html;
+  }
+}
+
+function notification_group_claiments_generate($data) {
+  if ($data['claimants']) {
+    $file = \Drupal\file\Entity\File::load($data['claimants']);
+    $parts = parse_url($file->getFileUri());
+    module_load_include('inc', 'phpexcel', 'phpexcel');
+    if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
+      return FALSE;
+    }
+    foreach ($objPHPExcel[0] as $claimant) {
+      
+    }
   }
 }
 
@@ -625,7 +702,7 @@ function notification_send_dynamics($data) {
     elseif (is_array($value) && @$value['phone']) {
       $json[$key] = $value['phone'];
       if ($value['ext']) {
-        $json[$key] .= ';' . $value['ext'];
+        $json[$key] .= 'x' . $value['ext'];
       }
     }
     elseif (is_array($value) && @$key == 'acas_modeofcontact') {
@@ -783,6 +860,7 @@ function notification_send_dynamics($data) {
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
+  $json['acas_monetaryvalue'] = (int) $json['acas_monetaryvalue'];
   // Now send the data
   $data_string = json_encode($json);
   $config = \Drupal::config('dynamics.settings');
@@ -872,22 +950,16 @@ function notification_build_field(&$entities, $field, $data) {
   }
 }
 
-function notification_build_reference_number() {
-  $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('acas.settings');
-  $ref = $config->get('notification_ref_no');
-  $config->set('notification_ref_no', $ref + 1);
-  $config->save();
-  return 'R' . $ref .  '/' . date('y');
+function notification_build_reference_number($type = 'individual') {
+  $config = \Drupal::config('acas.settings');
+  $process = curl_init($config->get('notification_ref_no_ip') . '?t=' . $type . '&s=' . $_SERVER['HTTP_HOST']);
+  curl_setopt($process, CURLOPT_USERPWD, $config->get('notification_ref_userpass'));
+  curl_setopt($process, CURLOPT_TIMEOUT, 30);
+  curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+  $number = curl_exec($process);
+  curl_close($process);
+  return $number;
 }
-
-function notification_test_excel() {
-  module_load_include('inc', 'phpexcel', 'phpexcel');
-  $objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/example.xlsx');
-}
-
-
-
 
 final class companiesHouseApi {
   const API_ENDPOINT = 'https://api.companieshouse.gov.uk';

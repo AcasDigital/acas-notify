@@ -35,3 +35,6 @@
 .ec-entry-switch-form .status.green {
   color: green;
 }
+#edit-services, caption {
+  font-weight: bold;
+}

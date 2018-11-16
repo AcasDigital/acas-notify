@@ -6,6 +6,14 @@ general.settings:
   requirements:
     _permission: 'administer site configuration'
     
+general.services:
+  path: '/admin/config/system/services'
+  defaults:
+    _form: '\Drupal\general\Form\ServicesForm'
+    _title: 'Notification Reference Numbers'
+  requirements:
+    _permission: 'administer site configuration'
+    
 general.health:
   path: '/health'
   defaults:

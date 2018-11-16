@@ -35,7 +35,7 @@ function prescribed_preprocess_bootstrap_panel(&$variables) {
   }
 }
 function prescribed_preprocess_form_element_label(&$variables) {
-  if (isset($variables['element']['#id']) && $variables['element']['#id'] == 'edit-find-address' && $variables['element']['#title_display'] == 'invisible') {
+  if (isset($variables['element']['#id']) && ($variables['element']['#id'] == 'edit-find-address' || $variables['element']['#id'] == 'edit-claimants-upload') && $variables['element']['#title_display'] == 'invisible') {
     unset($variables['title']);
   }
 }

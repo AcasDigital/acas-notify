@@ -3,4 +3,5 @@ general.settings:
   description: 'Administer the Acas Notification site.'
   route_name: general.settings
   parent: system.admin_config_system
-  weight: -1
+  weight: -100
+

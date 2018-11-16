@@ -101,11 +101,11 @@ notification.retry_send_dynamics:
   requirements:
     _permission: 'access content'
     
-notification.test_excel:
-  path: '/test-excel'
+notification.test_number:
+  path: '/test-number'
   defaults:
-    _controller: '\Drupal\notification\Controller\NotificationController::test_excel'
-    _title: 'Test Excel'
+    _controller: '\Drupal\notification\Controller\NotificationController::test_number'
+    _title: 'Test Number'
   requirements:
     _permission: 'access content'
       

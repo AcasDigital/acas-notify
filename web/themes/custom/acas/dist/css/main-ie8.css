@@ -72,7 +72,7 @@ table {
   font-family: "Century Gothic Bold";
   src: url("../fonts/b247e158-e647-4a3d-9637-944de5124043.eot?#iefix");
   src: url("../fonts/b247e158-e647-4a3d-9637-944de5124043.eot?#iefix") format("eot"), url("../fonts/bc0668e2-e5c8-45ce-954d-3b998c6b6803.woff2") format("woff2"), url("../fonts/2ef5ecda-1772-45e2-843f-a13f5d76ed3a.woff") format("woff"), url("../fonts/33cf10ca-a6bb-4888-a320-d38720c9847b.ttf") format("truetype"), url("../fonts/3428a0e6-cb4d-408a-8331-cc78554ab49c.svg#3428a0e6-cb4d-408a-8331-cc78554ab49c") format("svg"); }
-.text-small, .block-beta-banner, .breadcrumb, ul.breadcrumb--search, .eu-cookie-compliance-banner .eu-cookie-compliance-message .text, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons button, .form-description, .fieldset-wrapper .description, .webform-element-description, .form-name, .form-progress, .text--progress, .guidance-text, .text--guidance, .prescribed .text--guidance, .guidance-text--light, #block-prescribed-notificationpreviewfootermessage,
+.text-small, .block-beta-banner, .breadcrumb, ul.breadcrumb--search, .eu-cookie-compliance-banner .eu-cookie-compliance-message .text, .eu-cookie-compliance-banner .eu-cookie-compliance-buttons button, .form-description, .upload-wrapper .description, .fieldset-wrapper .description, .webform-element-description, .form-name, .form-progress, .text--progress, .guidance-text, .text--guidance, .prescribed .text--guidance, .guidance-text--light, #block-prescribed-notificationpreviewfootermessage,
 #block-conciliationpreviewfootermessage, #feedback-form, #feedback-form .feedback-question-wrapper,
 #feedback-form .feedback-close-wrapper, #feedback-form-section form .help-block, #feedback-form form .help-block, .block-in-this-section-block .section__wrapper ul, #block-landingpagesblock article .article__content, .block-home-page-block article .article__content, a.menu-secondary__link, .btn-save, .nav-related .nav-related__list, form#user-login-form .description, .prescribed .guidance-text {
   font-size: 0.85rem; }
@@ -304,8 +304,14 @@ a {
   color: #007C85;
   text-decoration: underline; }
   a:hover, a:focus {
-    color: #008C95;
     text-decoration: none; }
+
+.search-index a, .link--back, .back--link, .btn-primary, .btn-secondary, .webform-button--preview, .webform-button--previous:not(.back--link),
+.webform-button--next:not(.back--link), .webform-wizard-pages-link, form#user-login-form #edit-submit {
+  text-decoration: none; }
+
+.search-index a:hover, .search-index a:focus {
+  text-decoration: underline; }
 
 /* External Links */
 a.link--external:not(.btn-save--email):after {
@@ -490,7 +496,7 @@ form#user-login-form #edit-submit,
 .prescribed .webform-wizard-pages-link {
   margin-top: 20px; }
 
-h3, .chapters--search h2, .form-description, .fieldset-wrapper .description, .webform-element-description, .webform-preview .form-group, .fieldgroup .form-group, #block-landingpagesblock article, .block-home-page-block article, .js-pager__items, #block-searchblock, form#user-login-form .form-item, .page-node-type-details-page article, .page-node-type-support-page article,
+h3, .chapters--search h2, .form-description, .upload-wrapper .description, .fieldset-wrapper .description, .webform-element-description, .webform-preview .form-group, .fieldgroup .form-group, #block-landingpagesblock article, .block-home-page-block article, .js-pager__items, #block-searchblock, form#user-login-form .form-item, .page-node-type-details-page article, .page-node-type-support-page article,
 .btn-primary,
 .btn-secondary,
 .webform-button--preview,
@@ -563,6 +569,12 @@ ul, ol, h2, .link--back, .back--link, .inset-text, .callout,
 
 ul, ol, .webform-container-type-details .panel-body {
   margin-left: 30px; }
+
+.view-empty {
+  padding-top: 30px; }
+
+.view-empty {
+  padding-bottom: 30px; }
 
 .previous .text {
   padding-left: 30px; }
@@ -1323,8 +1335,7 @@ main.main__content {
   padding-left: 14px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #000;
-  text-decoration: none; }
+  border-bottom: 1px solid #000; }
   .link--back:before, .back--link:before {
     display: block;
     width: 0;
@@ -1395,7 +1406,6 @@ main.main__content {
   padding: .75em;
   min-width: 7em;
   text-align: center;
-  text-decoration: none;
   width: fit-content; }
   .btn-primary:hover, .btn-secondary:hover, .webform-button--preview:hover, .webform-button--previous:hover:not(.back--link),
   .webform-button--next:hover:not(.back--link), .webform-wizard-pages-link:hover, form#user-login-form #edit-submit:hover, .btn-primary:focus, .btn-secondary:focus, .webform-button--preview:focus, .webform-button--previous:focus:not(.back--link),
@@ -1670,9 +1680,10 @@ select {
   min-height: 40px;
   padding: .25em .5em; }
 
-.form-description, .fieldset-wrapper .description, .webform-element-description {
+.form-description, .upload-wrapper .description, .fieldset-wrapper .description, .webform-element-description {
   color: #4d4d4d; }
 
+/* Form Upload */
 /**
  * @file
  * GOV.UK Webform date composite styles.
@@ -2332,11 +2343,6 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
     display: inline-block; }
 
 /* Base search page styles */
-.search-index a {
-  text-decoration: none; }
-  .search-index a:hover, .search-index a:focus {
-    text-decoration: underline; }
-
 /* Search */
 .path-solr-search .field--name-field-rate-this-content, .path-solr-search .field--name-field-taxonomy, .path-solr-search .print__wrapper--pdf {
   display: none; }
@@ -2375,9 +2381,6 @@ li.menu-primary__item.menu-primary__item--has-dropdown a.menu-primary__link:afte
       text-decoration: none; }
 
 /* No results */
-.view-empty {
-  padding: 1.5em 0; }
-
 /* Search Breadcrumbs */
 ul.breadcrumb--search {
   margin-left: 0;
