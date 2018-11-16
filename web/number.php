@@ -5,10 +5,7 @@
  * Contains the notification reference number service.
  */
 
-// Prod only
-if ($_SERVER['HTTP_HOST'] != 'tell.acas.org.uk') {
-  die('can only run on production');
-}
+
 
 // Connect to the DB.
 try {
