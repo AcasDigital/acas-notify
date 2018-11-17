@@ -71,6 +71,8 @@ class ServicesForm extends ConfigFormBase {
     curl_setopt($process, CURLOPT_USERPWD, $config->get('notification_ref_userpass'));
     curl_setopt($process, CURLOPT_TIMEOUT, 30);
     curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
     $data = curl_exec($process);
     curl_close($process);
   }
@@ -87,6 +89,8 @@ class ServicesForm extends ConfigFormBase {
     curl_setopt($process, CURLOPT_USERPWD, $config->get('notification_ref_userpass'));
     curl_setopt($process, CURLOPT_TIMEOUT, 30);
     curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
     $data = unserialize(curl_exec($process));
     curl_close($process);
     $rows = [];

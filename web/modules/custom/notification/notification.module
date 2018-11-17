@@ -956,6 +956,8 @@ function notification_build_reference_number($type = 'individual') {
   curl_setopt($process, CURLOPT_USERPWD, $config->get('notification_ref_userpass'));
   curl_setopt($process, CURLOPT_TIMEOUT, 30);
   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
   $number = curl_exec($process);
   curl_close($process);
   return $number;
