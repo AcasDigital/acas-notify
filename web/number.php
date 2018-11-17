@@ -5,9 +5,17 @@
  * Contains the notification reference number service.
  */
 
-
+// Only allow to run on Prod
+if ($_SERVER['HTTP_HOST'] != 'tell.acas.org.uk') {
+  die('<h1>Acas Notification Reference Number Service</h1><h2>This service can only be accessed from Production.</h2>');
+}
 
 // Connect to the DB.
+// The DB connection is via this file located in a secure location
+// so no connection user/password in this file (in a public git repository)
+if (!file_exists('/home/ubuntu/database.inc')) {
+  die('<h1>Acas Notification Reference Number Service</h1><h2>Database include file <i>/home/ubuntu/database.inc</i> not found!</h2>');
+}
 try {
   require('/home/ubuntu/database.inc');
 } catch (PDOException $e) {
@@ -35,7 +43,7 @@ if (@$_GET['save']) {
 $service = @$_GET['s'];
 $type = @$_GET['t']; // individual or group
 if (!$type || !$service) {
-  die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual or group)</p><p>Example: http://52.49.126.109?s=dev-tell.acas.org.uk&t=individual</p>');
+  die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual or group)</p><p>Example: https://tell.acas.org.uk/number.php?s=dev-tell.acas.org.uk&t=individual</p>');
 }
 $number = (int) $dbh->query("SELECT " . $type . "_no FROM numbers WHERE service = '$service'")->fetchColumn();
 $number++;
