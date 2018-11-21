@@ -320,6 +320,8 @@ function notification_retry_send_dynamics() {
  * The submission from the Notification & Conciliation WebForms
  */
 function notification_confirmation($webform, $webform_submission_id) {
+  //acas_dateofreceipt
+  //acas_dateofreciept
   if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
     $response = new RedirectResponse('/');
     $response->send();
@@ -338,7 +340,7 @@ function notification_confirmation($webform, $webform_submission_id) {
   if ($data['form_type'] == 'Notification') {
     $data['acas_formtype'] = '602700000';
     $data['acas_eccaserefnumber'] = notification_build_reference_number();
-    $data['acas_dateofreciept'] = date('Y-m-d');
+    $data['acas_dateofreceipt'] = date('Y-m-d');
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
     $config->set('current_out_count', $config->get('current_out_count') + 1);
@@ -468,7 +470,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     $result = TRUE;
     if ($data['guid']) {
-      $data['acas_dateofreciept'] = date('Y-m-d', $date);
+      $data['acas_dateofreceipt'] = date('Y-m-d', $date);
       $result = notification_send_dynamics($data);
     }
     if ($data['guid'] && $result) {
@@ -621,9 +623,11 @@ function notification_group_claiments_generate($data) {
 function notification_flags($data) {
   $flags = [];
   foreach($data as $key => $value) {
+    // Form1
     if ($key == 'are_you_interested_in_settling_your_case_before_tribunal_' && $value == 2) {
       $flags['acas_flagnoconciliation'] = TRUE;
     }
+    // All form 2
     if ($key == 'problem_several_colleagues' && $value == 2) {
       $flags['acas_flagoneofseveralemployees'] = TRUE;
     }
@@ -897,6 +901,7 @@ function notification_send_dynamics($data) {
  *   The webform sid to delete
  */
 function notification_delete_webform_submission($sid) {
+  return;
   $db = \Drupal::database();
   $db->delete('webform_submission')
     ->condition('sid', $sid, '=')

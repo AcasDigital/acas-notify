@@ -24,6 +24,7 @@ Drupal.behaviors.notification_form = {
         dismissedDate();
         jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').find('.govuk-webform-elements-day, .govuk-webform-elements-month, .govuk-webform-elements-year').on('input', dismissedDate);
       }
+      //validateDates();
       // Hide buttons if one of several colleagues
       /*
       if (jQuery('.form-item-problem-several-colleagues').length) {
@@ -61,7 +62,7 @@ Drupal.behaviors.notification_form = {
         jQuery('.form-item-claimants label.form-required').replaceWith(alert);
       }
       
-      jQuery('.webform-submission-form .webform-button--submit').click(function( event ) {
+      jQuery('.webform-submission-form .webform-button--submit').click(function( ) {
         if (jQuery(this).parent().parent().parent().attr('id') == 'feedback-form') {
           // Prevent feedback webforms having wait dialog
           return;
@@ -212,13 +213,13 @@ Drupal.behaviors.notification_form = {
                   jQuery(this).trigger('change');
                 }
               },
-              click: function(event) {
+              click: function() {
                 if(jQuery(this).data('activation') === 'paused'){
                   jQuery(this).data('activation', 'activated');
                   jQuery(this).trigger('change');
                 }
               },
-              change: function(event) {    
+              change: function() {    
                 if(jQuery(this).data('activation') === 'activated'){
                   populateAddress();
                 }
@@ -289,7 +290,7 @@ Drupal.behaviors.notification_form = {
         });
         return false;
       });
-    };// end once
+    }// end once
   }
 };
 
@@ -361,6 +362,31 @@ function dismissedDate() {
   }else{
     jQuery('.last-day-of-work-out-of-time-text').hide();
   }
+}
+
+function validateDates() {
+  jQuery('govuk-webform-elements--wrapper').each( function () {
+    var day = jQuery(this).find('.govuk-webform-elements-day').val();
+    var month = jQuery(this).find('.when-was-you-last-day-of-work .govuk-webform-elements-month').val();
+    var year = jQuery(this).find('.when-was-you-last-day-of-work .govuk-webform-elements-year').val();
+    if (!validateDate(day, month, year)) {
+      jQuery('<div class="invalid-feedback">Invalid date</div>').insertBefore(jQuery(this).find('.panel-body'));
+    }
+  });
+}
+
+function validateDate(day, month, year) {
+  if(year < 1000 || year > 3000 || month === 0 || month > 12)
+        return false;
+
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Adjust for leap years
+    if(year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0))
+        monthLength[1] = 29;
+
+    // Check the range of the day
+    return day > 0 && day <= monthLength[month - 1];
 }
 
 function validateEmail(email) {
