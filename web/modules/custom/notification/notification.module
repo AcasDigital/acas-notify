@@ -320,7 +320,11 @@ function notification_retry_send_dynamics() {
  * The submission from the Notification & Conciliation WebForms
  */
 function notification_confirmation($webform, $webform_submission_id) {
-  $webform_submission = WebformSubmission::load($webform_submission_id);
+  if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
+    $response = new RedirectResponse('/');
+    $response->send();
+    return;
+  }
   if (!$data = $webform_submission->getData()) {
     $response = new RedirectResponse('/');
     $response->send();
@@ -860,7 +864,9 @@ function notification_send_dynamics($data) {
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
-  $json['acas_monetaryvalue'] = (int) $json['acas_monetaryvalue'];
+  if (isset($json['acas_monetaryvalue'])) {
+    $json['acas_monetaryvalue'] = (int) $json['acas_monetaryvalue'];
+  }
   // Now send the data
   $data_string = json_encode($json);
   $config = \Drupal::config('dynamics.settings');
