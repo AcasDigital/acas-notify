@@ -50,6 +50,12 @@ function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInter
 function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['elements']['form_type']['#value'])) {
     // Either a Notification or Conciliation form
+    if (preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) {
+      // Browsers IE 8 and below
+      $response = new RedirectResponse('/ie8');
+      $response->send();
+      return;
+    }
     $config = \Drupal::config('afd.settings');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
@@ -98,8 +104,28 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       setcookie('webform_preview', '1', NULL, '/');
     }
     if ($acas_ecref = \Drupal::request()->query->get('acas_ecref')) {
-      //setcookie('acas_ecref', $acas_ecref, NULL, '/');
       $form['elements']['acas_ecref']['#value'] = $acas_ecref;
+      // Load form1 data to see if have email or phone
+      $db = \Drupal::database();
+      $result = $db->select('acas_ecrefno', 'a')
+        ->fields('a', ['sid1'])
+        ->condition('a.reference_no', $acas_ecref, '=')
+        ->execute()
+        ->fetchAll();
+      if (count($result) && $wfs = WebformSubmission::load($result[0]->sid1)) {
+        $form1_data = $wfs->getData();
+        //$form1_data['acas_emailaddress'] = '';
+        //$form1_data['acas_maincontactnumber'] = '';
+        if (!$form1_data['acas_emailaddress'] && !$form1_data['acas_maincontactnumber']) {
+          $form['elements']['page1']['introduction_to_form']['#markup'] = str_replace('[LETTER]', 'Your claim reference number is <strong>' . $acas_ecref . '</strong>, submitted at <strong>' . date('h:i A \o\n d F Y') . '</strong><br /><br />You did not give us an email address or phone number. We will send you a letter confirming your claim reference number.', $form['elements']['page1']['introduction_to_form']['#markup']);
+        }
+        else {
+          $form['elements']['page1']['introduction_to_form']['#markup'] = str_replace('[LETTER]', '', $form['elements']['page1']['introduction_to_form']['#markup']);
+        }
+      }
+      else {
+        $form['elements']['page1']['introduction_to_form']['#markup'] = str_replace('[LETTER]', '', $form['elements']['page1']['introduction_to_form']['#markup']);
+      }
     }
   }
   
@@ -145,7 +171,8 @@ function notification_group_claimants_upload_validate(&$form, FormStateInterface
       }
       else {
         //drupal_set_message("Imported $count Claimants");
-        $form['elements']['your_details']['rep_details_markup_04']['#markup'] = "<p>Imported $count Claimants</p>" . $form['elements']['your_details']['rep_details_markup_04']['#markup'];
+        setcookie('claimants', $count);
+        //$form['elements']['your_details']['rep_details_markup_04']['#markup'] = "<p>Imported $count Claimants</p>" . $form['elements']['your_details']['rep_details_markup_04']['#markup'];
       }
 
     }
@@ -315,9 +342,78 @@ function notification_retry_send_dynamics() {
 }
 
 /**
+ * Implements notification_confirmation_group().
+ *
+ * The submission from the group Notification & Conciliation WebForms
+ */
+function notification_confirmation_group($webform, $webform_submission_id) {
+  if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
+    $response = new RedirectResponse('/');
+    $response->send();
+    return;
+  }
+  if (!$data = $webform_submission->getData()) {
+    $response = new RedirectResponse('/');
+    $response->send();
+    return;
+  }
+  drupal_get_messages();
+  if (isset($_COOKIE['webform_preview'])) {
+    unset($_COOKIE['webform_preview']);
+    setcookie('webform_preview', null, -1, '/');
+  }
+  if ($data['form_type'] == 'GroupNotification') {
+    $data['acas_formtype'] = '602700000';
+    $refnumber = notification_build_reference_number('group');
+    $data['acas_groupid'] = $refnumber;
+    notification_group_claiments_generate($data, $webform_submission_id);
+    //notification_send_dynamics($data);
+    $response = new RedirectResponse('/group-conciliation?acas_ecref=' . $data['acas_groupid']);
+    $response->send();
+    return;
+  }
+  elseif ($data['form_type'] == 'GroupConciliation') {
+    $number = '';
+    $data['acas_formtype'] = '602700001';
+    $db = \Drupal::database();
+    // Get Notification form data for names in the email & timestamp;
+    $result = $db->select('acas_ecrefno', 'a')
+      ->fields('a', ['sid1', 'timestamp'])
+      ->condition('a.group_no', $data['acas_ecref'], '=')
+      ->execute()
+      ->fetchAll();
+    if (count($result) && $wfs = WebformSubmission::load($result[0]->sid1)) {
+      $form1_data = $wfs->getData();
+      $date = strtotime($result[0]->timestamp);
+      $form1_sid = $result[0]->sid1;
+    }
+    else {
+      $form1_data = [];
+      $date = time();
+      $form1_sid = 0;
+    }
+    $nid = 133;
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    $node = \Drupal\node\Entity\Node::load($nid);
+    if ($node->hasField('field_subject')) {
+        $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_claimrepfirstname'], $node->field_subject->getString());
+        $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_claimrepfirstname'] . ' ' . $form1_data['acas_claimrepsurname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
+      }
+    $view = $view_builder->view($node, 'full');
+    $html = drupal_render($view);
+    $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
+    $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
+    $html = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), $html);
+    $html = str_replace('[PROBLEM]', '', $html);
+    $html = '<header id="block-acas-page-title left" class="contextual-region block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="thank-you-page-header">' . $node->getTitle() . '</h1></header>' . $html;
+    return $html;
+  }
+}
+
+/**
  * Implements notification_confirmation().
  *
- * The submission from the Notification & Conciliation WebForms
+ * The submission from the individual Notification & Conciliation WebForms
  */
 function notification_confirmation($webform, $webform_submission_id) {
   if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
@@ -337,7 +433,15 @@ function notification_confirmation($webform, $webform_submission_id) {
   }
   if ($data['form_type'] == 'Notification') {
     $data['acas_formtype'] = '602700000';
-    $data['acas_eccaserefnumber'] = notification_build_reference_number();
+    if ($data['form_type'] == 'Notification') {
+      $refnumber = notification_build_reference_number();
+      $data['acas_eccaserefnumber'] = $refnumber;
+    }
+    else {
+      $refnumber = notification_build_reference_number('group');
+      $data['acas_groupid'] = $refnumber;
+      notification_group_claiments_generate($data);
+    }
     $data['acas_dateofreceipt'] = date('Y-m-d');
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
@@ -353,7 +457,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       $node->save();
     }
     $db = \Drupal::database();
-    $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber']];
+    $fields = ['sid1' => $webform_submission_id, 'reference_no' => $refnumber];
     $db->insert('acas_ecrefno')
       ->fields($fields)
       ->execute();
@@ -371,9 +475,10 @@ function notification_confirmation($webform, $webform_submission_id) {
       $nid = 117;
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
       $node = \Drupal\node\Entity\Node::load($nid);
+      
       if ($node->hasField('field_subject')) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
-        $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
+        $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString())))));
       }
       if (!$result = notification_send_dynamics($data)) {
         // Set to retry on CRON job, status = 3
@@ -389,6 +494,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
       $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
       $html = str_replace('[NUMBER]', $number, $html);
+      $html = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), $html);
       if (!$result && $node->hasField('field_problem_message')) {
         if ($problem = $node->field_problem_message->getValue()) {
           $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -464,7 +570,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     if ($form1_data && $node->hasField('field_subject')) {
       $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
-      $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString()))));
+      $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
     }
     $result = TRUE;
     if ($data['guid']) {
@@ -498,6 +604,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
     $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
     $html = str_replace('[NUMBER]', $number, $html);
+    $html = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), $html);
     if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
       if ($problem = $node->field_problem_message->getValue()) {
         $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -517,89 +624,7 @@ function notification_confirmation($webform, $webform_submission_id) {
   }
 }
 
-/**
- * Implements notification_group_confirmation().
- *
- * The submission from the Group Notification & Conciliation WebForms
- */
-function notification_group_confirmation($webform, $webform_submission_id) {
-  $webform_submission = WebformSubmission::load($webform_submission_id);
-  if (!$data = $webform_submission->getData()) {
-    $response = new RedirectResponse('/');
-    $response->send();
-    return;
-  }
-  drupal_get_messages();
-  if (isset($_COOKIE['webform_preview'])) {
-    unset($_COOKIE['webform_preview']);
-    setcookie('webform_preview', null, -1, '/');
-  }
-  if ($data['form_type'] == 'GroupNotification') {
-    $data['acas_formtype'] = '602700000';
-    $data['acas_eccaserefnumber'] = notification_build_reference_number();
-    $db = \Drupal::database();
-    $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber']];
-    $db->insert('acas_ecrefno')
-      ->fields($fields)
-      ->execute();
-    notification_group_claiments_generate($data);
-    //notification_send_dynamics($data);
-    
-    $response = new RedirectResponse('/group-conciliation?acas_ecref=' . $data['acas_eccaserefnumber']);
-    $response->send();
-    return;
-  }
-  elseif ($data['form_type'] == 'GroupConciliation') {
-    $data['acas_formtype'] = '602700001';
-    $config = \Drupal::config('acas.settings');
-    $flags = notification_flags($data);
-    $db = \Drupal::database();
-    // Get Notification form data for names in the email & timestamp;
-    $result = $db->select('acas_ecrefno', 'a')
-      ->fields('a', ['sid1', 'timestamp'])
-      ->condition('a.reference_no', $data['acas_ecref'], '=')
-      ->execute()
-      ->fetchAll();
-    if (count($result) && $wfs = WebformSubmission::load($result[0]->sid1)) {
-      $form1_data = $wfs->getData();
-      $date = strtotime($result[0]->timestamp);
-      $form1_sid = $result[0]->sid1;
-    }
-    else {
-      $form1_data = [];
-      $date = time();
-      $form1_sid = 0;
-    }
-    if (!$respondant = $form1_data['acas_resporganisationname']) {
-      $respondant = trim($form1_data['acas_resfirstname'] . ' ' . $form1_data['acas_respsurname']);
-    }
-    $number = '';
-    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $node = \Drupal\node\Entity\Node::load(130);
-    if ($form1_data && $node->hasField('field_subject')) {
-      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
-      $data['acas_emailbody'] = str_replace('[RESPONDENT]', $respondant, str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
-    }
-    $view = $view_builder->view($node, 'full');
-    $html = drupal_render($view);
-    $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
-    $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
-    $html = str_replace('[NUMBER]', $number, $html);
-    $html = str_replace('[RESPONDENT]', $respondant, $html);
-    //if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
-    //  if ($problem = $node->field_problem_message->getValue()) {
-    //    $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
-    //  }
-    //}
-    //else {
-      $html = str_replace('[PROBLEM]', '', $html);
-    //}
-    $html = '<header id="block-acas-page-title left" class="contextual-region block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="thank-you-page-header">' . $node->getTitle() . '</h1></header>' . $html;
-    return $html;
-  }
-}
-
-function notification_group_claiments_generate($data) {
+function notification_group_claiments_generate($data, $webform_submission_id) {
   if ($data['claimants']) {
     $file = \Drupal\file\Entity\File::load($data['claimants']);
     $parts = parse_url($file->getFileUri());
@@ -607,8 +632,22 @@ function notification_group_claiments_generate($data) {
     if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
       return FALSE;
     }
+    $db = \Drupal::database();
     foreach ($objPHPExcel[0] as $claimant) {
-      
+      $data['acas_eccaserefnumber'] = notification_build_reference_number();
+      $data['acas_firstname'] = $claimant['First name'];
+      $data['acas_surname'] = $claimant['Last name'];
+      $data['claimant_address'] = [
+        'address' => $claimant['Address line 1'],
+        'address_2' => $claimant['Address line 2'],
+        'city' => $claimant['City/Town'],
+        'postal_code' => $claimant['Postcode'],
+      ];
+      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
+      $db->insert('acas_ecrefno')
+        ->fields($fields)
+        ->execute();
+      //$result = notification_send_dynamics($data);
     }
   }
 }
@@ -667,11 +706,12 @@ function notification_flags($data) {
 /**
  * Implements notification_send_dynamics().
  *
- * Build the JSON and send to Dynamics
+ * Build the JSON and send to Dynamics.
+ * URLEncode all text fields.
  */
 function notification_send_dynamics($data) {
   $json = [];
-  $json['form_type'] = $data['form_type'];
+  $json['form_type'] = str_replace('Group', '', $data['form_type']);
   if ($flags = notification_flags($data)) {
     $json = array_merge($json, $flags);
   }
@@ -683,32 +723,37 @@ function notification_send_dynamics($data) {
   }
   foreach($data as $key => $value) {
     if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
-      $json[$key] = $value;
+      if ($key != 'acas_eccsaerefnumber') {
+        $json[$key] = urlencode($value);
+      }
+      else {
+        $json[$key] = $value;
+      }
     }
     elseif (is_array($value) && strpos($key, '_address') !== FALSE) {
       if ($key == 'claimant_address') {
-        $json['acas_addressline1'] = $value['address'];
-        $json['acas_addressline2'] = $value['address_2'];
-        $json['acas_citytown'] = $value['city'];
-        $json['acas_postcode'] = $value['postal_code'];
+        $json['acas_addressline1'] = urlencode($value['address']);
+        $json['acas_addressline2'] = urlencode($value['address_2']);
+        $json['acas_citytown'] = urlencode($value['city']);
+        $json['acas_postcode'] = urlencode($value['postal_code']);
       }
       elseif ($key == 'representative_address') {
-        $json['acas_claimrepaddressline1'] = $value['address'];
-        $json['acas_claimrepaddressline2'] = $value['address_2'];
-        $json['acas_claimrepcitytown'] = $value['city'];
-        $json['acas_claimreppostcode'] = $value['postal_code'];
+        $json['acas_claimrepaddressline1'] = urlencode($value['address']);
+        $json['acas_claimrepaddressline2'] = urlencode($value['address_2']);
+        $json['acas_claimrepcitytown'] = urlencode($value['city']);
+        $json['acas_claimreppostcode'] = urlencode($value['postal_code']);
       }
       elseif ($key == 'respondant_address') {
-        $json['acas_respaddressline1'] = $value['address'];
-        $json['acas_respaddressline2'] = $value['address_2'];
-        $json['acas_respcitytown'] = $value['city'];
-        $json['acas_resppostcode'] = $value['postal_code'];
+        $json['acas_respaddressline1'] = urlencode($value['address']);
+        $json['acas_respaddressline2'] = urlencode($value['address_2']);
+        $json['acas_respcitytown'] = urlencode($value['city']);
+        $json['acas_resppostcode'] = urlencode($value['postal_code']);
       }
     }
     elseif (is_array($value) && @$value['phone']) {
-      $json[$key] = $value['phone'];
+      $json[$key] = urlencode($value['phone']);
       if ($value['ext']) {
-        $json[$key] .= 'x' . $value['ext'];
+        $json[$key] . 'x' . urlencode($value['ext']);
       }
     }
     elseif (is_array($value) && @$key == 'acas_modeofcontact') {
@@ -862,7 +907,7 @@ function notification_send_dynamics($data) {
     }
   }
   */
-  $json['acas_incidentinfo'] = $info;
+  $json['acas_incidentinfo'] = urlencode($info);
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
@@ -884,7 +929,7 @@ function notification_send_dynamics($data) {
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($result || $http_status != 200) {
     //  If all is well, Dynamics does not return anything on succsess
-    \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = ' . $data_string . '<hr><br /> Result = ' . $result);
+    \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
     return FALSE;
   }
   return TRUE;

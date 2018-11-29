@@ -100,12 +100,5 @@ notification.retry_send_dynamics:
     _title: ''
   requirements:
     _permission: 'access content'
-    
-notification.test_number:
-  path: '/test-number'
-  defaults:
-    _controller: '\Drupal\notification\Controller\NotificationController::test_number'
-    _title: 'Test Number'
-  requirements:
-    _permission: 'access content'
+
       

@@ -8,3 +8,8 @@ services:
     class: Drupal\general\EventSubscriber\RemoveXGeneratorResponseHeader
     tags:
       - { name: event_subscriber }
+
+  acas_final_exception_subscriber:
+    class: Drupal\general\EventSubscriber\AcasFinalExceptionSubscriber
+    tags:
+      - { name: event_subscriber }

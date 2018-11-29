@@ -7,17 +7,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @file
- * Contains \Drupal\notification\Controller\SolanaceaeController.
+ * Contains \Drupal\notification\Controller\NotificationController.
  */
 
 class NotificationController extends ControllerBase {
+  
+  /**
+   * {@inheritdoc}
+   */
   public function acas_webform_confirmation($webform, $webform_submission) {
     $markup = notification_confirmation($webform, $webform_submission);
     return ['#markup' => $markup];
   }
   
+  /**
+   * {@inheritdoc}
+   */
   public function acas_group_webform_confirmation($webform, $webform_submission) {
-    $markup = notification_group_confirmation($webform, $webform_submission);
+    $markup = notification_confirmation_group($webform, $webform_submission);
     return ['#markup' => $markup];
   }
   
@@ -54,15 +61,6 @@ class NotificationController extends ControllerBase {
    */
   public function retry_send_dynamics() {
     return new JsonResponse(notification_retry_send_dynamics());
-  }
-  
-  /**
-   * {@inheritdoc}
-   */
-  public function test_number() {
-    $data = file_get_contents('http://34.255.101.0/number.php?data=1&XDEBUG_SESSION_START=john');
-    
-    return ['#markup' => $number];
   }
 
 }
