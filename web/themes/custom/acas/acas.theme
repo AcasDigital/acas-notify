@@ -116,6 +116,9 @@ function acas_preprocess_block(&$variables) {
       $variables['no_hamburger'] = TRUE;
     }
   }
+  if ($variables['plugin_id'] == 'system_breadcrumb_block' && count($variables['content']['#links']) == 1) {
+    unset($variables['content']);
+  }
 }
 
 function acas_preprocess_node(&$variables) {

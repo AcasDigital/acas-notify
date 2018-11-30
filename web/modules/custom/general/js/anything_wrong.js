@@ -9,6 +9,7 @@
           $("#feedback-form .feedback-question-wrapper a").hide();
           $("#feedback-form .webform-submission-yes-feedback-form").slideUp();
           $("#feedback-form .webform-submission-no-feedback-form").slideDown();
+          setTimeout(function(){ $("#feedback-form .webform-submission-no-feedback-form textarea").focus(); }, 500);
           sendVote(this, false);
           $([document.documentElement, document.body]).animate({
             scrollTop: $("#footer").offset().top
