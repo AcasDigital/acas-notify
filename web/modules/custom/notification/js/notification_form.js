@@ -104,10 +104,12 @@ Drupal.behaviors.notification_form = {
       });
       // Add 'No file chosen' to file uploads
       jQuery('<span class="no-file">&nbsp;No file chosen.</span>').insertAfter(jQuery('.webform-document-file .webform-file-button'));
+      
       // Webform telephone ext does not set attributes. Set them here
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('maxlength', '10');
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('size', '10');
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('type', 'tel');
+      jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('aria-label', 'telephone extension code');
       
       // Remove alert on postcode input
       jQuery('.find-address-wrapper .form-text').on('input', function() {
@@ -115,6 +117,34 @@ Drupal.behaviors.notification_form = {
         jQuery(this).removeClass('invalid');
         jQuery(this).addClass('valid');
       });
+      
+      // Remove alert on 'original group claim reference number' input
+      jQuery('#edit-acas-originalgroupid').on('input', function() {
+        jQuery(this).parent().find('.invalid-feedback').hide();
+        jQuery(this).removeClass('invalid');
+        jQuery(this).addClass('valid');
+      });
+      
+      // Focus original group claim reference number if Yes checked
+      jQuery('input[name=is_this_claim_part_of_an_existing_group_claim_]').change(function() {
+        if (this.value == '2') {
+          jQuery('#edit-acas-originalgroupid').focus();
+        }
+      });      
+      
+      // Add aria-label to all submit buttons on preview page
+      jQuery('.webform-wizard-pages-link').each( function () {
+        jQuery(this).attr('aria-label', jQuery(this).attr('title'));
+      });
+      
+      // Not a full bootstrap theme. Replace with a simple div on preview page
+      jQuery('.panel-heading a').each( function () {
+        jQuery(this).replaceWith('<div class="panel-title" aria-label="' + 'Submissions for page ' + jQuery(this).text() + '">' + jQuery(this).text() + '</div>');
+      });
+      
+      // No description for email confirm
+      jQuery('.webform-email-confirm').removeAttr('aria-describedby');
+      jQuery('.webform-email-confirm').attr('aria-label', 'Confirm your email address');
       
       // **** End of fields config ****
       
@@ -219,6 +249,61 @@ Drupal.behaviors.notification_form = {
             }
           }
         }
+        // original group claim reference number
+        if (jQuery('#edit-is-this-claim-part-of-an-existing-group-claim-2').prop('checked') && !jQuery('#edit-acas-originalgroupid').val()) {
+          if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
+            jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Enter the original group claim reference number');
+            jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').show();
+          }else{
+            jQuery('<div class="invalid-feedback">Enter the original group claim reference number</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
+          }
+          jQuery('#edit-acas-originalgroupid').addClass('invalid');
+          if (!scrollTo) {
+            scrollTo = jQuery('#edit-acas-originalgroupid').parent();
+          }
+          if (!focus) {
+            focus = jQuery('#edit-acas-originalgroupid');
+          }
+        }else if (jQuery('#edit-is-this-claim-part-of-an-existing-group-claim-2').prop('checked') && jQuery('#edit-acas-originalgroupid').val()) {
+          jQuery('#edit-acas-originalgroupid').val(jQuery('#edit-acas-originalgroupid').val().toUpperCase());
+          var bad = false;
+          var mu = jQuery('#edit-acas-originalgroupid').val();
+          if (mu.indexOf('MU') !== 0) {
+            bad = true;
+          }else{
+            mu = mu.replace('MU', '');
+            var a = mu.split('/');
+            if (a.length !== 2) {
+              bad = true;
+            }else{
+              if(isNaN(a[0]) || isNaN(a[1])) {
+                bad = true;
+              }else{
+                if (a[0].length !== 6 || a[1].length !== 2) {
+                  bad = true;
+                }
+              }
+            }
+          }
+          if (bad) {
+            if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
+              jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Invalid group claim reference number');
+              jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').show();
+            }else{
+              jQuery('<div class="invalid-feedback">Invalid group claim reference number</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
+            }
+            jQuery('#edit-acas-originalgroupid').addClass('invalid');
+            if (!scrollTo) {
+              scrollTo = jQuery('#edit-acas-originalgroupid').parent();
+            }
+            if (!focus) {
+              focus = jQuery('#edit-acas-originalgroupid');
+            }
+          }
+        }
+        if (focus) {
+          jQuery(focus).focus();
+        }
         if (scrollTo) {
           jQuery(scrollTo).find('.form-control').focus();
           jQuery([document.documentElement, document.body]).animate({
@@ -227,9 +312,7 @@ Drupal.behaviors.notification_form = {
           event.stopImmediatePropagation();
           return false;
         }
-        if (focus) {
-          jQuery(focus).focus();
-        }
+        jQuery(this).prop('disabled', true);
         return true;
       });
       jQuery('a.find_address').click(function() {
@@ -279,7 +362,7 @@ Drupal.behaviors.notification_form = {
               jQuery('#address_results').html('<div class="red">No addresses could be found for this postcode.</div>');
               return;
             }
-            var html = '<select id="addresses"><option value="">-- Select address --</option>';
+            var html = '<select id="addresses" aria-label="Select address" ><option value="">-- Select address --</option>';
             for (var i = 0; i < addresses.length; i++) {
               html += '<option value="' + i + '">' + addresses[i] + '</option>';
             }
@@ -460,17 +543,6 @@ function dismissedDate() {
   }else{
     jQuery('.last-day-of-work-out-of-time-text').hide();
   }
-}
-
-function validateDates() {
-  jQuery('govuk-webform-elements--wrapper').each( function () {
-    var day = jQuery(this).find('.govuk-webform-elements-day').val();
-    var month = jQuery(this).find('.when-was-you-last-day-of-work .govuk-webform-elements-month').val();
-    var year = jQuery(this).find('.when-was-you-last-day-of-work .govuk-webform-elements-year').val();
-    if (!validateDate(day, month, year)) {
-      jQuery('<div class="invalid-feedback">Invalid date</div>').insertBefore(jQuery(this).find('.panel-body'));
-    }
-  });
 }
 
 function validateDate(day, month, year) {

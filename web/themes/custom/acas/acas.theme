@@ -15,6 +15,7 @@ function acas_preprocess_page(&$variables) {
       $node = \Drupal\node\Entity\Node::load($node);
     }
     $variables['nodeid'] = $node->id();
+    $variables['page_type'] = node_type_load($node->bundle())->label();
   }
   if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
     $variables['formname'] = 'Early conciliation notification form';

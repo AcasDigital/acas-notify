@@ -127,6 +127,21 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
         $form['elements']['page1']['introduction_to_form']['#markup'] = str_replace('[LETTER]', '', $form['elements']['page1']['introduction_to_form']['#markup']);
       }
     }
+    if ($form['elements']['form_type']['#value'] == 'GroupConciliation') {
+      $input = $form_state->getUserInput();
+      if (@$input['is_this_claim_part_of_an_existing_group_claim_'] == '2') {
+        $pages = $form_state->get('pages');
+        $all_keys = array_keys($pages);
+        $goto_destination_page_index = array_search('webform_preview', $all_keys);
+        if($goto_destination_page_index > 0){
+          $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
+        }
+      }
+      elseif (@$input['is_this_claim_part_of_an_existing_group_claim_'] == '1') {
+        setcookie('webform_preview', null, -1, '/');
+        unset($_COOKIE['webform_preview']);
+      }
+    }
   }
   
   if ($form_id == 'webform_submission_group_notification_add_form') {
