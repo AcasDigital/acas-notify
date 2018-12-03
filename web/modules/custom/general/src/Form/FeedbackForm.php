@@ -91,7 +91,6 @@ class FeedbackForm extends FormBase {
       '#value' => t('Apply'),
       '#attributes' => ['class' => ['button, button--primary']],
     ];
-    $form['#attached']['library'][] = "general/icheck";
     $form['#suffix'] = '<br />' . $this->table($form_state, $options);
     return $form;
   }

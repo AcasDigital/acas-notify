@@ -156,7 +156,6 @@ class EcEntrySwitchForm extends ConfigFormBase {
         ],
       ],
     ];
-    $form['#attached']['library'][] = 'notification/icheck';
     return parent::buildForm($form, $form_state);
   }
   
