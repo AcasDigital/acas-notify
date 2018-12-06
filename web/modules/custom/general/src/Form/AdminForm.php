@@ -45,6 +45,13 @@ class AdminForm extends ConfigFormBase {
       '#size' => 20,
       '#required' => TRUE,
     );
+    $form['error_email'] = array(
+      '#type' => 'textfield',
+      '#default_value' => $config->get('error_email') ?: '',
+      '#title' => t('Send errors email address'),
+      '#size' => 20,
+      '#required' => TRUE,
+    );
     return parent::buildForm($form, $form_state);
   }
   
@@ -62,6 +69,7 @@ class AdminForm extends ConfigFormBase {
     \Drupal::configFactory()->getEditable('acas.settings')
     ->set('g10_fasttrack_phone', $form_state->getValue('g10_fasttrack_phone'))
     ->set('g10_flagged_phone', $form_state->getValue('g10_flagged_phone'))
+    ->set('error_email', $form_state->getValue('error_email'))
     ->save();
     parent::submitForm($form, $form_state);
   }

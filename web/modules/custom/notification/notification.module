@@ -307,6 +307,18 @@ function notification_company_house($employer) {
   return $return;
 }
 
+/**
+ * Implementation of hook_mail().
+ */
+function notification_mail($key, &$message, $params) {
+  switch($key) {
+    default:
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['body'];
+      break;
+    }
+}
+
 // Called by a CRON job every 5 mins.
 // Try resending any failed GUID or Dynamics calls.
 function notification_retry_send_dynamics() {
@@ -741,37 +753,32 @@ function notification_send_dynamics($data) {
   }
   foreach($data as $key => $value) {
     if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
-      if ($key != 'acas_eccsaerefnumber') {
-        $json[$key] = urlencode($value);
-      }
-      else {
-        $json[$key] = $value;
-      }
+      $json[$key] = $value;
     }
     elseif (is_array($value) && strpos($key, '_address') !== FALSE) {
       if ($key == 'claimant_address') {
-        $json['acas_addressline1'] = urlencode($value['address']);
-        $json['acas_addressline2'] = urlencode($value['address_2']);
-        $json['acas_citytown'] = urlencode($value['city']);
-        $json['acas_postcode'] = urlencode($value['postal_code']);
+        $json['acas_addressline1'] = rawurlencode($value['address']);
+        $json['acas_addressline2'] = rawurlencode($value['address_2']);
+        $json['acas_citytown'] = rawurlencode($value['city']);
+        $json['acas_postcode'] = rawurlencode($value['postal_code']);
       }
       elseif ($key == 'representative_address') {
-        $json['acas_claimrepaddressline1'] = urlencode($value['address']);
-        $json['acas_claimrepaddressline2'] = urlencode($value['address_2']);
-        $json['acas_claimrepcitytown'] = urlencode($value['city']);
-        $json['acas_claimreppostcode'] = urlencode($value['postal_code']);
+        $json['acas_claimrepaddressline1'] = rawurlencode($value['address']);
+        $json['acas_claimrepaddressline2'] = rawurlencode($value['address_2']);
+        $json['acas_claimrepcitytown'] = rawurlencode($value['city']);
+        $json['acas_claimreppostcode'] = rawurlencode($value['postal_code']);
       }
       elseif ($key == 'respondant_address') {
-        $json['acas_respaddressline1'] = urlencode($value['address']);
-        $json['acas_respaddressline2'] = urlencode($value['address_2']);
-        $json['acas_respcitytown'] = urlencode($value['city']);
-        $json['acas_resppostcode'] = urlencode($value['postal_code']);
+        $json['acas_respaddressline1'] = rawurlencode($value['address']);
+        $json['acas_respaddressline2'] = rawurlencode($value['address_2']);
+        $json['acas_respcitytown'] = rawurlencode($value['city']);
+        $json['acas_resppostcode'] = rawurlencode($value['postal_code']);
       }
     }
     elseif (is_array($value) && @$value['phone']) {
-      $json[$key] = urlencode($value['phone']);
+      $json[$key] = rawurlencode($value['phone']);
       if ($value['ext']) {
-        $json[$key] . 'x' . urlencode($value['ext']);
+        $json[$key] . 'x' . rawurlencode($value['ext']);
       }
     }
     elseif (is_array($value) && @$key == 'acas_modeofcontact') {
@@ -911,6 +918,7 @@ function notification_send_dynamics($data) {
   if (!@$json['acas_incidenttype']) {
     //$json['acas_incidenttype'] = '602700000';
   }
+  $json['acas_eccaserefnumber'] = $data['acas_eccaserefnumber'];
   /*
   if ($data['form_type'] == 'Conciliation') {
     if (isset($json['acas_roledescription'])) {
@@ -925,7 +933,7 @@ function notification_send_dynamics($data) {
     }
   }
   */
-  $json['acas_incidentinfo'] = urlencode($info);
+  $json['acas_incidentinfo'] = rawurlencode($info);
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
@@ -948,6 +956,10 @@ function notification_send_dynamics($data) {
   if ($result || $http_status != 200) {
     //  If all is well, Dynamics does not return anything on succsess
     \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
+    $config = \Drupal::config('acas.settings');
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $data['acas_eccaserefnumber'] . ')';
+    $result = $mailManager->mail('notification', 'error', $config->get('error_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
     return FALSE;
   }
   return TRUE;
