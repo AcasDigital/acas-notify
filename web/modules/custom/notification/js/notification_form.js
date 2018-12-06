@@ -7,6 +7,7 @@ Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     // Had to go old-school by checking for class, jQuery.once was not working for ajax forms
     if (!jQuery('.webform-submission-form-notification').hasClass('notification_form_processed')) {
+      setTimeout(sendGoogleAnalytics, 500);
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html(jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html().replace('Edit', 'Change'));
@@ -82,26 +83,14 @@ Drupal.behaviors.notification_form = {
         html += '<div class="modal-description">Please wait...</div></div>';
         jQuery('body').append(html);
       });
-      // Validate email address
-      jQuery('.webform-submission-form-notification .form-email').focusout(function(){
-        if (jQuery(this).val()) {
-          if (!validateEmail(jQuery(this).val())) {
-            jQuery(this).addClass('invalid');
-            if (!jQuery(this).parent().find(".invalid-feedback").length) {
-              jQuery('<div class="invalid-feedback">Invalid email address</div>').insertBefore(this);
-            }else{
-              jQuery(this).parent().find(".invalid-feedback").text('Invalid email address');
-              jQuery(this).parent().find(".invalid-feedback").show();
-            }
-            jQuery(this).focus();
-          }
-        }
-      });
+      
+      // Remove alert on email input
       jQuery('.webform-submission-form-notification .form-email').on('input', function() {
         jQuery(this).parent().find('.invalid-feedback').hide();
         jQuery(this).removeClass('invalid');
         jQuery(this).addClass('valid');
       });
+      
       // Add 'No file chosen' to file uploads
       jQuery('<span class="no-file">&nbsp;No file chosen.</span>').insertAfter(jQuery('.webform-document-file .webform-file-button'));
       
@@ -150,20 +139,14 @@ Drupal.behaviors.notification_form = {
       
       // Next button click
       jQuery('.webform-submission-form-notification .webform-button--next').onFirst('click', function( event ) {
+        var errors = [];
         jQuery('.alert').remove();
-        var scrollTo = null;
-        var focus = null;
         if (jQuery('.webform-document-file.required').length) {
           if (jQuery('.webform-document-file.required .form-file').length && !jQuery('.webform-document-file.required .form-file').val()) {
             if (!jQuery('.webform-document-file.required').find(".invalid-feedback").length) {
               jQuery('<div class="invalid-feedback">You must provide a spreadsheet of claimants details.</div>').insertBefore(jQuery('.webform-document-file.required .webform-file-button'));
             }
-            if (!scrollTo) {
-              scrollTo = jQuery('.webform-document-file.required').parent();
-            }
-            if (!focus) {
-              focus = jQuery('.webform-document-file');
-            }
+            errors.push(jQuery('.webform-document-file'));
           }
         }
         // Validate dates
@@ -177,12 +160,7 @@ Drupal.behaviors.notification_form = {
             }else{
               jQuery(this).find(".invalid-feedback").text('Invalid date');
             }
-            if (!scrollTo) {
-              scrollTo = jQuery(this).find('.panel-body p');
-            }
-            if (!focus) {
-              focus = jQuery(this).find('.govuk-webform-elements-day');
-            }
+            errors.push(jQuery(this).find('.govuk-webform-elements-day'));
           }
           if (!jQuery(this).attr('allow_future') && !scrollTo) {
             var d = new Date(year, month, day);
@@ -192,15 +170,38 @@ Drupal.behaviors.notification_form = {
               }else{
                 jQuery(this).find(".invalid-feedback").text('Date can\'t be in the future');
               }
-              if (!scrollTo) {
-                scrollTo = jQuery(this).find('.panel-body p');
-              }
-              if (!focus) {
-                focus = jQuery(this).find('.govuk-webform-elements-year');
-              }
+              errors.push(jQuery(this).find('.govuk-webform-elements-year'));
             }
           }
         });
+        // Validate email address
+        jQuery('.webform-submission-form-notification .form-email').each(function(){
+          if (jQuery(this).val()) {
+            if (!validateEmail(jQuery(this).val())) {
+              jQuery(this).addClass('invalid');
+              if (!jQuery(this).parent().find(".invalid-feedback").length) {
+                jQuery('<div class="invalid-feedback">Invalid email address</div>').insertBefore(this);
+              }else{
+                jQuery(this).parent().find(".invalid-feedback").text('Invalid email address');
+                jQuery(this).parent().find(".invalid-feedback").show();
+              }
+              errors.push(jQuery(this));
+            }
+          }
+        });
+        if (jQuery('.webform-submission-form-notification .webform-email-confirm').length && (jQuery('.webform-submission-form-notification .webform-email-confirm').val() || jQuery('.webform-submission-form-notification .webform-email').val())) {
+          if (jQuery('.webform-submission-form-notification .webform-email').val() != jQuery('.webform-submission-form-notification .webform-email-confirm').val()) {
+            if (jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').length) {
+              jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').text('Emails do not match');
+              jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').show();
+            }else{
+              jQuery('<div class="invalid-feedback">Emails do not match</div>').insertBefore(jQuery('.webform-submission-form-notification .webform-email-confirm'));
+            }
+            errors.push(jQuery('.webform-submission-form-notification .webform-email-confirm'));
+          }
+        }
+        
+        // Validate all required inputs
         jQuery('.form-item .form-control').filter(':visible').each( function () {
           if (jQuery(this).hasClass('required')) {
             if (!jQuery(this).val()) {
@@ -220,12 +221,7 @@ Drupal.behaviors.notification_form = {
                   jQuery(this).addClass('valid');
                 }
               });
-              if (!scrollTo) {
-                scrollTo = jQuery(this).parent();
-              }
-              if (!focus) {
-                focus = jQuery(this);
-              }
+              errors.push(jQuery(this));
             }else{
               jQuery(this).addClass('valid');
             }
@@ -233,22 +229,6 @@ Drupal.behaviors.notification_form = {
             jQuery(this).addClass('valid');
           }
         });
-        if (jQuery('.webform-submission-form-notification .webform-email-confirm').length && (jQuery('.webform-submission-form-notification .webform-email-confirm').val() || jQuery('.webform-submission-form-notification .webform-email').val())) {
-          if (jQuery('.webform-submission-form-notification .webform-email').val() != jQuery('.webform-submission-form-notification .webform-email-confirm').val()) {
-            if (jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').length) {
-              jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').text('Emails do not match');
-              jQuery('.webform-submission-form-notification .webform-email-confirm').parent().find('.invalid-feedback').show();
-            }else{
-              jQuery('<div class="invalid-feedback">Emails do not match</div>').insertBefore(jQuery('.webform-submission-form-notification .webform-email-confirm'));
-            }
-            if (!scrollTo) {
-              scrollTo = jQuery('.webform-submission-form-notification .webform-email-confirm').parent();
-            }
-            if (!focus) {
-              focus = jQuery('.webform-submission-form-notification .webform-email-confirm');
-            }
-          }
-        }
         // original group claim reference number
         if (jQuery('#edit-is-this-claim-part-of-an-existing-group-claim-2').prop('checked') && !jQuery('#edit-acas-originalgroupid').val()) {
           if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
@@ -258,12 +238,7 @@ Drupal.behaviors.notification_form = {
             jQuery('<div class="invalid-feedback">Enter the original group claim reference number</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
           }
           jQuery('#edit-acas-originalgroupid').addClass('invalid');
-          if (!scrollTo) {
-            scrollTo = jQuery('#edit-acas-originalgroupid').parent();
-          }
-          if (!focus) {
-            focus = jQuery('#edit-acas-originalgroupid');
-          }
+          errors.push(jQuery('#edit-acas-originalgroupid'));
         }else if (jQuery('#edit-is-this-claim-part-of-an-existing-group-claim-2').prop('checked') && jQuery('#edit-acas-originalgroupid').val()) {
           jQuery('#edit-acas-originalgroupid').val(jQuery('#edit-acas-originalgroupid').val().toUpperCase());
           var bad = false;
@@ -293,26 +268,21 @@ Drupal.behaviors.notification_form = {
               jQuery('<div class="invalid-feedback">Invalid group claim reference number</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
             }
             jQuery('#edit-acas-originalgroupid').addClass('invalid');
-            if (!scrollTo) {
-              scrollTo = jQuery('#edit-acas-originalgroupid').parent();
-            }
-            if (!focus) {
-              focus = jQuery('#edit-acas-originalgroupid');
-            }
+            errors.push(jQuery('#edit-acas-originalgroupid'));
           }
         }
-        if (focus) {
-          jQuery(focus).focus();
-        }
-        if (scrollTo) {
-          jQuery(scrollTo).find('.form-control').focus();
-          jQuery([document.documentElement, document.body]).animate({
-            scrollTop: jQuery(scrollTo).offset().top - 100
-          }, 500);
+        if (errors.length) {
+          var html = '<div class="error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary"><h2 class="error-summary__title" id="error-summary-title">There is a problem</h2><ul class="error-summary__list">';
+          for ( var i = 0, l = errors.length; i < l; i++ ) {
+            html += '<li><a href="#' + jQuery(errors[i]).attr('id') + '">' + jQuery(errors[i]).parent().find('.invalid-feedback').text() + '</a></li>';
+          }
+          html += '</ul></div>';
+          jQuery('.webform-submission-form-notification .error-summary').remove();
+          jQuery(html).insertBefore(jQuery('.webform-submission-form-notification h1'));
+          jQuery('.error-summary').focus();
           event.stopImmediatePropagation();
           return false;
         }
-        jQuery(this).prop('disabled', true);
         return true;
       });
       jQuery('a.find_address').click(function() {
@@ -458,6 +428,10 @@ Drupal.behaviors.notification_form = {
         return false;
       });
     } //end once
+    
+    // Misc webforms
+    jQuery('#webform_submission_check_before_notification_add_form-ajax-content').remove();
+      
     if (jQuery('.form-item-claimants').length && jQuery('.alert-danger').length) {
       // Move error alert to claimants upload
       // and style
@@ -579,7 +553,7 @@ function getCookie(cname) {
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
@@ -588,4 +562,14 @@ function getCookie(cname) {
 
 function ajaxLoader() {
   return '<div class="ajax-progress ajax-progress-throbber"><div class="ajax-loader"><div class="ajax-throbber sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div></div></div>';
+}
+
+function sendGoogleAnalytics() {
+  try {
+    if (jQuery('section.js-form-wrapper[data-webform-key]').length) {
+      //ga('send', 'pageview', jQuery('section.js-form-wrapper[data-webform-key]').attr('data-webform-key'));
+    }
+  }catch(err) {
+    console.log(err);
+  }
 }

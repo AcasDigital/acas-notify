@@ -167,19 +167,22 @@ function notification_group_claimants_upload_validate(&$form, FormStateInterface
       else {
         foreach($objPHPExcel[0] as $key => $value) {
           if (!$value['First name']) {
-            $msg .= 'Row ' . ($key + 2) . " missing <b>First name</b>!<br />";
+            $msg .= 'Row ' . ($key + 2) . " missing <b>First name</b><br />";
           }
           if (!$value['Address line 1']) {
-            $msg .= 'Row ' . ($key + 2). " missing <b>Address line 1</b>!<br />";
+            $msg .= 'Row ' . ($key + 2). " missing <b>Address line 1</b><br />";
           }
           if (!$value['City/Town']) {
-            $msg .= 'Row ' . ($key + 2) . " missing <b>City/Town</b>!<br />";
+            $msg .= 'Row ' . ($key + 2) . " missing <b>City/Town</b><br />";
           }
           $count++;
         }
       }
+      if ($count < 2) {
+        $msg .= 'There must be at least 2 claimants!<br />';
+      }
       if ($msg) {
-        $msg .= 'Please correct these errors and re-upload your spreadsheet.';
+        $msg .= 'Please correct the errors in the rows above and re-upload your spreadsheet. If you cannot correct the errors now, delete the rows that have errors and update your claim later.';
         $rendered_message = \Drupal\Core\Render\Markup::create($msg);
         $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
         $form_state->setErrorByName('claimant', $error_message);
@@ -307,6 +310,7 @@ function notification_company_house($employer) {
 // Called by a CRON job every 5 mins.
 // Try resending any failed GUID or Dynamics calls.
 function notification_retry_send_dynamics() {
+  return;
   $db = \Drupal::database();
   $config = \Drupal::config('dynamics.settings');
   $result = $db->select('acas_ecrefno', 'a')
@@ -382,7 +386,6 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     $refnumber = notification_build_reference_number('group');
     $data['acas_groupid'] = $refnumber;
     notification_group_claiments_generate($data, $webform_submission_id);
-    //notification_send_dynamics($data);
     $response = new RedirectResponse('/group-conciliation?acas_ecref=' . $data['acas_groupid']);
     $response->send();
     return;

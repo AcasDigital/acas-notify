@@ -234,7 +234,7 @@ function acas_theme_suggestions_page_alter(&$suggestions, $variables, $hook) {
 // Notification preprocess functions
 
 function acas_preprocess_page_title(&$variables) {
-  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE && strpos(\Drupal::request()->getRequestUri(), 'check-notification-timing') === FALSE) {
+  if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE || strpos(\Drupal::request()->getRequestUri(), 'conciliation') !== FALSE && strpos(\Drupal::request()->getRequestUri(), 'check-notification-timing') === FALSE) {
     $variables['title'] = FALSE;
   }
 }
