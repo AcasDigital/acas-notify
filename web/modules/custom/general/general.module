@@ -850,7 +850,7 @@ function general_library_info_alter(&$libraries, $extension) {
       }
     }
   }
-  */
+  
   if ($extension === 'core') {
     $lib = &$libraries['drupal.ajax'];
     $js_options = end($lib['js']);
@@ -858,7 +858,7 @@ function general_library_info_alter(&$libraries, $extension) {
       $lib['js'] = ['/' . drupal_get_path('module', 'general') . '/js/ie8/ajax.js' => $js_options];
     }
   }
-   
+  */
   if ($extension === 'filter') {
     $lib = &$libraries['drupal.filter.filter_html.admin'];
     $js_options = end($lib['js']);

@@ -753,32 +753,32 @@ function notification_send_dynamics($data) {
   }
   foreach($data as $key => $value) {
     if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
-      $json[$key] = $value;
+      $json[$key] = notification_encode($value);
     }
     elseif (is_array($value) && strpos($key, '_address') !== FALSE) {
       if ($key == 'claimant_address') {
-        $json['acas_addressline1'] = rawurlencode($value['address']);
-        $json['acas_addressline2'] = rawurlencode($value['address_2']);
-        $json['acas_citytown'] = rawurlencode($value['city']);
-        $json['acas_postcode'] = rawurlencode($value['postal_code']);
+        $json['acas_addressline1'] = notification_encode($value['address']);
+        $json['acas_addressline2'] = notification_encode($value['address_2']);
+        $json['acas_citytown'] = notification_encode($value['city']);
+        $json['acas_postcode'] = notification_encode($value['postal_code']);
       }
       elseif ($key == 'representative_address') {
-        $json['acas_claimrepaddressline1'] = rawurlencode($value['address']);
-        $json['acas_claimrepaddressline2'] = rawurlencode($value['address_2']);
-        $json['acas_claimrepcitytown'] = rawurlencode($value['city']);
-        $json['acas_claimreppostcode'] = rawurlencode($value['postal_code']);
+        $json['acas_claimrepaddressline1'] = notification_encode($value['address']);
+        $json['acas_claimrepaddressline2'] = notification_encode($value['address_2']);
+        $json['acas_claimrepcitytown'] = notification_encode($value['city']);
+        $json['acas_claimreppostcode'] = notification_encode($value['postal_code']);
       }
       elseif ($key == 'respondant_address') {
-        $json['acas_respaddressline1'] = rawurlencode($value['address']);
-        $json['acas_respaddressline2'] = rawurlencode($value['address_2']);
-        $json['acas_respcitytown'] = rawurlencode($value['city']);
-        $json['acas_resppostcode'] = rawurlencode($value['postal_code']);
+        $json['acas_respaddressline1'] = notification_encode($value['address']);
+        $json['acas_respaddressline2'] = notification_encode($value['address_2']);
+        $json['acas_respcitytown'] = notification_encode($value['city']);
+        $json['acas_resppostcode'] = notification_encode($value['postal_code']);
       }
     }
     elseif (is_array($value) && @$value['phone']) {
-      $json[$key] = rawurlencode($value['phone']);
+      $json[$key] = notification_encode($value['phone']);
       if ($value['ext']) {
-        $json[$key] . 'x' . rawurlencode($value['ext']);
+        $json[$key] . 'x' . notification_encode($value['ext']);
       }
     }
     elseif (is_array($value) && @$key == 'acas_modeofcontact') {
@@ -933,7 +933,7 @@ function notification_send_dynamics($data) {
     }
   }
   */
-  $json['acas_incidentinfo'] = rawurlencode($info);
+  $json['acas_incidentinfo'] = notification_encode($info);
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
@@ -963,6 +963,10 @@ function notification_send_dynamics($data) {
     return FALSE;
   }
   return TRUE;
+}
+
+function notification_encode($string) {
+  return htmlentities($string);
 }
 
 /**

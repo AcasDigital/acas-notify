@@ -46,7 +46,7 @@ class NotificationController extends ControllerBase {
    * {@inheritdoc}
    */
   public function ec_entry_switch_mobile() {
-    return new JsonResponse(notification_ec_entry_switch(TRUE));
+    return new JsonResponse(notification_ec_entry_switch());
   }
 
   /**
