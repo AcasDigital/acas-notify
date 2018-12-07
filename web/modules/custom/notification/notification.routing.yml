@@ -5,11 +5,12 @@ notification.notification:
     _title: 'Notification'
   requirements:
     _permission: 'access administration pages'
+    
 notification.dynamics:
   path: '/admin/config/services/notification/dynamics'
   defaults:
     _form: '\Drupal\notification\Form\DynamicsForm'
-    _title: 'Dynamics 365 Web API Settings'
+    _title: 'Dynamics 365 Settings'
   requirements:
     _permission: 'administer site configuration'
     
@@ -83,7 +84,19 @@ notification.ec_entry:
     _form: '\Drupal\notification\Form\EcEntrySwitchForm'
     _title: 'EC Entry Switch'
   requirements:
-    _permission: 'administer site configuration'
+    _role: 'administrator + ec_entry_switch'
+  options:
+    _admin_route: 'TRUE'
+    
+notification.notification_errors:
+  path: '/admin/reports/notify-errors'
+  defaults:
+    _form: '\Drupal\notification\Form\NotificationErrorsForm'
+    _title: 'Notification Errors'
+  requirements:
+    _role: 'administrator + ec_entry_switch'
+  options:
+    _admin_route: 'TRUE'
     
 notification.notify_test:
   path: '/notify-test/{webform_submission_id}'

@@ -15,6 +15,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Render\Markup;
 
 /**
  * Implements hook_help().
@@ -312,6 +313,12 @@ function notification_company_house($employer) {
  */
 function notification_mail($key, &$message, $params) {
   switch($key) {
+    case 'error':
+      $message['headers']['Content-Type'] = SWIFTMAILER_FORMAT_HTML;
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = $params['subject'];
+      $message['body'][] = Markup::create($params['body']);
+      break;
     default:
       $message['subject'] = $params['subject'];
       $message['body'] = $params['body'];
@@ -956,15 +963,35 @@ function notification_send_dynamics($data) {
   if ($result || $http_status != 200) {
     //  If all is well, Dynamics does not return anything on succsess
     \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
+    // Send email
     $config = \Drupal::config('acas.settings');
     $mailManager = \Drupal::service('plugin.manager.mail');
     $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $data['acas_eccaserefnumber'] . ')';
-    $result = $mailManager->mail('notification', 'error', $config->get('error_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
+    $body = 'Status: ' . $http_status . '<br />Data:<pre>' . print_r($json, TRUE) . '</pre>Error:<pre>' . print_r(json_decode($result), TRUE) . '</pre>';
+    $params['body'] = $body;
+    //$params['body'][] = 'Status: ' . $http_status;
+    //$params['body'][] = Markup::create('Data:<br /><pre>' . print_r($json, TRUE) . '</pre>');
+    //$params//['body'][] = Markup::create('Error:<br />' . $result);
+    $mailManager->mail('notification', 'error', $config->get('error_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
+    // Insert into acas_notify_errors table
+    $db = \Drupal::database();
+    $fields = ['status' => $http_status, 'reference_no' => $data['acas_eccaserefnumber'], 'data' => $data_string, 'error' => $result];
+    $db->insert('acas_notify_errors')
+      ->fields($fields)
+      ->execute();
     return FALSE;
   }
   return TRUE;
 }
 
+/**
+ * Implements notification_encode().
+ *
+ * Encode special chars for Dynamics
+ *
+ * @param string
+ *   The string to encode
+ */
 function notification_encode($string) {
   return htmlentities($string);
 }

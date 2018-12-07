@@ -4,6 +4,13 @@ notification.ec_entry:
   route_name: notification.ec_entry
   parent: system.admin_config_system
   weight: -1
+  
+notification.notification_errors:
+  title: 'Notification Errors'
+  description: 'Notification Errors.'
+  route_name: notification.notification_errors
+  parent: system.admin_reports
+  weight: -1
 
 notification.notification:
   title: 'Notification'
