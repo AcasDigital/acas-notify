@@ -10,7 +10,7 @@ notification.notification_errors:
   description: 'Notification Errors.'
   route_name: notification.notification_errors
   parent: system.admin_reports
-  weight: -1
+  weight: -999
 
 notification.notification:
   title: 'Notification'

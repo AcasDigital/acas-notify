@@ -1,0 +1,15 @@
+#edit-display, #edit-submit {
+	display: none;
+}
+#edit-display .details label {
+	display: inline-block;
+}
+#edit-display .details span {
+	margin-right: 10px;
+}
+.ajax-progress-throbber {
+	display: none;
+}
+.ajax-progress-throbber .text {
+	padding-left: 15px;
+}

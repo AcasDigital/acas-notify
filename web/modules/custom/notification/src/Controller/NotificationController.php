@@ -62,5 +62,19 @@ class NotificationController extends ControllerBase {
   public function retry_send_dynamics() {
     return new JsonResponse(notification_retry_send_dynamics());
   }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function notification_errors_delete($id) {
+    return new JsonResponse(notification_errors_delete($id));
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function notification_errors_submit($id) {
+    return new JsonResponse(notification_errors_submit($id));
+  }
 
 }

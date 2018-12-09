@@ -11,3 +11,14 @@ notification_form:
     - core/modernizr
     - core/jquery
     - core/jquery.once
+
+notification_error_form:
+  css:
+    theme:
+      css/notification_error_form.css: {}
+  js:
+    js/notification_error_form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once

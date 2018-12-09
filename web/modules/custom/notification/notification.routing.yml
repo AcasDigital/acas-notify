@@ -98,6 +98,22 @@ notification.notification_errors:
   options:
     _admin_route: 'TRUE'
     
+notification.notification_errors_delete:
+  path: '/notify-errors-delete/{id}'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notification_errors_delete'
+    _title: ''
+  requirements:
+    _role: 'administrator + ec_entry_switch'
+    
+notification.notification_errors_submit:
+  path: '/notify-errors-submit/{id}'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notification_errors_submit'
+    _title: ''
+  requirements:
+    _role: 'administrator + ec_entry_switch'
+    
 notification.notify_test:
   path: '/notify-test/{webform_submission_id}'
   defaults:

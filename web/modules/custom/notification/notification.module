@@ -106,6 +106,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     }
     if ($acas_ecref = \Drupal::request()->query->get('acas_ecref')) {
       $form['elements']['acas_ecref']['#value'] = $acas_ecref;
+      $_SESSION['acas_ecref'] = $acas_ecref;
       // Load form1 data to see if have email or phone
       $db = \Drupal::database();
       $result = $db->select('acas_ecrefno', 'a')
@@ -553,6 +554,13 @@ function notification_confirmation($webform, $webform_submission_id) {
   elseif ($data['form_type'] == 'Conciliation') {
     // GetGUID.
     $config = \Drupal::config('dynamics.settings');
+    if (!$data['acas_ecref'] && @$_SESSION['acas_ecref']) {
+      $data['acas_ecref'] = $_SESSION['acas_ecref'];
+    }
+    if (isset($_SESSION['acas_ecref'])) {
+      unset($_SESSION['acas_ecref']);
+    }
+    $data['acas_ecref'] = $data['acas_ecref'];
     $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
     $guid = file_get_contents($url);
     $data['guid'] = '';
@@ -680,7 +688,7 @@ function notification_group_claiments_generate($data, $webform_submission_id) {
         'city' => $claimant['City/Town'],
         'postal_code' => $claimant['Postcode'],
       ];
-      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
+      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_ecref'], 'group_no' => $data['acas_groupid']];
       $db->insert('acas_ecrefno')
         ->fields($fields)
         ->execute();
@@ -925,21 +933,6 @@ function notification_send_dynamics($data) {
   if (!@$json['acas_incidenttype']) {
     //$json['acas_incidenttype'] = '602700000';
   }
-  $json['acas_eccaserefnumber'] = $data['acas_eccaserefnumber'];
-  /*
-  if ($data['form_type'] == 'Conciliation') {
-    if (isset($json['acas_roledescription'])) {
-      $info .= 'acas_roledescription=' . $json['acas_roledescription'] . "\n";
-      unset($json['acas_roledescription']);
-    }
-    foreach($json as $key => $value) {
-      if (strpos($key, 'acas_resp') !== FALSE) {
-        $info .= $key . '=' . $value ."\n";
-        unset($json[$key]);
-      }
-    }
-  }
-  */
   $json['acas_incidentinfo'] = notification_encode($info);
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
@@ -953,29 +946,30 @@ function notification_send_dynamics($data) {
   $ch = curl_init($config->get('url') . '?si_token=' . $config->get('token'));                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);                                                                      
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [                                                                          
     'Content-Type: application/json',                                                                                
-    'Content-Length: ' . strlen($data_string))                                                                       
+    'Content-Length: ' . strlen($data_string)]                                                                       
   );                                                                                                                   
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($result || $http_status != 200) {
-    //  If all is well, Dynamics does not return anything on succsess
+    // If all is well, Dynamics does not return anything on succsess
+    // Write failure to watchdog log
     \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
     // Send email
     $config = \Drupal::config('acas.settings');
     $mailManager = \Drupal::service('plugin.manager.mail');
-    $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $data['acas_eccaserefnumber'] . ')';
+    $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $data['acas_ecref'] . ')';
     $body = 'Status: ' . $http_status . '<br />Data:<pre>' . print_r($json, TRUE) . '</pre>Error:<pre>' . print_r(json_decode($result), TRUE) . '</pre>';
     $params['body'] = $body;
-    //$params['body'][] = 'Status: ' . $http_status;
-    //$params['body'][] = Markup::create('Data:<br /><pre>' . print_r($json, TRUE) . '</pre>');
-    //$params//['body'][] = Markup::create('Error:<br />' . $result);
     $mailManager->mail('notification', 'error', $config->get('error_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
     // Insert into acas_notify_errors table
     $db = \Drupal::database();
-    $fields = ['status' => $http_status, 'reference_no' => $data['acas_eccaserefnumber'], 'data' => $data_string, 'error' => $result];
+    if (!isset($data['guid'])) {
+      $data['guid'] = NULL;
+    }
+    $fields = ['form' => $data['form_type'], 'guid' => $data['guid'], 'status' => $http_status, 'reference_no' => $data['acas_ecref'], 'data' => $data_string, 'error' => $result];
     $db->insert('acas_notify_errors')
       ->fields($fields)
       ->execute();
@@ -993,7 +987,9 @@ function notification_send_dynamics($data) {
  *   The string to encode
  */
 function notification_encode($string) {
-  return htmlentities($string);
+  $string = htmlentities($string);
+  $string = str_replace('\\', '&#x5c;', $string);
+  return $string;
 }
 
 /**
@@ -1078,6 +1074,73 @@ function notification_build_reference_number($type = 'individual') {
   return $number;
 }
 
+function notification_errors_delete($id) {
+  $db = \Drupal::database();
+  $db->delete('acas_notify_errors')
+    ->condition('id', $id, '=')
+    ->execute();
+  return 'ok';
+}
+
+function notification_errors_submit($id) {
+  $db = \Drupal::database();
+  $config = \Drupal::config('dynamics.settings');
+  $msg = '';
+  $data = \Drupal::request()->query->get('json');
+  if ($data = (array) json_decode($data)) {
+    if ($data['form_type'] == 'Notification') {
+      if (notification_send_dynamics($data)) {
+        $msg = 'ok';
+      }
+      else {
+        $msg = 'There was a Dynamics error';
+      }
+    }
+    else {
+      // Conciliation
+      if (!$data['guid']) {
+        $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
+        $guid = file_get_contents($url);
+        if (strpos($guid, '<error>') !== FALSE) {
+          $msg = 'Failed to get GUID';
+        }
+        else {
+          $j = json_decode($guid);
+          if (isset($j->value[0])) {
+            $data['guid'] = $j->value[0]->incidentid;
+          }
+        }
+      }
+      if ($data['guid']) {
+        if (notification_send_dynamics($data)) {
+          $msg = 'ok';
+        }
+        else {
+          $msg = 'There was a Dynamics error';
+        }
+      }
+    }
+  }
+  else {
+    $msg = 'Failed to parse JSON';
+  }
+  $db->delete('acas_notify_errors')
+    ->condition('id', $id, '=')
+    ->execute();
+  if (isset($data['acas_eccaserefnumber'])) {
+    $ref = $data['acas_eccaserefnumber'];
+  }
+  else {
+    $ref = $data['acas_ecref'];
+  }
+  if ($msg != 'ok') {
+    drupal_set_message(Markup::create('Failed to re-submit ' . $ref . '. Message = <i>' . $msg . '</i><br />This error is now the first entry in the list below.'), 'error');
+  }
+  else {
+    drupal_set_message('Successfully re-submited ' . $ref);
+  }
+  return 'ok';
+}
 final class companiesHouseApi {
   const API_ENDPOINT = 'https://api.companieshouse.gov.uk';
   private $api_key = null;
