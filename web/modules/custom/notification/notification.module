@@ -969,7 +969,13 @@ function notification_send_dynamics($data) {
     if (!isset($data['guid'])) {
       $data['guid'] = NULL;
     }
-    $fields = ['form' => $data['form_type'], 'guid' => $data['guid'], 'status' => $http_status, 'reference_no' => $data['acas_ecref'], 'data' => $data_string, 'error' => $result];
+    if (isset($data['acas_ecref'])) {
+      $ref = $data['acas_ecref'];
+    }
+    else {
+      $ref = $data['acas_eccaserefnumber'];
+    }
+    $fields = ['form' => $data['form_type'], 'guid' => $data['guid'], 'status' => $http_status, 'reference_no' => $ref, 'data' => $data_string, 'error' => $result];
     $db->insert('acas_notify_errors')
       ->fields($fields)
       ->execute();
