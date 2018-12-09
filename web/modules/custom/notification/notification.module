@@ -955,12 +955,18 @@ function notification_send_dynamics($data) {
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($result || $http_status != 200) {
     // If all is well, Dynamics does not return anything on succsess
+    if (isset($data['acas_ecref'])) {
+      $ref = $data['acas_ecref'];
+    }
+    else {
+      $ref = $data['acas_eccaserefnumber'];
+    }
     // Write failure to watchdog log
     \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
     // Send email
     $config = \Drupal::config('acas.settings');
     $mailManager = \Drupal::service('plugin.manager.mail');
-    $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $data['acas_ecref'] . ')';
+    $params['subject'] = 'Notifications Form Error (' . $_SERVER['HTTP_HOST'] . ', ' . $ref . ')';
     $body = 'Status: ' . $http_status . '<br />Data:<pre>' . print_r($json, TRUE) . '</pre>Error:<pre>' . print_r(json_decode($result), TRUE) . '</pre>';
     $params['body'] = $body;
     $mailManager->mail('notification', 'error', $config->get('error_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
@@ -968,12 +974,6 @@ function notification_send_dynamics($data) {
     $db = \Drupal::database();
     if (!isset($data['guid'])) {
       $data['guid'] = NULL;
-    }
-    if (isset($data['acas_ecref'])) {
-      $ref = $data['acas_ecref'];
-    }
-    else {
-      $ref = $data['acas_eccaserefnumber'];
     }
     $fields = ['form' => $data['form_type'], 'guid' => $data['guid'], 'status' => $http_status, 'reference_no' => $ref, 'data' => $data_string, 'error' => $result];
     $db->insert('acas_notify_errors')
