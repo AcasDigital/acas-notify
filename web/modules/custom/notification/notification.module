@@ -688,11 +688,11 @@ function notification_group_claiments_generate($data, $webform_submission_id) {
         'city' => $claimant['City/Town'],
         'postal_code' => $claimant['Postcode'],
       ];
-      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_ecref'], 'group_no' => $data['acas_groupid']];
+      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
       $db->insert('acas_ecrefno')
         ->fields($fields)
         ->execute();
-      //$result = notification_send_dynamics($data);
+      $result = notification_send_dynamics($data);
     }
   }
 }
@@ -954,7 +954,8 @@ function notification_send_dynamics($data) {
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if ($result || $http_status != 200) {
-    // If all is well, Dynamics does not return anything on succsess
+    // If all is well, Dynamics does not return anything on success
+    // Either a Dynamics error or none 200 response from the integration layer.
     if (isset($data['acas_ecref'])) {
       $ref = $data['acas_ecref'];
     }
