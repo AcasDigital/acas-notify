@@ -123,7 +123,7 @@ notification.notify_test:
     _permission: 'access content'
     
 notification.currrent_number:
-  path: '/currrent-number'
+  path: '/current-number'
   defaults:
     _controller: '\Drupal\notification\Controller\NotificationController::notification_currrent_number'
     _title: ''
