@@ -327,59 +327,6 @@ function notification_mail($key, &$message, $params) {
     }
 }
 
-// Called by a CRON job every 5 mins.
-// Try resending any failed GUID or Dynamics calls.
-function notification_retry_send_dynamics() {
-  return;
-  $db = \Drupal::database();
-  $config = \Drupal::config('dynamics.settings');
-  $result = $db->select('acas_ecrefno', 'a')
-    ->fields('a', ['id', 'guid', 'status', 'data'])
-    ->condition('a.status', 2, '>')
-    ->execute()
-    ->fetchAll();
-  foreach($result as $a) {
-    $data = unserialize($a->data);
-    if ($a->status == 3) {
-      // Notification
-      if (notification_send_dynamics($data)) {
-        // All good.
-        // Don't neeed the record in acas_ecrefno anymore.
-        $db->delete('acas_ecrefno')
-          ->condition('reference_no', $data['acas_ecref'], '=')
-          ->execute();
-      }
-    }
-    else {
-      // Conciliation
-      if (!$a->guid) {
-        $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
-        $guid = file_get_contents($url);
-        if (strpos($guid, '<error>') !== FALSE) {
-          break;
-        }
-        else {
-          $j = json_decode($guid);
-          if (isset($j->value[0])) {
-            $guid = $j->value[0]->incidentid;
-          }
-        }
-      }
-      else {
-        $guid = $a->guid;
-      }
-      if (notification_send_dynamics($data)) {
-        // All good.
-        // Don't neeed the record in acas_ecrefno anymore.
-        $db->delete('acas_ecrefno')
-          ->condition('id', $a->id, '=')
-          ->execute();
-      }
-    }
-  }
-  return 'ok';
-}
-
 /**
  * Implements notification_confirmation_group().
  *
@@ -518,13 +465,7 @@ function notification_confirmation($webform, $webform_submission_id) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
         $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString())))));
       }
-      if (!$result = notification_send_dynamics($data)) {
-        // Set to retry on CRON job, status = 3
-        $db->update('acas_ecrefno')
-          ->fields(['status' => 3, 'data' => serialize($data)])
-          ->condition('reference_no', $data['acas_eccaserefnumber'], '=')
-          ->execute();
-      }
+      notification_send_dynamics($data);
       // Delete the webform data. GDPR cop-out.
       notification_delete_webform_submission($webform_submission_id);
       $view = $view_builder->view($node, 'full');
@@ -617,6 +558,9 @@ function notification_confirmation($webform, $webform_submission_id) {
       $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
       $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
     }
+    if ($form1_data && $node->hasField('field_letter')) {
+      //$data['acas_lettercontent'] =  str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString())))));
+    }
     $result = TRUE;
     if ($data['guid']) {
       $data['acas_dateofreceipt'] = date('Y-m-d', $date);
@@ -633,7 +577,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       // Update status, data and the sid of this form
       // Status of 4 means try again on cron.
       $db->update('acas_ecrefno')
-        ->fields(['status' => 4, 'sid2' => $webform_submission_id, 'data' => serialize($data)])
+        ->fields(['status' => 4, 'sid2' => $webform_submission_id])
         ->condition('reference_no', $data['acas_ecref'], '=')
         ->execute();
     }
@@ -743,6 +687,9 @@ function notification_flags($data) {
     }
     if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && $value == 1) {
       $flags['acas_flaginternalprocessnotcomplete'] = TRUE;
+    }
+    if ($key == 'acas_emailaddress' && !$value && !$data['acas_maincontactnumber']) {
+      //$flags['acas_noncontactable'] = TRUE;
     }
   }
   return $flags;

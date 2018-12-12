@@ -49,7 +49,6 @@ class AdminForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#default_value' => $config->get('error_email') ?: '',
       '#title' => t('Send errors email address'),
-      '#size' => 20,
       '#required' => TRUE,
     );
     return parent::buildForm($form, $form_state);
