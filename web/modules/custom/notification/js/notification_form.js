@@ -99,6 +99,10 @@ Drupal.behaviors.notification_form = {
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('size', '10');
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('type', 'tel');
       jQuery('[data-drupal-selector="edit-acas-claimrepmainphoneno-ext"]').attr('aria-label', 'telephone extension code');
+      jQuery('[data-drupal-selector="edit-acas-respondentcontactphonenumber-ext"]').attr('maxlength', '10');
+      jQuery('[data-drupal-selector="edit-acas-respondentcontactphonenumber-ext"]').attr('size', '10');
+      jQuery('[data-drupal-selector="edit-acas-respondentcontactphonenumber-ext"]').attr('type', 'tel');
+      jQuery('[data-drupal-selector="edit-acas-respondentcontactphonenumber-ext"]').attr('aria-label', 'telephone extension code');
       
       // Remove alert on postcode input
       jQuery('.find-address-wrapper .form-text').on('input', function() {

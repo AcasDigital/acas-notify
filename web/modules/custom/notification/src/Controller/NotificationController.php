@@ -76,5 +76,13 @@ class NotificationController extends ControllerBase {
   public function notification_errors_submit($id) {
     return new JsonResponse(notification_errors_submit($id));
   }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function notification_currrent_number() {
+    die(notification_get_current_reference_number());
+  }
+  
 
 }

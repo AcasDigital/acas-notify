@@ -121,6 +121,16 @@ notification.notify_test:
     _title: ''
   requirements:
     _permission: 'access content'
+    
+notification.currrent_number:
+  path: '/currrent-number'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notification_currrent_number'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+
+
 
 
       

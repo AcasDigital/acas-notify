@@ -1022,7 +1022,20 @@ function notification_build_reference_number($type = 'individual') {
   curl_setopt($process, CURLOPT_TIMEOUT, 30);
   curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
+  curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
+  $number = curl_exec($process);
+  curl_close($process);
+  return $number;
+}
+
+function notification_get_current_reference_number($type = 'group') {
+  $config = \Drupal::config('acas.settings');
+  $process = curl_init($config->get('notification_ref_no_ip') . '?t=' . $type . '&s=' . $_SERVER['HTTP_HOST'] . '&n=1');
+  curl_setopt($process, CURLOPT_USERPWD, $config->get('notification_ref_userpass'));
+  curl_setopt($process, CURLOPT_TIMEOUT, 30);
+  curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($process, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($process, CURLOPT_FOLLOWLOCATION, TRUE); 
   $number = curl_exec($process);
   curl_close($process);
   return $number;
