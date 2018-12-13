@@ -1,9 +1,4 @@
-services:
-  general.response_subscriber:
-    class: Drupal\general\ResponseSubscriber
-    tags:
-      - { name: event_subscriber }
-      
+services:      
   remove_x_generator_response_header:
     class: Drupal\general\EventSubscriber\RemoveXGeneratorResponseHeader
     tags:

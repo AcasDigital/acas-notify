@@ -234,6 +234,7 @@ Drupal.behaviors.notification_form = {
           }
         });
         // original group claim reference number
+        var msg = '';
         if (jQuery('#edit-is-this-claim-part-of-an-existing-group-claim-2').prop('checked') && !jQuery('#edit-acas-originalgroupid').val()) {
           if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
             jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Enter the original group claim reference number');
@@ -249,27 +250,40 @@ Drupal.behaviors.notification_form = {
           var mu = jQuery('#edit-acas-originalgroupid').val();
           if (mu.indexOf('MU') !== 0) {
             bad = true;
+            msg = 'Group claim reference number must begin with MU.';
           }else{
             mu = mu.replace('MU', '');
             var a = mu.split('/');
             if (a.length !== 2) {
+               msg = 'There should be a / in the case reference number.';
               bad = true;
             }else{
               if(isNaN(a[0]) || isNaN(a[1])) {
                 bad = true;
+                msg = 'Only numbers allowed before and after the /';
               }else{
-                if (a[0].length !== 6 || a[1].length !== 2) {
+                if (a[0].length !== 6) {
                   bad = true;
+                  msg = 'There must be 6 digits before the /';
+                }else if (a[1].length !== 2) {
+                  msg = 'There must be 2 digits after the /';
+                  bad = true;
+                }else{
+                  if (parseInt(a[0]) > parseInt(drupalSettings.current_group_number)) {
+                    msg = 'This Group claim reference number has not yet been allocated.';
+                    bad = true;
+                  }
                 }
               }
             }
+            
           }
           if (bad) {
             if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
-              jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Invalid group claim reference number');
+              jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Invalid group claim reference number: ' + msg);
               jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').show();
             }else{
-              jQuery('<div class="invalid-feedback">Invalid group claim reference number</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
+              jQuery('<div class="invalid-feedback">Invalid group claim reference number: ' + msg + '</div>').insertBefore(jQuery('#edit-acas-originalgroupid'));
             }
             jQuery('#edit-acas-originalgroupid').addClass('invalid');
             errors.push(jQuery('#edit-acas-originalgroupid'));

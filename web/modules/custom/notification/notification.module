@@ -149,6 +149,9 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
   if ($form_id == 'webform_submission_group_notification_add_form') {
     $form['#validate'][] = 'notification_group_claimants_upload_validate';
   }
+  if ($form_id == 'webform_submission_group_notification_conciliation_add_form') {
+    $form['#attached']['drupalSettings']['current_group_number'] = notification_get_current_reference_number();
+  }
 }
 
 function notification_group_claimants_upload_validate(&$form, FormStateInterface &$form_state) {
