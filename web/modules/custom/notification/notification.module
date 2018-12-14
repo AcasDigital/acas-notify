@@ -743,7 +743,7 @@ function notification_send_dynamics($data) {
     elseif (is_array($value) && @$value['phone']) {
       $json[$key] = notification_encode($value['phone']);
       if ($value['ext']) {
-        $json[$key] . 'x' . notification_encode($value['ext']);
+        $json[$key] .= 'x' . notification_encode($value['ext']);
       }
     }
     elseif (is_array($value) && @$key == 'acas_modeofcontact') {

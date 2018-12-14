@@ -84,7 +84,6 @@ guide_print_modify:
 missing:
   js:
     /core/assets/vendor/modernizr/modernizr.min.js: { weight: -100 }
-    /core/misc/ajax.js: {}
   dependencies:
     - core/jquery
     - core/drupal
