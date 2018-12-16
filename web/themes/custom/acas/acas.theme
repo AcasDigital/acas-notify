@@ -49,9 +49,6 @@ function acas_preprocess_field(&$variables) {
   if (@$variables['entity_type'] == 'media' && @$variables['field_name'] == 'field_file_html') {
     $variables['items'][0]['content']['#template'] = '{{ value|raw }}';
   }
-  if (@$variables['entity_type'] == 'paragraph' && @$variables['element']['#bundle'] == 'helpdesk') {
-    $variables['currentPath'] = \Drupal::request()->getRequestUri();
-  }
   
   // Notifications
   if (@$variables['entity_type'] == 'node' && @$variables['field_name'] == 'field_summary') {
@@ -85,18 +82,8 @@ function acas_preprocess_block(&$variables) {
       }
     }
   }
-  if ($variables['plugin_id'] == 'social_sharing_block') {
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if (is_numeric($node)) {
-      $node = \Drupal\node\Entity\Node::load($node);
-    }
-    if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
-      if (!$node->get('field_social_share')->value) {
-        $variables['no_display'] = TRUE;
-      }
-    }
-  }
-  if ($variables['plugin_id'] == 'landing_pages_block' || $variables['plugin_id'] == 'related_content_block' || $variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom' || $variables['plugin_id'] == 'feedback') {
+
+  if ($variables['plugin_id'] == 'feedback') {
     $variables['#cache']['max-age'] = 0;
   }
   //if ($variables['plugin_id'] == 'in_this_section_block' || $variables['plugin_id'] == 'landing_page_bottom') {
@@ -126,21 +113,6 @@ function acas_preprocess_node(&$variables) {
   $variables['changed'] = $variables['node']->getChangedTime();
 }
 
-function acas_preprocess_container(&$variables) {
-  $variables['no_display'] = FALSE;
-  if (@$variables['element']['#export_type'] == 'pdf') {
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if (is_numeric($node)) {
-      $node = \Drupal\node\Entity\Node::load($node);
-    }
-    if ($node instanceof \Drupal\node\NodeInterface && ($node->getType() == 'details_page' || $node->getType() == 'support_page')) {
-      if (!$node->get('field_print_download')->value) {
-        $variables['no_display'] = TRUE;
-      }
-    }
-  }
-}
-
 function acas_bootstrap_iconize_text_alter(array &$texts) {
   $texts['matches'][t('Print')->render()] = 'print';
   $texts['contains']['Print'] = 'print';
@@ -155,29 +127,6 @@ function acas_preprocess_html(&$variables) {
 function acas_preprocess_item_list(&$variables) {
   if ($variables['title'] == 'Did you mean') {
     $variables['did_you_mean'] = TRUE;
-  }
-}
-
-function acas_preprocess_breadcrumb(&$variables) {
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof \Drupal\node\NodeInterface && $node->hasField('field_taxonomy')) {
-    $variables['breadcrumb'] = [];
-    $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadAllParents($node->get('field_taxonomy')->target_id);
-    $parents = array_reverse($parents, TRUE);
-    array_pop($parents);
-    foreach($parents as $parent) {
-      $variables['breadcrumb'][] = [
-        'text' => $parent->getName(),
-        'url' => '/' . general_taxonomy_path($parent->getName()),
-      ];
-    }
-    if ($node->getType() == 'secondary_page' && $nid = _is_guide($node)) {
-      $node = \Drupal\node\Entity\Node::load($nid);
-      $variables['breadcrumb'][] = [
-        'text' => $node->getTitle(),
-        'url' => $node->toUrl()->toString(),
-      ];
-    }
   }
 }
 

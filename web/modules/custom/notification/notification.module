@@ -666,7 +666,7 @@ function notification_flags($data) {
     if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value == 'No') {
       $flags['acas_flaglessthan2yearsemployment'] = TRUE;
     }
-    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
+    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year'] && $data['is_your_dispute_about_redundancy_pay_optional_'] == 1) {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       $a = strtotime($date);
       // 3 months
@@ -674,7 +674,7 @@ function notification_flags($data) {
         $flags['acas_flagoutoftime'] = TRUE;
       }
     }
-    if ($key == 'when_were_you_made_redundant_optional_' && $value && $value['day'] && $value['month'] && $value['year'] && $data['is_your_dispute_about_redundancy_pay_optional_'] == 2) {
+    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year'] && $data['is_your_dispute_about_redundancy_pay_optional_'] == 2) {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       // 6 months
       if (time() - strtotime($date) > (86400 * 179)) {
@@ -819,6 +819,18 @@ function notification_send_dynamics($data) {
       $info .= "Claimant believes they are owed money: $value\n";
       unset($data[$key]);
     }
+    if ($key == 'tell_us_more_about_your_case_' && $value) {
+      $info .= "Claimant believes they have been discriminated: $value\n";
+      unset($data[$key]);
+    }
+    if ($key == 'what_did_your_employer_decide_about_your_dispute_optional_' && $value) {
+      $info .= "Employer decided: $value\n";
+      unset($data[$key]);
+    }
+    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
+      $info .= "Anything else about this case: $value\n";
+      unset($data[$key]);
+    }
     if ($key == 'have_you_told_your_employer_and_asked_them_to_rectify_the_proble' && $value) {
       if ($value == 'Yes') {
         $h = 'has';
@@ -873,6 +885,17 @@ function notification_send_dynamics($data) {
         $json['acas_respondenttype'] = '602700001'; // Person
       }
     }
+     if ($key == 'is_there_someone_helping_you_through_this_process_optional_' && $value > 1) {
+        if ($value == 2) {
+          $json['acas_relationtoclaimant'] = 'Solicitor';
+        }
+        else if ($value == 3) {
+          $json['acas_relationtoclaimant'] = 'Trade union official';
+        }
+        else {
+          $json['acas_relationtoclaimant'] = 'Someone else';
+        }
+     }
   }
   if ($dates) {
     $json['acas_incidentdate'] = date('Y-m-d', max($dates));
