@@ -545,7 +545,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       
     // Wages or holiday (not anything else) = fasttracked
     $number = '';
-    if ($data['do_you_believe_that_you_have_been_discriminated_against'] != 1 && !$data['do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan'] != 2 && ($data['do_you_think_you_are_owed_wages'] == 1 || $data['do_you_think_you_are_owed_holiday_by_your_employer'] == 1)) {
+    if (@$data['do_you_believe_that_you_have_been_discriminated_against'] != 1 && !$data['do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan'] != 2 && $data['do_you_think_you_are_owed_wages'] == 1) {
       $nid = 126;
       // Fasttrack number
       $number = $config->get('g10_fasttrack_phone');
@@ -579,9 +579,11 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     if ($data['guid'] && $result) {
       // Don't neeed the record in acas_ecrefno anymore.
+      /*
       $db->delete('acas_ecrefno')
         ->condition('reference_no', $data['acas_ecref'], '=')
         ->execute();
+      */
     }
     else {
       // Either get GUID or call to Dynamics has failed
