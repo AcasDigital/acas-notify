@@ -421,15 +421,8 @@ function notification_confirmation($webform, $webform_submission_id) {
   }
   if ($data['form_type'] == 'Notification') {
     $data['acas_formtype'] = '602700000';
-    if ($data['form_type'] == 'Notification') {
-      $refnumber = notification_build_reference_number();
-      $data['acas_eccaserefnumber'] = $refnumber;
-    }
-    else {
-      $refnumber = notification_build_reference_number('group');
-      $data['acas_groupid'] = $refnumber;
-      notification_group_claiments_generate($data);
-    }
+    $refnumber = notification_build_reference_number();
+    $data['acas_eccaserefnumber'] = $refnumber;
     $data['acas_dateofreceipt'] = date('Y-m-d');
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
@@ -451,6 +444,15 @@ function notification_confirmation($webform, $webform_submission_id) {
       ->execute();
     if ($data['are_you_interested_in_settling_your_case_before_tribunal_'] == 'Yes' || $data['are_you_interested_in_settling_your_case_before_tribunal_'] == 1 || !$data['are_you_interested_in_settling_your_case_before_tribunal_']) {
       // Wants conciliation
+      // Attach email in case never complete form 2
+      $number = $config->get('g10_flagged_phone');
+      $nid = 131;
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+      $node = \Drupal\node\Entity\Node::load($nid);
+      if ($node->hasField('field_subject')) {
+        $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
+        $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
+      }
       notification_send_dynamics($data);
       $response = new RedirectResponse('/start-conciliation?acas_ecref=' . $data['acas_eccaserefnumber']);
       $response->send();
@@ -460,13 +462,17 @@ function notification_confirmation($webform, $webform_submission_id) {
       // Does not want conciliation
       $config = \Drupal::config('acas.settings');
       $number = $config->get('g10_flagged_phone');
-      $nid = 117;
+      if (!$data['acas_emailaddress'] && !$data['acas_maincontactnumber']) {
+        $nid = 134;
+      }
+      else {
+        $nid = 117;
+      }
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
       $node = \Drupal\node\Entity\Node::load($nid);
-      
       if ($node->hasField('field_subject')) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
-        $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString())))));
+        $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
       }
       notification_send_dynamics($data);
       // Delete the webform data. GDPR cop-out.
@@ -476,7 +482,6 @@ function notification_confirmation($webform, $webform_submission_id) {
       $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
       $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
       $html = str_replace('[NUMBER]', $number, $html);
-      $html = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), $html);
       if (!$result && $node->hasField('field_problem_message')) {
         if ($problem = $node->field_problem_message->getValue()) {
           $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -545,12 +550,15 @@ function notification_confirmation($webform, $webform_submission_id) {
       // Fasttrack number
       $number = $config->get('g10_fasttrack_phone');
     }
-    elseif (!$flags){
+    else if (!$form1_data['acas_emailaddress'] && !$form1_data['acas_maincontactnumber']) {
+      $nid = 135;
+      $number = $config->get('g10_flagged_phone');
+    }
+    else if (!$flags){
       $nid = 114;
     }
     else {
       $nid = 118;
-      // Flaged number
       $number = $config->get('g10_flagged_phone');
     }
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
@@ -559,7 +567,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     if ($form1_data && $node->hasField('field_subject')) {
       $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
-      $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
+      $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString()))));
     }
     if ($form1_data && $node->hasField('field_letter')) {
       //$data['acas_lettercontent'] =  str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString())))));
@@ -596,7 +604,6 @@ function notification_confirmation($webform, $webform_submission_id) {
     $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
     $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
     $html = str_replace('[NUMBER]', $number, $html);
-    $html = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', time() + 2419200), $html);
     if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
       if ($problem = $node->field_problem_message->getValue()) {
         $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -688,7 +695,7 @@ function notification_flags($data) {
         $flags['acas_flagoutoftime'] = TRUE;
       }
     }
-    if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && $value == 1) {
+    if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && ($value == 1 || $value == 3)) {
       $flags['acas_flaginternalprocessnotcomplete'] = TRUE;
     }
     if ($key == 'acas_emailaddress' && !$value && !$data['acas_maincontactnumber']) {
@@ -858,7 +865,27 @@ function notification_send_dynamics($data) {
       $info .= "Claimant has NOT worked for 2 years or more for this employer.\n";
       unset($data[$key]);
     }
-    
+    if ($key == 'are_you_currently_employed_by_the_employer_' && $value) {
+      if ($value == 'Yes') {
+        $h = 'is';
+      }
+      else {
+        $h = 'is not';
+      }
+      $info .= "Claimant $h employed by this employer.\n";
+    }
+    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
+      if ($value == 'Yes') {
+        $info .= "Claimant has a written contract with this employer.\n";
+      }
+      else if ($value == 'No') {
+        $info .= "Claimant does not have a written contract with this employer.\n";
+      }
+      else {
+        $info .= "Claimant not sure if has a written contract with this employer.\n";
+      }
+      
+    }
     if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       $dates[] = strtotime($date);
@@ -877,6 +904,13 @@ function notification_send_dynamics($data) {
       $info .= 'Claimant believes they were last paid on ' . $date . "\n";
       unset($data[$key]);
     }
+    if ($key == 'when_were_you_discriminated_against_optional' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
+      $info .= 'Claimant believes they were last discriminated on ' . $date . "\n";
+      unset($data[$key]);
+    }
+    
     if ($key == 'is_your_claim_against_one_person_or_a_whole_organisation_') {
       if ($value == 1) {
         $json['acas_respondenttype'] = '602700000'; // Organisation
@@ -906,7 +940,7 @@ function notification_send_dynamics($data) {
   if (!@$json['acas_incidenttype']) {
     //$json['acas_incidenttype'] = '602700000';
   }
-  $json['acas_incidentinfo'] = notification_encode($info);
+  $json['acas_incidentinfo'] = notification_encode(substr($info, 0, 11000));
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
