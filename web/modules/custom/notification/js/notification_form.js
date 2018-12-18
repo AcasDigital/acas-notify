@@ -7,7 +7,8 @@ Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     // Had to go old-school by checking for class, jQuery.once was not working for ajax forms
     if (!jQuery('.webform-submission-form-notification').hasClass('notification_form_processed')) {
-      setTimeout(sendGoogleAnalytics, 500);
+      //setTimeout(sendGoogleAnalytics, 500);
+      history.pushState(null, null, location.href);
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html(jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html().replace('Edit', 'Change'));
@@ -591,3 +592,9 @@ function sendGoogleAnalytics() {
     console.log(err);
   }
 }
+
+window.onpopstate = function () {
+  if (jQuery('.webform-button--previous').length) {
+    jQuery('.webform-button--previous').click();
+  }
+};

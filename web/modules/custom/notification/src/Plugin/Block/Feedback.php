@@ -19,7 +19,7 @@ class Feedback extends BlockBase {
    */
   public function build() {
     $build = [];
-    if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
+    if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE || strpos(\Drupal::request()->getRequestUri(), 'conciliation') !== FALSE) {
       if ($form = \Drupal\webform\Entity\Webform::load('no_feedback')) {
         $build['no_feedback_form'] = \Drupal::entityManager()
           ->getViewBuilder('webform')

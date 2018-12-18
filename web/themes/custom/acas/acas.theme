@@ -107,6 +107,10 @@ function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'system_breadcrumb_block' && count($variables['content']['#links']) == 1) {
     unset($variables['content']);
   }
+  // Do not cache these blocks
+  if ($variables['plugin_id'] == 'feedback') {
+    $variables['#cache']['max-age'] = 0;
+  }
 }
 
 function acas_preprocess_node(&$variables) {

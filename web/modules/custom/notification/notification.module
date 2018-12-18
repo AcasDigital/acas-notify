@@ -756,8 +756,25 @@ function notification_send_dynamics($data) {
         $json[$key] .= 'x' . notification_encode($value['ext']);
       }
     }
+    /*
     elseif (is_array($value) && @$key == 'acas_modeoffirstcontact') {
       $json['acas_modeoffirstcontact'] = implode(',', $value);
+    }
+    */
+    if ($key == 'modeoffirstcontact' && $value) {
+      $info .= 'Mode of first contact: ';
+      foreach($value as $key) {
+        if ($key == '602700000') {
+          $info .= 'Phone call ';
+        }
+        else if ($key == '602700001') {
+          $info .= 'Email ';
+        }
+        else if ($key == '602700002') {
+          $info .= 'Text messages ';
+        }
+        $info .= "\n";
+      }
     }
     if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
       $incident_type[] = '602700003';
