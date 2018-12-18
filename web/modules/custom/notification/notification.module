@@ -465,6 +465,9 @@ function notification_confirmation($webform, $webform_submission_id) {
       if (!$data['acas_emailaddress'] && !$data['acas_maincontactnumber']) {
         $nid = 134;
       }
+      else if (!$data['acas_emailaddress'] && $data['acas_maincontactnumber']) {
+        $nid = 158;
+      }
       else {
         $nid = 117;
       }
@@ -509,7 +512,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     if (isset($_SESSION['acas_ecref'])) {
       unset($_SESSION['acas_ecref']);
     }
-    $data['acas_ecref'] = $data['acas_ecref'];
+
     $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
     $guid = file_get_contents($url);
     $data['guid'] = '';
@@ -550,7 +553,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       // Fasttrack number
       $number = $config->get('g10_fasttrack_phone');
     }
-    else if (!$form1_data['acas_emailaddress'] && !$form1_data['acas_maincontactnumber']) {
+    else if ($form1_data && !$form1_data['acas_emailaddress'] && !$form1_data['acas_maincontactnumber']) {
       $nid = 135;
       $number = $config->get('g10_flagged_phone');
     }
@@ -579,11 +582,9 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     if ($data['guid'] && $result) {
       // Don't neeed the record in acas_ecrefno anymore.
-      /*
       $db->delete('acas_ecrefno')
         ->condition('reference_no', $data['acas_ecref'], '=')
         ->execute();
-      */
     }
     else {
       // Either get GUID or call to Dynamics has failed
@@ -755,8 +756,8 @@ function notification_send_dynamics($data) {
         $json[$key] .= 'x' . notification_encode($value['ext']);
       }
     }
-    elseif (is_array($value) && @$key == 'acas_modeofcontact') {
-      $json['acas_modeofcontact'] = implode(',', $value);
+    elseif (is_array($value) && @$key == 'acas_modeoffirstcontact') {
+      $json['acas_modeoffirstcontact'] = implode(',', $value);
     }
     if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
       $incident_type[] = '602700003';
@@ -876,6 +877,21 @@ function notification_send_dynamics($data) {
       }
       $info .= "Claimant $h employed by this employer.\n";
     }
+    if ($key == 'problem_several_colleagues' && $value) {
+      $info .= "Are you one of several employees bringing this dispute to Acas? ";
+      if ($value == 1) {
+        $info .= "No, I don't know of anyone else who is part of the same dispute.\n";
+      }
+      else if ($value == 2) {
+        $info .= "Yes, I’m one of several employees in the same dispute.\n";
+      }
+      else {
+        $info .= "I'm not sure.";
+      }
+    }
+    if ($key == 'is_this_employer_still_trading' && $value) {
+      $info .= "Is your employer still in business? " . $value . "\n";
+    }
     if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
       if ($value == 'Yes') {
         $info .= "Claimant has a written contract with this employer.\n";
@@ -921,7 +937,7 @@ function notification_send_dynamics($data) {
         $json['acas_respondenttype'] = '602700001'; // Person
       }
     }
-     if ($key == 'is_there_someone_helping_you_through_this_process_optional_' && $value > 1) {
+    if ($key == 'is_there_someone_helping_you_through_this_process_optional_' && $value > 1) {
         if ($value == 2) {
           $json['acas_relationtoclaimant'] = 'Solicitor';
         }
@@ -932,6 +948,9 @@ function notification_send_dynamics($data) {
           $json['acas_relationtoclaimant'] = 'Someone else';
         }
      }
+    if ($key == 'how_much_redundancy_pay_do_you_think_you_are_owed_optional_' && $value) {
+      $info .= "How much redundancy pay do you think you are owed? £$value\n";
+    }
   }
   if ($dates) {
     $json['acas_incidentdate'] = date('Y-m-d', max($dates));
@@ -1017,7 +1036,10 @@ function notification_encode($string) {
  *   The webform sid to delete
  */
 function notification_delete_webform_submission($sid) {
-  return;
+  if (_is_site('dev')) {
+    // Keep data if dev for testing
+    return;
+  }
   $db = \Drupal::database();
   $db->delete('webform_submission')
     ->condition('sid', $sid, '=')
