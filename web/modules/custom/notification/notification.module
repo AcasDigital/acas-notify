@@ -445,6 +445,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     if ($data['are_you_interested_in_settling_your_case_before_tribunal_'] == 'Yes' || $data['are_you_interested_in_settling_your_case_before_tribunal_'] == 1 || !$data['are_you_interested_in_settling_your_case_before_tribunal_']) {
       // Wants conciliation
       // Attach email in case never complete form 2
+      $config = \Drupal::config('acas.settings');
       $number = $config->get('g10_flagged_phone');
       $nid = 131;
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
@@ -961,9 +962,6 @@ function notification_send_dynamics($data) {
         else if ($value == 3) {
           $json['acas_relationtoclaimant'] = 'Trade union official';
         }
-        else {
-          $json['acas_relationtoclaimant'] = 'Someone else';
-        }
      }
     if ($key == 'how_much_redundancy_pay_do_you_think_you_are_owed_optional_' && $value) {
       $info .= "How much redundancy pay do you think you are owed? £$value\n";
@@ -978,7 +976,7 @@ function notification_send_dynamics($data) {
   if (!@$json['acas_incidenttype']) {
     //$json['acas_incidenttype'] = '602700000';
   }
-  $json['acas_incidentinfo'] = notification_encode(substr($info, 0, 11000));
+  $json['acas_incidentinfo'] = notification_encode(substr($info, 0, 12000));
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
