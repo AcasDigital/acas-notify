@@ -293,7 +293,14 @@ Drupal.behaviors.notification_form = {
         if (errors.length) {
           var html = '<div class="error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary"><h2 class="error-summary__title" id="error-summary-title">There is a problem</h2><ul class="error-summary__list">';
           for ( var i = 0, l = errors.length; i < l; i++ ) {
-            html += '<li><a href="#' + jQuery(errors[i]).attr('id') + '">' + jQuery(errors[i]).parent().find('.invalid-feedback').text() + '</a></li>';
+            var text = jQuery(errors[i]).parent().find('.invalid-feedback').text();
+            if (!text) {
+              text = jQuery(errors[i]).parent().parent().find('.invalid-feedback').text();
+            }
+            if (!text) {
+              text = jQuery(errors[i]).parent().parent().parent().find('.invalid-feedback').text();
+            }
+            html += '<li><a href="javascript:void(0)" onclick="scrollToError(\'' + jQuery(errors[i]).attr('id') + '\');">' + text + '</a></li>';
           }
           html += '</ul></div>';
           jQuery('.webform-submission-form-notification .error-summary').remove();
@@ -591,6 +598,13 @@ function sendGoogleAnalytics() {
   }catch(err) {
     console.log(err);
   }
+}
+
+function scrollToError(id) {
+  jQuery('#' + id).focus();
+  jQuery([document.documentElement, document.body]).animate({
+    scrollTop: jQuery('#' + id).offset().top - 100
+  }, 500);
 }
 
 window.onpopstate = function () {
