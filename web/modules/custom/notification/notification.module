@@ -685,7 +685,7 @@ function notification_flags($data) {
         $flags['acas_flagoutoftime'] = TRUE;
       }
     }
-    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year'] && $data['is_your_dispute_about_redundancy_pay_optional_'] == 2) {
+   if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year'] && $data['is_your_dispute_about_redundancy_pay_optional_'] == 2) {
       $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
       // 6 months
       if (time() - strtotime($date) > (86400 * 179)) {
@@ -762,7 +762,7 @@ function notification_send_dynamics($data) {
       $json['acas_modeoffirstcontact'] = implode(',', $value);
     }
     */
-    if ($key == 'modeoffirstcontact' && $value) {
+   if ($key == 'modeoffirstcontact' && $value) {
       $info .= 'Mode of first contact: ';
       foreach($value as $key) {
         if ($key == '602700000') {
@@ -996,7 +996,7 @@ function notification_send_dynamics($data) {
   );                                                                                                                   
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  if ($result || $http_status != 200) {
+  if ($result != 'Accepted' || $http_status != 200) {
     // If all is well, Dynamics does not return anything on success
     // Either a Dynamics error or none 200 response from the integration layer.
     if (isset($data['acas_ecref'])) {
