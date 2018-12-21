@@ -8,13 +8,23 @@
 					$('#form').text($(this).attr('form'));
 					$('#status').text($(this).attr('status'));
 					$('#guid').text($(this).attr('guid'));
+					var pretty = '';
+					var obj = null;
 					var json = $('[data-drupal-selector=edit-data-' + $(this).attr('id') + ']').val();
-					var obj = JSON.parse(json);
-					var pretty = JSON.stringify(obj, undefined, 4);
+					try {
+						obj = JSON.parse(json);
+						pretty = JSON.stringify(obj, undefined, 4);
+					}catch(err) {
+						pretty = json;
+					}
 					$('#edit-data').val(pretty);
 					json = $('[data-drupal-selector=edit-error-' + $(this).attr('id') + ']').val();
-					obj = JSON.parse(json);
-					pretty = JSON.stringify(obj, undefined, 4);
+					try {
+						obj = JSON.parse(json);
+						pretty = JSON.stringify(obj, undefined, 4);
+					}catch(err) {
+						pretty = json;
+					}
 					$('#error').html(pretty);
 					$('#edit-display').show();
 					$('#edit-submit').show();

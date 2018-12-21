@@ -997,7 +997,7 @@ function notification_send_dynamics($data) {
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if (($result != 'Accepted' && $result != '') || $http_status != 200) {
-    // If all is well, Dynamics does not return anything on success
+    // If all is well, Dynamics does not return anything on success. The integration layer returns Accepted
     // Either a Dynamics error or none 200 response from the integration layer.
     if (isset($data['acas_ecref'])) {
       $ref = $data['acas_ecref'];
