@@ -454,6 +454,9 @@ function notification_confirmation($webform, $webform_submission_id) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
         $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
       }
+      if ($node->hasField('field_letter')) {
+        //$data['acas_lettercontent'] =  str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString()))));
+      }
       notification_send_dynamics($data);
       $response = new RedirectResponse('/start-conciliation?acas_ecref=' . $data['acas_eccaserefnumber']);
       $response->send();
@@ -477,6 +480,9 @@ function notification_confirmation($webform, $webform_submission_id) {
       if ($node->hasField('field_subject')) {
         $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
         $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
+      }
+      if ($node->hasField('field_letter')) {
+        //$data['acas_lettercontent'] =  str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString()))));
       }
       notification_send_dynamics($data);
       // Delete the webform data. GDPR cop-out.
@@ -574,7 +580,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString()))));
     }
     if ($form1_data && $node->hasField('field_letter')) {
-      //$data['acas_lettercontent'] =  str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString())))));
+      //$data['acas_lettercontent'] =  str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString()))));
     }
     $result = TRUE;
     if ($data['guid']) {
@@ -976,13 +982,18 @@ function notification_send_dynamics($data) {
   if (!@$json['acas_incidenttype']) {
     //$json['acas_incidenttype'] = '602700000';
   }
+  // Make sure acas_incidentinfo is <= 12K chars.
   $json['acas_incidentinfo'] = notification_encode(substr($info, 0, 12000));
+  
+  // Make sure acas_monetaryvalue is an int or 0
   if (isset($json['acas_monetaryvalue']) && !$json['acas_monetaryvalue']) {
     $json['acas_monetaryvalue'] = '0';
   }
   if (isset($json['acas_monetaryvalue'])) {
     $json['acas_monetaryvalue'] = (int) $json['acas_monetaryvalue'];
   }
+  //$json['a_test_of_an_error'] = 'error';
+  
   // Now send the data
   $data_string = json_encode($json);
   $config = \Drupal::config('dynamics.settings');
@@ -997,7 +1008,8 @@ function notification_send_dynamics($data) {
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   if (($result != 'Accepted' && $result != '') || $http_status != 200) {
-    // If all is well, Dynamics does not return anything on success. The integration layer returns Accepted
+    // If all is well, Dynamics does not return anything on success.
+    // The integration layer returns Accepted if using assured delivery
     // Either a Dynamics error or none 200 response from the integration layer.
     if (isset($data['acas_ecref'])) {
       $ref = $data['acas_ecref'];
