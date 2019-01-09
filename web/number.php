@@ -54,7 +54,6 @@ $number++;
 $sql = "UPDATE numbers SET " . $type . "_no = ? WHERE service = ?";
 $stmt = $dbh->prepare($sql);
 $stmt->execute([$number, $service]);
-$a = $stmt->errorInfo();
 if ($type == 'individual') {
   $return = 'R' . $number . '/' . date('y');
 }

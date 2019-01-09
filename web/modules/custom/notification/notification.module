@@ -511,6 +511,16 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
   }
   elseif ($data['form_type'] == 'Conciliation') {
+    // Update ec_entry node with end of form 2
+    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query->fields('nfd', ['nid']);
+    $query->condition('nfd.title', @$_COOKIE['ec_entry'], '=');
+    $result = $query->execute();
+    if ($nid = $result->fetchCol()) {
+      $node = \Drupal\node\Entity\Node::load($nid[0]);
+      $node->field_end_2->value = date('Y-m-d\TH:i:s', time() - date('Z'));
+      $node->save();
+    }
     // GetGUID.
     $config = \Drupal::config('dynamics.settings');
     if (!$data['acas_ecref'] && @$_SESSION['acas_ecref']) {
