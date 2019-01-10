@@ -106,6 +106,11 @@ class EcEntrySwitchForm extends ConfigFormBase {
       '#value' => t('Reset current counts'),
       '#attributes' => ['class' => ['button, button--primary']],
     ];
+    $form['count']['clear_cron'] = [
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('clear_cron') ?: TRUE,
+      '#title' => t('Clear counts @ 3am'),
+    ];
     $form['times'] = [
       '#type' => 'fieldset',
       '#title' => t('Times'),
@@ -175,6 +180,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
       ->set('enabled', $form_state->getValue('enabled'))
       ->set('in_count', $form_state->getValue('in_count'))
       ->set('out_count', $form_state->getValue('out_count'))
+      ->set('clear_cron', $form_state->getValue('clear_cron'))
       ->set('start_time', $form_state->getValue('start_time'))
       ->set('end_time', $form_state->getValue('end_time'))
       ->set('weekend', $form_state->getValue('weekend'))
@@ -188,6 +194,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
       ->set('enabled', $form_state->getValue('enabled'))
       ->set('in_count', $form_state->getValue('in_count'))
       ->set('out_count', $form_state->getValue('out_count'))
+      ->set('clear_cron', $form_state->getValue('clear_cron'))
       ->set('start_time', $form_state->getValue('start_time'))
       ->set('end_time', $form_state->getValue('end_time'))
       ->set('weekend', $form_state->getValue('weekend'))

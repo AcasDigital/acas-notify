@@ -292,9 +292,11 @@ function notification_cron() {
   if ($hour >= 3 && $hour <= 7) {
     $config_factory = \Drupal::configFactory();
     $config = $config_factory->getEditable('ec_entry_switch.settings');
-    if ($config->get('current_in_count') || $config->get('current_out_count')) {
-      $config->set('current_in_count', 0)->set('current_out_count', 0)->save();
-      \Drupal::logger('notification')->notice('Cleared current counts.');
+    if ($config->get('clear_cron')) {
+      if ($config->get('current_in_count') || $config->get('current_out_count')) {
+        $config->set('current_in_count', 0)->set('current_out_count', 0)->save();
+        \Drupal::logger('notification')->notice('Cleared current counts.');
+      }
     }
   }
 }
