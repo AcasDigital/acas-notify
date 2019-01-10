@@ -34,11 +34,11 @@ class EcEntrySwitchForm extends ConfigFormBase {
     $form['enabled'] = [
       '#type' => 'checkbox',
       '#default_value' => $config->get('enabled') ?: '',
-      '#title' => t('Enabled'),
+      '#title' => $this->t('Enabled'),
     ];
     $form['status'] = [
       '#type' => 'fieldset',
-      '#title' => t('Status'),
+      '#title' => $this->t('Status'),
       '#collapsible' => TRUE,
     ];
     $enabled = TRUE;
@@ -78,7 +78,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
     ];
     $form['count'] = [
       '#type' => 'fieldset',
-      '#title' => t('Counts'),
+      '#title' => $this->t('Counts'),
       '#collapsible' => TRUE,
       '#states' => array(
         'visible' => array(
@@ -89,31 +89,32 @@ class EcEntrySwitchForm extends ConfigFormBase {
     $form['count']['in_count'] = [
       '#type' => 'number',
       '#default_value' => $config->get('in_count') ?: '',
-      '#title' => t('In'),
+      '#title' => $this->t('In'),
       '#description' => 'Current count: ' . $config->get('current_in_count') ?: 0,
       '#required' => TRUE,
     ];
     $form['count']['out_count'] = [
       '#type' => 'number',
       '#default_value' => $config->get('out_count') ?: '',
-      '#title' => t('Out'),
+      '#title' => $this->t('Out'),
       '#description' => 'Current count: ' . $config->get('current_out_count') ?: 0,
       '#required' => TRUE,
     ];
     $form['count']['submit'] = [
       '#type' => 'submit',
       '#name' => 'reset',
-      '#value' => t('Reset current counts'),
+      '#value' => $this->t('Reset current counts'),
       '#attributes' => ['class' => ['button, button--primary']],
     ];
     $form['count']['clear_cron'] = [
       '#type' => 'checkbox',
-      '#default_value' => $config->get('clear_cron') ?: TRUE,
-      '#title' => t('Clear counts @ 3am'),
+      '#default_value' => $config->get('clear_cron') ?: '',
+      '#title' => $this->t('Clear counts overnight'),
+      '#description' => $this->t('If enabled, the current counts will be cleared every morning @ 3AM'),
     ];
     $form['times'] = [
       '#type' => 'fieldset',
-      '#title' => t('Times'),
+      '#title' => $this->t('Times'),
       '#collapsible' => TRUE,
       '#states' => [
         'visible' => [
@@ -139,20 +140,20 @@ class EcEntrySwitchForm extends ConfigFormBase {
     
     $form['urls'] = [
       '#type' => 'fieldset',
-      '#title' => t('URL'),
+      '#title' => $this->t('URL'),
       '#collapsible' => TRUE,
     ];
     $form['urls']['old_url'] = [
       '#type' => 'url',
       '#default_value' => $config->get('old_url') ?: '',
-      '#title' => t('Original'),
+      '#title' => $this->t('Original'),
       '#size' => 50,
       '#required' => TRUE,
     ];
     $form['urls']['new_url'] = [
       '#type' => 'url',
       '#default_value' => $config->get('new_url') ?: '',
-      '#title' => t('New'),
+      '#title' => $this->t('New'),
       '#size' => 50,
       '#required' => TRUE,
       '#states' => [
