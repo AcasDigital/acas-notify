@@ -45,8 +45,12 @@ $type = @$_GET['t']; // individual or group
 if (!$type || !$service) {
   die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual or group)</p><p>Example: https://tell.acas.org.uk/number.php?s=dev-tell.acas.org.uk&t=individual</p>');
 }
+$dbh->beginTransaction();
+$dbh->exec('LOCK TABLES numbers');
 $number = (int) $dbh->query("SELECT " . $type . "_no FROM numbers WHERE service = '$service'")->fetchColumn();
 if (@$_GET['n']) {
+  $dbh->commit();
+  $dbh->exec('UNLOCK TABLES');
   // Return the current number;
   die((string) $number);
 }
@@ -54,6 +58,8 @@ $number++;
 $sql = "UPDATE numbers SET " . $type . "_no = ? WHERE service = ?";
 $stmt = $dbh->prepare($sql);
 $stmt->execute([$number, $service]);
+$dbh->commit();
+$dbh->exec('UNLOCK TABLES');
 if ($type == 'individual') {
   $return = 'R' . $number . '/' . date('y');
 }

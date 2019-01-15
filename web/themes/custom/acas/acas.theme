@@ -98,12 +98,11 @@ function acas_preprocess_block(&$variables) {
   }
   //}
   // Notification.
-  if (strpos($_SERVER['HTTP_HOST'], 'tell.acas') !== FALSE) {
-    if ($variables['plugin_id'] == 'system_branding_block') {
-      // No mobile hamburger menu
-      $variables['no_hamburger'] = TRUE;
-    }
+  if ($variables['plugin_id'] == 'system_branding_block') {
+    // No mobile hamburger menu
+    $variables['no_hamburger'] = TRUE;
   }
+
   if ($variables['plugin_id'] == 'system_breadcrumb_block' && count($variables['content']['#links']) == 1) {
     unset($variables['content']);
   }
@@ -181,6 +180,18 @@ function acas_theme_suggestions_page_alter(&$suggestions, $variables, $hook) {
       default:
         break;
     }
+  }
+}
+
+/**
+ * Remove suggestions for govuk_webform_elements & webform_telephone.
+ *
+ * Implements hook__suggestions_HOOK_alter().
+ * @return array Suggestions.
+*/
+function acas_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#type']) && ($variables['element']['#type'] == 'govuk_webform_elements' || $variables['element']['#type'] == 'webform_telephone')) {
+    $suggestions = [];
   }
 }
 

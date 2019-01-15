@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * Copy of exitpopup project as we need to make major modifications
+ */
+
+use Drupal\user\Entity\User;
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function exitpopup_preprocess_page(array &$page) {
+  // Only process if desktop
+  $mobileDetector = \Drupal::service('mobile_detect');
+  if ($mobileDetector->isMobile()) {
+    return;
+  }
+  if (!exitpopup_valid_page()) {
+    return;
+  }
+  $config = \Drupal::config('exitpopup.settings');
+  $current_user = User::load(\Drupal::currentUser()->id());
+  $checkRole = !empty(array_intersect(array_filter($config->get('roles')), $current_user->getRoles()));
+  if ($checkRole) {
+    // Get the webform
+    if ($form = \Drupal\webform\Entity\Webform::load($config->get('epu_webform') ?: 'exit_popup')) {
+      $epu_html = \Drupal::entityManager()
+        ->getViewBuilder('webform')
+        ->view($form);
+      $epu_html['#action'] = '/exit-popup';
+      $epu_html = drupal_render($epu_html);
+    }
+    else {
+      $epu_html = $config->get('epu_html')['value'];
+    }
+    $page['#attached']['library'][] = 'exitpopup/exitpopup-script';
+    $epu_css = $config->get('epu_css')['value'];
+    $epu_delay = $config->get('epu_delay');
+    $epu_width = $config->get('epu_width');
+    $epu_height = $config->get('epu_height');
+    $epu_cookie_exp = $config->get('epu_cookie_exp');
+    // Binding the php variables to drupal settings.
+    $page['#attached']['drupalSettings']['drupal_epu_html'] = $epu_html;
+    $page['#attached']['drupalSettings']['drupal_epu_css'] = $epu_css;
+    $page['#attached']['drupalSettings']['drupal_epu_width'] = $epu_width;
+    $page['#attached']['drupalSettings']['drupal_epu_height'] = $epu_height;
+    $page['#attached']['drupalSettings']['drupal_epu_cookie_exp'] = $epu_cookie_exp;
+    $page['#attached']['drupalSettings']['drupal_epu_delay'] = $epu_delay;
+  }
+}
+
+/**
+ * Implementation of hook_mail().
+ */
+function exitpopup_mail($key, &$message, $params) {
+  switch($key) {
+    case 'html':
+      $message['headers']['Content-Type'] = SWIFTMAILER_FORMAT_HTML;
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = $params['subject'];
+      $message['body'][] = Markup::create($params['body']);
+      break;
+    default:
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['body'];
+      break;
+    }
+}
+
+function exitpopup_valid_page() {
+  // See if restricted to certain pages.
+  $config = \Drupal::config('exitpopup.settings');
+  if ($pages = $config->get('epu_pages')['value']) {
+    $pages = preg_split('/\n|\r\n?/', $pages);
+    $uri = \Drupal::request()->getRequestUri();
+    // See if <front>.
+    if (in_array('<front>', $pages)) {
+      $site_frontpage = \Drupal::urlGenerator()->generateFromRoute('<front>', [], ['absolute' => FALSE]);
+      if ($site_frontpage == $uri) {
+        return TRUE;
+      }
+    }
+    if (!in_array($uri, $pages)) {
+      $current_path = \Drupal::service('path.current')->getPath();
+      if (!in_array($current_path, $pages)) {
+        // Not for this page.
+        return FALSE;
+      }
+    }
+  }
+  return TRUE;
+}
+
+function exitpopup_exit_popup() {
+  $config = \Drupal::config('exitpopup.settings');
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $params['subject'] = 'Exit survey';
+  $body = 'Reason: <b>' . $_POST['reason'] . '</b><br />Other: <b>' . $_POST['other'] . '</b>';
+  $params['body'] = $body;
+  $mailManager->mail('exitpopup', 'html', $config->get('epu_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
+  return 'Thank you for your feedback';
+}

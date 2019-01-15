@@ -1,0 +1,9 @@
+exitpopup-script:
+  version: 1.x
+  js:
+    js/script.js: {}
+    /libraries/exit-intent-popup-master/js/bioep.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal

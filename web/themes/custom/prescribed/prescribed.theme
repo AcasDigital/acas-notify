@@ -23,6 +23,18 @@ function prescribed_preprocess_page(&$variables) {
   $variables['#attached']['library'][] =  'general/anything_wrong';
 }
 
+/**
+ * Remove suggestions for webform_telephone.
+ *
+ * Implements hook__suggestions_HOOK_alter().
+ * @return array Suggestions.
+*/
+function prescribed_theme_suggestions_fieldset_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#type']) && $variables['element']['#type'] == 'webform_telephone') {
+    $suggestions = [];
+  }
+}
+
 function prescribed_preprocess_page_title(&$variables) {
   if (strpos(\Drupal::request()->getRequestUri(), 'notification') !== FALSE) {
     $variables['title'] = FALSE;

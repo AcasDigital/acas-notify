@@ -147,7 +147,14 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
   }
   
   if ($form_id == 'webform_submission_group_notification_add_form') {
-    $form['#validate'][] = 'notification_group_claimants_upload_validate';
+    $current_page = $form_state->get('current_page');
+    if ($current_page == 'page1') {
+      $form['#validate'][] = 'notification_group_claimants_upload_validate';
+    }
+    if ($current_page != 'page2') {
+      // Prevent imported claimants count on every page
+      drupal_get_messages();
+    }
   }
   if ($form_id == 'webform_submission_group_notification_conciliation_add_form') {
     $form['#attached']['drupalSettings']['current_group_number'] = notification_get_current_reference_number();
@@ -156,48 +163,83 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
 
 function notification_group_claimants_upload_validate(&$form, FormStateInterface &$form_state) {
   if ($form_state->getValue('op') == 'Continue' && $template = @$form_state->getValue('claimants')) {
+    $msg = '';
+    $count = 0;
     $file = \Drupal\file\Entity\File::load($template);
     $parts = parse_url($file->getFileUri());
-    module_load_include('inc', 'phpexcel', 'phpexcel');
-    if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
-      $form_state->setErrorByName('claimant', 'You must include at least one claimant in the spreadsheet!');
-    }
-    else {
-      $msg = '';
-      $count = 0;
-      // Check for no header eg
-      if (key($objPHPExcel[0][0]) != 'First name') {
-        $msg .= 'Incorrect or missing Header!<br />';
-      }
-      else {
-        foreach($objPHPExcel[0] as $key => $value) {
-          if (!$value['First name']) {
-            $msg .= 'Row ' . ($key + 2) . " missing <b>First name</b><br />";
+    $extension = pathinfo($parts['path'], PATHINFO_EXTENSION );
+    if ($extension == 'csv') {
+      // CSV spreadsheet from tribunal etc.
+      $data = [];
+      if (($handle = fopen("/var/www/html/web/sites/default/files/private/webform" . $parts['path'], "r")) !== FALSE) {
+        while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
+          $data[] = $row;
+        }
+        fclose($handle);
+        // Check for no header eg
+        if ($data[0][0] != 'Title') {
+          $msg .= 'Incorrect or missing Header<br />';
+        }
+        else {
+          $r = 1;
+          foreach($data as $row) {
+            if (!$row[1]) {
+              $msg .= 'Row ' . $r . " missing <b>First name</b><br />";
+            }
+            if (!$row[4]) {
+              $msg .= 'Row ' . $r . " missing <b>Building number or name</b><br />";
+            }
+            if (!$row[5]) {
+              $msg .= 'Row ' . $r . " missing <b>Street</b><br />";
+            }
+            if (!$row[6]) {
+              $msg .= 'Row ' . $r . " missing <b>City/Town</b><br />";
+            }
+            $r++;
+            $count++;
           }
-          if (!$value['Address line 1']) {
-            $msg .= 'Row ' . ($key + 2). " missing <b>Address line 1</b><br />";
-          }
-          if (!$value['City/Town']) {
-            $msg .= 'Row ' . ($key + 2) . " missing <b>City/Town</b><br />";
-          }
-          $count++;
+          $count--;
         }
       }
-      if ($count < 2) {
-        $msg .= 'There must be at least 2 claimants!<br />';
-      }
-      if ($msg) {
-        $msg .= 'Please correct the errors in the rows above and re-upload your spreadsheet. If you cannot correct the errors now, delete the rows that have errors and update your claim later.';
-        $rendered_message = \Drupal\Core\Render\Markup::create($msg);
-        $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
-        $form_state->setErrorByName('claimant', $error_message);
+    }
+    else {
+      // Our spreadsheet
+      module_load_include('inc', 'phpexcel', 'phpexcel');
+      if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
+        $form_state->setErrorByName('claimant', 'You must include at least one claimant in the spreadsheet!');
       }
       else {
-        //drupal_set_message("Imported $count Claimants");
-        setcookie('claimants', $count);
-        //$form['elements']['your_details']['rep_details_markup_04']['#markup'] = "<p>Imported $count Claimants</p>" . $form['elements']['your_details']['rep_details_markup_04']['#markup'];
+        // Check for no header eg
+        if (key($objPHPExcel[0][0]) != 'First name') {
+          $msg .= 'Incorrect or missing Header<br />';
+        }
+        else {
+          foreach($objPHPExcel[0] as $key => $value) {
+            if (!$value['First name']) {
+              $msg .= 'Row ' . ($key + 2) . " missing <b>First name</b><br />";
+            }
+            if (!$value['Address line 1']) {
+              $msg .= 'Row ' . ($key + 2). " missing <b>Address line 1</b><br />";
+            }
+            if (!$value['City/Town']) {
+              $msg .= 'Row ' . ($key + 2) . " missing <b>City/Town</b><br />";
+            }
+            $count++;
+          }
+        }
       }
-
+    }
+    if ($count < 2) {
+      $msg .= 'There must be at least 2 claimants!<br />';
+    }
+    if ($msg) {
+      $msg .= 'Please correct the errors in the rows above and re-upload your spreadsheet. If you cannot correct the errors now, delete the rows that have errors and update your claim later.';
+      $rendered_message = \Drupal\Core\Render\Markup::create($msg);
+      $error_message = new TranslatableMarkup ('@message', array('@message' => $rendered_message));
+      $form_state->setErrorByName('claimant', $error_message);
+    }
+    else {
+      drupal_set_message("Imported $count Claimants");
     }
   }
 }
@@ -437,6 +479,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     if ($nid = $result->fetchCol()) {
       $node = \Drupal\node\Entity\Node::load($nid[0]);
       $node->field_end->value = date('Y-m-d\TH:i:s', time() - date('Z'));
+      $node->setPublished(TRUE);
       $node->save();
     }
     $db = \Drupal::database();
@@ -647,28 +690,62 @@ function notification_confirmation($webform, $webform_submission_id) {
 
 function notification_group_claiments_generate($data, $webform_submission_id) {
   if ($data['claimants']) {
+    $db = \Drupal::database();
     $file = \Drupal\file\Entity\File::load($data['claimants']);
     $parts = parse_url($file->getFileUri());
-    module_load_include('inc', 'phpexcel', 'phpexcel');
-    if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
-      return FALSE;
+    $extension = pathinfo($parts['path'], PATHINFO_EXTENSION );
+    if ($extension == 'csv') {
+      // CSV spreadsheet from tribunal etc.
+      $csv = [];
+      if (($handle = fopen("/var/www/html/web/sites/default/files/private/webform" . $parts['path'], "r")) !== FALSE) {
+        while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
+          $csv[] = $row;
+        }
+        fclose($handle);
+        unset($csv[0]); // Header
+        foreach($csv as $row) {
+          $data['acas_eccaserefnumber'] = notification_build_reference_number();
+          $data['acas_firstname'] = $row[1];
+          $data['acas_surname'] = $row[2];
+          $data['claimant_address'] = [
+            'address' => $row[4] . ' ' . $row[5],
+            'address_2' => '',
+            'city' => $row[6],
+            'postal_code' => $row[8],
+          ];
+          $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
+          $db->insert('acas_ecrefno')
+            ->fields($fields)
+            ->execute();
+          $result = notification_send_dynamics($data);
+        }
+      }
+      else {
+        return FALSE;
+      }
     }
-    $db = \Drupal::database();
-    foreach ($objPHPExcel[0] as $claimant) {
-      $data['acas_eccaserefnumber'] = notification_build_reference_number();
-      $data['acas_firstname'] = $claimant['First name'];
-      $data['acas_surname'] = $claimant['Last name'];
-      $data['claimant_address'] = [
-        'address' => $claimant['Address line 1'],
-        'address_2' => $claimant['Address line 2'],
-        'city' => $claimant['City/Town'],
-        'postal_code' => $claimant['Postcode'],
-      ];
-      $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
-      $db->insert('acas_ecrefno')
-        ->fields($fields)
-        ->execute();
-      $result = notification_send_dynamics($data);
+    else {
+      // Our spreadsheet
+      module_load_include('inc', 'phpexcel', 'phpexcel');
+      if (!$objPHPExcel = phpexcel_import('/var/www/html/web/sites/default/files/private/webform' . $parts['path'])) {
+        return FALSE;
+      }
+      foreach ($objPHPExcel[0] as $claimant) {
+        $data['acas_eccaserefnumber'] = notification_build_reference_number();
+        $data['acas_firstname'] = $claimant['First name'];
+        $data['acas_surname'] = $claimant['Last name'];
+        $data['claimant_address'] = [
+          'address' => $claimant['Address line 1'],
+          'address_2' => $claimant['Address line 2'],
+          'city' => $claimant['City/Town'],
+          'postal_code' => $claimant['Postcode'],
+        ];
+        $fields = ['sid1' => $webform_submission_id, 'reference_no' => $data['acas_eccaserefnumber'], 'group_no' => $data['acas_groupid']];
+        $db->insert('acas_ecrefno')
+          ->fields($fields)
+          ->execute();
+        $result = notification_send_dynamics($data);
+      }
     }
   }
 }
@@ -1019,18 +1096,20 @@ function notification_send_dynamics($data) {
   );                                                                                                                   
   $result = curl_exec($ch);
   $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  if (isset($data['acas_ecref'])) {
+    $ref = $data['acas_ecref'];
+  }
+  else {
+    $ref = $data['acas_eccaserefnumber'];
+  }
+  // Write to watchdog log
+  \Drupal::logger('Send Dynamics')->notice('Form = ' . $data['form_type'] . ', Reference = ' . $ref);
   if (($result != 'Accepted' && $result != '') || $http_status != 200) {
     // If all is well, Dynamics does not return anything on success.
     // The integration layer returns Accepted if using assured delivery
     // Either a Dynamics error or none 200 response from the integration layer.
-    if (isset($data['acas_ecref'])) {
-      $ref = $data['acas_ecref'];
-    }
-    else {
-      $ref = $data['acas_eccaserefnumber'];
-    }
     // Write failure to watchdog log
-    \Drupal::logger('Dynamics')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
+    \Drupal::logger('Dynamics Error')->notice('Status = ' . $http_status . '<br /> JSON = <pre>' . $data_string . '</pre><hr><br /> Result = <pre>' . $result . '</pre>');
     // Send email
     $config = \Drupal::config('acas.settings');
     $mailManager = \Drupal::service('plugin.manager.mail');

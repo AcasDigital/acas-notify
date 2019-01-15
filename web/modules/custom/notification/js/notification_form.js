@@ -2,21 +2,17 @@ var addresses;
 var companies;
 var defaultFeedbackText = '';
 var postcode = '';
+var mainTitle = '';
 
 Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     // Had to go old-school by checking for class, jQuery.once was not working for ajax forms
     if (!jQuery('.webform-submission-form-notification').hasClass('notification_form_processed')) {
-      //setTimeout(sendGoogleAnalytics, 500);
-      history.pushState(null, null, location.href);
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
+      setTimeout(sendGoogleAnalytics, 500); // GA Funnels
+      history.pushState(null, null, location.href); // For the browser back button
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html(jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html().replace('Edit', 'Change'));
-      }
-      // Show how many claimants have been imported. Only reliable way to do this is via a cookie
-      if (getCookie('claimants')) {
-        jQuery('<div class="total-claimants">Imported ' + getCookie('claimants') + ' claimants.</div>').insertBefore(jQuery('section[data-drupal-selector="edit-your-details"] h2.title'));
-        document.cookie = "claimants=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       }
       //Feedback text
       if (jQuery('#feedback-form .left-wrapper .text').hasClass('default')) {
@@ -24,10 +20,14 @@ Drupal.behaviors.notification_form = {
         jQuery('#feedback-form .left-wrapper .text').removeClass('default');
       }
       if (jQuery('input[name^="feedback_text"]').length) {
-        jQuery('#feedback-form .feedback-question span').text(jQuery('input[name^="feedback_text"]').val());
+        jQuery('#feedback-form .feedback-question span:first').text(jQuery('input[name^="feedback_text"]').val());
       }else if (defaultFeedbackText) {
-        jQuery('#feedback-form .feedback-question span').text(defaultFeedbackText);
+        jQuery('#feedback-form .feedback-question span:first').text(defaultFeedbackText);
       }
+      var txt = jQuery('#feedback-form .feedback-question span:first').text();
+      jQuery('#feedback-form .feedback-question #yes').attr('aria-label', txt + ': Yes. This link opens new content.');
+      jQuery('#feedback-form .feedback-question #no').attr('aria-label', txt + ': No. This link opens new content.');
+      
       // Date tests
       if (jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').length) {
         dismissedDate();
@@ -47,13 +47,19 @@ Drupal.behaviors.notification_form = {
       }
       */
       // Only show block if preview page
-      jQuery('section[id$=notificationpreviewfootermessage').hide();
-      jQuery('section[id$=conciliationpreviewfootermessage').hide();
-      if (jQuery('form[data-webform-wizard-current-page=webform_preview]').length) {
-        jQuery('section[id$=notificationpreviewfootermessage').show();
-        jQuery('section[id$=conciliationpreviewfootermessage').show();
-      }
+      try {
+        // id$ causes an error in Safari
+        jQuery('section[id$=notificationpreviewfootermessage').hide();
+        jQuery('section[id$=conciliationpreviewfootermessage').hide();
       
+        if (jQuery('form[data-webform-wizard-current-page=webform_preview]').length) {
+          jQuery('section[id$=notificationpreviewfootermessage').show();
+          jQuery('section[id$=conciliationpreviewfootermessage').show();
+        }
+      }
+      catch(err) {
+        
+      }
       // Prevent copy/paste on email fields
       jQuery('.form-email').bind("cut copy paste", function(e) {
         e.preventDefault();
@@ -139,7 +145,7 @@ Drupal.behaviors.notification_form = {
       // No description for email confirm
       jQuery('.webform-email-confirm').removeAttr('aria-describedby');
       jQuery('.webform-email-confirm').attr('aria-label', 'Confirm your email address');
-      
+
       // **** End of fields config ****
       
       // Next button click
@@ -161,7 +167,7 @@ Drupal.behaviors.notification_form = {
           var year = parseInt(jQuery(this).find('.govuk-webform-elements-year').val());
           if (day && month && year && !validateDate(day, month, year)) {
             if (!jQuery(this).find(".invalid-feedback").length) {
-              jQuery('<div class="invalid-feedback">Invalid date</div>').insertAfter(jQuery(this).find('.panel-body p'));
+              jQuery('<div class="invalid-feedback">Invalid date</div>').insertAfter(jQuery(this).find('.fieldset-wrapper p'));
             }else{
               jQuery(this).find(".invalid-feedback").text('Invalid date');
             }
@@ -171,7 +177,7 @@ Drupal.behaviors.notification_form = {
             var d = new Date(year, month, day);
             if (d > new Date()) {
               if (!jQuery(this).find(".invalid-feedback").length) {
-                jQuery('<div class="invalid-feedback">Date can\'t be in the future</div>').insertAfter(jQuery(this).find('.panel-body p'));
+                jQuery('<div class="invalid-feedback">Date can\'t be in the future</div>').insertAfter(jQuery(this).find('.fieldset-wrapper p'));
               }else{
                 jQuery(this).find(".invalid-feedback").text('Date can\'t be in the future');
               }
@@ -590,13 +596,34 @@ function ajaxLoader() {
   return '<div class="ajax-progress ajax-progress-throbber"><div class="ajax-loader"><div class="ajax-throbber sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div></div></div>';
 }
 
+// Send pageview to Google Analyitics
+// Update page title as this gets sent as well
 function sendGoogleAnalytics() {
-  try {
-    if (jQuery('section.js-form-wrapper[data-webform-key]').length) {
-      //ga('send', 'pageview', jQuery('section.js-form-wrapper[data-webform-key]').attr('data-webform-key'));
+  if (!mainTitle) {
+    mainTitle = jQuery(document).prop('title');
+  }
+  var page = '';
+  if (jQuery('section.js-form-wrapper[data-webform-key]').length) {
+    page = jQuery('section.js-form-wrapper[data-webform-key]').attr('data-webform-key');
+    page = page.replace('page', 'page=');
+    console.log('data-webform-key = ' + page);
+  }
+  else if (jQuery('form.webform-submission-form[data-webform-wizard-current-page]').length) {
+    page = 'page=' + jQuery('form.webform-submission-form').attr('data-webform-wizard-current-page');
+    console.log('wizard-page = ' + page);
+  }
+  else {
+    console.log('Can not find page attribute');
+  }
+  if (page) {
+    var a = mainTitle.split('|');
+    jQuery(document).prop('title', a[0] + page + ' |' + a[1]);
+    try {
+      ga('set', 'page', location.pathname + "?" + page);
+      ga('send', 'pageview');
+    }catch(err) {
+      console.log(err);
     }
-  }catch(err) {
-    console.log(err);
   }
 }
 

@@ -89,7 +89,7 @@ class FeedbackForm extends FormBase {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Apply'),
-      '#attributes' => ['class' => ['button, button--primary']],
+      '#attributes' => ['class' => ['btn-primary']],
     ];
     $form['#suffix'] = '<br />' . $this->table($form_state, $options);
     return $form;
