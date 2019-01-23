@@ -3,7 +3,7 @@
 /**
  * @file
  * Contains general.module.
- * Hooks & general code for the Acas site
+ * Hooks & general code for the Acas Notifications site
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;

@@ -7,6 +7,7 @@
 
 use Drupal\user\Entity\User;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_preprocess_page().
@@ -94,11 +95,59 @@ function exitpopup_valid_page() {
 }
 
 function exitpopup_exit_popup() {
+  $entity_id = '';
+  $entity_type = NULL;
+  $uri = \Drupal::request()->getRequestUri();
+  $query = \Drupal::database()->select('webform_submission', 'ws');
+  $query->addExpression('MAX(sid)', 'maxval');
+  $sid = (int)$query->execute()->fetchField();
+  $sid++;
+  $query = \Drupal::database()->select('webform_submission', 'ws');
+  $query->addExpression('MAX(serial)', 'maxval');
+  $query->condition('ws.webform_id', 'exit_popup', '=');
+  $serial = (int)$query->execute()->fetchField();
+  $serial++;
+  $uuid = \Drupal::service('uuid');
+  $fields = [
+    'sid' => $sid,
+    'webform_id' => 'exit_popup',
+    'uuid' => $uuid->generate(),
+    'langcode' => 'en',
+    'serial' => $serial,
+    'uri' => $uri,
+    'remote_addr' => $_SERVER['REMOTE_ADDR'],
+    'in_draft' => 0,
+    'entity_id' => $entity_id,
+    'entity_type' => $entity_type,
+    'created' => time(),
+    'completed' => time(),
+    'changed' => time(),
+    'uid' => \Drupal::currentUser()->id(),
+    'locked' => 0,
+    'sticky' => 0,
+  ];
+  \Drupal::database()->insert('webform_submission')->fields($fields)->execute();
+  $fields = [
+    'webform_id' => 'exit_popup',
+    'sid' => $sid,
+    'name' => 'other',
+    'value' => $_POST['other'],
+    'delta' => 0,
+  ];
+  \Drupal::database()->insert('webform_submission_data')->fields($fields)->execute();
+  $fields = [
+    'webform_id' => 'exit_popup',
+    'sid' => $sid,
+    'name' => 'reason',
+    'value' => $_POST['reason'],
+    'delta' => 0,
+  ];
+  \Drupal::database()->insert('webform_submission_data')->fields($fields)->execute();
   $config = \Drupal::config('exitpopup.settings');
   $mailManager = \Drupal::service('plugin.manager.mail');
   $params['subject'] = 'Exit survey';
   $body = 'Reason: <b>' . $_POST['reason'] . '</b><br />Other: <b>' . $_POST['other'] . '</b>';
   $params['body'] = $body;
   $mailManager->mail('exitpopup', 'html', $config->get('epu_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
-  return 'Thank you for your feedback';
+  return 'Thank you for your feedback.';
 }

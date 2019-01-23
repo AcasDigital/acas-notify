@@ -152,6 +152,7 @@ Drupal.behaviors.notification_form = {
       jQuery('.webform-submission-form-notification .webform-button--next').onFirst('click', function( event ) {
         var errors = [];
         jQuery('.alert').remove();
+        // Check have a spreadsheet for a group form1
         if (jQuery('.webform-document-file.required').length) {
           if (jQuery('.webform-document-file.required .form-file').length && !jQuery('.webform-document-file.required .form-file').val()) {
             if (!jQuery('.webform-document-file.required').find(".invalid-feedback").length) {
@@ -599,6 +600,7 @@ function ajaxLoader() {
 // Send pageview to Google Analyitics
 // Update page title as this gets sent as well
 function sendGoogleAnalytics() {
+  return;
   if (!mainTitle) {
     mainTitle = jQuery(document).prop('title');
   }
