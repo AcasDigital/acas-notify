@@ -693,7 +693,10 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     $data['acas_formtype'] = '602700001';
     $config = \Drupal::config('acas.settings');
-    $flags = notification_flags($data);
+    $flag = FALSE;
+    if ($flags = notification_flags($data)) {
+      $flag = TRUE;
+    }
     $db = \Drupal::database();
     // Get Notification form data for names in the email & form1 timestamp;
     $result = $db->select('acas_ecrefno', 'a')
@@ -752,7 +755,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     // Update acas_ecrefno for form2
     $db->update('acas_ecrefno')
-      ->fields(['status' => $status, 'sid2' => $webform_submission_id, 'guid' => $data['guid'], 'form2' => date('Y-m-d H:i:s')])
+      ->fields(['status' => $status, 'sid2' => $webform_submission_id, 'guid' => $data['guid'], 'form2' => date('Y-m-d H:i:s'), 'flag' => $flag])
       ->condition('reference_no', $data['acas_ecref'], '=')
       ->execute();
     // Delete the webform data. GDPR cop-out.

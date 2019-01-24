@@ -2,14 +2,12 @@ var addresses;
 var companies;
 var defaultFeedbackText = '';
 var postcode = '';
-var mainTitle = '';
 
 Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     // Had to go old-school by checking for class, jQuery.once was not working for ajax forms
     if (!jQuery('.webform-submission-form-notification').hasClass('notification_form_processed')) {
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
-      setTimeout(sendGoogleAnalytics, 500); // GA Funnels
       history.pushState(null, null, location.href); // For the browser back button
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html(jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html().replace('Edit', 'Change'));
@@ -595,38 +593,6 @@ function getCookie(cname) {
 
 function ajaxLoader() {
   return '<div class="ajax-progress ajax-progress-throbber"><div class="ajax-loader"><div class="ajax-throbber sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div></div></div>';
-}
-
-// Send pageview to Google Analyitics
-// Update page title as this gets sent as well
-function sendGoogleAnalytics() {
-  return;
-  if (!mainTitle) {
-    mainTitle = jQuery(document).prop('title');
-  }
-  var page = '';
-  if (jQuery('section.js-form-wrapper[data-webform-key]').length) {
-    page = jQuery('section.js-form-wrapper[data-webform-key]').attr('data-webform-key');
-    page = page.replace('page', 'page=');
-    console.log('data-webform-key = ' + page);
-  }
-  else if (jQuery('form.webform-submission-form[data-webform-wizard-current-page]').length) {
-    page = 'page=' + jQuery('form.webform-submission-form').attr('data-webform-wizard-current-page');
-    console.log('wizard-page = ' + page);
-  }
-  else {
-    console.log('Can not find page attribute');
-  }
-  if (page) {
-    var a = mainTitle.split('|');
-    jQuery(document).prop('title', a[0] + page + ' |' + a[1]);
-    try {
-      ga('set', 'page', location.pathname + "?" + page);
-      ga('send', 'pageview');
-    }catch(err) {
-      console.log(err);
-    }
-  }
 }
 
 function scrollToError(id) {
