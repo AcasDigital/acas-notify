@@ -16,6 +16,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Render\Markup;
+use Dompdf\Dompdf;
 
 /**
  * Implements hook_help().
@@ -84,25 +85,33 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     if (@$form['actions']['submit']) {
       $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
     }
+    $current_page = $form_state->get('current_page');
     $element_key = $form_state->getTriggeringElement();
-    //if ($element_key && strpos($element_key['#id'], 'edit-actions-wizard-next') !== FALSE) {
-      if (isset($_COOKIE['webform_preview']) && $_COOKIE['webform_preview'] == $form['elements']['form_type']['#value']) {
-        $pages = $form_state->get('pages');
-        $all_keys = array_keys($pages);
-        $goto_destination_page_index = array_search('webform_preview', $all_keys);
-        if($goto_destination_page_index > 0){
-          $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
-        }
+    if (isset($_COOKIE['webform_preview']) && $_COOKIE['webform_preview'] == $form['elements']['form_type']['#value']) {
+      $pages = $form_state->get('pages');
+      $all_keys = array_keys($pages);
+      $goto_destination_page_index = array_search('webform_preview', $all_keys);
+      if($goto_destination_page_index > 0){
+        $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
       }
-      else {
-        $current_page = $form_state->get('current_page');
-        if ($current_page == 'webform_preview') {
-          setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
-        }
+    }
+    else {
+      if ($current_page == 'webform_preview') {
+        setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
       }
-    //}
+    }
+    if ($current_page == 'webform_preview') {
+      $form['actions']['download'] = [
+        '#access' => TRUE,
+        '#button_type' => 'primary',
+        '#value' => 'Download as PDF',
+        '#submit' => ['notification_download_data'],
+        '#type' => 'submit',
+        '#weight' => 11,
+      ];
+    }
     if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
-      setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
+      //setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
     }
     if ($acas_ecref = \Drupal::request()->query->get('acas_ecref')) {
       $form['elements']['acas_ecref']['#value'] = $acas_ecref;
@@ -166,6 +175,24 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
   else if ($form_id == 'webform_submission_group_notification_conciliation_add_form') {
     $form['#attached']['drupalSettings']['current_group_number'] = notification_get_current_reference_number();
   }
+}
+
+function notification_download_data(&$form, FormStateInterface &$form_state) {
+  $values = $form_state->getValues();
+  $html = '';
+  if ($values['form_type'] == 'Notification') {
+    
+  }
+  elseif ($values['form_type'] == 'Conciliation') {
+    
+  }
+  $css = file_get_contents(drupal_get_path('module', 'general') . '/css/download.css');
+  $css = str_replace('[SITE]', 'https://' . $_SERVER['HTTP_HOST'], $css);
+  $html = '<html><head><title>' . $values['form_type'] . '</title><style>' . $css . '</style></head><body>' . $html . '</body></html>';
+  $dompdf = new Dompdf(array('enable_remote' => true));
+  $dompdf->loadHtml($html);
+  $dompdf->render();
+  $dompdf->stream($values['form_type'] . '.pdf');
 }
 
 /**
@@ -729,7 +756,8 @@ function notification_confirmation($webform, $webform_submission_id) {
     else if (!$flags){
       $nid = 114;
     }
-    else {
+    if ($flags) {
+      // If flagged show this node no matter what.
       $nid = 118;
       $number = $config->get('g10_flagged_phone');
     }
@@ -755,7 +783,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     }
     // Update acas_ecrefno for form2
     $db->update('acas_ecrefno')
-      ->fields(['status' => $status, 'sid2' => $webform_submission_id, 'guid' => $data['guid'], 'form2' => date('Y-m-d H:i:s'), 'flag' => $flag])
+      ->fields(['status' => $status, 'sid2' => $webform_submission_id, 'guid' => $data['guid'], 'form2' => date('Y-m-d H:i:s'), 'flag' => (int) $flag])
       ->condition('reference_no', $data['acas_ecref'], '=')
       ->execute();
     // Delete the webform data. GDPR cop-out.
