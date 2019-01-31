@@ -14,9 +14,13 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function exitpopup_preprocess_page(array &$page) {
   // Only process if desktop
-  $mobileDetector = \Drupal::service('mobile_detect');
-  if ($mobileDetector->isMobile()) {
-    return;
+  try {
+    $mobileDetector = \Drupal::service('mobile_detect');
+    if ($mobileDetector->isMobile()) {
+      return;
+    }
+  } catch (xception $e) {
+    
   }
   if (!exitpopup_valid_page()) {
     return;
