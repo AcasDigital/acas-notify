@@ -143,6 +143,13 @@ Drupal.behaviors.notification_form = {
       // No description for email confirm
       jQuery('.webform-email-confirm').removeAttr('aria-describedby');
       jQuery('.webform-email-confirm').attr('aria-label', 'Confirm your email address');
+      
+      if (jQuery('#download-pdf').length) {
+        var clone = jQuery('section .webform-preview').clone();
+        jQuery(clone).remove('button');
+        jQuery('#download-pdf').attr('href', jQuery('#download-pdf').attr('href') + '?data=' + btoa(jQuery(clone).html()));
+        
+      }
 
       // **** End of fields config ****
       

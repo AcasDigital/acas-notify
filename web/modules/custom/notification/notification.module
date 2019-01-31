@@ -113,7 +113,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     }
     */
     if ($current_page == 'webform_preview') {
-      //$form['actions']['submit']['prefix'] = '<a class="btn btn-primary" href="/download-data/">Download as PDF</a>';
+      $form['actions']['submit']['#suffix'] = '<a id="download-pdf" class="btn btn-primary" href="/download-data/">Download as PDF</a>';
     }
     if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
       //setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
@@ -369,9 +369,11 @@ function notification_ec_entry_switch() {
   if (!$enabled) {
     // Re-direct to the old form
     $url = $config->get('old_url');
-    $mobileDetector = \Drupal::service('mobile_detect');
-    if ($mobileDetector->isMobile()) {
-      $url = str_replace('www.', 'm.', $url);
+    if (\Drupal::hasService('mobile_detect')) {
+      $mobileDetector = \Drupal::service('mobile_detect');
+      if ($mobileDetector->isMobile()) {
+        $url = str_replace('www.', 'm.', $url);
+      }
     }
   }
   else {
