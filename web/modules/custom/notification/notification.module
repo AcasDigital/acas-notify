@@ -16,7 +16,6 @@ use Drupal\Core\Link;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Render\Markup;
-use Dompdf\Dompdf;
 
 /**
  * Implements hook_help().
@@ -52,7 +51,7 @@ function notification_entity_view(array &$build, \Drupal\Core\Entity\EntityInter
 function notification_webform_submission_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['elements']['form_type']['#value'])) {
     // Either a Notification or Conciliation form
-    if (preg_match('/MSIE\s(?P<v>\d+)/i', @$_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) {
+    if (preg_match('/MSIE\s(?P<v>\d+)/i', $_SERVER['HTTP_USER_AGENT'], $B) && $B['v'] <= 8) {
       // Browsers IE 8 and below
       $response = new RedirectResponse('/ie8');
       $response->send();
@@ -64,7 +63,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       'url' => $config->get('url'),
       'token' => $config->get('token'),
     ];
-    if (@$form['actions']['wizard_prev']) {
+    if (isset($form['actions']['wizard_prev'])) {
       if (!isset($_COOKIE['webform_preview'])) {
         $form['back'] = $form['actions']['wizard_prev'];
         $form['back']['#value'] = 'Back';
@@ -73,16 +72,16 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       }
       unset($form['actions']['wizard_prev']);
     }
-    if (@$form['actions']['preview_prev']) {
+    if (isset($form['actions']['preview_prev'])) {
       unset($form['actions']['preview_prev']);
     }
-    if (@$form['actions']['draft']) {
+    if (isset($form['actions']['draft'])) {
       $form['actions']['draft']['#attributes']['class'][] = 'btn-secondary';
     }
-    if (@$form['actions']['wizard_next']) {
+    if (isset($form['actions']['wizard_next'])) {
       $form['actions']['wizard_next']['#attributes']['class'][] = 'btn-primary';
     }
-    if (@$form['actions']['submit']) {
+    if (isset($form['actions']['submit'])) {
       $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
     }
     $current_page = $form_state->get('current_page');
@@ -99,21 +98,6 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       if ($current_page == 'webform_preview') {
         setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
       }
-    }
-    /*
-    if ($current_page == 'webform_preview') {
-      $form['actions']['download'] = [
-        '#access' => TRUE,
-        '#button_type' => 'primary',
-        '#value' => 'Download as PDF',
-        '#submit' => ['notification_download_data'],
-        '#type' => 'submit',
-        '#weight' => 11,
-      ];
-    }
-    */
-    if ($current_page == 'webform_preview') {
-      $form['actions']['submit']['#suffix'] = '<a id="download-pdf" class="btn btn-primary" href="/download-data/">Download as PDF</a>';
     }
     if ($element_key && strpos($element_key['#id'], 'edit-actions-preview-next') !== FALSE) {
       //setcookie('webform_preview', $form['elements']['form_type']['#value'], NULL, '/');
@@ -145,7 +129,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     }
     if ($form['elements']['form_type']['#value'] == 'GroupConciliation') {
       $input = $form_state->getUserInput();
-      if (@$input['is_this_claim_part_of_an_existing_group_claim_'] == '2') {
+      if ($input['is_this_claim_part_of_an_existing_group_claim_'] == '2') {
         $pages = $form_state->get('pages');
         $all_keys = array_keys($pages);
         $goto_destination_page_index = array_search('webform_preview', $all_keys);
@@ -153,7 +137,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
           $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
         }
       }
-      elseif (@$input['is_this_claim_part_of_an_existing_group_claim_'] == '1') {
+      elseif ($input['is_this_claim_part_of_an_existing_group_claim_'] == '1') {
         setcookie('webform_preview', NULL, time()-3600, '/');
         unset($_COOKIE['webform_preview']);
       }
@@ -182,22 +166,269 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
   }
 }
 
-function notification_download_data(&$form, FormStateInterface &$form_state) {
-  $values = $form_state->getValues();
+/**
+ * Implements notification_download_pdf_build_html().
+ *
+ * Builds the html for the pdf download
+ *
+ */
+function notification_download_pdf_build_html($sid1 = NULL, $sid2 = NULL) {
+  $ecref = \Drupal::request()->query->get('ecref');
   $html = '';
-  if ($values['form_type'] == 'Notification') {
-    
+  if ($sid1) {
+    $html .= '<div class="notify-number">Your claim reference number is ' . $ecref . ', submitted at ' . date('h:i A \o\n d F Y') . '</div>';
+    $html .= '<h2>Notification</h2>';
+    $wfs = WebformSubmission::load($sid1);
+    $form_data = $wfs->getData();
+    $html .= '<div class="panel-title">Your details</div><div class="panel-body">';
+    if ($form_data['acas_firstname']) {
+      $html .= '<div class="form-item"><label class="control-label">First name</label>' . $form_data['acas_firstname'] . '</div>';
+    }
+    if ($form_data['acas_surname']) {
+      $html .= '<div class="form-item"><label class="control-label">Last name</label>' . $form_data['acas_surname'] . '</div>';
+    }
+    if ($form_data['acas_maincontactnumber']) {
+      $html .= '<div class="form-item"><label class="control-label">Your phone number</label>' . $form_data['acas_maincontactnumber'] . '</div>';
+    }
+    if ($form_data['acas_accessibilityneeds']) {
+      $html .= '<div class="form-item"><label class="control-label">How you prefer to communicate with us</label>' . $form_data['acas_accessibilityneeds'] . '</div>';
+    }
+    if ($form_data['acas_emailaddress']) {
+      $html .= '<div class="form-item"><label class="control-label">Your email address</label>' . $form_data['acas_emailaddress'] . '</div>';
+    }
+    if ($form_data['claimant_address']) {
+      $html .= '<div class="form-item"><label class="control-label">Address</label>';
+      foreach($form_data['claimant_address'] as $add) {
+        if ($add) {
+          $html .= $add . '<br />';
+        }
+      }
+      $html .= '</div>';
+    }
+    $html .= '</div>';
+    if ($form_data['is_there_someone_helping_you_through_this_process_optional_'] > 1) {
+      $html .= '<div class="panel-title">Your help</div><div class="panel-body">';
+      $html .= '<div class="form-item"><label class="control-label">Who is helping you</label>';
+      if ($form_data['is_there_someone_helping_you_through_this_process_optional_'] == 2) {
+        $html .= 'A solicitor is helping me</div>';
+      }
+      if ($form_data['is_there_someone_helping_you_through_this_process_optional_'] == 3) {
+        $html .= 'A trade union official is helping me</div>';
+      }
+       if ($form_data['is_there_someone_helping_you_through_this_process_optional_'] == 4) {
+        $html .= $form_data['acas_relationtoclaimant'] . '</div>';
+      }
+      if ($form_data['acas_claimreporgname']) {
+        $html .= '<div class="form-item"><label class="control-label">They work for</label>' . $form_data['acas_claimreporgname'] . '</div>';
+      }
+      if ($form_data['acas_claimrepfirstname']) {
+        $html .= '<div class="form-item"><label class="control-label">First name</label>' . $form_data['acas_claimrepfirstname'] . '</div>';
+      }
+      if ($form_data['acas_claimrepsurname']) {
+        $html .= '<div class="form-item"><label class="control-label">Last name</label>' . $form_data['acas_claimrepsurname'] . '</div>';
+      }
+      if ($form_data['acas_claimrepemailaddress']) {
+        $html .= '<div class="form-item"><label class="control-label">Email address</label>' . $form_data['acas_claimrepemailaddress'] . '</div>';
+      }
+      if ($form_data['acas_claimrepmainphoneno']) {
+        $html .= '<div class="form-item"><label class="control-label">Telephone number</label>' . $form_data['acas_claimrepmainphoneno']['phone'];
+        if ($form_data['acas_claimrepmainphoneno']['ext']) {
+          $html .= 'x' . $form_data['acas_claimrepmainphoneno']['ext'];
+        }
+        $html .= '</div>';
+      }
+       if ($form_data['representative_address']) {
+        $html .= '<div class="form-item"><label class="control-label">Address</label>';
+        foreach($form_data['representative_address'] as $add) {
+          if ($add) {
+            $html .= $add . '<br />';
+          }
+        }
+        $html .= '</div>';
+      }
+      $html .= '</div>';
+      $html .= '<p style="page-break-before: always">';
+    }
+    $html .= '<div class="panel-title">Your claim is against</div><div class="panel-body">';
+    if ($form_data['is_your_claim_against_one_person_or_a_whole_organisation_']) {
+      $html .= '<div class="form-item"><label class="control-label">An organisation or an individual</label>';
+      if ($form_data['is_your_claim_against_one_person_or_a_whole_organisation_'] == 1) {
+        $html .= 'A company or organisation</div>';
+        $html .= '<div class="form-item"><label class="control-label">Legal name of your employer</label>' . $form_data['acas_resporganisationname'] . '</div>';
+      }
+      else {
+        $html .= 'An individual</div>';
+        $html .= '<div class="form-item"><label class="control-label">First name</label>' . $form_data['acas_respfirstname'] . '</div>';
+        $html .= '<div class="form-item"><label class="control-label">Last name</label>' . $form_data['acas_respsurname'] . '</div>';
+      }
+    }
+    if ($form_data['respondant_address']) {
+      $html .= '<div class="form-item"><label class="control-label">Address</label>';
+      foreach($form_data['respondant_address'] as $add) {
+        if ($add) {
+          $html .= $add . '<br />';
+        }
+      }
+      $html .= '</div>';
+    }
+    $html .= '</div>';
   }
-  elseif ($values['form_type'] == 'Conciliation') {
-    
+  if ($sid2) {
+    if ($sid1) {
+      $html .= '<p style="page-break-before: always">';
+    }
+    $html .= '<h2>Conciliation</h2>';
+    $wfs = WebformSubmission::load($sid2);
+    $form_data = $wfs->getData();
+    if ($form_data['problem_several_colleagues']) {
+      $html .= '<div class="form-item"><label class="control-label">Are you one of several employees?</label>';
+      if ($form_data['problem_several_colleagues'] == 1) {
+        $html .= 'No, I don’t know of anyone else who is part of the same dispute</div>';
+      }
+      if ($form_data['problem_several_colleagues'] == 2) {
+        $html .= 'Yes, I’m one of several employees in the same dispute</div>';
+      }
+      if ($form_data['problem_several_colleagues'] == 3) {
+        $html .= 'I’m not sure</div>';
+      }
+      $html .= '</div>';
+    }
+    if ($form_data['is_this_employer_still_trading']) {
+      $html .= '<div class="form-item"><label class="control-label">Is your employer still in business?</label>' . $form_data['is_this_employer_still_trading'] . '</div>';
+    }
+    if ($form_data['do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan'] > 1) {
+      if ($form_data['have_you_been_employed_by_this_employer_for_a_2_years_or_more_']) {
+        $html .= '<div class="form-item"><label class="control-label">Have you worked for this employer for 2 years or more?</label>' . $form_data['have_you_been_employed_by_this_employer_for_a_2_years_or_more_'] . '</div>';
+      }
+      if ($form_data['when_were_you_dismissed']) {
+        $html .= '<div class="form-item"><label class="control-label">Your last day of work</label>' . str_pad($form_data['when_were_you_dismissed']['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($form_data['when_were_you_dismissed']['month'], 2, '0', STR_PAD_LEFT) . '/' . $form_data['when_were_you_dismissed']['year'] . '</div>' ;
+      }
+    }
+    if ($form_data['is_your_dispute_about_your_selection_for_redundancy_']) {
+      $html .= '<div class="form-item"><label class="control-label">Is your dispute about why you were selected for redundancy?</label>' . $form_data['is_your_dispute_about_your_selection_for_redundancy_'] . '</div>';
+    }
+    if ($form_data['is_your_dispute_about_redundancy_pay_optional_']) {
+      $html .= '<div class="form-item"><label class="control-label">Is your dispute about redundancy pay?</label>';
+      if ($form_data['is_your_dispute_about_redundancy_pay_optional_'] == 1) {
+        $html .= 'No</div>';
+      }
+      else {
+        $html .= 'Yes</div>';
+        if ($form_data['how_much_redundancy_pay_do_you_think_you_are_owed_optional_']) {
+          $html .= '<div class="form-item"><label class="control-label">How much redundancy pay are you owed?</label>&pound;' . $form_data['how_much_redundancy_pay_do_you_think_you_are_owed_optional_'] . '</div>';
+        }
+      }
+      $html .= '</div>';
+    }
+    if ($form_data['did_you_have_a_meeting_with_your_employer_before_you_were_dismis']) {
+      $html .= '<div class="form-item"><label class="control-label">Did you have a meeting with your employer before you were dismissed?</label>' . $form_data['did_you_have_a_meeting_with_your_employer_before_you_were_dismis'] . '</div>';
+    }
+    if ($form_data['did_you_meet_with_your_employer_after_you_were_dismissed_']) {
+      $html .= '<div class="form-item"><label class="control-label">Did you have a meeting with your employer after you were dismissed?</label>' . $form_data['did_you_meet_with_your_employer_after_you_were_dismissed_'] . '</div>';
+    }
+    if ($form_data['did_your_employer_given_any_explanation_optional_']) {
+      $html .= '<div class="form-item"><label class="control-label">What did they say?</label>' . $form_data['did_your_employer_given_any_explanation_optional_'] . '</div>';
+    }
+    if ($form_data['do_you_think_you_are_owed_wages']) {
+      $html .= '<div class="form-item"><label class="control-label">Are you owed wages or holiday pay?</label>Yes</div>';
+      if ($form_data['acas_monetaryvalue']) {
+         $html .= '<div class="form-item"><label class="control-label">I am owed</label>&pound;' . $form_data['acas_monetaryvalue'] . '</div>';
+      }
+      if ($form_data['when_were_you_not_paid_properly_optional_']) {
+        $html .= '<div class="form-item"><label class="control-label">When did you have this problem with your pay?</label>' . str_pad($form_data['when_were_you_not_paid_properly_optional_']['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($form_data['when_were_you_not_paid_properly_optional_']['month'], 2, '0', STR_PAD_LEFT) . '/' . $form_data['when_were_you_not_paid_properly_optional_']['year'] . '</div>' ;
+      }
+      if ($form_data['explain_why_you_think_you_are_owed_wages_optional_']) {
+         $html .= '<div class="form-item"><label class="control-label">Why do you think you are owed this money?</label>' . $form_data['explain_why_you_think_you_are_owed_wages_optional_'] . '</div>';
+      }
+    }
+    if ($form_data['do_you_believe_that_you_have_been_discriminated_against']) {
+      $html .= '<div class="form-item"><label class="control-label">Is your claim about discrimination at work?</label>Yes</div>';
+      if ($form_data['i_believe_that_my_employer_has_discriminated_against_me_because_']) {
+        $html .= '<div class="form-item"><label class="control-label">I believe that I\'ve been discriminated against at work because of my:</label>';
+        foreach($form_data['i_believe_that_my_employer_has_discriminated_against_me_because_'] as $r) {
+          if ($r) {
+            $html .= $r . '<br />';
+          }
+        }
+        $html .= '</div>';
+      }
+    }
+    if ($form_data['are_you_currently_employed_by_the_employer_']) {
+      $html .= '<div class="form-item"><label class="control-label">Are you currently employed by this employer?</label>' . $form_data['are_you_currently_employed_by_the_employer_'] . '</div>';
+    }
+    if ($form_data['do_you_have_a_written_contract_of_employment_with_this_employer_']) {
+      $html .= '<div class="form-item"><label class="control-label">Do you or did you have a written contract of employment with this employer?</label>' . $form_data['do_you_have_a_written_contract_of_employment_with_this_employer_'] . '</div>';
+    }
+    if ($form_data['have_you_asked_your_employer_in_writing_to_resolve_this_dispute_']) {
+      $html .= '<div class="form-item"><label class="control-label">Have you discussed the dispute with your employer?</label>';
+      if ($form_data['have_you_asked_your_employer_in_writing_to_resolve_this_dispute_'] == 1) {
+        $html .= 'No';
+      }
+      if ($form_data['have_you_asked_your_employer_in_writing_to_resolve_this_dispute_'] == 2) {
+        $html .= 'Yes, and they have finished looking into it';
+      }
+      if ($form_data['have_you_asked_your_employer_in_writing_to_resolve_this_dispute_'] == 3) {
+        $html .= 'Yes, and they are looking into it';
+      }
+      $html .= '</div>';
+    }
+    if ($form_data['what_did_your_employer_decide_about_your_dispute_optional_']) {
+      $html .= '<div class="form-item"><label class="control-label">What did they say to you about your dispute after looking into it?</label>' . $form_data['what_did_your_employer_decide_about_your_dispute_optional_'] . '</div>';
+    }
+    if ($form_data['is_there_anything_else_you_want_to_tell_us_optional_']) {
+      $html .= '<div class="form-item"><label class="control-label>"Is there anything else you want to tell us about your dispute?</label>' . $form_data['is_there_anything_else_you_want_to_tell_us_optional_'] . '</div>';
+    }
+    if ($form_data['acas_goodtimetocall']) {
+      $html .= '<div class="form-item"><label class="control-label">When is a good time to call?</label>' . $form_data['acas_goodtimetocall'] . '</div>';
+    }
+    if ($form_data['acas_badtimetocall']) {
+      $html .= '<div class="form-item"><label class="control-label">Are there any days or times to avoid?</label>' . $form_data['acas_badtimetocall'] . '</div>';
+    }
+    if ($form_data['modeoffirstcontact']) {
+      $html .= '<div class="form-item"><label class="control-label">What is the best way to contact you to arrange a conversation?</label>';
+      $c = '';
+      if ($form_data['modeoffirstcontact'][0] == '602700000') {
+        $html .= 'Phone call';
+        $c = ', ';
+      }
+      if ($form_data['modeoffirstcontact'][1] == '602700001') {
+        $html .= $c . 'Email';
+      }
+      $html .= '</div>';
+    }
+    if ($form_data['acas_respondentcontactjobtitle'] || $form_data['acas_respondentcontactfirstname'] || $form_data['acas_respondentcontactsurname']) {
+      $html .= '<div class="panel-title"><div class="form-item"><label class="control-label">Employer contact details:</label></div></div><div class="panel-body">';
+      if ($form_data['acas_respondentcontactjobtitle']) {
+        $html .= '<div class="form-item"><label class="control-label">Job title</label>' . $form_data['acas_respondentcontactjobtitle'] . '</div>';
+      }
+       if ($form_data['acas_respondentcontactfirstname']) {
+        $html .= '<div class="form-item"><label class="control-label">First name</label>' . $form_data['acas_respondentcontactfirstname'] . '</div>';
+      }
+       if ($form_data['acas_respondentcontactsurname']) {
+        $html .= '<div class="form-item"><label class="control-label">Last name</label>' . $form_data['acas_respondentcontactsurname'] . '</div>';
+      }
+       if ($form_data['acas_respondentcontactphonenumber']) {
+        $html .= '<div class="form-item"><label class="control-label">Phone number</label>';
+        $html .= $form_data['acas_respondentcontactphonenumber']['phone'];
+        if ($form_data['acas_respondentcontactphonenumber']['ext']) {
+          $html .= 'x' . $form_data['acas_respondentcontactphonenumber']['ext'];
+        }
+        $html .= '</div>';
+      }
+       if ($form_data['acas_respondentcontactemailaddress']) {
+        $html .= '<div class="form-item"><label class="control-label">Email</label>' . $form_data['acas_respondentcontactemailaddress'] . '</div>';
+      }
+      $html .= '</div>';
+    }
+  }
+  if ($html) {
+    $html = '<div class="col-xs-8 col-sm-6"><section id="block-sitebranding" class="block block-system block-system-branding-block clearfix"><img src="https://' . $_SERVER['HTTP_HOST'] . '/themes/custom/acas/toplogo.png" alt="Home"></section></div>
+        <header id="block-acas-page-title" class="block block-core block-page-title-block clearfix col-xs-12 col-md-7"><h1 class="page-header"><span>Your Acas notification details</span></h1></header>' . $html;
   }
   $css = file_get_contents(drupal_get_path('module', 'general') . '/css/download.css');
   $css = str_replace('[SITE]', 'https://' . $_SERVER['HTTP_HOST'], $css);
-  $html = '<html><head><title>' . $values['form_type'] . '</title><style>' . $css . '</style></head><body>' . $html . '</body></html>';
-  $dompdf = new Dompdf(array('enable_remote' => true));
-  $dompdf->loadHtml($html);
-  $dompdf->render();
-  $dompdf->stream($values['form_type'] . '.pdf');
+  $html = '<html><head><title>Your Acas notification details</title><style>' . $css . '</style></head><body class="notification-pdf">' . $html . '</body></html>';
+  return $html;
 }
 
 /**
@@ -207,7 +438,7 @@ function notification_download_data(&$form, FormStateInterface &$form_state) {
  *
  */
 function notification_group_claimants_upload_validate(&$form, FormStateInterface &$form_state) {
-  if ($form_state->getValue('op') == 'Continue' && $template = @$form_state->getValue('claimants')) {
+  if ($form_state->getValue('op') == 'Continue' && $template = $form_state->getValue('claimants')) {
     $msg = '';
     $count = 0;
     $file = \Drupal\file\Entity\File::load($template);
@@ -679,12 +910,13 @@ function notification_confirmation($webform, $webform_submission_id) {
       }
       $result = notification_send_dynamics($data);
       // Delete the webform data. GDPR cop-out.
-      notification_delete_webform_submission($webform_submission_id);
+      //notification_delete_webform_submission($webform_submission_id);
       $view = $view_builder->view($node, 'full');
       $html = drupal_render($view);
       $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
       $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
       $html = str_replace('[NUMBER]', $number, $html);
+      $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $webform_submission_id . '/0?ecref=' . $number, $html);
       if (!$result && $node->hasField('field_problem_message')) {
         if ($problem = $node->field_problem_message->getValue()) {
           $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -693,7 +925,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       else {
         $html = str_replace('[PROBLEM]', '', $html);
       }
-      if (@$data['is_this_employer_still_trading'] == 'No') {
+      if ($data['is_this_employer_still_trading'] == 'No') {
         $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
       }
       else {
@@ -705,7 +937,7 @@ function notification_confirmation($webform, $webform_submission_id) {
   }
   elseif ($data['form_type'] == 'Conciliation') {
     // Get acas_ecref.
-    if (!$data['acas_ecref'] && @$_SESSION['acas_ecref']) {
+    if (!$data['acas_ecref'] && isset($_SESSION['acas_ecref'])) {
       $data['acas_ecref'] = $_SESSION['acas_ecref'];
     }
     if (isset($_SESSION['acas_ecref'])) {
@@ -751,7 +983,7 @@ function notification_confirmation($webform, $webform_submission_id) {
       
     // Wages or holiday (not anything else) = fasttracked
     $number = '';
-    if (@$data['do_you_believe_that_you_have_been_discriminated_against'] != 1 && !$data['do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan'] != 2 && $data['do_you_think_you_are_owed_wages'] == 1) {
+    if ($data['do_you_believe_that_you_have_been_discriminated_against'] != 1 && !$data['do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan'] != 2 && $data['do_you_think_you_are_owed_wages'] == 1) {
       $nid = 126;
       // Fasttrack number
       $number = $config->get('g10_fasttrack_phone');
@@ -796,15 +1028,16 @@ function notification_confirmation($webform, $webform_submission_id) {
     // Delete the webform data. GDPR cop-out.
     if ($form1_sid) {
       // Form1
-      notification_delete_webform_submission($form1_sid);
+      //notification_delete_webform_submission($form1_sid);
     }
     // Form 2
-    notification_delete_webform_submission($webform_submission_id);
+    //notification_delete_webform_submission($webform_submission_id);
     $view = $view_builder->view($node, 'full');
     $html = drupal_render($view);
     $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
     $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
     $html = str_replace('[NUMBER]', $number, $html);
+    $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $form1_sid . '/' . $webform_submission_id . '?ecref=' . $number, $html);
     if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
       if ($problem = $node->field_problem_message->getValue()) {
         $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -813,7 +1046,7 @@ function notification_confirmation($webform, $webform_submission_id) {
     else {
       $html = str_replace('[PROBLEM]', '', $html);
     }
-    if (@$data['is_this_employer_still_trading'] == 'No') {
+    if ($data['is_this_employer_still_trading'] == 'No') {
       $html = str_replace('[SPECIFIC GUIDANCE]', 'You told us that your employer has ceased trading. You can <a href="https://www.gov.uk/your-rights-if-your-employer-is-insolvent" target="_blank">find out what rights you have as the employee of an insolvent employer on GOV.UK.</a>', $html);
     }
     else {
@@ -993,7 +1226,7 @@ function notification_flags($data) {
       // Individual 
       $flags['acas_flagnoncontactable'] = TRUE;
     }
-    if ($key == 'acas_claimrepemailaddress' && !$value && !@$data['acas_claimrepmainphoneno'] && isset($data['acas_groupid'])) {
+    if ($key == 'acas_claimrepemailaddress' && !$value && !$data['acas_claimrepmainphoneno'] && isset($data['acas_groupid'])) {
       // Group
       $flags['acas_flagnoncontactable'] = TRUE;
     }
@@ -1045,14 +1278,14 @@ function notification_send_dynamics($data) {
         $json['acas_resppostcode'] = notification_encode($value['postal_code']);
       }
     }
-    elseif (is_array($value) && @$value['phone']) {
+    elseif (is_array($value) && isset($value['phone'])) {
       $json[$key] = notification_encode($value['phone']);
       if ($value['ext']) {
         $json[$key] .= 'x' . notification_encode($value['ext']);
       }
     }
     /*
-    elseif (is_array($value) && @$key == 'acas_modeoffirstcontact') {
+    elseif (is_array($value) && $key == 'acas_modeoffirstcontact') {
       $json['acas_modeoffirstcontact'] = implode(',', $value);
     }
     */
@@ -1279,7 +1512,7 @@ function notification_send_dynamics($data) {
   if ($incident_type) {
     $json['acas_incidenttype'] = implode(',', $incident_type);
   }  
-  if (!@$json['acas_incidenttype']) {
+  if (!isset($json['acas_incidenttype'])) {
     //$json['acas_incidenttype'] = '602700000';
   }
   // Make sure acas_incidentinfo is <= 12K chars.

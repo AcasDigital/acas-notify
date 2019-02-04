@@ -129,6 +129,14 @@ notification.currrent_number:
     _title: ''
   requirements:
     _permission: 'access content'
+    
+notification.download_pdf:
+  path: '/download-pdf/{sid1}/{sid2}'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notification_download_pdf'
+    _title: ''
+  requirements:
+    _permission: 'access content'
 
 
 

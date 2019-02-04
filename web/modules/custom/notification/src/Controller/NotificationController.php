@@ -4,6 +4,7 @@ namespace Drupal\notification\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Dompdf;
 
 /**
  * @file
@@ -82,6 +83,20 @@ class NotificationController extends ControllerBase {
    */
   public function notification_currrent_number() {
     die(notification_get_current_reference_number());
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function notification_download_pdf($sid1, $sid2) {
+    $dompdf = new Dompdf(array('enable_remote' => true));
+    $dompdf->loadHtml(notification_download_pdf_build_html($sid1, $sid2));
+    $dompdf->render();
+    $dompdf->stream('Notification.pdf');
+    //die(notification_download_pdf_build_html($sid1, $sid2));
+    return array(
+      '#markup' => '',
+    );
   }
   
 
