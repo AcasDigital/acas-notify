@@ -16,8 +16,16 @@ class NotificationController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function acas_webform_confirmation($webform, $webform_submission) {
-    $markup = notification_confirmation($webform, $webform_submission);
+  public function acas_notification_webform_confirmation($webform, $webform_submission) {
+    $markup = notification_confirmation_notification($webform, $webform_submission);
+    return ['#markup' => $markup];
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function acas_conciliation_webform_confirmation($webform, $webform_submission) {
+    $markup = notification_confirmation_conciliation($webform, $webform_submission);
     return ['#markup' => $markup];
   }
   
@@ -99,5 +107,13 @@ class NotificationController extends ControllerBase {
     );
   }
   
+  /**
+   * {@inheritdoc}
+   */
+  public function notification_js_disabled() {
+    setcookie('no_js', '1', 0, '/');
+    $url_object = \Drupal::service('path.validator')->getUrlIfValid('/notification-form');
+    return $this->redirect($url_object->getRouteName(), $url_object->getrouteParameters());
+  }
 
 }

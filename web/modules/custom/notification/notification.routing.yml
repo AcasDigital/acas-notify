@@ -38,10 +38,18 @@ notification.companies_house:
   requirements:
     _permission: 'administer site configuration'
     
-notification.acas_webform_confirmation:
-  path: '/webform/{webform}/submission/{webform_submission}/confirmation'
+notification.acas_notification_webform_confirmation:
+  path: '/notification/{webform}/submission/{webform_submission}/confirmation'
   defaults:
-    _controller: '\Drupal\notification\Controller\NotificationController::acas_webform_confirmation'
+    _controller: '\Drupal\notification\Controller\NotificationController::acas_notification_webform_confirmation'
+    _title: 'Thank you!'
+  requirements:
+    _permission: 'access content'
+    
+notification.acas_conciliation_webform_confirmation:
+  path: '/conciliation/{webform}/submission/{webform_submission}/confirmation'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::acas_conciliation_webform_confirmation'
     _title: 'Thank you!'
   requirements:
     _permission: 'access content'
@@ -134,6 +142,14 @@ notification.download_pdf:
   path: '/download-pdf/{sid1}/{sid2}'
   defaults:
     _controller: '\Drupal\notification\Controller\NotificationController::notification_download_pdf'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+    
+notification.js_disabled:
+  path: '/js-disabled'
+  defaults:
+    _controller: '\Drupal\notification\Controller\NotificationController::notification_js_disabled'
     _title: ''
   requirements:
     _permission: 'access content'

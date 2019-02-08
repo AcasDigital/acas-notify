@@ -37,3 +37,7 @@
 #block-notificationpreviewfootermessage, #block-conciliationpreviewfootermessage {
   display: none;
 }
+
+.webform-submission-form .webform-actions .webform-button--previous {
+  display: none;
+}

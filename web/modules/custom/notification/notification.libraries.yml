@@ -22,3 +22,8 @@ notification_error_form:
     - core/jquery
     - core/drupal
     - core/jquery.once
+    
+no_js:
+  css:
+    theme:
+      css/no_js.css: {}
