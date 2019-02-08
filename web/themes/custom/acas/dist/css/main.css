@@ -2641,6 +2641,9 @@ table {
   table td {
     background: #F7F7F7; }
 
+noscript {
+  display: none; }
+
 @media screen and (min-width: 768px) {
   .paragraph.paragraph--width--full > .paragraph__column, .paragraph.paragraph--width--medium > .paragraph__column, .paragraph.paragraph--width--narrow > .paragraph__column, .paragraph.paragraph--width--tiny > .paragraph__column, .paragraph.paragraph--width--wide > .paragraph__column, .paragraph > .paragraph__column {
     padding-left: 0;

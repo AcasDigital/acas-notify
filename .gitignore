@@ -23,6 +23,7 @@ NOTIFY
 /web/themes/custom/*/Gruntfile.js
 /web/themes/custom/*/package.json
 /web/themes/custom/*/package-lock.json
+/web/themes/custom/*/acas-digital-frontend/
 
 # Ignore sensitive information
 /web/sites/*/settings.php
