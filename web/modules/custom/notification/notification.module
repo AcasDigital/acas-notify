@@ -79,7 +79,9 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
         $form['back']['#weight'] = -10;
         $form['back']['#attributes']['class'][] = 'back--link';
       }
-      //unset($form['actions']['wizard_prev']);
+      if (!isset($_COOKIE['no_js'])) {
+        unset($form['actions']['wizard_prev']);
+      }
     }
     if (isset($form['actions']['preview_prev'])) {
       //unset($form['actions']['preview_prev']);

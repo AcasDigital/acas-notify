@@ -7,3 +7,6 @@
 .webform-submission-form .webform-actions .webform-button--previous {
 	display: inline-block !important;
 }
+.webform-submission-form .no-js {
+	display: block;
+}
