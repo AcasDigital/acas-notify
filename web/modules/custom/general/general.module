@@ -62,10 +62,6 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       $form['#attached']['library'][] = 'general/views_exposed_form';
     }
   }
-  if ($form_id == 'user_login_form') {
-    $form['#submit'][] = 'general_user_login_submit';
-    $form['#https'] = TRUE;
-  }
   if ($form_id == 'system_performance_settings') {
     $form['caching']['page_cache_maximum_age']['#options'][31557600] = '1 year (for CloudFront)';
   }
@@ -138,14 +134,6 @@ function _is_site($site = 'beta') {
     return TRUE;
   }
   return FALSE;
-}
-
-/**
- * general_user_login_submit().
- * Redirect the user to their workbench after login
- */
-function general_user_login_submit($form, &$form_state) {
-  $form_state->setRedirect('workbench.content');
 }
 
 /**
