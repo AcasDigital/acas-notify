@@ -7,6 +7,9 @@ Drupal.behaviors.notification_form = {
   attach: function(context, settings) {
     // Had to go old-school by checking for class, jQuery.once was not working for ajax forms
     if (!jQuery('.webform-submission-form-notification').hasClass('notification_form_processed')) {
+      if (getCookie('no_js')) {
+        deleteCookie('no_js');
+      }
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
       history.pushState(null, null, location.href); // For the browser back button
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
@@ -282,8 +285,7 @@ Drupal.behaviors.notification_form = {
                 }
               }
             }
-            
-          }
+          }          
           if (bad) {
             if (jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').length) {
               jQuery('#edit-acas-originalgroupid').parent().find('.invalid-feedback').text('Invalid group claim reference number: ' + msg);
@@ -293,6 +295,62 @@ Drupal.behaviors.notification_form = {
             }
             jQuery('#edit-acas-originalgroupid').addClass('invalid');
             errors.push(jQuery('#edit-acas-originalgroupid'));
+          }
+        }
+        
+        // Existing claim reference number
+        msg = '';
+        if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && !jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
+          if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
+            jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').text('Enter the original group claim reference number');
+            jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').show();
+          }else{
+            jQuery('<div class="invalid-feedback">Enter the original group claim reference number</div>').insertBefore(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
+          }
+          jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').addClass('invalid');
+          errors.push(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
+        }else if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
+          jQuery('#edit-part-of-an-existing-claim .form-text').val(jQuery('#edit-part-of-an-existing-claim .form-text').val().toUpperCase());
+          var bad = false;
+          var r = jQuery('#edit-part-of-an-existing-claim .form-text').val();
+          if (r.indexOf('R') !== 0) {
+            bad = true;
+            msg = 'Original claim reference number must begin with R.';
+          }else{
+            r = r.replace('R', '');
+            var a = r.split('/');
+            if (a.length !== 2) {
+               msg = 'There should be a / in the case reference number.';
+              bad = true;
+            }else{
+              if(isNaN(a[0]) || isNaN(a[1])) {
+                bad = true;
+                msg = 'Only numbers allowed before and after the /';
+              }else{
+                if (a[0].length !== 6) {
+                  bad = true;
+                  msg = 'There must be 6 digits before the /';
+                }else if (a[1].length !== 2) {
+                  msg = 'There must be 2 digits after the /';
+                  bad = true;
+                }else{
+                  if (parseInt(a[0]) > parseInt(drupalSettings.current_reference_number)) {
+                    msg = 'This claim reference number has not yet been allocated.';
+                    bad = true;
+                  }
+                }
+              }
+            }
+          }
+          if (bad) {
+            if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
+              jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').text('Invalid claim reference number: ' + msg);
+              jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').show();
+            }else{
+              jQuery('<div class="invalid-feedback">Invalid group claim reference number: ' + msg + '</div>').insertBefore(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
+            }
+            jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').addClass('invalid');
+            errors.push(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
           }
         }
         if (errors.length) {
@@ -308,8 +366,8 @@ Drupal.behaviors.notification_form = {
             html += '<li><a href="javascript:void(0)" onclick="scrollToError(\'' + jQuery(errors[i]).attr('id') + '\');">' + text + '</a></li>';
           }
           html += '</ul></div>';
-          jQuery('.webform-submission-form-notification .error-summary').remove();
-          jQuery(html).insertBefore(jQuery('.webform-submission-form-notification h1'));
+          jQuery('.webform-submission-add-form .error-summary').remove();
+          jQuery(html).insertBefore(jQuery('.webform-submission-add-form h1'));
           jQuery('.error-summary').focus();
           event.stopImmediatePropagation();
           return false;
@@ -607,3 +665,26 @@ window.onpopstate = function () {
     jQuery('.webform-button--previous').click();
   }
 };
+
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function deleteCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}

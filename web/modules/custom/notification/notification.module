@@ -173,7 +173,42 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
     }
   }
   else if ($form_id == 'webform_submission_group_notification_conciliation_add_form') {
-    $form['#attached']['drupalSettings']['current_group_number'] = notification_get_current_reference_number();
+    $form['#attached']['drupalSettings']['current_group_number'] = notification_get_current_reference_number('group');
+  }
+  else if ($form_id == 'webform_submission_notification_dispute_start_add_form') {
+    $current_page = $form_state->get('current_page');
+    if ($current_page == 'page1') {
+      if (isset($_POST['is_this_claim_part_of_an_existing_group_claim_optional_']) && $_POST['is_this_claim_part_of_an_existing_group_claim_optional_'] == 2) {
+        $pages = $form_state->get('pages');
+        $all_keys = array_keys($pages);
+        $goto_destination_page_index = array_search('webform_preview', $all_keys);
+        if($goto_destination_page_index > 0){
+          $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
+        }
+      }else {
+        $form['#attached']['drupalSettings']['current_reference_number'] = notification_get_current_reference_number('individual');
+      }
+    }
+  }
+}
+
+/**
+ * Implements notification_preprocess_input().
+ *
+ * Adds Google Analytics attributes to radios & checkboxes
+ *
+ */
+function notification_preprocess_input(&$variables) {
+  if ($variables['element']['#attributes']['type'] == 'radio') {
+    $variables['element']['#attributes']['ga-on'] = 'click';
+    $variables['element']['#attributes']['ga-event-category'] = $variables['element']['#attributes']['name'];
+    $variables['element']['#attributes']['ga-event-action'] = $variables['element']['#attributes']['value'];
+  }
+  if ($variables['element']['#attributes']['type'] == 'checkbox') {
+    $variables['element']['#attributes']['ga-on'] = 'click';
+    $a = explode('_[', $variables['element']['#attributes']['name']);
+    $variables['element']['#attributes']['ga-event-category'] = $a[0];
+    $variables['element']['#attributes']['ga-event-action'] = $variables['element']['#attributes']['value'];
   }
 }
 
@@ -1547,7 +1582,7 @@ function notification_send_dynamics($data) {
     }
   }
   if ($dates) {
-    $json['acas_incidentdate'] = date('d/m/Y', max($dates));
+    $json['acas_incidentdate'] = date('Y-m-d', max($dates));
   }
   if ($incident_type) {
     $json['acas_incidenttype'] = implode(',', $incident_type);
