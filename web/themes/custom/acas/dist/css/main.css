@@ -2455,13 +2455,20 @@ select {
   max-width: 12em;
 }
 
-/* line 71, ../../acas-frontend/scss/components/_form-control.scss */
+/* Reference numbers */
+/* line 72, ../../acas-frontend/scss/components/_form-control.scss */
+.form-item-acas-relatedcaseid input,
+.form-item-acas-originalgroupid input {
+  max-width: 12em;
+}
+
+/* line 79, ../../acas-frontend/scss/components/_form-control.scss */
 #address_results select {
   max-width: 100%;
 }
 
 /* Form control layout */
-/* line 77, ../../acas-frontend/scss/components/_form-control.scss */
+/* line 85, ../../acas-frontend/scss/components/_form-control.scss */
 .form-inline {
   display: inline-block;
 }
@@ -2475,7 +2482,7 @@ select {
   clear: both;
 }
 
-/* line 82, ../../acas-frontend/scss/components/_form-control.scss */
+/* line 90, ../../acas-frontend/scss/components/_form-control.scss */
 .form-control {
   background-color: #fff;
   background-clip: padding-box;
@@ -3943,6 +3950,25 @@ table td {
 /* line 1, ../../acas-frontend/scss/components/_noscript.scss */
 noscript {
   display: none;
+}
+
+/* line 1, ../../acas-frontend/scss/components/_ajax-progress-throbber.scss */
+.ajax-progress.ajax-progress-throbber {
+  padding: 30px 0 0;
+}
+
+/* line 4, ../../acas-frontend/scss/components/_ajax-progress-throbber.scss */
+.form-actions .ajax-progress.ajax-progress-throbber {
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  top: 14px;
+  left: 20px;
+}
+
+/* line 11, ../../acas-frontend/scss/components/_ajax-progress-throbber.scss */
+.webform-wizard-page-edit .ajax-progress.ajax-progress-throbber {
+  padding: 0;
 }
 
 @media screen and (min-width: 768px) {

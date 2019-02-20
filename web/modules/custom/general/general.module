@@ -70,6 +70,9 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['#attached']['library'][] = 'general/content_moderation';
     $form['revision_log']['#required'] = TRUE;
   }
+  if ($form_id == 'tfa_entry_form') {
+    $form['code']['#attributes']['autofocus'] = 'autofocus';
+  }
 }
 
 /**

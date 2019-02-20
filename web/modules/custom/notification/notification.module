@@ -139,18 +139,19 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       }
     }
     if ($form['elements']['form_type']['#value'] == 'GroupConciliation') {
-      $input = $form_state->getUserInput();
-      if ($input['is_this_claim_part_of_an_existing_group_claim_'] == '2') {
-        $pages = $form_state->get('pages');
-        $all_keys = array_keys($pages);
-        $goto_destination_page_index = array_search('webform_preview', $all_keys);
-        if($goto_destination_page_index > 0){
-          $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
+      if ($input = $form_state->getUserInput()) {
+        if ($input['is_this_claim_part_of_an_existing_group_claim_'] == '2') {
+          $pages = $form_state->get('pages');
+          $all_keys = array_keys($pages);
+          $goto_destination_page_index = array_search('webform_preview', $all_keys);
+          if($goto_destination_page_index > 0){
+            $form_state->set('current_page', $all_keys[$goto_destination_page_index -1]);
+          }
         }
-      }
-      elseif ($input['is_this_claim_part_of_an_existing_group_claim_'] == '1') {
-        setcookie('webform_preview', NULL, time()-3600, '/');
-        unset($_COOKIE['webform_preview']);
+        elseif ($input['is_this_claim_part_of_an_existing_group_claim_'] == '1') {
+          setcookie('webform_preview', NULL, time()-3600, '/');
+          unset($_COOKIE['webform_preview']);
+        }
       }
     }
   }
@@ -1526,26 +1527,30 @@ function notification_send_dynamics($data) {
     }
     if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $dates[] = strtotime($date);
       $info .= 'Claimants last day of work was ' . $date . "\n";
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
       unset($data[$key]);
     }
     if ($key == 'when_were_you_made_redundant_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $dates[] = strtotime($date);
       $info .= 'Claimant believes they were made redundant on ' . $date . "\n";
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
       unset($data[$key]);
     }
     if ($key == 'when_were_you_not_paid_properly_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $dates[] = strtotime($date);
       $info .= 'Claimant believes they were last paid on ' . $date . "\n";
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
       unset($data[$key]);
     }
     if ($key == 'when_were_you_discriminated_against_optional' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $dates[] = strtotime($date);
       $info .= 'Claimant believes they were last discriminated on ' . $date . "\n";
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
       unset($data[$key]);
     }
     if ($key == 'is_your_claim_against_one_person_or_a_whole_organisation_') {

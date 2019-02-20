@@ -66,6 +66,14 @@ select {
   }
 }
 
+/* Reference numbers */
+.form-item-acas-relatedcaseid,
+.form-item-acas-originalgroupid {
+  input {
+    max-width: 12em;
+  }
+}
+
 #address_results {
   @extend %margin-bottom-6x;
   select {
