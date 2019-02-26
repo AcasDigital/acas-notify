@@ -1,4 +1,4 @@
-.webform-type-checkboxes {
+.webform-type-checkboxes, .webform-checkboxes-other {
   label {
     display: inline-block;
     margin-bottom: 0;
@@ -6,7 +6,6 @@
     cursor: pointer;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
-
     line-height: 1.25;
     display: block;
     position: relative;
@@ -67,4 +66,17 @@
     opacity: 1;
   }
 
+}
+.webform-checkboxes-other-input {
+  label {
+    cursor: default;
+    span {
+      &:before {
+        border: none;
+      }
+      &:after {
+        border: none;
+      }
+    }
+  }
 }

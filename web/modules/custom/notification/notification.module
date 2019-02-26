@@ -83,6 +83,13 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
         unset($form['actions']['wizard_prev']);
       }
     }
+    if ($json = \Drupal::request()->query->get('json')) {
+      setcookie('json', '1', NULL, '/');
+    }
+    elseif (isset($_COOKIE['json'])) {
+      setcookie('json', NULL, time()-3600, '/');
+      unset($_COOKIE['json']);
+    }
     if (isset($form['actions']['preview_prev'])) {
       //unset($form['actions']['preview_prev']);
     }
@@ -761,6 +768,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     setcookie('webform_preview', NULL, time()-3600, '/');
   }
   if ($data['form_type'] == 'GroupNotification') {
+    // This is working.
     $data['acas_formtype'] = '602700000';
     $refnumber = notification_build_reference_number('group');
     $data['acas_groupid'] = $refnumber;
@@ -804,10 +812,13 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     }
   }
   elseif ($data['form_type'] == 'GroupConciliation') {
+    // This needs work
     // Get GUID.
+    // Probably needs another endpoint on the integration layer.
+    // If so, will need new fields in the Dynamics admin form /src/Form/DynamicsForm
     /*
     $config = \Drupal::config('dynamics.settings');
-    $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
+    $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
     $guid = file_get_contents($url);
     $data['guid'] = '';
     if (strpos($guid, '<error>') !== FALSE) {
@@ -848,7 +859,10 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     if ($node->hasField('field_letter')) {
       $data['acas_lettercontent'] =  str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_claimrepfirstname'] . ' ' . $form1_data['acas_claimrepsurname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_letter->getString()))));
     }
+    // Probably needs another endpoint on the integration layer.
+    // If so, will need new fields in the Dynamics admin form /src/Form/DynamicsForm
     notification_send_dynamics($data);
+    
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $view = $view_builder->view($node, 'full');
     $html = drupal_render($view);
@@ -970,7 +984,7 @@ function notification_confirmation_notification($webform, $webform_submission_id
     $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
     $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
     $html = str_replace('[NUMBER]', $number, $html);
-    $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $webform_submission_id . '/0?ecref=' . $number, $html);
+    $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $webform_submission_id . '/0?ecref=' . $data['acas_eccaserefnumber'], $html);
     if (!$result && $node->hasField('field_problem_message')) {
       if ($problem = $node->field_problem_message->getValue()) {
         $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -1022,7 +1036,7 @@ function notification_confirmation_conciliation($webform, $webform_submission_id
   }
   // Get GUID.
   $config = \Drupal::config('dynamics.settings');
-  $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
+  $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
   $guid = file_get_contents($url);
   $data['guid'] = '';
   if (strpos($guid, '<error>') !== FALSE) {
@@ -1114,7 +1128,7 @@ function notification_confirmation_conciliation($webform, $webform_submission_id
   $html = str_replace('[REFERENCE]', $data['acas_ecref'], $html);
   $html = str_replace('[DATE]', date('h:i A \o\n d F Y', $date), $html);
   $html = str_replace('[NUMBER]', $number, $html);
-  $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $form1_sid . '/' . $webform_submission_id . '?ecref=' . $number, $html);
+  $html = str_replace('[DOWNLOAD]', 'download-pdf/' . $form1_sid . '/' . $webform_submission_id . '?ecref=' . $data['acas_ecref'], $html);
   if (!$data['guid'] || !$result && $node->hasField('field_problem_message')) {
     if ($problem = $node->field_problem_message->getValue()) {
       $html = str_replace('[PROBLEM]', $problem[0]['value'], $html);
@@ -1330,6 +1344,11 @@ function notification_send_dynamics($data) {
   if (isset($data['guid'])) {
     $json['guid'] = $data['guid'];
   }
+  // This will need removing when Dynamics handles 'acas_relatedcaseid'
+  if (isset($data['acas_relatedcaseid'])) {
+    unset($data['acas_relatedcaseid']);
+  }
+  
   foreach($data as $key => $value) {
     if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
       $json[$key] = notification_encode($value);
@@ -1366,7 +1385,7 @@ function notification_send_dynamics($data) {
     }
     */
    if ($key == 'modeoffirstcontact' && $value) {
-      $info .= 'Mode of first contact: ';
+      $info .= "Claimant's preferred method of first contact: ";
       foreach($value as $key) {
         if ($key == '602700000') {
           $info .= 'Phone call ';
@@ -1382,6 +1401,7 @@ function notification_send_dynamics($data) {
     }
     if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
       $incident_type[] = '602700003';
+      $info .= "Claimant believes they have been discriminated against at work.\n";
       unset($data[$key]);
     }
     if ($key == 'do_you_think_you_are_owed_holiday_by_your_employer' && $value) {
@@ -1390,17 +1410,31 @@ function notification_send_dynamics($data) {
     }
     if ($key == 'do_you_think_you_are_owed_wages' && $value) {
       $incident_type[] = '602700000';
+      $info .= "Claimant thinks they are owed wages and/or holiday pay.\n";
       unset($data[$key]);
+    }
+    if ($key == 'acas_monetaryvalue' && $value) {
+      $info .= "Claimant says they are owed £$value in wages and/or holiday pay.\n";
     }
     if ($key == 'do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan' && $value) {
       if ($value == 2) {
         // unfairly dismissed
         $incident_type[] = '602700002';
+        $info .= "Claimant's dispute is about unfair dismissal\n";
       }
       elseif ($value == 3) {
         // made redundant
         $incident_type[] = '602700004';
+        $info .= "Claimant's dispute is about redundancy\n";
       }
+      unset($data[$key]);
+    }
+    if ($key == 'is_your_dispute_about_your_selection_for_redundancy_' && $value == 'Yes') {
+      $info .= "Claimant believes they were unfairly selected for redundancy.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'is_your_dispute_about_redundancy_pay_optional_' && $value == 2) {
+      $info .= "Claimant believes they are owed redundancy pay.\n";
       unset($data[$key]);
     }
     if ($key == 'are_you_currently_unemployed_' && $value == 'Yes') {
@@ -1408,30 +1442,31 @@ function notification_send_dynamics($data) {
       unset($data[$key]);
     }
     if ($key == 'did_you_have_a_meeting_with_your_employer_before_you_were_dismis' && $value) {
-      if ($value == 'Yes') {
-        $h = 'has';
+      if ($value == 'No') {
+        $info .= "Claimant says they did not have a meeting with their employer before they were dismissed.\n";
+      }
+      elseif ($value == 'Yes') {
+        $info .= "Claimant says they did have a meeting with their employer before they were dismissed.\n";
       }
       else {
-        $h = 'has not';
+        $info .= "Claimant says they don’t know if they had a meeting with their employer before they were dismissed.\n";
       }
-      $info .= "Claimant $h had a meeting with their employer before they were dismissed.\n";
       unset($data[$key]);
     }
     if ($key == 'did_you_meet_with_your_employer_after_you_were_dismissed_' && $value) {
-      if ($value == 'Yes') {
-        $h = 'has';
+      if ($value == 'No') {
+        $info .= "Claimant says they did not have a meeting with their employer after they were dismissed.\n";
       }
-      else {
-        $h = 'has not';
+      elseif ($value == 'Yes') {
+        $info .= "Claimant says they did have a meeting with their employer after they were dismissed.\n";
       }
-      $info .= "Claimant $h had a meeting with their employer after they were dismissed.\n";
       unset($data[$key]);
     }
     if ($key == 'please_give_us_a_brief_explanation_about_your_claim' && $value) {
       $info .= $value . "\n";
     }
     if ($key == 'did_your_employer_given_any_explanation_optional_' && $value) {
-      $info .= "Employer explanation: $value\n";
+      $info .= "Employer explanation for dismissal as described by claimant:  $value\n";
       unset($data[$key]);
     }
     if ($key == 'do_you_know_what_you_want_as_an_outcome_' && $value) {
@@ -1451,15 +1486,15 @@ function notification_send_dynamics($data) {
       unset($data[$key]);
     }
     if ($key == 'tell_us_more_about_your_case_' && $value) {
-      $info .= "Claimant believes they have been discriminated: $value\n";
+      $info .= "Claimant believes they have been discriminated against: $value\n";
       unset($data[$key]);
     }
     if ($key == 'what_did_your_employer_decide_about_your_dispute_optional_' && $value) {
-      $info .= "Employer decided: $value\n";
+      $info .= "Claimant says employer's response to grievance: $value\n";
       unset($data[$key]);
     }
     if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
-      $info .= "Anything else about this case: $value\n";
+      $info .= "Additional information form Claimant: $value\n";
       unset($data[$key]);
     }
     if ($key == 'have_you_told_your_employer_and_asked_them_to_rectify_the_proble' && $value) {
@@ -1481,10 +1516,6 @@ function notification_send_dynamics($data) {
       $info .= "Claimant is claiming $r discrimination.\n";
       unset($data[$key]);
     }
-    if ($key == 'is_this_employer_still_trading' && $value == 'No') {
-      $info .= "Claimant believes employer is insolvent.\n";
-      unset($data[$key]);
-    }
     if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value == 'No') {
       $info .= "Claimant has NOT worked for 2 years or more for this employer.\n";
       unset($data[$key]);
@@ -1497,33 +1528,49 @@ function notification_send_dynamics($data) {
         $h = 'is not';
       }
       $info .= "Claimant $h employed by this employer.\n";
+      unset($data[$key]);
     }
-    if ($key == 'problem_several_colleagues' && $value) {
-      $info .= "Are you one of several employees bringing this dispute to Acas? ";
-      if ($value == 1) {
-        $info .= "No, I don't know of anyone else who is part of the same dispute.\n";
-      }
-      else if ($value == 2) {
-        $info .= "Yes, I’m one of several employees in the same dispute.\n";
-      }
-      else {
-        $info .= "I'm not sure.";
-      }
+    if ($key == 'problem_several_colleagues' && $value == 2) {
+      $info .= "Claimant says they are one of a number of employees involved in the same dispute.\n";
+      unset($data[$key]);
     }
     if ($key == 'is_this_employer_still_trading' && $value) {
-      $info .= "Is your employer still in business? " . $value . "\n";
+      if ($value == 'No') {
+        $info .= "Claimant states that employer is no longer in business\n";
+      }
+      elseif ($value == "I'm not sure") {
+        $info .= "Claimant is unsure if the employer is still in business\n";
+      }
+      elseif ($value == "They have been taken over by another employer") {
+        $info .= "Claimant states that the employer has been taken over\n";
+      }
+      unset($data[$key]);
     }
     if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
       if ($value == 'Yes') {
-        $info .= "Claimant has a written contract with this employer.\n";
+        $info .= "Claimant says they did have a written contract with their employer.\n";
       }
-      else if ($value == 'No') {
-        $info .= "Claimant does not have a written contract with this employer.\n";
+      elseif ($value == 'No') {
+        $info .= "Claimant says they did not have a written contract with their employer.\n";
       }
       else {
-        $info .= "Claimant not sure if has a written contract with this employer.\n";
+        $info .= "Claimant does not know whether they had a written contract with their employer.\n";
       }
-      
+    }
+    if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && $value) {
+      if ($value == 1) {
+        $info .= "Claimant says they have not discussed the dispute with their employer.\n";
+      }
+      elseif ($value == 2) {
+        $info .= "Claimant says they have discussed the dispute with their employer.\n";
+      }
+      else {
+        $info .= "Claimant says their employer is looking into the dispute.\n";
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'acas_respondentcontactjobtitle' && $value) {
+      $info .= "Respondent Contact's job title: $value.\n";
     }
     if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
       $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
@@ -1570,9 +1617,9 @@ function notification_send_dynamics($data) {
           $json['acas_relationtoclaimant'] = 'Trade union official';
         }
         unset($data[$key]);
-     }
+    }
     if ($key == 'how_much_redundancy_pay_do_you_think_you_are_owed_optional_' && $value) {
-      $info .= "How much redundancy pay do you think you are owed? £$value\n";
+      $info .= "Claimant says they are owed £$value in redundancy pay\n";
       unset($data[$key]);
     }
     
@@ -1607,10 +1654,15 @@ function notification_send_dynamics($data) {
   }
   //$json['a_test_of_an_error'] = 'error';
   
+  if (isset($_COOKIE['json'])) {
+    $html = '<h2>JSON data</h2><pre>' . print_r($json, TRUE) . '</pre>';
+    die($html);
+  }
+  
   // Now send the data
   $data_string = json_encode($json);
   $config = \Drupal::config('dynamics.settings');
-  $ch = curl_init($config->get('url') . '?si_token=' . $config->get('token'));                                                                      
+  $ch = curl_init($config->get('url') . '?si_token=' . $config->get('token') . '&env=' . $config->get('environment'));                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);                                                                      
@@ -1792,7 +1844,7 @@ function notification_errors_submit($id) {
     else {
       // Conciliation
       if (!$data['guid']) {
-        $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'];
+        $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
         $guid = file_get_contents($url);
         if (strpos($guid, '<error>') !== FALSE) {
           $msg = 'Failed to get GUID';

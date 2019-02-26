@@ -2628,7 +2628,7 @@ select {
 }
 
 /* line 2, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes label {
+.webform-type-checkboxes label, .webform-checkboxes-other label {
   display: inline-block;
   margin-bottom: 0;
   padding: 8px 15px 5px;
@@ -2643,13 +2643,13 @@ select {
   padding: 0px 0 0 40px;
   clear: left;
 }
-/* line 17, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes label span {
+/* line 16, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes label span, .webform-checkboxes-other label span {
   float: left;
   margin: 2px 0;
 }
-/* line 20, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes label span:before {
+/* line 19, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes label span:before, .webform-checkboxes-other label span:before {
   content: "";
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -2662,8 +2662,8 @@ select {
   border-radius: 2px;
   background: transparent;
 }
-/* line 33, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes label span:after {
+/* line 32, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes label span:after, .webform-checkboxes-other label span:after {
   content: "";
   position: absolute;
   width: 0;
@@ -2676,8 +2676,8 @@ select {
   opacity: 0;
   background: #005EB8;
 }
-/* line 49, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes input[type="checkbox"] {
+/* line 48, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes input[type="checkbox"], .webform-checkboxes-other input[type="checkbox"] {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -2688,13 +2688,26 @@ select {
   margin: 0;
   opacity: 0;
 }
-/* line 60, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes input[type="checkbox"]:hover + span:before, .webform-type-checkboxes input[type="checkbox"]:focus + span:before {
+/* line 59, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes input[type="checkbox"]:hover + span:before, .webform-type-checkboxes input[type="checkbox"]:focus + span:before, .webform-checkboxes-other input[type="checkbox"]:hover + span:before, .webform-checkboxes-other input[type="checkbox"]:focus + span:before {
   box-shadow: 0 0 0 4px #008C95;
 }
-/* line 66, ../../acas-frontend/scss/components/_checkboxes.scss */
-.webform-type-checkboxes input:checked + span:after {
+/* line 65, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-type-checkboxes input:checked + span:after, .webform-checkboxes-other input:checked + span:after {
   opacity: 1;
+}
+
+/* line 71, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-checkboxes-other-input label {
+  cursor: default;
+}
+/* line 74, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-checkboxes-other-input label span:before {
+  border: none;
+}
+/* line 77, ../../acas-frontend/scss/components/_checkboxes.scss */
+.webform-checkboxes-other-input label span:after {
+  border: none;
 }
 
 /* line 1, ../../acas-frontend/scss/components/_form-name.scss */

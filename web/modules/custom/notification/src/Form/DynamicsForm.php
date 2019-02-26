@@ -31,6 +31,13 @@ class DynamicsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('dynamics.settings');
+    $form['environment'] = array(
+      '#type' => 'select',
+      '#default_value' => $config->get('environment') ?: '',
+      '#title' => $this->t('Environment'),
+      '#options' => ['Training' => 'Training', 'SIT' => 'SIT', 'TEST' => 'TEST', 'PreProd' => 'PreProd', 'Production' => 'Production'],
+      '#required' => TRUE,
+    );
     $form['form'] = [
       '#type' => 'fieldset',
       '#title' => t('Forms'),
@@ -39,33 +46,33 @@ class DynamicsForm extends ConfigFormBase {
     $form['form']['url'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('url') ?: '',
-      '#title' => t('URL'),
+      '#title' => $this->t('URL'),
       '#required' => TRUE,
       '#size' => 100,
     );
     $form['form']['token'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('token') ?: '',
-      '#title' => t('Token'),
+      '#title' => $this->t('Token'),
       '#required' => TRUE,
       '#size' => 100,
     );
     $form['guid'] = [
       '#type' => 'fieldset',
-      '#title' => t('GUID'),
+      '#title' => $this->t('GUID'),
       '#collapsible' => TRUE,
     ];
     $form['guid']['guid_url'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('guid_url') ?: '',
-      '#title' => t('URL'),
+      '#title' => $this->t('URL'),
       '#required' => TRUE,
       '#size' => 100,
     );
     $form['guid']['guid_token'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('guid_token') ?: '',
-      '#title' => t('Token'),
+      '#title' => $this->t('Token'),
       '#required' => TRUE,
       '#size' => 100,
     );
@@ -86,6 +93,7 @@ class DynamicsForm extends ConfigFormBase {
     \Drupal::configFactory()->getEditable('dynamics.settings')
     ->set('url', $form_state->getValue('url'))
     ->set('token', $form_state->getValue('token'))
+    ->set('environment', $form_state->getValue('environment'))
     ->set('guid_url', $form_state->getValue('guid_url'))
     ->set('guid_token', $form_state->getValue('guid_token'))
     ->save();
