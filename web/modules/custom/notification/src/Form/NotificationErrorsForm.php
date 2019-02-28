@@ -24,7 +24,7 @@ class NotificationErrorsForm extends FormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'notification.settings'
+      'notification.errors'
     ];
   }
   
@@ -32,7 +32,7 @@ class NotificationErrorsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('notification.settings');
+    $config = $this->config('notification.errors');
     $header = [
       'date' => $this->t('Date'),
       'form' => $this->t('Form'),
@@ -129,7 +129,7 @@ class NotificationErrorsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::configFactory()->getEditable('notification.settings')
+    \Drupal::configFactory()->getEditable('notification.errors')
     ->set('key', $form_state->getValue('key'))
     ->save();
     parent::submitForm($form, $form_state);

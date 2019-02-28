@@ -22,7 +22,7 @@ class AFDForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'afd.settings'
+      'notification.afd'
     ];
   }
   
@@ -30,7 +30,7 @@ class AFDForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('afd.settings');
+    $config = $this->config('notification.afd');
     $form['url'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('url') ?: '',
@@ -59,7 +59,7 @@ class AFDForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::configFactory()->getEditable('afd.settings')
+    \Drupal::configFactory()->getEditable('notification.afd')
     ->set('url', $form_state->getValue('url'))
     ->set('token', $form_state->getValue('token'))
     ->save();

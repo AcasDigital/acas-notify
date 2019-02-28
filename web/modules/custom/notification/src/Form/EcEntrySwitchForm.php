@@ -22,7 +22,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'ec_entry_switch.settings'
+      'notification.ec_entry_switch'
     ];
   }
   
@@ -30,7 +30,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('ec_entry_switch.settings');
+    $config = $this->config('notification.ec_entry_switch');
     $form['enabled'] = [
       '#type' => 'checkbox',
       '#default_value' => $config->get('enabled') ?: '',
@@ -177,7 +177,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($form_state->getTriggeringElement()['#name'] == 'reset') {
-      \Drupal::configFactory()->getEditable('ec_entry_switch.settings')
+      \Drupal::configFactory()->getEditable('notification.ec_entry_switch')
       ->set('enabled', $form_state->getValue('enabled'))
       ->set('in_count', $form_state->getValue('in_count'))
       ->set('out_count', $form_state->getValue('out_count'))
@@ -191,7 +191,7 @@ class EcEntrySwitchForm extends ConfigFormBase {
       ->set('current_out_count', 0)
       ->save();
     }else{
-      \Drupal::configFactory()->getEditable('ec_entry_switch.settings')
+      \Drupal::configFactory()->getEditable('notification.ec_entry_switch')
       ->set('enabled', $form_state->getValue('enabled'))
       ->set('in_count', $form_state->getValue('in_count'))
       ->set('out_count', $form_state->getValue('out_count'))

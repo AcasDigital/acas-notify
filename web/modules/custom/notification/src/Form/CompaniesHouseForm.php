@@ -22,7 +22,7 @@ class CompaniesHouseForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'afd.settings'
+      'notification.companies_house'
     ];
   }
   
@@ -30,7 +30,7 @@ class CompaniesHouseForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('companies_house.settings');
+    $config = $this->config('notification.companies_house');
     $form['api'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('api') ?: '',
@@ -52,7 +52,7 @@ class CompaniesHouseForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::configFactory()->getEditable('companies_house.settings')
+    \Drupal::configFactory()->getEditable('notification.companies_house')
     ->set('api', $form_state->getValue('api'))
     ->save();
     parent::submitForm($form, $form_state);

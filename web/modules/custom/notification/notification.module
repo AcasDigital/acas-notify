@@ -66,7 +66,7 @@ function notification_webform_submission_form_alter(&$form, FormStateInterface $
       $response->send();
       return;
     }
-    $config = \Drupal::config('afd.settings');
+    $config = \Drupal::config('notification.afd');
     $form['#attached']['library'][] = 'notification/notification_form';
     $form['#attached']['drupalSettings']['afd'] = [
       'url' => $config->get('url'),
@@ -642,7 +642,7 @@ function notification_ec_entry_switch() {
     return;
   }
   $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('ec_entry_switch.settings');
+  $config = $config_factory->getEditable('notification.ec_entry_switch');
   $enabled = TRUE;
   $now = time() - strtotime("today");
   $today = date('D');
@@ -697,7 +697,7 @@ function notification_cron() {
   $hour = (int)date('H');
   if ($hour >= 3 && $hour <= 7) {
     $config_factory = \Drupal::configFactory();
-    $config = $config_factory->getEditable('ec_entry_switch.settings');
+    $config = $config_factory->getEditable('notification.ec_entry_switch');
     if ($config->get('clear_cron')) {
       if ($config->get('current_in_count') || $config->get('current_out_count')) {
         $config->set('current_in_count', 0)->set('current_out_count', 0)->save();
@@ -716,7 +716,7 @@ function notification_cron() {
  *   The name of the employer
  */
 function notification_company_house($employer) {
-  $config = \Drupal::config('companies_house.settings');
+  $config = \Drupal::config('notification.companies_house');
   $api = new companiesHouseApi($config->get('api'));
   $response = $api->send('/search/companies', ['q' => $employer]);
   $return = [];
@@ -817,7 +817,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     // Probably needs another endpoint on the integration layer.
     // If so, will need new fields in the Dynamics admin form /src/Form/DynamicsForm
     /*
-    $config = \Drupal::config('dynamics.settings');
+    $config = \Drupal::config('notification.dynamics');
     $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
     $guid = file_get_contents($url);
     $data['guid'] = '';
@@ -910,7 +910,7 @@ function notification_confirmation_notification($webform, $webform_submission_id
   $data['acas_dateofreceipt'] = date('Y-m-d');
   // Update the ec entry switch out count
   $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('ec_entry_switch.settings');
+  $config = $config_factory->getEditable('notification.ec_entry_switch');
   $config->set('current_out_count', $config->get('current_out_count') + 1);
   $config->save();
   
@@ -1035,7 +1035,7 @@ function notification_confirmation_conciliation($webform, $webform_submission_id
     unset($_SESSION['acas_ecref']);
   }
   // Get GUID.
-  $config = \Drupal::config('dynamics.settings');
+  $config = \Drupal::config('notification.dynamics');
   $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
   $guid = file_get_contents($url);
   $data['guid'] = '';
@@ -1661,7 +1661,7 @@ function notification_send_dynamics($data) {
   
   // Now send the data
   $data_string = json_encode($json);
-  $config = \Drupal::config('dynamics.settings');
+  $config = \Drupal::config('notification.dynamics');
   $ch = curl_init($config->get('url') . '?si_token=' . $config->get('token') . '&env=' . $config->get('environment'));                                                                      
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -1829,7 +1829,7 @@ function notification_errors_delete($id) {
  */
 function notification_errors_submit($id) {
   $db = \Drupal::database();
-  $config = \Drupal::config('dynamics.settings');
+  $config = \Drupal::config('notification.dynamics');
   $msg = '';
   $data = \Drupal::request()->query->get('json');
   if ($data = (array) json_decode($data)) {

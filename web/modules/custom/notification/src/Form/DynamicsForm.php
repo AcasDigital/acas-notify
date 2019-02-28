@@ -22,7 +22,7 @@ class DynamicsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'dynamics.settings'
+      'notification.dynamics'
     ];
   }
   
@@ -30,7 +30,7 @@ class DynamicsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('dynamics.settings');
+    $config = $this->config('notification.dynamics');
     $form['environment'] = array(
       '#type' => 'select',
       '#default_value' => $config->get('environment') ?: '',
@@ -90,7 +90,7 @@ class DynamicsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    \Drupal::configFactory()->getEditable('dynamics.settings')
+    \Drupal::configFactory()->getEditable('notification.dynamics')
     ->set('url', $form_state->getValue('url'))
     ->set('token', $form_state->getValue('token'))
     ->set('environment', $form_state->getValue('environment'))
