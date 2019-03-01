@@ -787,7 +787,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
       // Does not want conciliation
       
       // Delete the webform data. GDPR cop-out.
-      notification_delete_webform_submission($webform_submission_id);
+      //notification_delete_webform_submission($webform_submission_id);
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
       $view = $view_builder->view($node, 'full');
       $html = drupal_render($view);
@@ -812,11 +812,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     }
   }
   elseif ($data['form_type'] == 'GroupConciliation') {
-    // This needs work
     // Get GUID.
-    // Probably needs another endpoint on the integration layer.
-    // If so, will need new fields in the Dynamics admin form /src/Form/DynamicsForm
-    /*
     $config = \Drupal::config('notification.dynamics');
     $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
     $guid = file_get_contents($url);
@@ -830,7 +826,6 @@ function notification_confirmation_group($webform, $webform_submission_id) {
         $data['guid'] = $j->value[0]->incidentid;
       }
     }
-    */
     $number = '';
     $data['acas_formtype'] = '602700001';
     $db = \Drupal::database();

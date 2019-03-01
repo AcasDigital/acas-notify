@@ -14,13 +14,14 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function exitpopup_preprocess_page(array &$page) {
   // Only process if desktop
+  $current_path = \Drupal::service('path.current')->getPath();
   if (\Drupal::hasService('mobile_detect')) {
     $mobileDetector = \Drupal::service('mobile_detect');
     if ($mobileDetector->isMobile()) {
       return;
     }
   }
-  if (!exitpopup_valid_page()) {
+  if (!exitpopup_valid_page() && $current_path != '/webform/notification_form') {
     return;
   }
   $config = \Drupal::config('exitpopup.settings');
@@ -28,11 +29,18 @@ function exitpopup_preprocess_page(array &$page) {
   $checkRole = !empty(array_intersect(array_filter($config->get('roles')), $current_user->getRoles()));
   if ($checkRole) {
     // Get the webform
-    if ($form = \Drupal\webform\Entity\Webform::load($config->get('epu_webform') ?: 'exit_popup')) {
+    $webform = 'exit_popup';
+    if ($current_path == '/webform/notification_form') {
+      $webform = 'exit_notification_popup';
+    }
+    else{
+      $webform = $config->get('epu_webform') ?: 'exit_popup';
+    }
+    if ($form = \Drupal\webform\Entity\Webform::load($webform)) {
       $epu_html = \Drupal::entityManager()
         ->getViewBuilder('webform')
         ->view($form);
-      $epu_html['#action'] = '/exit-popup';
+      $epu_html['#action'] = '/exit-popup?webform=' . $webform;
       $epu_html = drupal_render($epu_html);
     }
     else {
@@ -97,6 +105,7 @@ function exitpopup_valid_page() {
 }
 
 function exitpopup_exit_popup() {
+  $webform = \Drupal::request()->query->get('webform');
   $entity_id = '';
   $entity_type = NULL;
   $uri = \Drupal::request()->getRequestUri();
@@ -112,7 +121,7 @@ function exitpopup_exit_popup() {
   $uuid = \Drupal::service('uuid');
   $fields = [
     'sid' => $sid,
-    'webform_id' => 'exit_popup',
+    'webform_id' => $webform,
     'uuid' => $uuid->generate(),
     'langcode' => 'en',
     'serial' => $serial,
@@ -130,7 +139,7 @@ function exitpopup_exit_popup() {
   ];
   \Drupal::database()->insert('webform_submission')->fields($fields)->execute();
   $fields = [
-    'webform_id' => 'exit_popup',
+    'webform_id' => $webform,
     'sid' => $sid,
     'name' => 'other',
     'value' => $_POST['other'],
@@ -138,7 +147,7 @@ function exitpopup_exit_popup() {
   ];
   \Drupal::database()->insert('webform_submission_data')->fields($fields)->execute();
   $fields = [
-    'webform_id' => 'exit_popup',
+    'webform_id' => $webform,
     'sid' => $sid,
     'name' => 'reason',
     'value' => $_POST['reason'],
@@ -147,9 +156,9 @@ function exitpopup_exit_popup() {
   \Drupal::database()->insert('webform_submission_data')->fields($fields)->execute();
   $config = \Drupal::config('exitpopup.settings');
   $mailManager = \Drupal::service('plugin.manager.mail');
-  $params['subject'] = 'Exit survey';
+  $params['subject'] = 'Exit survey for ' . $webform;
   $body = 'Reason: <b>' . $_POST['reason'] . '</b><br />Other: <b>' . $_POST['other'] . '</b>';
   $params['body'] = $body;
   $mailManager->mail('exitpopup', 'html', $config->get('epu_email'), \Drupal::currentUser()->getPreferredLangcode(), $params, NULL, TRUE);
-  return 'Thank you for your feedback.';
+  return '<br /><h1>Thank you</h1><p>Thank you for your feedback.</p>';
 }
