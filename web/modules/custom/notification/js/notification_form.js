@@ -12,6 +12,7 @@ Drupal.behaviors.notification_form = {
       }
       jQuery('.webform-submission-form-notification').addClass('notification_form_processed');
       history.pushState(null, null, location.href); // For the browser back button
+      setTimeout(exitPopup, 500);
       if (jQuery('.webform-submission-form-notification .webform-wizard-pages-link').length) {
         jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html(jQuery('.webform-submission-form-notification .webform-wizard-pages-link').html().replace('Edit', 'Change'));
       }
@@ -651,6 +652,27 @@ function getCookie(cname) {
 
 function ajaxLoader() {
   return '<div class="ajax-progress ajax-progress-throbber"><div class="ajax-loader"><div class="ajax-throbber sk-circle"><div class="sk-circle1 sk-child"></div><div class="sk-circle2 sk-child"></div><div class="sk-circle3 sk-child"></div><div class="sk-circle4 sk-child"></div><div class="sk-circle5 sk-child"></div><div class="sk-circle6 sk-child"></div><div class="sk-circle7 sk-child"></div><div class="sk-circle8 sk-child"></div><div class="sk-circle9 sk-child"></div><div class="sk-circle10 sk-child"></div><div class="sk-circle11 sk-child"></div><div class="sk-circle12 sk-child"></div></div></div></div>';
+}
+
+function exitPopup() {
+  // Exit popup. JS not working due to 2 webforms on the page
+  // Need to do here
+  var page = jQuery('section[data-drupal-selector="edit-page1"]').attr('data-webform-key');
+  if (page != 'page1') {
+    // Only show popup on page1
+    window.bioEp = function() {
+      return false;
+    };
+    return;
+  }
+  jQuery('#webform-submission-exit-notification-popup-add-form .form-radio').click(function() {
+    if (jQuery(this).val() == 'I am confused by what you have told me' || jQuery(this).val() == 'Other') {
+      jQuery('#webform-submission-exit-notification-popup-add-form .form-type-textarea').slideDown();
+      jQuery('#webform-submission-exit-notification-popup-add-form .form-type-textarea #edit-other').focus();
+    }else {
+      jQuery('#webform-submission-exit-notification-popup-add-form .form-type-textarea').slideUp();
+    }
+  });
 }
 
 function scrollToError(id) {

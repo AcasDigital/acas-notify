@@ -1653,6 +1653,10 @@ function notification_send_dynamics($data) {
     $html = '<h2>JSON data</h2><pre>' . print_r($json, TRUE) . '</pre>';
     die($html);
   }
+  if ($data['form_type'] == 'GroupConciliation') {
+    // Dynamics requires this not to be in the JSON
+    unset($json['acas_ecref']);
+  }
   
   // Now send the data
   $data_string = json_encode($json);
