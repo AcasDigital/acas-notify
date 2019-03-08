@@ -4,6 +4,7 @@
       if ($('.webform-submission-no-feedback-add-form').length || $('.webform-submission-yes-feedback-add-form').length) {
         $('#feedback-form').append($('.webform-submission-no-feedback-add-form'));
         $('#feedback-form').append($('.webform-submission-yes-feedback-add-form'));
+        $('#feedback-form .webform-submission-form .form-type-email').addClass('visually-hidden');
         $("#feedback-form #no").click(function() {
           $("#feedback-form .feedback-close-wrapper").show();
           $("#feedback-form .feedback-question-wrapper a").hide();
@@ -45,7 +46,7 @@
           $("#feedback-form .feedback-question-wrapper a").show();
         });
         $("#feedback-form .webform-button--submit").click(function() {
-          //$("#feedback-form .webform-submission-no-feedback-add-form").submit();
+          $("#feedback-form .webform-submission-no-feedback-add-form").submit();
         });
         $("#feedback-form .webform-submission-no-feedback-form input[type='radio']").on('ifChanged', function (e) {
           setTimeout(function(){ $("#feedback-form .webform-submission-no-feedback-form textarea").focus(); }, 500);

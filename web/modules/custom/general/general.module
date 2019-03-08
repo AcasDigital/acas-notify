@@ -73,6 +73,37 @@ function general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'tfa_entry_form') {
     $form['code']['#attributes']['autofocus'] = 'autofocus';
   }
+  if (strpos($form_id, '_feedback') !== FALSE) {
+    $form['#validate'][] = 'general_feedback_form_validate';
+  }
+}
+
+/**
+ * Implements general_feedback_form_validate()
+ * Validates the feedback forms
+ * There is a hidden, required email field that a bot would
+ * complete. If this field has a value then likely submitted by a bot.
+ */
+function general_feedback_form_validate(&$form, &$form_state) {
+  if ($email = $form_state->getValue('email')) {
+    $form_state->setErrorByName('email', 'Possible submission by a Bot detected. Do not enter anything in the Email field!');
+  }
+  else {
+    // Check for multiple submissions from same IP address
+    $db = \Drupal::database();
+    $result = $db->select('webform_submission', 'w')
+      ->fields('w', ['remote_addr'])
+      ->condition('w.remote_addr', $_SERVER['REMOTE_ADDR'], '=')
+      ->condition('w.created', time() - 60, '>=')
+      ->execute()
+      ->fetchAll();
+    if (count($result)) {
+      $form_state->setErrorByName('email', 'Possible submission by a Bot detected. Multiple submissions');
+    }
+    else {
+      $form_state->clearErrors();
+    }
+  }
 }
 
 /**

@@ -35,7 +35,7 @@ class DynamicsForm extends ConfigFormBase {
       '#type' => 'select',
       '#default_value' => $config->get('environment') ?: '',
       '#title' => $this->t('Environment'),
-      '#options' => ['Training' => 'Training', 'UAT' => 'UAT', 'TEST' => 'TEST', 'PreProd' => 'PreProd', 'Production' => 'Production'],
+      '#options' => ['Training' => 'Training', 'UAT' => 'UAT', 'TEST' => 'TEST', 'dev' => 'DEV', 'PreProd' => 'PreProd', 'Production' => 'Production'],
       '#required' => TRUE,
     );
     $form['form'] = [

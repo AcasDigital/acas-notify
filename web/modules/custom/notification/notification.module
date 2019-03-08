@@ -604,35 +604,6 @@ function notification_group_claimants_upload_validate(&$form, FormStateInterface
  * Implements the EC Entry Switch
  */
 function notification_ec_entry_switch() {
-  if (isset($_COOKIE['ec_entry'])) {
-    // Handle the old way of using a ec_entry node
-    $query = \Drupal::database()->select('node_field_data', 'nfd');
-    $query->join('node__field_destination', 'dest', 'dest.entity_id = nfd.nid');
-    $query->fields('dest', ['field_destination_uri']);
-    $query->fields('nfd', ['created']);
-    $query->condition('nfd.title', $_COOKIE['ec_entry'], '=');
-    try {
-      $result = $query->execute();
-      if ($dest = $result->fetchObject()) {
-        if (isset($_SERVER['HTTP_REFERER'])) {
-          $referrer = $_SERVER['HTTP_REFERER'];
-        }
-        else {
-          $referrer = 'https://' . $_SERVER['HTTP_HOST'];
-        }
-        $cookie = ['referrer' => $referrer, 'destination' => $dest->field_destination_uri, 'entry' => $dest->created];
-        setcookie('ec_entry_details', json_encode($cookie), time() + (86400 * 30), '/', '', TRUE);
-        unset($_COOKIE['ec_entry']);
-        setcookie('ec_entry', null, -1, '/');
-        $response = new RedirectResponse($dest->field_destination_uri);
-        $response->send();
-        return;
-      }
-    } catch (Exception $e) {
-      unset($_COOKIE['ec_entry']);
-      setcookie('ec_entry', null, -1, '/');
-    }
-  }
   // See if a returning user (ec_entry_details cookie is set)
   // For testing, can bypass this test by adding ?nc=1 to URL
   if (isset($_COOKIE['ec_entry_details']) && !\Drupal::request()->query->get('nc')) {
@@ -1626,6 +1597,9 @@ function notification_send_dynamics($data) {
     if ($key == 'please_tell_us_why_optional_' && $value) {
       $info .= 'Claimant rep does not want to conciliate because: ' . $value . "\n";
       unset($data[$key]);
+    }
+    if ($key == 'acas_relatedcaseid' && $value) {
+      $info .= 'This case is related to an existing case: ' . $value . "\n";
     }
   }
   if ($dates) {
