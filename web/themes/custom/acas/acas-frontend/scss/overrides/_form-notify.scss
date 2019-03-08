@@ -17,11 +17,6 @@
   @extend .col-md-8;
   @extend .col-lg-7;
   @extend .col-centered;
-  fieldset {
-    legend {
-      @include legend;
-    }
-  }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
