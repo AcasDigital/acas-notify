@@ -169,7 +169,6 @@
         "drupal/console": "^1.0.2",
         "drupal/content_export_yaml": "^1.8",
         "drupal/content_moderation_notifications": "^3.0",
-        "drupal/content_sync": "2.x-dev",
         "drupal/core": "~8.4",
         "drupal/datalayer": "^1.0",
         "drupal/date_popup": "^1.0",

@@ -784,8 +784,9 @@ function notification_confirmation_group($webform, $webform_submission_id) {
   }
   elseif ($data['form_type'] == 'GroupConciliation') {
     // Get GUID.
+    $data['acas_formtype'] = '602700001';
     $config = \Drupal::config('notification.dynamics');
-    $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_ecref=' . $data['acas_ecref'] . '&env=' . $config->get('environment');
+    $url = $config->get('guid_url') . '?si_token=' . $config->get('guid_token') . '&acas_groupid=' . $data['acas_ecref'] . '&acas_caselevel=' . $data['acas_formtype'] . '&env=' . $config->get('environment');
     $guid = file_get_contents($url);
     $data['guid'] = '';
     if (strpos($guid, '<error>') !== FALSE) {
@@ -798,7 +799,6 @@ function notification_confirmation_group($webform, $webform_submission_id) {
       }
     }
     $number = '';
-    $data['acas_formtype'] = '602700001';
     $db = \Drupal::database();
     // Get Notification form data for names in the email & form1 timestamp;
     $result = $db->select('acas_ecrefno', 'a')

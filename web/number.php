@@ -11,13 +11,9 @@ if ($_SERVER['HTTP_HOST'] != 'tell.acas.org.uk') {
 }
 
 // Connect to the DB.
-// The DB connection is via this file located in a secure location
-// so no connection user/password in this file (in a public git repository)
-if (!file_exists('/home/ubuntu/database.inc')) {
-  die('<h1>Acas Notification Reference Number Service</h1><h2>Database include file <i>/home/ubuntu/database.inc</i> not found!</h2>');
-}
 try {
-  require('/home/ubuntu/database.inc');
+  require('sites/default/settings.php');
+  $dbh = new PDO('mysql:host=' . $databases['default']['default']['host'] . ';dbname=numbers', $databases['default']['default']['username'], $databases['default']['default']['password']);
 } catch (PDOException $e) {
   print "Error!: " . $e->getMessage() . "<br/>";
   die();
