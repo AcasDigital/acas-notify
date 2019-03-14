@@ -1601,6 +1601,53 @@ function notification_send_dynamics($data) {
     if ($key == 'acas_relatedcaseid' && $value) {
       $info .= 'This case is related to an existing case: ' . $value . "\n";
     }
+    if ($key == 'how_many_claimants_are_you_expecting_to_join_' && $value) {
+      $info .= "There are $value claimants expected to join this claim.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'do_we_have_your_permission_to_speak_to_the_employer_before_we_sp' && $value == 'Yes') {
+      $info .= "The rep has given permission to speak to the employer first.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'please_tell_us_what_this_dispute_is_about_' && $value) {
+      $info .= "This dispute is about: " . implode(', ', $value) . ".\n";
+      unset($data[$key]);
+    }
+    if ($key == 'what_is_the_redundancy_element_of_this_dispute_about_optional_' && $value) {
+      $info .= "This redundancy case is about: " . implode(', ', $value) . ".\n";
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
+      $info .= "Do these claimants have - or did they have - a written contract of employment with this employer: $value.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'have_your_claimants_gone_through_the_employer_s_internal_grievan' && $value) {
+      $info .= "Have your claimants followed the employer's grievance procedures: $value.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
+      $info .= "Is there anything else you want to tell us about this dispute: $value.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'is_this_claim_to_do_with_a_single_location_or_multiple_sites_' && $value) {
+      if ($value == 1) {
+         $info .= "This is a single site claim.\n";
+      }
+      if ($value == 2) {
+         $info .= "This is a multiple site claim.\n";
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'please_tell_us_about_your_case' && $value) {
+      $info .= "Please tell us about your case: $value.\n";
+      unset($data[$key]);
+    }
+    if ($key == 'acas_originalgroupid') {
+      if ($value) {
+        $info .= "This is related to an existing case: $value.\n";
+      }
+      unset($json['acas_originalgroupid']); // Not yet handled in Dynamics
+    }
   }
   if ($dates) {
     $json['acas_incidentdate'] = date('Y-m-d', max($dates));

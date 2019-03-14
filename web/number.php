@@ -27,17 +27,17 @@ if (@$_GET['data']) {
 if (@$_GET['save']) {
   // Update the DB with new numbers
   $save = unserialize($_GET['save']);
-  $sql = "UPDATE numbers SET individual_no = ?, group_no = ? WHERE service = ?";
+  $sql = "UPDATE numbers SET individual_no = ?, group_no = ?, ecx_no = ? WHERE service = ?";
   $stmt = $dbh->prepare($sql);
   foreach($save as $key => $value) {
-    $stmt->execute([$value['individual'], $value['group'], $key]);
+    $stmt->execute([$value['individual'], $value['group'], $value['ecx'], $key]);
   }
   die('ok');
 }
 
 // Handle getting a number.
 $service = @$_GET['s'];
-$type = @$_GET['t']; // individual or group
+$type = @$_GET['t']; // individual, ecx or group
 
 if (!$type || !$service) {
   die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual or group)</p><p>Example: https://tell.acas.org.uk/number.php?s=dev-tell.acas.org.uk&t=individual</p>');
@@ -64,8 +64,11 @@ $dbh->exec('UNLOCK TABLES');
 if ($type == 'individual') {
   $return = 'R' . $number . '/' . date('y');
 }
-else {
+elseif ($type == 'group') {
   $return = 'MU' . $number . '/' . date('y');
+}
+else {
+  $return = 'NE' . $number . '/' . date('y');
 }
 die($return);
 ?>
