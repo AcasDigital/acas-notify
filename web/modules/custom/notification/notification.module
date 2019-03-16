@@ -1286,6 +1286,9 @@ function notification_flags($data) {
       // Group
       $flags['acas_flagnoncontactable'] = TRUE;
     }
+    if ($key == 'acas_relatedcaseid' && $value) {
+      $flags['acas_requireslinking'] = TRUE;
+    }
   }
   return $flags;
 }
@@ -1309,12 +1312,7 @@ function notification_send_dynamics($data) {
   $dates = [];
   if (isset($data['guid'])) {
     $json['guid'] = $data['guid'];
-  }
-  // This will need removing when Dynamics handles 'acas_relatedcaseid'
-  if (isset($data['acas_relatedcaseid'])) {
-    unset($data['acas_relatedcaseid']);
-  }
-  
+  }  
   foreach($data as $key => $value) {
     if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
       $json[$key] = notification_encode($value);

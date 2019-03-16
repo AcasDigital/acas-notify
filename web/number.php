@@ -40,7 +40,7 @@ $service = @$_GET['s'];
 $type = @$_GET['t']; // individual, ecx or group
 
 if (!$type || !$service) {
-  die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual or group)</p><p>Example: https://tell.acas.org.uk/number.php?s=dev-tell.acas.org.uk&t=individual</p>');
+  die('<h1>Acas Notification Reference Number Service</h1><h2>Missing parameters! Usage:</h2><p>s = service</p><p>t = type (individual, ecx or group)</p><p>Example: https://tell.acas.org.uk/number.php?s=dev-tell.acas.org.uk&t=individual</p>');
 }
 if (strpos($service, '.acas.org.uk') === FALSE) {
   // A developers environment

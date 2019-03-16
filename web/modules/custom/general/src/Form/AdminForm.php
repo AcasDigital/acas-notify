@@ -34,21 +34,21 @@ class AdminForm extends ConfigFormBase {
     $form['g10_fasttrack_phone'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('g10_fasttrack_phone') ?: '',
-      '#title' => t('G10 fast track phone number'),
+      '#title' => $this->t('G10 fast track phone number'),
       '#size' => 20,
       '#required' => TRUE,
     );
     $form['g10_flagged_phone'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('g10_flagged_phone') ?: '',
-      '#title' => t('G10 flagged phone number'),
+      '#title' => $this->t('G10 flagged phone number'),
       '#size' => 20,
       '#required' => TRUE,
     );
     $form['error_email'] = array(
       '#type' => 'textfield',
       '#default_value' => $config->get('error_email') ?: '',
-      '#title' => t('Send errors email address'),
+      '#title' => $this->t('Send errors email address'),
       '#required' => TRUE,
     );
     return parent::buildForm($form, $form_state);

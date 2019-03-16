@@ -27,7 +27,13 @@
 <div class="col-xs-8 col-sm-6">
   <section {{ attributes.addClass(classes) }}>
   {% if site_logo %}
-    <a class="logo navbar-btn pull-left" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+    <a class="logo navbar-btn pull-left" href="
+      {% if home_link %}
+        {{home_link }}
+      {% else %}
+        {{ path('<front>') }}
+      {% endif %}
+      " title="{{ 'Home'|t }}" rel="home">
       <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
     </a>
   {% endif %}

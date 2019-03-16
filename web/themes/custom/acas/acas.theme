@@ -101,6 +101,11 @@ function acas_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'system_branding_block') {
     // No mobile hamburger menu
     $variables['no_hamburger'] = TRUE;
+    $current_uri = \Drupal::request()->getRequestUri();
+    if (strpos($current_uri, '/new-early-conciliation-service') !== FALSE) {
+      // Logo link to original Acas site
+      $variables['home_link'] = 'http://acas.org.uk';
+    }
   }
 
   if ($variables['plugin_id'] == 'system_breadcrumb_block' && count($variables['content']['#links']) == 1) {
@@ -199,7 +204,7 @@ function acas_theme_suggestions_fieldset_alter(array &$suggestions, array $varia
 
 function acas_preprocess_page_title(&$variables) {
   $uri = \Drupal::request()->getRequestUri();
-  if ((strpos($uri, 'notification') !== FALSE || strpos($uri, 'conciliation') !== FALSE) && strpos($uri, 'check-notification-timing') === FALSE  && strpos($uri, 'our-new-early-conciliation-notification-service') === FALSE) {
+  if ((strpos($uri, 'notification') !== FALSE || strpos($uri, 'conciliation') !== FALSE) && strpos($uri, 'check-notification-timing') === FALSE  && strpos($uri, 'our-new-early-conciliation-notification-service') === FALSE && strpos($uri, 'new-early-conciliation-service') === FALSE) {
     $variables['title'] = FALSE;
   }
 }
