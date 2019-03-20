@@ -333,7 +333,6 @@ Drupal.behaviors.notification_form = {
               }
             }
           }
-          */
           if (bad) {
             if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
               jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').text('Invalid claim reference number: ' + msg);
@@ -345,6 +344,7 @@ Drupal.behaviors.notification_form = {
             errors.push(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
           }
         }
+        */
         if (errors.length) {
           var html = '<div class="error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary"><h2 class="error-summary__title" id="error-summary-title">There is a problem</h2><ul class="error-summary__list">';
           for ( var i = 0, l = errors.length; i < l; i++ ) {
