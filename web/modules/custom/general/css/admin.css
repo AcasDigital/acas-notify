@@ -38,3 +38,6 @@
 #edit-services, caption {
   font-weight: bold;
 }
+.paragraph-type--case-info-item .field--widget-string-textfield {
+  display: inline-block;
+}

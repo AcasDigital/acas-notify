@@ -35,19 +35,7 @@ Drupal.behaviors.notification_form = {
         dismissedDate();
         jQuery('.when-was-you-last-day-of-work.govuk-webform-elements--wrapper').find('.govuk-webform-elements-day, .govuk-webform-elements-month, .govuk-webform-elements-year').on('input', dismissedDate);
       }
-      //validateDates();
-      // Hide buttons if one of several colleagues
-      /*
-      if (jQuery('.form-item-problem-several-colleagues').length) {
-        jQuery('.form-item-problem-several-colleagues input').change(function() {
-            if (this.value == 2) {
-              jQuery('.form-actions').hide();
-            }else{
-              jQuery('.form-actions').show();
-            }
-        });
-      }
-      */
+
       // Only show block if preview page
       try {
         // id$ causes an error in Safari
@@ -300,6 +288,8 @@ Drupal.behaviors.notification_form = {
         }
         
         // Existing claim reference number
+        // Removed validation. Might come back
+        /*
         msg = '';
         if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && !jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
           if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
@@ -311,9 +301,9 @@ Drupal.behaviors.notification_form = {
           jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').addClass('invalid');
           errors.push(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
         }else if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
-          jQuery('#edit-part-of-an-existing-claim .form-text').val(jQuery('#edit-part-of-an-existing-claim .form-text').val().toUpperCase());
+          jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val().toUpperCase());
           var bad = false;
-          var r = jQuery('#edit-part-of-an-existing-claim .form-text').val();
+          var r = jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val();
           if (r.indexOf('R') !== 0) {
             bad = true;
             msg = 'Original claim reference number must begin with R.';
@@ -343,6 +333,7 @@ Drupal.behaviors.notification_form = {
               }
             }
           }
+          */
           if (bad) {
             if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
               jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').text('Invalid claim reference number: ' + msg);

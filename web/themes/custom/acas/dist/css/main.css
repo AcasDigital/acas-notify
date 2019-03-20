@@ -3115,6 +3115,14 @@ article.teaser .article__content p {
     min-height: 11em;
   }
 }
+/* Acas notification site. All pages  & forms centered*/
+/* line 3, ../../acas-frontend/scss/components/_notification-page.scss */
+.page-node-type-page .notify-main .block,
+.page-node-type-page .notify-main .page.full {
+  margin: 0 auto !important;
+  float: none !important;
+}
+
 /* line 2, ../../acas-frontend/scss/components/_navigation.scss */
 #header-main #block-acas-main-menu {
   background-color: #F7F7F7;

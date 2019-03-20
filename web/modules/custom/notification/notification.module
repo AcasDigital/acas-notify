@@ -762,7 +762,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
       $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
       $view = $view_builder->view($node, 'full');
       $html = drupal_render($view);
-      $html = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $html);
+      $html = str_replace('[REFERENCE]', $refnumber, $html);
       $html = str_replace('[DATE]', date('h:i A \o\n d F Y'), $html);
       $html = str_replace('[NUMBER]', $number, $html);
       if (!$result && $node->hasField('field_problem_message')) {
@@ -1210,13 +1210,14 @@ function notification_group_claiments_generate($data, $webform_submission_id) {
           ];
           // Insert into acas_ecrefno
           $fields = [
-            'entry' => date('Y-m-d H:i:s', $cookie['entry']),
+            'entry' => date('Y-m-d H:i:s', (isset($cookie['entry']) ? $cookie['entry'] : time())),
             'sid1' => $webform_submission_id,
             'reference_no' => $data['acas_eccaserefnumber'],
             'group_no' => $data['acas_groupid'],
             'form1' => date('Y-m-d H:i:s'),
             'mobile' => (int) $mobileDetector->isMobile(),
-            'referrer' => $_COOKIE['referrer'],
+            'referrer' => (isset($cookie['referrer']) ? $cookie['referrer'] : $_SERVER['HTTP_HOST']),
+            
           ];
           $db->insert('acas_ecrefno')
             ->fields($fields)
@@ -1308,354 +1309,11 @@ function notification_send_dynamics($data) {
     $json = array_merge($json, $flags);
   }
   $incident_type = [];
-  $info = '';
   $dates = [];
   if (isset($data['guid'])) {
     $json['guid'] = $data['guid'];
-  }  
-  foreach($data as $key => $value) {
-    if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
-      $json[$key] = notification_encode($value);
-    }
-    elseif (is_array($value) && strpos($key, '_address') !== FALSE) {
-      if ($key == 'claimant_address') {
-        $json['acas_addressline1'] = notification_encode($value['address']);
-        $json['acas_addressline2'] = notification_encode($value['address_2']);
-        $json['acas_citytown'] = notification_encode($value['city']);
-        $json['acas_postcode'] = notification_encode($value['postal_code']);
-      }
-      elseif ($key == 'representative_address') {
-        $json['acas_claimrepaddressline1'] = notification_encode($value['address']);
-        $json['acas_claimrepaddressline2'] = notification_encode($value['address_2']);
-        $json['acas_claimrepcitytown'] = notification_encode($value['city']);
-        $json['acas_claimreppostcode'] = notification_encode($value['postal_code']);
-      }
-      elseif ($key == 'respondant_address') {
-        $json['acas_respaddressline1'] = notification_encode($value['address']);
-        $json['acas_respaddressline2'] = notification_encode($value['address_2']);
-        $json['acas_respcitytown'] = notification_encode($value['city']);
-        $json['acas_resppostcode'] = notification_encode($value['postal_code']);
-      }
-    }
-    elseif (is_array($value) && isset($value['phone']) && $value['phone']) {
-      $json[$key] = notification_encode($value['phone']);
-      if ($value['ext']) {
-        $json[$key] .= 'x' . notification_encode($value['ext']);
-      }
-    }
-    /*
-    elseif (is_array($value) && $key == 'acas_modeoffirstcontact') {
-      $json['acas_modeoffirstcontact'] = implode(',', $value);
-    }
-    */
-   if ($key == 'modeoffirstcontact' && $value) {
-      $info .= "Claimant's preferred method of first contact: ";
-      foreach($value as $key) {
-        if ($key == '602700000') {
-          $info .= 'Phone call ';
-        }
-        else if ($key == '602700001') {
-          $info .= 'Email ';
-        }
-        else if ($key == '602700002') {
-          $info .= 'Text messages ';
-        }
-        $info .= "\n";
-      }
-    }
-    if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
-      $incident_type[] = '602700003';
-      $info .= "Claimant believes they have been discriminated against at work.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_think_you_are_owed_holiday_by_your_employer' && $value) {
-      $incident_type[] = '602700001';
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_think_you_are_owed_wages' && $value) {
-      $incident_type[] = '602700000';
-      $info .= "Claimant thinks they are owed wages and/or holiday pay.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'acas_monetaryvalue' && $value) {
-      $info .= "Claimant says they are owed £$value in wages and/or holiday pay.\n";
-    }
-    if ($key == 'do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan' && $value) {
-      if ($value == 2) {
-        // unfairly dismissed
-        $incident_type[] = '602700002';
-        $info .= "Claimant's dispute is about unfair dismissal\n";
-      }
-      elseif ($value == 3) {
-        // made redundant
-        $incident_type[] = '602700004';
-        $info .= "Claimant's dispute is about redundancy\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'is_your_dispute_about_your_selection_for_redundancy_' && $value == 'Yes') {
-      $info .= "Claimant believes they were unfairly selected for redundancy.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'is_your_dispute_about_redundancy_pay_optional_' && $value == 2) {
-      $info .= "Claimant believes they are owed redundancy pay.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'are_you_currently_unemployed_' && $value == 'Yes') {
-      $info .= "Claimant is currently unemployed.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'did_you_have_a_meeting_with_your_employer_before_you_were_dismis' && $value) {
-      if ($value == 'No') {
-        $info .= "Claimant says they did not have a meeting with their employer before they were dismissed.\n";
-      }
-      elseif ($value == 'Yes') {
-        $info .= "Claimant says they did have a meeting with their employer before they were dismissed.\n";
-      }
-      else {
-        $info .= "Claimant says they don’t know if they had a meeting with their employer before they were dismissed.\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'did_you_meet_with_your_employer_after_you_were_dismissed_' && $value) {
-      if ($value == 'No') {
-        $info .= "Claimant says they did not have a meeting with their employer after they were dismissed.\n";
-      }
-      elseif ($value == 'Yes') {
-        $info .= "Claimant says they did have a meeting with their employer after they were dismissed.\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'please_give_us_a_brief_explanation_about_your_claim' && $value) {
-      $info .= $value . "\n";
-    }
-    if ($key == 'did_your_employer_given_any_explanation_optional_' && $value) {
-      $info .= "Employer explanation for dismissal as described by claimant:  $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_know_what_you_want_as_an_outcome_' && $value) {
-      $info .= "Claimant wants: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_know_what_you_want_as_an_outcome_2' && $value) {
-      $info .= "Claimant wants: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_know_what_you_want_as_an_outcome_3' && $value) {
-      $info .= "Claimant wants: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'explain_why_you_think_you_are_owed_wages_optional_' && $value) {
-      $info .= "Claimant believes they are owed money: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'tell_us_more_about_your_case_' && $value) {
-      $info .= "Claimant believes they have been discriminated against: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'what_did_your_employer_decide_about_your_dispute_optional_' && $value) {
-      $info .= "Claimant says employer's response to grievance: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
-      $info .= "Additional information form Claimant: $value\n";
-      unset($data[$key]);
-    }
-    if ($key == 'have_you_told_your_employer_and_asked_them_to_rectify_the_proble' && $value) {
-      if ($value == 'Yes') {
-        $h = 'has';
-      }
-      else {
-        $h = 'has not';
-      }
-      $info .= "Claimant $h asked the employer for this money.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'how_much_holiday_do_you_think_you_are_owed' && $value) {
-      $info .= "$value holiday days are in dispute.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'i_believe_that_my_employer_has_discriminated_against_me_because_' && $value) {
-      $r = implode(', ', $value);
-      $info .= "Claimant is claiming $r discrimination.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value == 'No') {
-      $info .= "Claimant has NOT worked for 2 years or more for this employer.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'are_you_currently_employed_by_the_employer_' && $value) {
-      if ($value == 'Yes') {
-        $h = 'is';
-      }
-      else {
-        $h = 'is not';
-      }
-      $info .= "Claimant $h employed by this employer.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'problem_several_colleagues' && $value == 2) {
-      $info .= "Claimant says they are one of a number of employees involved in the same dispute.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'is_this_employer_still_trading' && $value) {
-      if ($value == 'No') {
-        $info .= "Claimant states that employer is no longer in business\n";
-      }
-      elseif ($value == "I'm not sure") {
-        $info .= "Claimant is unsure if the employer is still in business\n";
-      }
-      elseif ($value == "They have been taken over by another employer") {
-        $info .= "Claimant states that the employer has been taken over\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
-      if ($value == 'Yes') {
-        $info .= "Claimant says they did have a written contract with their employer.\n";
-      }
-      elseif ($value == 'No') {
-        $info .= "Claimant says they did not have a written contract with their employer.\n";
-      }
-      else {
-        $info .= "Claimant does not know whether they had a written contract with their employer.\n";
-      }
-    }
-    if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && $value) {
-      if ($value == 1) {
-        $info .= "Claimant says they have not discussed the dispute with their employer.\n";
-      }
-      elseif ($value == 2) {
-        $info .= "Claimant says they have discussed the dispute with their employer.\n";
-      }
-      else {
-        $info .= "Claimant says their employer is looking into the dispute.\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'acas_respondentcontactjobtitle' && $value) {
-      $info .= "Respondent Contact's job title: $value.\n";
-    }
-    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
-      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $info .= 'Claimants last day of work was ' . $date . "\n";
-      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
-      $dates[] = strtotime($date);
-      unset($data[$key]);
-    }
-    if ($key == 'when_were_you_made_redundant_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
-      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $info .= 'Claimant believes they were made redundant on ' . $date . "\n";
-      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
-      $dates[] = strtotime($date);
-      unset($data[$key]);
-    }
-    if ($key == 'when_were_you_not_paid_properly_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
-      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $info .= 'Claimant believes they were last paid on ' . $date . "\n";
-      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
-      $dates[] = strtotime($date);
-      unset($data[$key]);
-    }
-    if ($key == 'when_were_you_discriminated_against_optional' && $value && $value['day'] && $value['month'] && $value['year']) {
-      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
-      $info .= 'Claimant believes they were last discriminated on ' . $date . "\n";
-      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
-      $dates[] = strtotime($date);
-      unset($data[$key]);
-    }
-    if ($key == 'is_your_claim_against_one_person_or_a_whole_organisation_') {
-      if ($value == 1) {
-        $json['acas_respondenttype'] = '602700000'; // Organisation
-      }
-      else {
-        $json['acas_respondenttype'] = '602700001'; // Person
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'is_there_someone_helping_you_through_this_process_optional_' && $value > 1) {
-        if ($value == 2) {
-          $json['acas_relationtoclaimant'] = 'Solicitor';
-        }
-        else if ($value == 3) {
-          $json['acas_relationtoclaimant'] = 'Trade union official';
-        }
-        unset($data[$key]);
-    }
-    if ($key == 'how_much_redundancy_pay_do_you_think_you_are_owed_optional_' && $value) {
-      $info .= "Claimant says they are owed £$value in redundancy pay\n";
-      unset($data[$key]);
-    }
-    
-    // Group
-    if ($key == 'are_you_a_professional_representative_or_a_lead_claimant_optiona' && $value) {
-      $info .= 'Are you a professional representative or a lead claimant? ' . $value . "\n";
-      unset($data[$key]);
-    }
-    if ($key == 'please_tell_us_why_optional_' && $value) {
-      $info .= 'Claimant rep does not want to conciliate because: ' . $value . "\n";
-      unset($data[$key]);
-    }
-    if ($key == 'acas_relatedcaseid' && $value) {
-      $info .= 'This case is related to an existing case: ' . $value . "\n";
-    }
-    if ($key == 'how_many_claimants_are_you_expecting_to_join_' && $value) {
-      $info .= "There are $value claimants expected to join this claim.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_we_have_your_permission_to_speak_to_the_employer_before_we_sp' && $value == 'Yes') {
-      $info .= "The rep has given permission to speak to the employer first.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'please_tell_us_what_this_dispute_is_about_' && $value) {
-      $info .= "This dispute is about: " . implode(', ', $value) . ".\n";
-      unset($data[$key]);
-    }
-    if ($key == 'what_is_the_redundancy_element_of_this_dispute_about_optional_' && $value) {
-      $info .= "This redundancy case is about: " . implode(', ', $value) . ".\n";
-      unset($data[$key]);
-    }
-    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
-      $info .= "Do these claimants have - or did they have - a written contract of employment with this employer: $value.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'have_your_claimants_gone_through_the_employer_s_internal_grievan' && $value) {
-      $info .= "Have your claimants followed the employer's grievance procedures: $value.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
-      $info .= "Is there anything else you want to tell us about this dispute: $value.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'is_this_claim_to_do_with_a_single_location_or_multiple_sites_' && $value) {
-      if ($value == 1) {
-         $info .= "This is a single site claim.\n";
-      }
-      if ($value == 2) {
-         $info .= "This is a multiple site claim.\n";
-      }
-      unset($data[$key]);
-    }
-    if ($key == 'please_tell_us_about_your_case' && $value) {
-      $info .= "Please tell us about your case: $value.\n";
-      unset($data[$key]);
-    }
-    if ($key == 'acas_originalgroupid') {
-      if ($value) {
-        $info .= "This is related to an existing case: $value.\n";
-      }
-      unset($json['acas_originalgroupid']); // Not yet handled in Dynamics
-    }
   }
-  if ($dates) {
-    $json['acas_incidentdate'] = date('Y-m-d', max($dates));
-  }
-  if ($incident_type) {
-    $json['acas_incidenttype'] = implode(',', $incident_type);
-  }  
-  if (!isset($json['acas_incidenttype'])) {
-    //$json['acas_incidenttype'] = '602700000';
-  }
+  $info = notification_build_case_info($data, $json);
   // Make sure acas_incidentinfo is <= 12K chars.
   $json['acas_incidentinfo'] = notification_encode(substr($info, 0, 12000));
   
@@ -1669,6 +1327,7 @@ function notification_send_dynamics($data) {
   //$json['a_test_of_an_error'] = 'error';
   
   if (isset($_COOKIE['json'])) {
+    // For testing! Output as raw JSON
     $html = '<h2>JSON data</h2><pre>' . print_r($json, TRUE) . '</pre>';
     die($html);
   }
@@ -1723,6 +1382,407 @@ function notification_send_dynamics($data) {
     return FALSE;
   }
   return TRUE;
+}
+
+function notification_build_case_info_get_text($items, $key) {
+  foreach($items as $index => $item) {
+    if ($item['key'] == $key) {
+      return ['index' => $index, 'text' => $item['text']];
+    }
+  }
+  return 'KEY NOT FOUND';
+}
+
+function notification_build_case_info($data, &$json) {
+  $case_info = [];
+  $db = \Drupal::database();
+  if ($data['form_type'] == 'Conciliation') {
+    $title = 'Individual';
+  }else{
+    $title = 'Group';
+  }
+  $nid = $db->select('node_field_data', 'n')
+    ->fields('n', ['nid'])
+    ->condition('n.type', 'case_info', '=')
+    ->condition('n.title', $title, '=')
+    ->execute()
+    ->fetchCol();
+  $node = \Drupal\node\Entity\Node::load($nid[0]);
+  $paragraphs = $node->field_item->getValue();
+  $items = [];
+  foreach ( $paragraphs as $paragraph ) {
+    $p = \Drupal\paragraphs\Entity\Paragraph::load( $paragraph['target_id'] );
+    $items[] = ['key' => $p->field_key->getString(), 'text' => $p->field_text->getString()];
+  }
+  foreach($data as $key => $value) {
+    if (is_string($value) && strpos($key, 'acas_') !== FALSE) {
+      $json[$key] = notification_encode($value);
+    }
+    elseif (is_array($value) && strpos($key, '_address') !== FALSE) {
+      if ($key == 'claimant_address') {
+        $json['acas_addressline1'] = notification_encode($value['address']);
+        $json['acas_addressline2'] = notification_encode($value['address_2']);
+        $json['acas_citytown'] = notification_encode($value['city']);
+        $json['acas_postcode'] = notification_encode($value['postal_code']);
+      }
+      elseif ($key == 'representative_address') {
+        $json['acas_claimrepaddressline1'] = notification_encode($value['address']);
+        $json['acas_claimrepaddressline2'] = notification_encode($value['address_2']);
+        $json['acas_claimrepcitytown'] = notification_encode($value['city']);
+        $json['acas_claimreppostcode'] = notification_encode($value['postal_code']);
+      }
+      elseif ($key == 'respondant_address') {
+        $json['acas_respaddressline1'] = notification_encode($value['address']);
+        $json['acas_respaddressline2'] = notification_encode($value['address_2']);
+        $json['acas_respcitytown'] = notification_encode($value['city']);
+        $json['acas_resppostcode'] = notification_encode($value['postal_code']);
+      }
+    }
+    elseif (is_array($value) && isset($value['phone']) && $value['phone']) {
+      $json[$key] = notification_encode($value['phone']);
+      if ($value['ext']) {
+        $json[$key] .= 'x' . notification_encode($value['ext']);
+      }
+    }
+    if ($key == 'modeoffirstcontact' && $value) {
+      $text = '';
+      foreach($value as $v) {
+        if ($v == '602700000') {
+          $text .= 'Phone call';
+        }
+        else if ($v == '602700001') {
+          if ($text) {
+            $text .= ', ';
+          }
+          $text .= 'Email';
+        }
+        else if ($v == '602700002') {
+          if ($text) {
+            $text .= ', ';
+          }
+          $text .= 'Text messages';
+        }
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $text, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_believe_that_you_have_been_discriminated_against' && $value) {
+      $incident_type[] = '602700003';
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_think_you_are_owed_holiday_by_your_employer' && $value) {
+      $incident_type[] = '602700001';
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_think_you_are_owed_wages' && $value) {
+      $incident_type[] = '602700000';
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'acas_monetaryvalue' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+    }
+    if ($key == 'do_you_believe_you_have_been_unfairly_dismissed_or_made_redundan' && $value) {
+      if ($value == 2) {
+        // unfairly dismissed
+        $incident_type[] = '602700002';
+        $result = notification_build_case_info_get_text($items, $key);
+        $case_info[$result['index']] = str_replace('[REASON]', 'unfair dismissal', $result['text']);
+      }
+      elseif ($value == 3) {
+        // made redundant
+        $incident_type[] = '602700004';
+        $result = notification_build_case_info_get_text($items, $key);
+        $case_info[$result['index']] = str_replace('[REASON]', 'redundancy', $result['text']);
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'have_you_been_employed_by_this_employer_for_a_2_years_or_more_' && $value) {
+      if ($value == 'No') {
+        $info = 'has not';
+      }
+      else {
+        $info = 'has';
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $info, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'is_your_dispute_about_your_selection_for_redundancy_' && $value == 'Yes') {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'is_your_dispute_about_redundancy_pay_optional_' && $value == 2) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'are_you_currently_unemployed_' && $value == 'Yes') {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'did_you_have_a_meeting_with_your_employer_before_you_were_dismis' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      if ($value == 'No') {
+        $case_info[$result['index']] = str_replace('[REASON]', 'they did not have', $result['text']);
+      }
+      elseif ($value == 'Yes') {
+        $case_info[$result['index']] = str_replace('[REASON]', 'they did have', $result['text']);
+      }
+      else {
+        $case_info[$result['index']] = str_replace('[REASON]', 'they don’t know if they had', $result['text']);
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'did_you_meet_with_your_employer_after_you_were_dismissed_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      if ($value == 'No') {
+        $case_info[$result['index']] = str_replace('[REASON]', 'did not', $result['text']);
+      }
+      elseif ($value == 'Yes') {
+        $case_info[$result['index']] = str_replace('[REASON]', 'did', $result['text']);
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'please_give_us_a_brief_explanation_about_your_claim' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'did_your_employer_given_any_explanation_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'explain_why_you_think_you_are_owed_wages_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'tell_us_more_about_your_case_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'what_did_your_employer_decide_about_your_dispute_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'i_believe_that_my_employer_has_discriminated_against_me_because_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', implode(', ', $value), $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'are_you_currently_employed_by_the_employer_' && $value) {
+      if ($value == 'Yes') {
+        $h = 'is';
+      }
+      else {
+        $h = 'is not';
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $h, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'problem_several_colleagues' && $value == 2) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'is_this_employer_still_trading' && $value) {
+      if ($value == 'No') {
+        $info = "Claimant states that employer is no longer in business";
+      }
+      elseif ($value == "I'm not sure") {
+        $info = "Claimant is unsure if the employer is still in business";
+      }
+      elseif ($value == "They have been taken over by another employer") {
+        $info = "Claimant states that the employer has been taken over";
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $info, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
+      if ($value == 'Yes') {
+        $info = "says they did have";
+      }
+      elseif ($value == 'No') {
+        $info = "says they did not have";
+      }
+      else {
+        $info = "does not know whether they had";
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $info, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'have_you_asked_your_employer_in_writing_to_resolve_this_dispute_' && $value) {
+      if ($value == 1) {
+        $info = "they have not discussed the dispute with their employer.";
+      }
+      elseif ($value == 2) {
+        $info = "they have discussed the dispute with their employer.";
+      }
+      else {
+        $info = "their employer is looking into the dispute.";
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $info, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'acas_respondentcontactjobtitle' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+    }
+    if ($key == 'when_were_you_dismissed' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $date, $result['text']);
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
+      unset($data[$key]);
+    }
+    if ($key == 'when_were_you_not_paid_properly_optional_' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $date, $result['text']);
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
+      unset($data[$key]);
+    }
+    if ($key == 'when_were_you_discriminated_against_optional' && $value && $value['day'] && $value['month'] && $value['year']) {
+      $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $date, $result['text']);
+      $date = $value['year'] . '-' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($value['day'], 2, '0', STR_PAD_LEFT);
+      $dates[] = strtotime($date);
+      unset($data[$key]);
+    }
+    if ($key == 'is_your_claim_against_one_person_or_a_whole_organisation_') {
+      if ($value == 1) {
+        $json['acas_respondenttype'] = '602700000'; // Organisation
+      }
+      else {
+        $json['acas_respondenttype'] = '602700001'; // Person
+      }
+      unset($data[$key]);
+    }
+    if ($key == 'is_there_someone_helping_you_through_this_process_optional_' && $value > 1) {
+        if ($value == 2) {
+          $json['acas_relationtoclaimant'] = 'Solicitor';
+        }
+        else if ($value == 3) {
+          $json['acas_relationtoclaimant'] = 'Trade union official';
+        }
+        unset($data[$key]);
+    }
+    if ($key == 'how_much_redundancy_pay_do_you_think_you_are_owed_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    
+    // Group
+    if ($key == 'are_you_a_professional_representative_or_a_lead_claimant_optiona' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'please_tell_us_why_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'acas_relatedcaseid' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+    }
+    if ($key == 'how_many_claimants_are_you_expecting_to_join_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'do_we_have_your_permission_to_speak_to_the_employer_before_we_sp' && $value == 'Yes') {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'please_tell_us_what_this_dispute_is_about_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', implode(', ', $value), $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'what_is_the_redundancy_element_of_this_dispute_about_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', implode(', ', $value), $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'do_you_have_a_written_contract_of_employment_with_this_employer_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'have_your_claimants_gone_through_the_employer_s_internal_grievan' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = $result['text'];
+      unset($data[$key]);
+    }
+    if ($key == 'is_this_claim_to_do_with_a_single_location_or_multiple_sites_' && $value) {
+      if ($value == 1) {
+         $info = "single";
+      }
+      if ($value == 2) {
+         $info = "multiple";
+      }
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $info, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'please_tell_us_about_your_case' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[REASON]', $value, $result['text']);
+      unset($data[$key]);
+    }
+    if ($key == 'acas_originalgroupid') {
+      if ($value) {
+        $result = notification_build_case_info_get_text($items, $key);
+        $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+      }
+      unset($json['acas_originalgroupid']); // Not yet handled in Dynamics
+    }
+  }
+  if (isset($dates)) {
+    $json['acas_incidentdate'] = date('Y-m-d', max($dates));
+  }
+  if (isset($incident_type)) {
+    $json['acas_incidenttype'] = implode(',', $incident_type);
+  }  
+  if (!isset($json['acas_incidenttype'])) {
+    //$json['acas_incidenttype'] = '602700000';
+  }
+  ksort($case_info, SORT_NUMERIC);
+  return implode("\n", $case_info);
 }
 
 /**
