@@ -289,7 +289,6 @@ Drupal.behaviors.notification_form = {
         
         // Existing claim reference number
         // Removed validation. Might come back
-        /*
         msg = '';
         if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && !jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
           if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').parent().find('.invalid-feedback').length) {
@@ -300,7 +299,9 @@ Drupal.behaviors.notification_form = {
           }
           jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').addClass('invalid');
           errors.push(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text'));
-        }else if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
+        }
+        /*
+        else if (jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"]').is(":visible") && jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val()) {
           jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val(jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val().toUpperCase());
           var bad = false;
           var r = jQuery('section[data-drupal-selector="edit-part-of-an-existing-claim"] .form-text').val();
