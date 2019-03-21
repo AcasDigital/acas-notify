@@ -753,7 +753,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     if ($node->hasField('field_letter')) {
       $data['acas_lettercontent'] =  str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_claimrepfirstname'] . ' ' . $data['acas_claimrepsurname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_groupid'], $node->field_letter->getString()))));
     }
-    notification_group_claiments_generate($data, $webform_submission_id);
+    $result = notification_group_claiments_generate($data, $webform_submission_id);
     if ($data['are_you_interested_in_settling_your_case_before_tribunal_'] == 2) {
       // Does not want conciliation
       
@@ -881,7 +881,11 @@ function notification_confirmation_notification($webform, $webform_submission_id
   $config->save();
   
   // Insert into acas_ecrefno
-  $mobileDetector = \Drupal::service('mobile_detect');
+  $mobile = 0;
+  if (\Drupal::hasService('mobile_detect')) {
+    $mobileDetector = \Drupal::service('mobile_detect');
+    $mobile = (int) $mobileDetector->isMobile();
+  }
   if (isset($_COOKIE['ec_entry_details'])) {
     $cookie = (array) json_decode($_COOKIE['ec_entry_details']);
   }
@@ -894,7 +898,7 @@ function notification_confirmation_notification($webform, $webform_submission_id
     'sid1' => $webform_submission_id,
     'reference_no' => $refnumber,
     'form1' => date('Y-m-d H:i:s'),
-    'mobile' => (int) $mobileDetector->isMobile(),
+    'mobile' => $mobile,
     'referrer' => $cookie['referrer'],
   ];
   $db->insert('acas_ecrefno')
@@ -1124,8 +1128,13 @@ function notification_confirmation_conciliation($webform, $webform_submission_id
  *  The webform submission id
  */
 function notification_group_claiments_generate($data, $webform_submission_id) {
+  $result = TRUE;
   if ($data['claimants']) {
-    $mobileDetector = \Drupal::service('mobile_detect');
+    $mobile = 0;
+    if (\Drupal::hasService('mobile_detect')) {
+      $mobileDetector = \Drupal::service('mobile_detect');
+      $mobile = (int) $mobileDetector->isMobile();
+    }
     if (isset($_COOKIE['ec_entry_details'])) {
       $cookie = (array) json_decode($_COOKIE['ec_entry_details']);
     }
@@ -1166,13 +1175,13 @@ function notification_group_claiments_generate($data, $webform_submission_id) {
           ];
           // Insert into acas_ecrefno
           $fields = [
-            'entry' => date('Y-m-d H:i:s', $cookie['entry']),
+            'entry' => date('Y-m-d H:i:s', (isset($_COOKIE['entry']) ? $_COOKIE['entry'] : time())),
             'sid1' => $webform_submission_id,
             'reference_no' => $data['acas_eccaserefnumber'],
             'group_no' => $data['acas_groupid'],
             'form1' => date('Y-m-d H:i:s'),
-            'mobile' => (int) $mobileDetector->isMobile(),
-            'referrer' => $_COOKIE['referrer'],
+            'mobile' => $mobile,
+            'referrer' => (isset($_COOKIE['referrer']) ? $_COOKIE['referrer'] : $_SERVER['HTTP_HOST']),
           ];
           $db->insert('acas_ecrefno')
             ->fields($fields)
@@ -1227,6 +1236,7 @@ function notification_group_claiments_generate($data, $webform_submission_id) {
       }
     }
   }
+  return $result;
 }
 
 /**
