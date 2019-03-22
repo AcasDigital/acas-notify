@@ -1961,10 +1961,18 @@ article.teaser .article__wrapper {
 /* Acas notification site. All pages  & forms centered*/
 /* line 4, ../../acas-frontend/scss/components/_notification-page.scss */
 .page-node-type-page .notify-main .block,
-.page-node-type-page .notify-main article.full, .path-conciliation .notify-main .block,
-.path-conciliation .notify-main article.full {
+.page-node-type-page .notify-main article.full {
   margin: 0 auto !important;
   float: none !important;
+}
+
+/* line 13, ../../acas-frontend/scss/components/_notification-page.scss */
+.path-conciliation .block--bare .block-page-title-block {
+  float: left;
+}
+/* line 16, ../../acas-frontend/scss/components/_notification-page.scss */
+.path-conciliation .block--bare article.full {
+  margin: 0 auto !important;
 }
 
 /* line 2, ../../acas-frontend/scss/components/_navigation.scss */
