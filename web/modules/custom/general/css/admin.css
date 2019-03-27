@@ -41,3 +41,20 @@
 .paragraph-type--case-info-item .field--widget-string-textfield {
   display: inline-block;
 }
+.page-node-type-case-info .layout-region-node-main {
+  width: 100%;
+}
+.page-node-type-case-info .layout-region-node-secondary,
+.page-node-type-case-info .field--type-entity-reference-revisions .paragraph-type-label {
+  display: none;
+}
+.page-node-type-case-info .field--type-entity-reference-revisions .field--name-field-key,
+.page-node-type-case-info .field--type-entity-reference-revisions .field--name-field-text {
+  display: inline-block;
+}
+.page-node-type-case-info .field--type-entity-reference-revisions .field--name-field-key {
+  min-width: 50%;
+}
+.page-node-type-case-info .field--type-entity-reference-revisions .field--name-field-text {
+  font-weight: bold;
+}

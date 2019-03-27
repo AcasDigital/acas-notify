@@ -341,6 +341,9 @@ function notification_download_pdf_build_html($sid1 = NULL, $sid2 = NULL) {
       }
       $html .= '<h2>Conciliation</h2>';
       $form_data = $wfs->getData();
+      if ($form_data['acas_relatedcaseid']) {
+        $html .= '<div class="form-item"><label class="control-label">Original claim reference number: </label>' . $form_data['acas_relatedcaseid'] . '</div>';
+      }
       if ($form_data['problem_several_colleagues']) {
         $html .= '<div class="form-item"><label class="control-label">Are you one of several employees?</label>';
         if ($form_data['problem_several_colleagues'] == 1) {
@@ -351,6 +354,22 @@ function notification_download_pdf_build_html($sid1 = NULL, $sid2 = NULL) {
         }
         if ($form_data['problem_several_colleagues'] == 3) {
           $html .= 'I’m not sure</div>';
+        }
+        $html .= '</div>';
+      }
+      if ($form_data['service_length']) {
+        $html .= '<div class="form-item"><label class="control-label">Service length</label>';
+        if ($form_data['service_length'] == 1) {
+          $html .= 'I was never employed there</div>';
+        }
+        if ($form_data['service_length'] == 2) {
+          $html .= 'Less than 1 month</div>';
+        }
+        if ($form_data['service_length'] == 3) {
+          $html .= 'Between 1 month and 2 years</div>';
+        }
+        if ($form_data['service_length'] == 4) {
+          $html .= 'More than 2 years</div>';
         }
         $html .= '</div>';
       }
@@ -413,6 +432,14 @@ function notification_download_pdf_build_html($sid1 = NULL, $sid2 = NULL) {
           }
           $html .= '</div>';
         }
+      }
+      if ($form_data['when_were_you_discriminated_against_optional']) {
+        $value = $form_data['when_were_you_discriminated_against_optional'];
+        $date = str_pad($value['day'], 2, '0', STR_PAD_LEFT) . '/' . str_pad($value['month'], 2, '0', STR_PAD_LEFT) . '/' . $value['year'];
+        $html .= '<div class="form-item"><label class="control-label">Last discriminated on: </label>' . $date . '</div>';
+      }
+      if ($form_data['tell_us_more_about_your_case_']) {
+        $html .= '<div class="form-item"><label class="control-label">You believe that you have been discriminated because: </label>' . $form_data['tell_us_more_about_your_case_'] . '</div>';
       }
       if ($form_data['are_you_currently_employed_by_the_employer_']) {
         $html .= '<div class="form-item"><label class="control-label">Are you currently employed by this employer?</label>' . $form_data['are_you_currently_employed_by_the_employer_'] . '</div>';
@@ -739,7 +766,6 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     setcookie('webform_preview', NULL, time()-3600, '/');
   }
   if ($data['form_type'] == 'GroupNotification') {
-    // This is working.
     $data['acas_formtype'] = '602700000';
     $refnumber = notification_build_reference_number('group');
     $data['acas_groupid'] = $refnumber;
@@ -747,7 +773,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     $number = $config->get('g10_flagged_phone');
     $node = \Drupal\node\Entity\Node::load(140);
     if ($node->hasField('field_subject')) {
-      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_claimrepfirstname'], $node->field_subject->getString());
+      $data['acas_emailsubject'] = str_replace('[REFERENCE]', $data['acas_groupid'], str_replace('[FIRSTNAME]', $data['acas_claimrepfirstname'], $node->field_subject->getString()));
       $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_claimrepfirstname'] . ' ' . $data['acas_claimrepsurname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_groupid'], $node->field_message->getString()))));
     }
     if ($node->hasField('field_letter')) {
@@ -819,7 +845,7 @@ function notification_confirmation_group($webform, $webform_submission_id) {
     $nid = 133;
     $node = \Drupal\node\Entity\Node::load($nid);
     if ($node->hasField('field_subject')) {
-      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_claimrepfirstname'], $node->field_subject->getString());
+      $data['acas_emailsubject'] = str_replace('[REFERENCE]', $data['acas_ecref'], str_replace('[FIRSTNAME]', $form1_data['acas_claimrepfirstname'], $node->field_subject->getString()));
       $data['acas_emailbody'] = str_replace('[ECDEADLINE]', date('h:i A \o\n d F Y', $date + 2419200), str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_claimrepfirstname'] . ' ' . $form1_data['acas_claimrepsurname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString())))));
     }
     if ($node->hasField('field_letter')) {
@@ -852,8 +878,6 @@ function notification_confirmation_group($webform, $webform_submission_id) {
  *  The webform id
  */
 function notification_confirmation_notification($webform, $webform_submission_id) {
-  // When a form is submitted, the webform record is deleted.
-  // Check if the webform submission exists. This prevents a browser refresh on the thank you page re-submitting
   if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
     $response = new RedirectResponse('/');
     $response->send();
@@ -913,7 +937,7 @@ function notification_confirmation_notification($webform, $webform_submission_id
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $node = \Drupal\node\Entity\Node::load($nid);
     if ($node->hasField('field_subject')) {
-      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
+      $data['acas_emailsubject'] = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString()));
       $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
     }
     if ($node->hasField('field_letter')) {
@@ -940,7 +964,7 @@ function notification_confirmation_notification($webform, $webform_submission_id
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $node = \Drupal\node\Entity\Node::load($nid);
     if ($node->hasField('field_subject')) {
-      $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString());
+      $data['acas_emailsubject'] = str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], str_replace('[FIRSTNAME]', $data['acas_firstname'], $node->field_subject->getString()));
       $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($data['acas_firstname'] . ' ' . $data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y'), str_replace('[REFERENCE]', $data['acas_eccaserefnumber'], $node->field_message->getString()))));
     }
     if ($node->hasField('field_letter')) {
@@ -979,8 +1003,6 @@ function notification_confirmation_notification($webform, $webform_submission_id
  *  The webform id
  */
 function notification_confirmation_conciliation($webform, $webform_submission_id) {
-  // When a form is submitted, the webform record is deleted.
-  // Check if the webform submission exists. This prevents a browser refresh on the thank you page re-submitting
   if (!$webform_submission = WebformSubmission::load($webform_submission_id)) {
     $response = new RedirectResponse('/');
     $response->send();
@@ -1066,7 +1088,7 @@ function notification_confirmation_conciliation($webform, $webform_submission_id
     $node = \Drupal\node\Entity\Node::load(94);
   }
   if ($form1_data && $node->hasField('field_subject')) {
-    $data['acas_emailsubject'] = str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString());
+    $data['acas_emailsubject'] = str_replace('[REFERENCE]', $data['acas_ecref'], str_replace('[FIRSTNAME]', $form1_data['acas_firstname'], $node->field_subject->getString()));
     $data['acas_emailbody'] = str_replace('[NUMBER]', $number, str_replace('[FULLNAME]', trim($form1_data['acas_firstname'] . ' ' . $form1_data['acas_surname']), str_replace('[DATE]', date('h:i A \o\n d F Y', $date), str_replace('[REFERENCE]', $data['acas_ecref'], $node->field_message->getString()))));
   }
   if ($form1_data && $node->hasField('field_letter')) {
@@ -1394,15 +1416,43 @@ function notification_send_dynamics($data) {
   return TRUE;
 }
 
+/**
+ * Implements notification_build_case_info_get_text().
+ *
+ * Find the item via the key and return an array of the index and text.
+ *
+ * @param array items
+ *  The Case info items for this type of notification
+ *
+ * @param string key
+ *   The key for this item
+ *
+ * @return
+ *   An associate array of the index for this item and the text
+ */
 function notification_build_case_info_get_text($items, $key) {
   foreach($items as $index => $item) {
     if ($item['key'] == $key) {
       return ['index' => $index, 'text' => $item['text']];
     }
   }
-  return 'KEY NOT FOUND';
+  return ['index' => 999, 'text' => 'KEY NOT FOUND = ' . $key];
 }
 
+/**
+ * Implements notification_build_case_info().
+ *
+ * Build the Case info field and modify the JSON to be passed to Dynamics.
+ *
+ * @param array data
+ *  The sudmited data from the notification form
+ *
+ * @param array json
+ *   The JSON to be passed to Dynamics
+ *
+ * @return
+ *   The string for the Case info field
+ */
 function notification_build_case_info($data, &$json) {
   $case_info = [];
   $db = \Drupal::database();
@@ -1708,6 +1758,27 @@ function notification_build_case_info($data, &$json) {
       unset($data[$key]);
     }
     
+    if ($key == 'service_length' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      if ($value == 1) {
+        $case_info[$result['index']] = str_replace('[VALUE]', 'I was never employed there', $result['text']);
+      }
+      else if ($value == 2) {
+        $case_info[$result['index']] = str_replace('[VALUE]', 'Less than 1 month', $result['text']);
+      }
+      else if ($value == 3) {
+        $case_info[$result['index']] = str_replace('[VALUE]', 'Between 1 month and 2 years', $result['text']);
+      }
+      else if ($value == 4) {
+        $case_info[$result['index']] = str_replace('[VALUE]', 'More than 2 years', $result['text']);
+      }
+      unset($data[$key]);
+    }
+    if ($key == ' acas_relatedcaseid' && $value) {
+      $result = notification_build_case_info_get_text($items, $key);
+      $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
+    }
+    
     // Group
     if ($key == 'are_you_a_professional_representative_or_a_lead_claimant_optiona' && $value) {
       $result = notification_build_case_info_get_text($items, $key);
@@ -1753,11 +1824,6 @@ function notification_build_case_info($data, &$json) {
       $case_info[$result['index']] = $result['text'];
       unset($data[$key]);
     }
-    if ($key == 'is_there_anything_else_you_want_to_tell_us_optional_' && $value) {
-      $result = notification_build_case_info_get_text($items, $key);
-      $case_info[$result['index']] = $result['text'];
-      unset($data[$key]);
-    }
     if ($key == 'is_this_claim_to_do_with_a_single_location_or_multiple_sites_' && $value) {
       if ($value == 1) {
          $info = "single";
@@ -1779,7 +1845,6 @@ function notification_build_case_info($data, &$json) {
         $result = notification_build_case_info_get_text($items, $key);
         $case_info[$result['index']] = str_replace('[VALUE]', $value, $result['text']);
       }
-      unset($json['acas_originalgroupid']); // Not yet handled in Dynamics
     }
   }
   if (isset($dates)) {
@@ -1792,7 +1857,8 @@ function notification_build_case_info($data, &$json) {
     //$json['acas_incidenttype'] = '602700000';
   }
   ksort($case_info, SORT_NUMERIC);
-  return implode("\n", $case_info);
+  $return = str_replace('..', '.', implode("\n", $case_info));
+  return $return;
 }
 
 /**

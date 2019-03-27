@@ -158,7 +158,11 @@ Drupal.behaviors.notification_form = {
           var year = parseInt(jQuery(this).find('.govuk-webform-elements-year').val());
           if (day && month && year && !validateDate(day, month, year)) {
             if (!jQuery(this).find(".invalid-feedback").length) {
-              jQuery('<div class="invalid-feedback">Invalid date</div>').insertAfter(jQuery(this).find('.fieldset-wrapper p'));
+              if (jQuery(this).find('.fieldset-wrapper p').length) {
+                jQuery('<div class="invalid-feedback">Invalid date</div>').insertAfter(jQuery(this).find('.fieldset-wrapper p'));
+              }else {
+                jQuery('<div class="invalid-feedback">Invalid date</div>').insertAfter(jQuery(this).find('.fieldset-wrapper .webform-element-description'));
+              }
             }else{
               jQuery(this).find(".invalid-feedback").text('Invalid date');
             }
